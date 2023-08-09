@@ -1,1 +1,1 @@
-MERN E Commerce App 
+MERN Real Estate App
