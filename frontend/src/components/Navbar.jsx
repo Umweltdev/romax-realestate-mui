@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from "styled-components"
-import { Search } from "@material-ui/icons"
-//import { Badge } from '@material-ui/core'
+import { Search, ShoppingCartOutlined } from "@material-ui/icons"
+import { Badge } from '@material-ui/core'
 import { mobile, mobileXR, tablet } from '../responsive'
-//import { useSelector } from 'react-redux'
-//import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
   height: 60px;
@@ -82,7 +82,7 @@ const MenuItem = styled.div`
 `
 
 const Navbar = () => {
-  //const quantity = useSelector(state => state.cart.quantity)
+  const quantity = useSelector(state => state.cart.quantity)
 
   return (
     <Container>
@@ -94,7 +94,7 @@ const Navbar = () => {
             <Search style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
         </Left>
-        <Center><Logo>ROMAX PROPERTIES</Logo></Center>
+        <Center><Logo>ROMAX</Logo></Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>
           <MenuItem>LOG IN</MenuItem>

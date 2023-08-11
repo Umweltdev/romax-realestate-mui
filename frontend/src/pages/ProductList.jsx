@@ -56,12 +56,12 @@ const ProductList = () => {
     <Container>
       <Navbar />
       <Announcement />
-      <Title>{cat}</Title>
+      <Title>{cat} properties</Title>
       <FilterContainer>
         <Filter>
-          <FilterText>Filter Products:</FilterText>
+          <FilterText>Filter Properties:</FilterText>
           <Select name="color" onChange={handleFilters}>
-            <Option disabled>Color</Option>
+            <Option disabled>Location</Option>
             <Option>white</Option>
             <Option>black</Option>
             <Option>red</Option>
@@ -80,7 +80,7 @@ const ProductList = () => {
           </Select>
         </Filter>
         <Filter>
-          <FilterText>Sort Products:</FilterText>
+          <FilterText>Sort Properties:</FilterText>
           <Select onChange={(e) => setSort(e.target.value)}>
             <Option value="newest">Newest</Option>
             <Option value="asc">Price (asc)</Option>
