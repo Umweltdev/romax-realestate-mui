@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 
-/// app
+
 function App() {
   const user = useSelector((state) => state.user.currentUser);
 
