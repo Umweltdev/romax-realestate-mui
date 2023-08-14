@@ -1,21 +1,21 @@
 export const sliderItems = [
   {
     id: 1,
-    img: "NULL",
+    img: "https://cdn.pixabay.com/photo/2016/11/18/17/46/house-1836070_1280.jpg",
     title: "LEKKI ESTATE",
     desc: "OWN ONE OF THE MANY PROPERTIES IN OUR LEKKI ESTATE",
     bg: "f5fafd",
   },
   {
     id: 2,
-    img: "NULL",
+    img: "https://i.ibb.co/28QbchN/estate2-removebg-preview.png",
     title: "IKOYI",
     desc: "OWN ONE OF THE MANY PROPERTIES IN OUR IKOYI ESTATE",
     bg: "fcf1ed",
   },
   {
     id: 3,
-    img: "NULL",
+    img: "https://i.ibb.co/cLzT3N1/1-gp2gxe-removebg-preview.png",
     title: "ABUJA",
     desc: "OWN ONE OF THE MANY PROPERTIES IN OUR ABUJA ESTATE",
     bg: "fbf0f4",
