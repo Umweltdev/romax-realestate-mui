@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components"
 import { mobile, mobileXR, tablet } from "../responsive";
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../redux/apiCalls';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,12 +9,21 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isFetching, error } = useSelector((state) => state.user);
 
   const handleClick = (e) => {
     e.preventDefault()
     login(dispatch, { username, password });
   };
+
+  const handleRegister = () => {
+    navigate("/signup")
+  }
+
+  const handleReset = () => {
+    navigate("/reset")
+  }
   return (
     <Container>
       <Wrapper>
@@ -30,8 +39,8 @@ const Login = () => {
 
           <Button onClick={handleClick} disabled={isFetching}>LOG IN</Button>
           {error && <Error>Wrong Credentials...</Error>}
-          <Link>DO NOT REMEMBER YOUR PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          <Link onClick={handleReset}>DO NOT REMEMBER YOUR PASSWORD?</Link>
+          <Link onClick={handleRegister}>CREATE A NEW ACCOUNT</Link>
         </Form>
       </Wrapper>
     </Container>
