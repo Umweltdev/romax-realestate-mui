@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar"
 import Announcement from "../components/Announcement"
 import Newsletter from "../components/Newsletter"
 import Footer from "../components/Footer"
-import { Add, Remove } from "@material-ui/icons"
+//import { Add, Remove } from "@material-ui/icons"
 import { mobile, mobileXR, tablet } from "../responsive"
 import { useLocation } from "react-router"
 import { useState } from "react"
@@ -91,12 +91,12 @@ const AddContainer = styled.div`
   ${mobileXR({ padding: "10px" })};
   ${tablet({ padding: "10px" })};
 `
-const AmountContainer = styled.div`
+/* const AmountContainer = styled.div`
   display: flex;
   align-items: center;
   font-weight: 700;
-`
-const Amount = styled.span`
+` */
+/* const Amount = styled.span`
   width: 30px;
   height: 30px;
   border-radius: 10px;
@@ -105,7 +105,7 @@ const Amount = styled.span`
   align-items: center;
   justify-content: center;
   margin: 0px 5px;
-`
+` */
 const Button = styled.button`
   padding: 15px;
   border: 1.5px solid blue;
@@ -124,7 +124,7 @@ const Product = () => {
   const id = location.pathname.split("/")[2];
 
   const [product, setProduct] = useState({});
-  const [quantity, setQuantity] = useState(1);
+  //const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
@@ -141,16 +141,16 @@ const Product = () => {
     getProduct();
   }, [id]);
 
-  const handleQuantity = (type) => {
+  /* const handleQuantity = (type) => {
     if (type === "dec") {
       quantity > 1 && setQuantity(quantity - 1);
     } else {
       setQuantity(quantity + 1);
     }
-  };
+  }; */
 
   const handleClick = () => {
-    dispatch(addProduct({ ...product, quantity, color, size }))
+    dispatch(addProduct({ ...product, color, size }))
   }
   return (
     <Container>
@@ -166,7 +166,7 @@ const Product = () => {
           <Price>₦ {product.price}</Price>
           <FilterContainer>
             <Filter>
-              <FilterTitle>Color</FilterTitle>
+              <FilterTitle>Location</FilterTitle>
               {product.color?.map((c) => (
                 <FilterColor color={c} key={c} onClick={() => setColor(c)} />
               ))}
@@ -181,11 +181,11 @@ const Product = () => {
             </Filter>
           </FilterContainer>
           <AddContainer>
-            <AmountContainer>
+            {/* <AmountContainer>
               <Remove onClick={() => handleQuantity("dec")} />
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("inc")} />
-            </AmountContainer>
+            </AmountContainer> */}
             <Button onClick={handleClick}>SEND EMAIL</Button>
           </AddContainer>
         </InfoContainer>

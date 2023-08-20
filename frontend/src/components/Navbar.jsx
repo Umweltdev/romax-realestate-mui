@@ -55,6 +55,7 @@ const Input = styled.input`
 const Center = styled.div`
   flex: 1;
   text-align: center;
+  cursor: pointer;
 `
 
 const Logo = styled.h1`
@@ -102,6 +103,9 @@ const Navbar = () => {
     navigate("/login")
   }
 
+  const homePage = () => {
+    navigate("/")
+  }
   return (
     <Container>
       <Wrapper>
@@ -112,7 +116,7 @@ const Navbar = () => {
             <Search style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
         </Left>
-        <Center><Logo>ROMAX</Logo></Center>
+        <Center onClick={homePage}><Logo>ROMAX</Logo></Center>
         {user ? (
           <Right>
             <MenuItem>{user.username}</MenuItem>

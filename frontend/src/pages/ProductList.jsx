@@ -62,21 +62,18 @@ const ProductList = () => {
           <FilterText>Filter Properties:</FilterText>
           <Select name="color" onChange={handleFilters}>
             <Option disabled>Location</Option>
-            <Option>white</Option>
-            <Option>black</Option>
-            <Option>red</Option>
-            <Option>blue</Option>
-            <Option>yellow</Option>
-            <Option>green</Option>
-            <Option>gray</Option>
+            <Option>Abuja</Option>
+            <Option>London</Option>
+            <Option>Lagos</Option>
           </Select>
           <Select name="size" onChange={handleFilters}>
-            <Option disabled>Size</Option>
-            <Option>XS</Option>
-            <Option>S</Option>
-            <Option>M</Option>
-            <Option>L</Option>
-            <Option>XL</Option>
+            <Option disabled>Beds</Option>
+            <Option>1</Option>
+            <Option>2</Option>
+            <Option>3</Option>
+            <Option>4</Option>
+            <Option>5</Option>
+            <Option>6</Option>
           </Select>
         </Filter>
         <Filter>
