@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from "react";
 import styled from "styled-components"
 import { mobile, mobileXR, tablet } from "../responsive";
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showError, setShowError] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isFetching, error } = useSelector((state) => state.user);
@@ -24,6 +25,22 @@ const Login = () => {
   const handleReset = () => {
     navigate("/reset")
   }
+
+  useEffect(() => {
+    // Set the error display to true when an error occurs
+    if (error) {
+      setShowError(true);
+
+      // Use setTimeout to hide the error message after 5 seconds
+      const timeout = setTimeout(() => {
+        setShowError(false);
+      }, 3000);
+
+      // Clear the timeout when the component unmounts or the error changes
+      return () => clearTimeout(timeout);
+    }
+  }, [error]);
+
   return (
     <Container>
       <Wrapper>
@@ -38,7 +55,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)} />
 
           <Button onClick={handleClick} disabled={isFetching}>LOG IN</Button>
-          {error && <Error>Wrong Credentials...</Error>}
+          {showError && <Error>Wrong Credentials...</Error>}
           <Link onClick={handleReset}>DO NOT REMEMBER YOUR PASSWORD?</Link>
           <Link onClick={handleRegister}>CREATE A NEW ACCOUNT</Link>
         </Form>
@@ -108,4 +125,4 @@ const Error = styled.span`
   color: red;
 `;
 
-export default Login
+export default Login                                
