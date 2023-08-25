@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
@@ -58,6 +58,10 @@ const Button = styled.button`
   ${tablet({ width: "100%" })};
 `
 
+const Error = styled.span`
+  color: red;
+`;
+
 const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -65,6 +69,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showError, setShowError] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -72,6 +77,18 @@ const Register = () => {
 
   const handleRegister = () => {
     if (password !== confirmPassword) {
+      dispatch(registerFailure());
+      return error;
+    }
+
+    if (
+      !firstName ||
+      !lastName ||
+      !username ||
+      !email ||
+      !password ||
+      !confirmPassword
+    ) {
       dispatch(registerFailure());
       return error;
     }
@@ -88,6 +105,21 @@ const Register = () => {
     navigate("/login")
   };
 
+  useEffect(() => {
+    // Set the error display to true when an error occurs
+    if (error) {
+      setShowError(true);
+
+      // Use setTimeout to hide the error message after 5 seconds
+      const timeout = setTimeout(() => {
+        setShowError(false);
+      }, 3000);
+
+      // Clear the timeout when the component unmounts or the error changes
+      return () => clearTimeout(timeout);
+    }
+  }, [error]);
+
   return (
     <Container>
       <Wrapper>
@@ -102,6 +134,7 @@ const Register = () => {
           <Agreement>
             By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
+          {showError && <Error>Fill all the fields correctly</Error>}
           <Button onClick={handleRegister} disabled={isRegistering}>CREATE ACCOUNT</Button>
         </Form>
       </Wrapper>

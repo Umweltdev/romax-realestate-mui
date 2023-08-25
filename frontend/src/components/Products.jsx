@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import axios from "axios"
 import Product from "./Product";
+import Loader from './Loader';
 
 const Container = styled.div`
     padding: 20px;
@@ -14,13 +15,17 @@ const Products = ({ cat, filters, sort }) => {
 
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
         const res = await axios.get(cat ? `https://romax-real-estate.onrender.com/api/products?catgory=${cat}` : "https://romax-real-estate.onrender.com/api/products")
         setProducts(res.data);
-      } catch (err) { }
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+      }
     }
     getProducts()
   }, [cat]);
@@ -51,11 +56,15 @@ const Products = ({ cat, filters, sort }) => {
 
   return (
     <Container>
-      {cat
-        ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
-        : products
-          .slice(0, 8)
-          .map((item) => <Product item={item} key={item.id} />)}
+      {loading ? ( // Display Loader component when loading is true
+        <Loader />
+      ) : (
+        cat
+          ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
+          : products
+            .slice(0, 8)
+            .map((item) => <Product item={item} key={item.id} />)
+      )}
     </Container>
   );
 };
