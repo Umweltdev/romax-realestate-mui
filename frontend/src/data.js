@@ -2,13 +2,13 @@ export const sliderItems = [
   {
     id: 1,
     img: "https://cdn.pixabay.com/photo/2016/11/18/17/46/house-1836070_1280.jpg",
-    title: "LEKKI ESTATE",
+    title: "LEKKI",
     desc: "OWN ONE OF THE MANY PROPERTIES IN OUR LEKKI ESTATE",
     bg: "f5fafd",
   },
   {
     id: 2,
-    img: "https://i.ibb.co/28QbchN/estate2-removebg-preview.png",
+    img: "https://i.ibb.co/Z1P0wJT/estate5-removebg-preview.png",
     title: "IKOYI",
     desc: "OWN ONE OF THE MANY PROPERTIES IN OUR IKOYI ESTATE",
     bg: "fcf1ed",

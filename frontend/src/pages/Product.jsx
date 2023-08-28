@@ -10,7 +10,8 @@ import { useState } from "react"
 import { useEffect } from "react"
 import { publicRequest } from "../requestMethods"
 import { addProduct } from "../redux/cartRedux"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import Loader from "../components/Loader"
 
 const Container = styled.div`
   padding: 0px;
@@ -67,14 +68,14 @@ const FilterTitle = styled.span`
   font-size: 20px;
   font-weight: 200;
 `
-const FilterColor = styled.div`
+/* const FilterColor = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
   background-color: ${props => props.color};
   margin: 0px 5px;
   cursor: pointer;
-`
+` */
 const FilterSize = styled.select`
   margin-left: 10px;
   padding: 5px;
@@ -127,15 +128,18 @@ const Product = () => {
   //const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user.currentUser)
 
   useEffect(() => {
     const getProduct = async () => {
       try {
         const res = await publicRequest.get("/products/find/" + id);
         setProduct(res.data);
+        setLoading(false)
       } catch (error) {
-
+        setLoading(false)
       }
     }
     getProduct();
@@ -156,40 +160,40 @@ const Product = () => {
     <Container>
       <Announcement />
       <Navbar />
-      <Wrapper>
-        <ImageContainer>
-          <Image src={product.img} />
-        </ImageContainer>
-        <InfoContainer>
-          <Title>{product.title}</Title>
-          <Desc>{product.desc}</Desc>
-          <Price>₦ {product.price}</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>Location</FilterTitle>
-              {product.color?.map((c) => (
-                <FilterColor color={c} key={c} onClick={() => setColor(c)} />
-              ))}
-            </Filter>
-            <Filter>
-              <FilterTitle>Bed</FilterTitle>
-              <FilterSize onChange={(e) => setSize(e.target.value)}>
-                {product.size?.map((s) => (
-                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
-                ))}
-              </FilterSize>
-            </Filter>
-          </FilterContainer>
-          <AddContainer>
-            {/* <AmountContainer>
+      {loading ? (<Loader />) :
+
+        (<Wrapper>
+          <ImageContainer>
+            <Image src={product.img} />
+          </ImageContainer>
+          <InfoContainer>
+            <Title>{product.title}</Title>
+            <Desc>{product.desc}</Desc>
+            <Price>₦ {product.price}</Price>
+            <FilterContainer>
+              <Filter>
+                <FilterTitle>Location: </FilterTitle>
+                {product.color}
+              </Filter>
+              <Filter>
+                <FilterTitle>Bed</FilterTitle>
+                <FilterSize onChange={(e) => setSize(e.target.value)}>
+                  {product.size?.map((s) => (
+                    <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                  ))}
+                </FilterSize>
+              </Filter>
+            </FilterContainer>
+            <AddContainer>
+              {/* <AmountContainer>
               <Remove onClick={() => handleQuantity("dec")} />
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer> */}
-            <Button onClick={handleClick}>SEND EMAIL</Button>
-          </AddContainer>
-        </InfoContainer>
-      </Wrapper>
+              <Button onClick={handleClick}>SEND EMAIL</Button>
+            </AddContainer>
+          </InfoContainer>
+        </Wrapper>)}
       <Newsletter />
       <Footer />
     </Container>
