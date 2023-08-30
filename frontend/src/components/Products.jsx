@@ -11,6 +11,14 @@ const Container = styled.div`
     justify-content: space-between;
 `;
 
+const Title = styled.h1`
+  font-size: 40px;
+  fontweight: 300;
+  text-align: center; /* Center-align the text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const Products = ({ cat, filters, sort }) => {
 
   const [products, setProducts] = useState([]);
@@ -55,17 +63,20 @@ const Products = ({ cat, filters, sort }) => {
   }, [sort]);
 
   return (
-    <Container>
-      {loading ? ( // Display Loader component when loading is true
-        <Loader />
-      ) : (
-        cat
-          ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
-          : products
-            .slice(0, 8)
-            .map((item) => <Product item={item} key={item.id} />)
-      )}
-    </Container>
+    <>
+      <Title>INDIVIDUAL HOUSES</Title>
+      <Container>
+        {loading ? ( // Display Loader component when loading is true
+          <Loader />
+        ) : (
+          cat
+            ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
+            : products
+              .slice(0, 8)
+              .map((item) => <Product item={item} key={item.id} />)
+        )}
+      </Container>
+    </>
   );
 };
 
