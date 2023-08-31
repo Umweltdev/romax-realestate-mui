@@ -35,6 +35,10 @@ const Hero = () => {
     navigate('/products/search')
   }
 
+  const propertiesFiltered = () => {
+    navigate('/filteredproperties')
+  }
+
   return (
     <div className={classes.heroContainer}>
       <Container>
@@ -97,7 +101,7 @@ const Hero = () => {
                   <MenuItem value={5}>Past year</MenuItem>
                 </Select>
               </FormControl>
-              <Button variant="contained" color="primary" className={classes.ctaButton} onClick={propertiesList}>
+              <Button variant="contained" color="primary" className={classes.ctaButton} onClick={propertiesFiltered}>
                 Search
               </Button>
             </Paper>
