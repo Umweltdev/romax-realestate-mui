@@ -16,7 +16,7 @@ const Home = () => {
       <Navbar />
       <Hero />
       <Categories />
-      <br />
+      <br /><hr /><br />
       <Slider />
       <br />
       <Products />

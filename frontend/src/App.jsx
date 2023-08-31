@@ -8,10 +8,11 @@ import Login from "./pages/Login";
 import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 import Reset from "./pages/Reset";
+import Filtered from "./pages/Filtered";
 
 
 function App() {
-  const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.user.currentUser != null);
 
   return (
     <Router>
@@ -21,6 +22,7 @@ function App() {
         <Route path="/success" element={<Success />} />
         <Route path="/products/:category" element={<ProductList />} />
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/filteredproperties" element={<Filtered />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/signup" element={user ? <Navigate to="/" /> : <Register />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />

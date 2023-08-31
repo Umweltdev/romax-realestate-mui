@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Container, Grid, Paper, List, ListItem, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
-import { LocalParkingOutlined, LocalDrinkOutlined, WbIncandescentOutlined } from "@material-ui/icons";
+import { LocalParkingOutlined, LocalDrinkOutlined, WbIncandescentOutlined, HotelOutlined, LocalFloristOutlined, NatureOutlined, HomeWorkOutlined, WifiOutlined, LocationCityOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   facilitiesContainer: {
@@ -25,7 +25,10 @@ const Facilities = () => {
     <div className={classes.facilitiesContainer}>
       <Container>
         <Typography variant="h4" className={classes.facilitiesTitle}>
-          Our Facilities
+          OUR FACILITIES
+        </Typography>
+        <Typography variant="h5" className={classes.facilitiesTitle}>
+          WE PROVIDE FULL SERVICES EVERY STEP OF THE WAY
         </Typography>
         <Grid container spacing={4} className={classes.facilitiesList}>
           <Grid item xs={12} sm={4}>
@@ -54,7 +57,58 @@ const Facilities = () => {
               </List>
             </Paper>
           </Grid>
-          {/* Add more Grid items for additional facilities */}
+          <Grid item xs={12} sm={4}>
+            <Paper elevation={3}>
+              <List>
+                <ListItem>
+                  <ListItemIcon>
+                    <HotelOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary="Short-term Lets" />
+                </ListItem>
+                <Divider />
+                <ListItem>
+                  <ListItemIcon>
+                    <LocalFloristOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary="Gardens" />
+                </ListItem>
+                <Divider />
+                <ListItem>
+                  <ListItemIcon>
+                    <NatureOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary="Ambiance" />
+                </ListItem>
+              </List>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Paper elevation={3}>
+              <List>
+                <ListItem>
+                  <ListItemIcon>
+                    <HomeWorkOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary="Smart Houses" />
+                </ListItem>
+                <Divider />
+                <ListItem>
+                  <ListItemIcon>
+                    <WifiOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary="Wi-fi" />
+                </ListItem>
+                <Divider />
+                <ListItem>
+                  <ListItemIcon>
+                    <LocationCityOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary="Beautiful Properties" />
+                </ListItem>
+              </List>
+            </Paper>
+          </Grid>
         </Grid>
       </Container>
     </div>
