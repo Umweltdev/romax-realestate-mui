@@ -56,7 +56,7 @@ const Hero = () => {
                 Discover your dream home with us. Browse our listings and find the perfect property for you.
               </Typography>
               <Button variant="contained" color="primary" className={classes.ctaButton} onClick={propertiesList}>
-                View Properties
+                Quick Search
               </Button>
             </div>
           </Grid>

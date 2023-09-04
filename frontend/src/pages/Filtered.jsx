@@ -1,95 +1,159 @@
-import styled from "styled-components";
-import Navbar from "../components/Navbar";
-import Announcement from "../components/Announcement";
-import Products from "../components/Products";
-import Newsletter from "../components/Newsletter";
-import Footer from "../components/Footer";
-import { mobile } from "../responsive";
-import { useLocation } from "react-router";
-import { useState } from "react";
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Select,
+  MenuItem,
+  Button,
+  Typography,
+  Container,
+  Box,
+} from "@material-ui/core";
+import { AiOutlineSearch } from "react-icons/ai";
 
-const Container = styled.div``;
+const useStyles = makeStyles((theme) => ({
+  container: {
+    padding: theme.spacing(2),
+    backgroundColor: theme.palette.background.default,
+  },
+  wrapper: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  options: {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: theme.spacing(2),
+  },
+  select: {
+    marginRight: theme.spacing(2),
+    minWidth: 150,
+  },
+  searchBtn: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+    borderRadius: "50%",
+    width: 40,
+    height: 40,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+  },
+  titles: {
+    marginTop: theme.spacing(4),
+    textAlign: "center",
+  },
+  properties: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  },
+  noProperty: {
+    textAlign: "center",
+    marginTop: theme.spacing(4),
+  },
+  searchIcon: {
+    fontSize: 20,
+  },
+}));
 
-const Title = styled.h1`
-  margin: 20px;
-`;
+const Filtered = () => {
+  const classes = useStyles();
+  const [state, setState] = React.useState({
+    type: "",
+    priceRange: "",
+    continent: "",
+  });
 
-const FilterContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
+  const [filteredProperties, setFilteredProperties] = useState([]);
 
-const Filter = styled.div`
-  margin: 20px;
-  ${mobile({ width: "0px 20px", display: "flex", flexDirection: "column" })}
-`;
-
-const FilterText = styled.span`
-  font-size: 20px;
-  font-weight: 600;
-  margin-right: 20px;
-  ${mobile({ marginRight: "0px" })}
-`;
-
-const Select = styled.select`
-  padding: 10px;
-  margin-right: 20px;
-  ${mobile({ margin: "10px 0px" })}
-`;
-const Option = styled.option``;
-
-const Fitered = () => {
-  const location = useLocation();
-  const cat = location.pathname.split("/")[2];
-  const [filters, setFilters] = useState({});
-  const [sort, setSort] = useState("newest");
-
-  const handleFilters = (e) => {
-    const value = e.target.value;
-    setFilters({
-      ...filters,
-      [e.target.name]: value,
+  const handleState = (event) => {
+    const name = event.target.name;
+    setState({
+      ...state,
+      [name]: event.target.value,
     });
   };
 
+  const handleSearch = () => {
+    // Implement your property filtering logic here and set the filteredProperties state accordingly.
+  };
+
   return (
-    <Container>
-      <Announcement />
-      <Navbar />
-      <Title>{cat} properties</Title>
-      <FilterContainer>
-        <Filter>
-          <FilterText>Filter Properties:</FilterText>
-          <Select name="color" onChange={handleFilters}>
-            <Option disabled>Location</Option>
-            <Option>Abuja</Option>
-            <Option>London</Option>
-            <Option>Lagos</Option>
-          </Select>
-          <Select name="size" onChange={handleFilters}>
-            <Option disabled>Beds</Option>
-            <Option>1</Option>
-            <Option>2</Option>
-            <Option>3</Option>
-            <Option>4</Option>
-            <Option>5</Option>
-            <Option>6</Option>
-          </Select>
-        </Filter>
-        <Filter>
-          <FilterText>Sort Properties:</FilterText>
-          <Select onChange={(e) => setSort(e.target.value)}>
-            <Option value="newest">Newest</Option>
-            <Option value="asc">Price (asc)</Option>
-            <Option value="desc">Price (desc)</Option>
-          </Select>
-        </Filter>
-      </FilterContainer>
-      <Products cat={cat} filters={filters} sort={sort} />
-      <Newsletter />
-      <Footer />
-    </Container>
+    <div className={classes.container}>
+      <Container>
+        <Box className={classes.wrapper}>
+          <Box className={classes.options}>
+            <Select
+              className={classes.select}
+              value={state.type}
+              name="type"
+              onChange={handleState}
+              variant="outlined"
+              displayEmpty
+            >
+              <MenuItem disabled>Select type</MenuItem>
+              <MenuItem value="beach">Beach</MenuItem>
+              <MenuItem value="mountain">Mountain</MenuItem>
+              <MenuItem value="village">Village</MenuItem>
+              <MenuItem value="island">Island</MenuItem>
+            </Select>
+            <Select
+              className={classes.select}
+              value={state.priceRange}
+              name="priceRange"
+              onChange={handleState}
+              variant="outlined"
+              displayEmpty
+            >
+              <MenuItem disabled>Select Price Range</MenuItem>
+              <MenuItem value="0">0 - 25,000,000</MenuItem>
+              <MenuItem value="1">25,000,000 - 50,000,000</MenuItem>
+              <MenuItem value="2">50,000,000 - 75,000,000</MenuItem>
+              <MenuItem value="3">75,000,000 - 100,000,000</MenuItem>
+              <MenuItem value="4">100,000,000 and up</MenuItem>
+            </Select>
+            <Select
+              className={classes.select}
+              value={state.continent}
+              name="continent"
+              onChange={handleState}
+              variant="outlined"
+              displayEmpty
+            >
+              <MenuItem disabled>Select Continent</MenuItem>
+              <MenuItem value="0">Africa</MenuItem>
+              <MenuItem value="1">Asia</MenuItem>
+              <MenuItem value="2">Europe</MenuItem>
+              <MenuItem value="3">North America</MenuItem>
+              <MenuItem value="4">South America</MenuItem>
+              <MenuItem value="5">Australia</MenuItem>
+              <MenuItem value="6">Antarctica</MenuItem>
+            </Select>
+            <Button className={classes.searchBtn} onClick={handleSearch}>
+              <AiOutlineSearch className={classes.searchIcon} />
+            </Button>
+          </Box>
+          {filteredProperties.length > 0 ? (
+            <>
+              <Box className={classes.titles}>
+                <Typography variant="h5">Selected properties</Typography>
+                <Typography variant="h4">Property you may like</Typography>
+              </Box>
+              <Box className={classes.properties}>
+                {/* Render filtered properties */}
+              </Box>
+            </>
+          ) : (
+            <Typography variant="h4" className={classes.noProperty}>
+              We have no properties with the specified options.
+            </Typography>
+          )}
+        </Box>
+      </Container>
+    </div>
   );
 };
 
-export default Fitered;
+export default Filtered;

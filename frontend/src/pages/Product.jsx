@@ -172,7 +172,7 @@ const Product = () => {
             <Price>₦ {product.price}</Price>
             <FilterContainer>
               <Filter>
-                <FilterTitle>Location: </FilterTitle>
+                <FilterTitle onChange={(e) => setColor(e.target.value)}>Location: </FilterTitle>
                 {product.color}
               </Filter>
               <Filter>

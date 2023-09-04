@@ -6,6 +6,7 @@ import authRoute from "./routes/auth.js"
 import productRoute from "./routes/product.js"
 import cartRoute from "./routes/cart.js"
 import orderRoute from "./routes/order.js"
+import estateRoute from "./routes/estate.js"
 dotenv.config();
 import payRoute from "./routes/pay.js"
 
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/products", productRoute);
+app.use("/api/estate", estateRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/checkout", payRoute);
