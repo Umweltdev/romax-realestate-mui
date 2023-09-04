@@ -10,7 +10,7 @@ import { useState } from "react"
 import { useEffect } from "react"
 import { publicRequest } from "../requestMethods"
 import { addProduct } from "../redux/cartRedux"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import Loader from "../components/Loader"
 
 const Container = styled.div`
@@ -130,7 +130,7 @@ const Product = () => {
   const [size, setSize] = useState("");
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.currentUser)
+  //const user = useSelector(state => state.user.currentUser)
 
   useEffect(() => {
     const getProduct = async () => {

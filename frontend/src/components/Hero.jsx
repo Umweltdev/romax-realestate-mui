@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useNavigate } from "react-router";
 import { Button, Typography, Container, Grid, Paper, Select, MenuItem, FormControl, InputLabel } from "@material-ui/core";
@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Hero = () => {
+  const [place, setPlace] = useState("ikoyi");
+  const [priceRange, setPriceRange] = useState("0");
+  const [bed, setBed] = useState("0");
+
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -36,7 +40,7 @@ const Hero = () => {
   }
 
   const propertiesFiltered = () => {
-    navigate('/filteredproperties')
+    navigate(`/products?place=${place}&bed=${bed}&priceRange=${priceRange}`)
   }
 
   return (
@@ -63,44 +67,44 @@ const Hero = () => {
               </Typography>
               <FormControl fullWidth variant="outlined" className={classes.ctaTextField}>
                 <InputLabel>Price Range</InputLabel>
-                <Select label="Price Range">
-                  <MenuItem value={1}>₦0 - ₦20,000,000</MenuItem>
-                  <MenuItem value={2}>₦20,000,000 - ₦50,000,000</MenuItem>
-                  <MenuItem value={3}>₦50,000,000 - ₦70,000,000</MenuItem>
-                  <MenuItem value={4}>₦70,000,000 - ₦100,000,000</MenuItem>
-                  <MenuItem value={5}>₦100,000,000 and up</MenuItem>
+                <Select onChange={(e) => setPriceRange(e.target.value)}>
+                  <MenuItem value="0">₦0 - ₦20,000,000</MenuItem>
+                  <MenuItem value="1">₦20,000,000 - ₦50,000,000</MenuItem>
+                  <MenuItem value="2">₦50,000,000 - ₦70,000,000</MenuItem>
+                  <MenuItem value="3">₦70,000,000 - ₦100,000,000</MenuItem>
+                  <MenuItem value="4">₦100,000,000 and up</MenuItem>
                 </Select>
               </FormControl>
               <FormControl fullWidth variant="outlined" className={classes.ctaTextField}>
                 <InputLabel>Location</InputLabel>
-                <Select label="Location">
-                  <MenuItem value={1}>Ikoyi</MenuItem>
-                  <MenuItem value={2}>Ikeja</MenuItem>
-                  <MenuItem value={3}>London</MenuItem>
-                  <MenuItem value={4}>Abuja</MenuItem>
+                <Select onChange={(e) => setPlace(e.target.value)}>
+                  <MenuItem value="ikoyi">Ikoyi</MenuItem>
+                  <MenuItem value="ikeja">Ikeja</MenuItem>
+                  <MenuItem value="london">London</MenuItem>
+                  <MenuItem value="abuja">Abuja</MenuItem>
                 </Select>
               </FormControl>
               <FormControl fullWidth variant="outlined" className={classes.ctaTextField}>
                 <InputLabel>Number of Beds</InputLabel>
-                <Select label="Number of Beds">
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
-                  <MenuItem value={6}>6</MenuItem>
+                <Select onChange={(e) => setBed(e.target.value)}>
+                  <MenuItem value="0">1</MenuItem>
+                  <MenuItem value="1">2</MenuItem>
+                  <MenuItem value="2">3</MenuItem>
+                  <MenuItem value="3">4</MenuItem>
+                  <MenuItem value="4">5</MenuItem>
+                  <MenuItem value="5">6</MenuItem>
                 </Select>
               </FormControl>
-              <FormControl fullWidth variant="outlined" className={classes.ctaTextField}>
+              {/* <FormControl fullWidth variant="outlined" className={classes.ctaTextField}>
                 <InputLabel>Date Added</InputLabel>
                 <Select label="Date Added">
-                  <MenuItem value={1}>Last 7 Days</MenuItem>
-                  <MenuItem value={2}>Last 30 Days</MenuItem>
-                  <MenuItem value={3}>Last 60 Days</MenuItem>
-                  <MenuItem value={4}>Last 120 Days</MenuItem>
-                  <MenuItem value={5}>Past year</MenuItem>
+                  <MenuItem value="0">Last 7 Days</MenuItem>
+                  <MenuItem value="1">Last 30 Days</MenuItem>
+                  <MenuItem value="2">Last 60 Days</MenuItem>
+                  <MenuItem value="3">Last 120 Days</MenuItem>
+                  <MenuItem value="4">Past year</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl> */}
               <Button variant="contained" color="primary" className={classes.ctaButton} onClick={propertiesFiltered}>
                 Search
               </Button>

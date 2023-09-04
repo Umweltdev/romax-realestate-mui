@@ -12,7 +12,7 @@ import Filtered from "./pages/Filtered";
 
 
 function App() {
-  const user = useSelector((state) => state.user.currentUser != null);
+  const user = useSelector((state) => state.user.currentUser);
 
   return (
     <Router>
@@ -21,8 +21,8 @@ function App() {
         {/* <Route path="/cart" element={<Cart />} /> */}
         <Route path="/success" element={<Success />} />
         <Route path="/products/:category" element={<ProductList />} />
+        <Route path="/products" element={<Filtered />} />
         <Route path="/product/:id" element={<Product />} />
-        <Route path="/filteredproperties" element={<Filtered />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/signup" element={user ? <Navigate to="/" /> : <Register />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
