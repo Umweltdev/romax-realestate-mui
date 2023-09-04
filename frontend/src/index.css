@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.desc-carousel-image {
+  height: auto;
+  width: 130px;
+}
+@media (max-width: 600px) {
+  .desc-carousel-image {
+    width: 85px;
+  }
+  .MuiContainer-root {
+    padding: 0 10px !important;
+  }
+}

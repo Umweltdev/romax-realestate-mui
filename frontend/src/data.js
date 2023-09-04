@@ -1,3 +1,8 @@
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import FenceOutlinedIcon from '@mui/icons-material/FenceOutlined';
+import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
+import WaterOutlinedIcon from '@mui/icons-material/WaterOutlined';
+
 export const sliderItems = [
   {
     id: 1,
@@ -77,3 +82,22 @@ export const popularProducts = [
     img: "https://woollen-wear.in/cdn-cgi/imagedelivery/ZMUrshz-omHo_iJ4haWPew/women-jackets/below-zero-degree/em25982/em25982-black-f-220x280.JPG/public",
   },
 ]
+
+export const features = [
+  {
+    Icon: LockOutlinedIcon,
+    details: "Surveillance cameras (cctv), designated security, gated estate with admin building",
+  },
+  {
+    Icon: FenceOutlinedIcon,
+    details: "Dedicated play area and gym lekki conservation center located 15-mins drive from site",
+  },
+  {
+    Icon: LightbulbOutlinedIcon,
+    details: "Constant water supply 24/7 constant electricity water treatment, drainage",
+  },
+  {
+    Icon: WaterOutlinedIcon,
+    details: "Property is bounded by the lagoon, buyers can primarily access the water body via boat",
+  },
+];
