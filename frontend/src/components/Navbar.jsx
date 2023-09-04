@@ -121,11 +121,11 @@ const Navbar = () => {
         {user ? (
           <Right>
             <MenuItem>{user.username}</MenuItem>
+            <MenuItem>Instant Evaluation</MenuItem>
             <MenuItem onClick={handleLogout}>LOG OUT</MenuItem>
           </Right>
         ) : (<Right>
           <MenuItem>Instant Evaluation</MenuItem>
-          <MenuItem>For Sale</MenuItem>
           <MenuItem onClick={signup}>REGISTER</MenuItem>
           <MenuItem onClick={signin}>LOG IN</MenuItem>
           {/* <Link to="/cart">
