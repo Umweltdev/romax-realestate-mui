@@ -6,15 +6,22 @@ import Categories from '../components/Categories'
 import Products from '../components/Products'
 import Newsletter from '../components/Newsletter'
 import Footer from '../components/Footer'
+import Hero from '../components/Hero'
+import Facilities from '../components/Facilities'
 
 const Home = () => {
   return (
     <div>
       <Announcement />
       <Navbar />
-      <Slider />
+      <Hero />
       <Categories />
+      <br /><hr /><br />
+      <Slider />
+      <br />
       <Products />
+      <br />
+      <Facilities />
       <Newsletter />
       <Footer />
     </div>

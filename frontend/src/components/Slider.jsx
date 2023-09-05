@@ -1,157 +1,155 @@
-import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons"
-import { useState, useEffect } from "react"
-import styled from "styled-components"
-import { sliderItems } from "../data"
-import { useNavigate } from "react-router"
-import { mobile, mobileXR, tablet, ipad } from "../responsive"
+import * as React from 'react';
+import styled from 'styled-components';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import MobileStepper from '@mui/material/MobileStepper';
+import Paper from '@mui/material/Paper';
+//import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
+import { useNavigate } from 'react-router';
+import { BiLocationPlus } from "react-icons/bi"
 
-const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  position: relative;
-  overflow: hidden;
-  ${mobile({ height: "380px" })};
-  ${mobileXR({ height: "380px" })};
-  ${tablet({ height: "550px" })};
-  ${ipad({ height: "600px" })};
-`;
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-const Arrow = styled.div`
-  width: 50px;
-  height: 50px;
-  background-color: #fff7f7;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: ${props => props.direction === "left" && "10px"};
-  right: ${props => props.direction === "right" && "10px"};
-  margin: auto;
-  cursor: pointer;
-  opacity: 0.4;
-  z-index: 2;
-`;
-
-const Wrapper = styled.div`
-  height: 100%;
-  display: flex;
-  transition: all 1.5s ease;
-  transform: translateX(${props => props.slideIndex * -100}vw);
-`;
-
-const Slide = styled.div`
-  width: 100vw;
-  height:  100vh;
-  display: flex;
-  align-items: center;
-  background-color: #${props => props.bg};
-`
-
-const ImgContainer = styled.div`
-  height: 100%;
-  flex: 1;
-`
-
-const Image = styled.img`
-  height: 80%;
-  ${mobile({ width: "250px", height: "370px" })};
-  ${mobileXR({ width: "360px", height: "375px" })};
-  ${tablet({ width: "390px", height: "550px" })};
-  ${ipad({ width: "600px", height: "550px" })};
-`
-
-const InfoContainer = styled.div`
-  flex: 1;
-  padding: 50px;
-`
-
-const Title = styled.h1`
-  font-size: 70px;
-  ${mobile({ fontSize: "9px", padding: "1px" })};
-  ${mobileXR({ fontSize: "9px", padding: "1px" })};
-  ${tablet({ fontSize: "10px" })};
-  ${ipad({ fontSize: "15px" })};
-`
-const Desc = styled.p`
-  margin: 50px 0;
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 3px;
-  ${mobile({ display: "none" })};
-  ${mobileXR({ display: "none" })};
-  ${tablet({ fontSize: "10px" })};
-  ${ipad({ fontSize: "10px" })};
-`
-const Button = styled.button`
-  padding: 10px;
-  font-size: 20px;
-  background-color: transparent;
-  cursor: pointer;
-
-  /* Add responsive styles for mobile and mobileXR */
-  ${mobile({ fontSize: "6px" })};
-  ${mobileXR({ fontSize: "7px" })};
-  ${tablet({ fontSize: "12px" })};
-  ${ipad({ fontSize: "15px" })};
-`;
+const images = [
+  {
+    label: 'Abuja',
+    imgPath:
+      'https://cdn.pixabay.com/photo/2016/11/18/17/46/house-1836070_1280.jpg',
+  },
+  {
+    label: 'Lekki',
+    imgPath:
+      'https://i.ibb.co/Z1P0wJT/estate5-removebg-preview.png',
+  },
+  {
+    label: 'Ikoyi',
+    imgPath:
+      'https://i.ibb.co/cLzT3N1/1-gp2gxe-removebg-preview.png',
+  },
+];
 
 const Slider = () => {
-  const [slideIndex, setSlideIndex] = useState(0);
-  const handleClick = (direction) => {
-    if (direction === "left") {
-      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2)
-    } else {
-      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0)
-    }
-  }
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSlideIndex((prevIndex) =>
-        prevIndex < sliderItems.length - 1 ? prevIndex + 1 : 0
-      );
-    }, 5000); // 5000 milliseconds = 5 seconds
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
+  const theme = useTheme();
   const navigate = useNavigate();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = images.length;
 
-  const handleButton = () => {
-    navigate("/products/island")
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStepChange = (step) => {
+    setActiveStep(step);
+  };
+
+  const handleRoute = () => {
+    navigate("/products/:category")
   }
 
   return (
-    <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
-        <ArrowLeftOutlined />
-      </Arrow>
-      <Wrapper slideIndex={slideIndex}>
-        {sliderItems.map((item) => (
-          <Slide bg={item.bg} key={item
-            .id}>
-            <ImgContainer>
-              <Image src={item.img} onClick={handleButton} />
-            </ImgContainer>
-            <InfoContainer>
-              <Title>{item.title}</Title>
-              <Desc>{item.desc}</Desc>
-              <Button onClick={handleButton}>OUR ESTATES</Button>
-            </InfoContainer>
-          </Slide>
-        ))}
-      </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick("right")}>
-        <ArrowRightOutlined />
-      </Arrow>
-    </Container>
+    <>
+      <Title>FEATURED ESTATES</Title>
+      <Box sx={{ maxWidth: 1500, flexGrow: 1 }}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Paper
+            square
+            elevation={0}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              height: 50,
+              pl: 2,
+              bgcolor: 'background.default',
+            }}
+          >
+            <Titles><BiLocationPlus /> {images[activeStep].label}</Titles>
+          </Paper>
+        </div>
+        <AutoPlaySwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={activeStep}
+          onChangeIndex={handleStepChange}
+          enableMouseEvents
+        >
+          {images.map((step, index) => (
+            <div key={step.label}>
+              {Math.abs(activeStep - index) <= 2 ? (
+
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <Box onClick={handleRoute}
+                    component="img"
+                    sx={{
+                      height: 600,
+                      display: 'block',
+                      maxWidth: 1500,
+                      overflow: 'hidden',
+                      width: '100%',
+                    }}
+                    src={step.imgPath}
+                    alt={step.label}
+                  />
+                </div>
+              ) : null}
+            </div>
+          ))}
+        </AutoPlaySwipeableViews>
+        <MobileStepper
+          steps={maxSteps}
+          position="static"
+          activeStep={activeStep}
+          nextButton={
+            <Button
+              size="small"
+              onClick={handleNext}
+              disabled={activeStep === maxSteps - 1}
+            >
+              Next
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowLeft />
+              ) : (
+                <KeyboardArrowRight />
+              )}
+            </Button>
+          }
+          backButton={
+            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowRight />
+              ) : (
+                <KeyboardArrowLeft />
+              )}
+              Back
+            </Button>
+          }
+        />
+      </Box>
+    </>
   );
 };
+const Title = styled.h1`
+  font-size: 40px;
+  fontweight: 300;
+  text-align: center; /* Center-align the text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
+const Titles = styled.h1`
+  font-size: 20px;
+  fontweight: 300;
+  text-align: center; /* Center-align the text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 export default Slider

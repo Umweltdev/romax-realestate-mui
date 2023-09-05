@@ -105,8 +105,8 @@ const Product = () => {
   // };
   return (
     <Container>
-      {/* <Announcement />
-      <Navbar /> */}
+      <Announcement />
+      <Navbar />
       {loading ? (
         <Loader />
       ) : (
@@ -339,8 +339,8 @@ const Product = () => {
           </ContainerBox>
         </Box>
       )}
-      {/* <Newsletter />
-      <Footer /> */}
+      <Newsletter />
+      <Footer />
     </Container>
   );
 };

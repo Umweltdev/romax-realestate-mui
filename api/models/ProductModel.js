@@ -1,5 +1,27 @@
 import mongoose from "mongoose";
 
+const reviewSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  rating: {
+    type: Number,
+    required: true,
+  },
+  comment: {
+    type: String,
+    required: true
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
+  },
+}, {
+  timestamps: true
+})
+
 const productSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -11,17 +33,34 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   img: {
-    type: String,
+    type: Array,
     required: true,
   },
   categories: {
     type: Array,
   },
   size: {
-    type: Array,
+    type: Array, //no of beds
   },
   color: {
+    type: Array, //location
+  },
+  bath: {
+    type: Number,
+  },
+  features: {
     type: Array,
+  },
+  reviews: [reviewSchema],
+  rating: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  numReviews: {
+    type: Number,
+    required: true,
+    default: 0
   },
   price: {
     type: Number,

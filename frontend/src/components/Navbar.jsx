@@ -7,6 +7,7 @@ import { mobile, mobileXR, tablet } from '../responsive'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../redux/userRedux'
+import { BsHouseDoor } from "react-icons/bs";
 
 const Container = styled.div`
   height: 60px;
@@ -116,13 +117,15 @@ const Navbar = () => {
             <Search style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
         </Left>
-        <Center onClick={homePage}><Logo>ROMAX</Logo></Center>
+        <Center onClick={homePage}><Logo>ROMAX <BsHouseDoor /></Logo></Center>
         {user ? (
           <Right>
             <MenuItem>{user.username}</MenuItem>
+            <MenuItem>Instant Evaluation</MenuItem>
             <MenuItem onClick={handleLogout}>LOG OUT</MenuItem>
           </Right>
         ) : (<Right>
+          <MenuItem>Instant Evaluation</MenuItem>
           <MenuItem onClick={signup}>REGISTER</MenuItem>
           <MenuItem onClick={signin}>LOG IN</MenuItem>
           {/* <Link to="/cart">
