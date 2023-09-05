@@ -16,11 +16,22 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto",
   },
   ctaContainer: {
-    background: theme.palette.common.white,
+    background: "rgba(255, 255, 255, 0.9)", // Slightly transparent white background
     padding: theme.spacing(8),
+    borderRadius: theme.spacing(3), // Increased border radius
+    boxShadow: "0px 5px 20px rgba(0, 0, 0, 0.3)", // More prominent shadow
   },
   ctaButton: {
     marginTop: theme.spacing(3),
+    backgroundColor: "transparent", // Make the button transparent
+    color: theme.palette.primary.main,
+    border: `2px solid ${theme.palette.primary.main}`, // Add border
+    borderRadius: theme.spacing(2), // Increase border radius
+    transition: "background-color 0.3s ease, color 0.3s ease",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.common.white,
+    },
   },
   ctaTextField: {
     marginBottom: theme.spacing(2),
@@ -95,16 +106,6 @@ const Hero = () => {
                   <MenuItem value="5">6</MenuItem>
                 </Select>
               </FormControl>
-              {/* <FormControl fullWidth variant="outlined" className={classes.ctaTextField}>
-                <InputLabel>Date Added</InputLabel>
-                <Select label="Date Added">
-                  <MenuItem value="0">Last 7 Days</MenuItem>
-                  <MenuItem value="1">Last 30 Days</MenuItem>
-                  <MenuItem value="2">Last 60 Days</MenuItem>
-                  <MenuItem value="3">Last 120 Days</MenuItem>
-                  <MenuItem value="4">Past year</MenuItem>
-                </Select>
-              </FormControl> */}
               <Button variant="contained" color="primary" className={classes.ctaButton} onClick={propertiesFiltered}>
                 Search
               </Button>

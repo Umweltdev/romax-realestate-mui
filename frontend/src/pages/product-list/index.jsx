@@ -1,4 +1,4 @@
-import { Container, Box, Grid, Stack, Typography } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 
 import Sort from "./sort";
 import Navbar from "../../components/Navbar";
@@ -12,7 +12,7 @@ const ProductListing = () => {
       <Announcement />
       <Navbar />
       <Container maxWidth="lg">
-        <Sort/>
+        <Sort />
         <Grid container spacing={3} marginTop={4}>
           <Grid item></Grid>
         </Grid>
