@@ -11,7 +11,7 @@ function CategoryItem({ item }) {
         <Image src={item.img} />
         <Info>
           <Title>{item.title}</Title>
-          <Button>SEE ALL</Button>
+          <Button>SEE NOW</Button>
         </Info>
       </Link>
     </Container>
@@ -21,7 +21,7 @@ function CategoryItem({ item }) {
 const Container = styled.div`
   flex: 1;
   margin: 3px;
-  height: 70vh;
+  height: 50vh;
   position: relative;
 `
 const Image = styled.img`
