@@ -45,10 +45,16 @@ const productSchema = new mongoose.Schema({
   color: {
     type: Array, //location
   },
+  parking: {
+    type: Number
+  },
   bath: {
     type: Number,
   },
   features: {
+    type: Array,
+  },
+  payment: {
     type: Array,
   },
   reviews: [reviewSchema],
