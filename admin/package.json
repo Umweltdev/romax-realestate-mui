@@ -19,6 +19,7 @@
     "react-scripts": "5.0.1",
     "recharts": "^2.7.3",
     "redux-persist": "^6.0.0",
+    "styled-components": "^6.0.7",
     "timeago.js": "^4.0.2",
     "web-vitals": "^3.4.0"
   },
