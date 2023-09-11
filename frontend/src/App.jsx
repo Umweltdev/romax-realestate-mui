@@ -10,6 +10,7 @@ import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 import Reset from "./pages/Reset";
 import Filtered from "./pages/Filtered";
+import About from "./pages/About";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/success" element={<Success />} />
         <Route path="/products/:category" element={<ProductList />} />
         <Route path="/products" element={<Filtered />} />
+        <Route path="/about" element={<About />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/estate/:id" element={<Estate />} />
         <Route path="/reset" element={<Reset />} />
