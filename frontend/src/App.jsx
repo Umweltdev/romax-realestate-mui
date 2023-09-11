@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import Product from "./pages/product-description";
+import Estate from "./pages/estate-description";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 //import Cart from "./pages/Cart";
@@ -23,6 +24,7 @@ function App() {
         <Route path="/products/:category" element={<ProductList />} />
         <Route path="/products" element={<Filtered />} />
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/estate/:id" element={<Estate />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/signup" element={user ? <Navigate to="/" /> : <Register />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
