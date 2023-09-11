@@ -9,12 +9,15 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const user = useSelector(state => state.user.currentUser)
+
   const handleClick = (e) => {
     e.preventDefault();
     login(dispatch, { username, password });
     navigate("/")
   }
   return (
+
     <div style={{
       height: "100vh",
       display: "flex",
