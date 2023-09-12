@@ -7,7 +7,7 @@ import {
 import Home from "./pages/Home";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import ProductList from "./pages/product-list";
+import ProductList from "./pages/product-listing";
 import Product from "./pages/product-description";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
