@@ -12,7 +12,11 @@ import NewProduct from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/Login";
 
 function App() {
+<<<<<<< HEAD
+  const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser
+=======
   const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser.isAdmin
+>>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
 
   return (
     <Router>

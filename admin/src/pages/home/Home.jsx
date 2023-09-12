@@ -53,4 +53,8 @@ export default function Home() {
       </div>
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec

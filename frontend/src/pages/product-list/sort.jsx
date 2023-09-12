@@ -1,27 +1,23 @@
-import { useState } from "react";
 import {
   Box,
   Stack,
-  Avatar,
-  Grid,
-  Container,
   IconButton,
   FormControl,
   MenuItem,
   Select,
   Typography,
-  Drawer,
 } from "@mui/material";
-import AppsIcon from "@mui/icons-material/Apps";
-import ViewListIcon from "@mui/icons-material/ViewList";
+
 import FilterListIcon from "@mui/icons-material/FilterList";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const Sort = () => {
+const Sort = ({openDrawer}) => {
+  const isNonMobile = useMediaQuery("(min-width:968px)");
+
   return (
     <Box
       bgcolor="white"
-      p={2}
+      p={{ xs:1.2, sm:2}}
       borderRadius="5px"
       sx={{
         boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
@@ -29,7 +25,7 @@ const Sort = () => {
     >
       {" "}
       <Stack
-        direction={{ xs: "column", sm: "row" }}
+        direction={"row" }
         justifyContent="space-between"
         alignItems="center"
       >
@@ -41,9 +37,10 @@ const Sort = () => {
 
           }}>results</span>{" "}
         </Typography>
-
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Typography>Sort By:</Typography>
+       
+       <Stack direction="row" spacing={1} alignItems="center">
+       <Stack direction="row" spacing={1} alignItems="center">
+          <Typography display={{xs:"none", sm:"block"}}>Sort By:</Typography>
           <FormControl
             size="small"
             sx={{
@@ -63,6 +60,17 @@ const Sort = () => {
             </Select>
           </FormControl>
         </Stack>
+        <IconButton
+            onClick={openDrawer}
+            sx={{
+              display: isNonMobile ? "none" : "inline-flex",
+            }}
+          >
+            <FilterListIcon />
+          </IconButton>
+
+       </Stack>
+        
       </Stack>
     </Box>
   );

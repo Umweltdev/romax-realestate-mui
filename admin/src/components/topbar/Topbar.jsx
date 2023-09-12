@@ -1,4 +1,10 @@
 import React from "react";
+<<<<<<< HEAD
+import "./topbar.css";
+import { NotificationsNone, Language, Power, Settings } from "@material-ui/icons";
+
+export default function Topbar() {
+=======
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
@@ -32,6 +38,7 @@ export default function Topbar() {
   }
   const user = useSelector(state => state.user.currentUser)
 
+>>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
   return (
     <div className="topbar">
       <div className="topbarWrapper">
@@ -42,6 +49,17 @@ export default function Topbar() {
           {/*<div className="topbarIconContainer">
             <NotificationsNone />
             <span className="topIconBadge">2</span>
+<<<<<<< HEAD
+          </div>
+          <div className="topbarIconContainer">
+            <Language />
+            <span className="topIconBadge">2</span>
+          </div>
+          <div className="topbarIconContainer">
+            <Settings />
+          </div>
+           <img src="https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="topAvatar" /> */}
+=======
           </div>*/}
           {user ? (
             <Right>
@@ -53,6 +71,7 @@ export default function Topbar() {
             </Right>
           )}
           {/*<img src="https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="topAvatar" />*/}
+>>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
         </div>
       </div>
     </div>
