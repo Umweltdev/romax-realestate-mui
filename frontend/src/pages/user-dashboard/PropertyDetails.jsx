@@ -27,10 +27,13 @@ const PropertyDetails = ({product}) => {
         sx={{
           borderTop: "1px solid #dedee2",
           borderBottom: "1px solid #dedee2",
-          padding: "15px 0",
+          padding: "5px 0 20px 0",
+          width: "100% !important"
         }}
       >
-        <Grid item xs={6} md={3}>
+        <Grid item xs={6} md={3} sx={{
+          paddingLeft: "0 !important"
+        }}>
           <Stack spacing={0.4}>
             <Typography variant="subtitle1" letterSpacing={1.3} color="#6c6d7f">
               PROPERTY TYPE
@@ -41,7 +44,9 @@ const PropertyDetails = ({product}) => {
             </Stack>
           </Stack>
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={6} md={3} sx={{
+          paddingLeft: "0 !important"
+        }}>
           <Stack spacing={0.4}>
             <Typography variant="subtitle1" letterSpacing={1.3} color="#6c6d7f">
               BEDROOMS
@@ -55,7 +60,9 @@ const PropertyDetails = ({product}) => {
             </Stack>
           </Stack>
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={6} md={3} sx={{
+          paddingLeft: "0 !important"
+        }}>
           <Stack spacing={0.4}>
             <Typography variant="subtitle1" letterSpacing={1.3} color="#6c6d7f">
               BATHROOMS
@@ -68,7 +75,9 @@ const PropertyDetails = ({product}) => {
             </Stack>
           </Stack>
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={6} md={3} sx={{
+          paddingLeft: "0 !important"
+        }}>
           <Stack spacing={0.4}>
             <Typography variant="subtitle1" letterSpacing={1.3} color="#6c6d7f">
               SIZE

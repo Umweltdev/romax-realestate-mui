@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 import Reset from "./pages/Reset";
+import Estate from "./pages/estate-description";
 import Filtered from "./pages/Filtered";
 import UserDashBoard from "./pages/user-dashboard";
 import About from "./pages/About";

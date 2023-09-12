@@ -61,9 +61,12 @@ const Card = ({ feature }) => {
                   height: "25%",
                   overflow: "hidden",
                   borderBottomLeftRadius: isNonMobile ? "10px" : 0,
+                  display: "flex",
+                  alignItems: "center"
+                  
                 }}
               >
-                <Stack spacing={0.5}>
+                <Stack spacing={0.5} justifyContent="center">
                   <Typography variant="h5">₦50,000,000</Typography>
                   <Typography variant="subtitle2" letterSpacing={1.3}>
                     Offers Over
@@ -84,6 +87,7 @@ const Card = ({ feature }) => {
                   <Stack
                     p={2}
                     spacing={0.5}
+                    justifyContent="center"
                     sx={{
                       flex: isNonMobile ? "0 0 70%" : "0 0 60%",
                     }}
