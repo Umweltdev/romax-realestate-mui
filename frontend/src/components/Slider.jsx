@@ -1,5 +1,6 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons"
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { sliderItems } from "../data"
 import { mobile, mobileXR, tablet, ipad } from "../responsive"
@@ -101,6 +102,11 @@ const Button = styled.button`
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
+  const navigate = useNavigate();
+
+  const estate = () => {
+    navigate("/estate")
+  }
 
   const handleClick = (direction) => {
     if (direction === "left") {
@@ -136,7 +142,7 @@ const Slider = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>OUR ESTATES</Button>
+              <Button onClick={estate}>OUR ESTATES</Button>
             </InfoContainer>
           </Slide>
         ))}
