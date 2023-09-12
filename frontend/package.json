@@ -30,9 +30,11 @@
     "react-stripe-checkout": "^2.6.3",
     "react-swipeable-views": "^0.14.0",
     "react-swipeable-views-utils": "^0.14.0",
+    "react-timeline-scribble": "^1.0.14",
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.8",
+    "vertical-timeline-component-for-react": "^1.0.7",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
   },

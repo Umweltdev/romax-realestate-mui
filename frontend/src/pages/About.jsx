@@ -1,8 +1,17 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+import Timelines from '../components/Timeline'
+import Announcement from '../components/Announcement'
 
 const About = () => {
   return (
-    <div>About</div>
+    <>
+      <Announcement />
+      <Navbar />
+      <Timelines />
+      <Footer />
+    </>
   )
 }
 
