@@ -18,6 +18,8 @@ import Reset from "./pages/Reset";
 import Estate from "./pages/estate-description";
 import UserDashBoard from "./pages/user-dashboard";
 import About from "./pages/About";
+import EstateListing from "./pages/estate-list";
+
 function App() {
   const user = useSelector((state) => state.user.currentUser);
 
@@ -32,6 +34,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/estate/:id" element={<Estate />} />
+          <Route path="/estate" element={<EstateListing />} />
           <Route path="/reset" element={<Reset />} />
           <Route
             path="/signup"

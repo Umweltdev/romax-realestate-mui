@@ -5,10 +5,7 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
-<<<<<<< HEAD
-=======
     "@material-ui/core": "^4.12.4",
->>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
     "@reduxjs/toolkit": "^1.9.5",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
@@ -31,8 +28,4 @@
   },
   "author": "Habeeb Mustapha M. O.",
   "license": "ISC"
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
