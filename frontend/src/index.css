@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap"); */
 
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");
@@ -114,10 +115,22 @@ body {
 @media (max-width: 600px) {
   .descCarouselImageBox {
     height: 90px;
+=======
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.desc-carousel-image {
+  height: auto;
+  width: 130px;
+}
+@media (max-width: 600px) {
+  .desc-carousel-image {
+    width: 85px;
+>>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
   }
   .MuiContainer-root {
     padding: 0 10px !important;
   }
+<<<<<<< HEAD
   .list {
     width: 100% !important;
   }
@@ -141,3 +154,6 @@ body {
 /* 
     left: 0;
     background-image: linear-gradient(270deg,transparent,#262637); */
+=======
+}
+>>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec

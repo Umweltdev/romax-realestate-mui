@@ -1,5 +1,9 @@
 import { useState } from 'react'
+<<<<<<< HEAD
 import { useDispatch, useSelector } from 'react-redux';
+=======
+import { useDispatch } from 'react-redux';
+>>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
 import { login } from '../../redux/apiCalls';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,6 +19,10 @@ const Login = () => {
     navigate("/")
   }
   return (
+<<<<<<< HEAD
+=======
+
+>>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
     <div style={{
       height: "100vh",
       display: "flex",

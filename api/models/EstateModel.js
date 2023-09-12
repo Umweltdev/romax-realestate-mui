@@ -26,7 +26,11 @@ const estateModel = mongoose.Schema({
   house: {
     type: Number,
   },
+<<<<<<< HEAD
   price: {
+=======
+  num: {
+>>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
     type: Number,
   }
 }, { timestamps: true })

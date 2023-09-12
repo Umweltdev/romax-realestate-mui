@@ -6,21 +6,34 @@ import WaterOutlinedIcon from '@mui/icons-material/WaterOutlined';
 export const sliderItems = [
   {
     id: 1,
+<<<<<<< HEAD
     img: "https://cdn.pixabay.com/photo/2016/11/18/17/46/house-1836070_1280.jpg",
+=======
+    img: "https://i.ibb.co/TYHc9dv/FLATS-3D.png",
+>>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
     title: "LEKKI",
     desc: "OWN ONE OF THE MANY PROPERTIES IN OUR LEKKI ESTATE",
     bg: "f5fafd",
   },
   {
     id: 2,
+<<<<<<< HEAD
     img: "https://i.ibb.co/Z1P0wJT/estate5-removebg-preview.png",
     title: "IKOYI",
+=======
+    img: "https://i.ibb.co/0nQJv76/Whats-App-Image-2023-09-04-at-06-30-01.jpg",
+    title: "LAGOS ISLAND",
+>>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
     desc: "OWN ONE OF THE MANY PROPERTIES IN OUR IKOYI ESTATE",
     bg: "fcf1ed",
   },
   {
     id: 3,
+<<<<<<< HEAD
     img: "https://i.ibb.co/cLzT3N1/1-gp2gxe-removebg-preview.png",
+=======
+    img: "https://i.ibb.co/z68mXzk/Whats-App-Image-2023-09-04-at-06-30-03.jpg",
+>>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
     title: "ABUJA",
     desc: "OWN ONE OF THE MANY PROPERTIES IN OUR ABUJA ESTATE",
     bg: "fbf0f4",
