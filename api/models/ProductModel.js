@@ -45,24 +45,18 @@ const productSchema = new mongoose.Schema({
   color: {
     type: Array, //location
   },
-<<<<<<< HEAD
-=======
   parking: {
     type: Number
   },
->>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
   bath: {
     type: Number,
   },
   features: {
     type: Array,
   },
-<<<<<<< HEAD
-=======
   payment: {
     type: Array,
   },
->>>>>>> c7d844e4d888b7d2856a331e858d3fcd2357ebec
   reviews: [reviewSchema],
   rating: {
     type: Number,

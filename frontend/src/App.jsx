@@ -16,7 +16,6 @@ import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 import Reset from "./pages/Reset";
 import Estate from "./pages/estate-description";
-import Filtered from "./pages/Filtered";
 import UserDashBoard from "./pages/user-dashboard";
 import About from "./pages/About";
 function App() {
@@ -30,11 +29,10 @@ function App() {
           {/* <Route path="/cart" element={<Cart />} /> */}
           <Route path="/success" element={<Success />} />
           <Route path="/products" element={<ProductList />} />
-          {/* <Route path="/products" element={<Filtered />} /> */}
           <Route path="/about" element={<About />} />
-        <Route path="/product/:id" element={<Product />} />
-        <Route path="/estate/:id" element={<Estate />} />
-                  <Route path="/reset" element={<Reset />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/estate/:id" element={<Estate />} />
+          <Route path="/reset" element={<Reset />} />
           <Route
             path="/signup"
             element={user ? <Navigate to="/" /> : <Register />}
@@ -44,7 +42,7 @@ function App() {
             element={user ? <Navigate to="/" /> : <Login />}
           />
           <Route path="/user/*" element={<UserDashBoard />} />
-         
+
         </Routes>
       </LocalizationProvider>
     </Router>
