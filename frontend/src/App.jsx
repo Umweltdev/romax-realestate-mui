@@ -1,6 +1,13 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Home from "./pages/Home";
-import ProductList from "./pages/ProductList";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import ProductList from "./pages/product-list";
 import Product from "./pages/product-description";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -9,24 +16,33 @@ import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 import Reset from "./pages/Reset";
 import Filtered from "./pages/Filtered";
-
+import UserDashBoard from "./pages/user-dashboard";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/cart" element={<Cart />} /> */}
-        <Route path="/success" element={<Success />} />
-        <Route path="/products/:category" element={<ProductList />} />
-        <Route path="/products" element={<Filtered />} />
-        <Route path="/product/:id" element={<Product />} />
-        <Route path="/reset" element={<Reset />} />
-        <Route path="/signup" element={user ? <Navigate to="/" /> : <Register />} />
-        <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
-      </Routes>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/cart" element={<Cart />} /> */}
+          <Route path="/success" element={<Success />} />
+          <Route path="/productss" element={<ProductList />} />
+          <Route path="/products" element={<Filtered />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/reset" element={<Reset />} />
+          <Route
+            path="/signup"
+            element={user ? <Navigate to="/" /> : <Register />}
+          />
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/" /> : <Login />}
+          />
+          <Route path="/user/*" element={<UserDashBoard />} />
+        </Routes>
+      </LocalizationProvider>
     </Router>
   );
 }
