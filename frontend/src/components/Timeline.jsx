@@ -1,129 +1,47 @@
-import { Timeline, TimelineItem } from 'vertical-timeline-component-for-react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Timeline, TimelineItem } from 'vertical-timeline-component-for-react';
+import Loader from './Loader';
 
 const Timelines = () => {
-  return (
-    <Timeline lineColor={'#ddd'}>
-      <TimelineItem
-        key="001"
-        dateText="11/2010 – Present"
-        style={{ color: '#e86971' }}
-      >
-        <h3>Title, Company</h3>
-        <h4>Subtitle</h4>
-        <p>
-          Est incididunt sint eu minim dolore mollit velit velit commodo ex nulla
-          exercitation. Veniam velit adipisicing anim excepteur nostrud magna
-          nostrud aliqua dolor. Sunt aute est duis ut nulla officia irure
-          reprehenderit laborum fugiat dolore in elit. Adipisicing do qui duis Lorem
-          est.
-        </p>
-        <p>
-          Est incididunt sint eu minim dolore mollit velit velit commodo ex nulla
-          exercitation. Veniam velit adipisicing anim excepteur nostrud magna
-          nostrud aliqua dolor. Sunt aute est duis ut nulla officia irure
-          reprehenderit laborum fugiat dolore in elit. Adipisicing do qui duis Lorem
-          est.
-        </p>
-        <p>
-          Est incididunt sint eu minim dolore mollit velit velit commodo ex nulla
-          exercitation. Veniam velit adipisicing anim excepteur nostrud magna
-          nostrud aliqua dolor. Sunt aute est duis ut nulla officia irure
-          reprehenderit laborum fugiat dolore in elit. Adipisicing do qui duis Lorem
-          est.
-        </p>
-      </TimelineItem>
-      <TimelineItem
-        key="002"
-        dateText="04/2009 – 11/2010"
-        dateInnerStyle={{ background: '#61b8ff', color: '#000' }}
-        bodyContainerStyle={{
-          background: '#ddd',
-          padding: '20px',
-          borderRadius: '8px',
-          boxShadow: '0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2)',
-        }}
-      >
-        <h3 style={{ color: '#61b8ff' }}>Title, Company</h3>
-        <h4 style={{ color: '#61b8ff' }}>Subtitle</h4>
-        <p>
-          Est incididunt sint eu minim dolore mollit velit velit commodo ex nulla
-          exercitation. Veniam velit adipisicing anim excepteur nostrud magna
-          nostrud aliqua dolor. Sunt aute est duis ut nulla officia irure
-          reprehenderit laborum fugiat dolore in elit. Adipisicing do qui duis Lorem
-          est.
-        </p>
-        <p>
-          Est incididunt sint eu minim dolore mollit velit velit commodo ex nulla
-          exercitation. Veniam velit adipisicing anim excepteur nostrud magna
-          nostrud aliqua dolor. Sunt aute est duis ut nulla officia irure
-          reprehenderit laborum fugiat dolore in elit. Adipisicing do qui duis Lorem
-          est.
-        </p>
-      </TimelineItem>
-      <TimelineItem
-        key="003"
-        dateComponent={(
-          <div
-            style={{
-              display: 'block',
-              float: 'left',
-              padding: '10px',
-              background: 'rgb(150, 150, 150)',
-              color: '#fff',
-            }}
-          >
-            11/2008 – 04/2009
-          </div>
-        )}
-      >
-        <h3>Title, Company</h3>
-        <h4>Subtitle</h4>
-        <p>
-          Est incididunt sint eu minim dolore mollit velit velit commodo ex nulla
-          exercitation. Veniam velit adipisicing anim excepteur nostrud magna
-          nostrud aliqua dolor. Sunt aute est duis ut nulla officia irure
-          reprehenderit laborum fugiat dolore in elit. Adipisicing do qui duis Lorem
-          est.
-        </p>
-        <p>
-          Est incididunt sint eu minim dolore mollit velit velit commodo ex nulla
-          exercitation. Veniam velit adipisicing anim excepteur nostrud magna
-          nostrud aliqua dolor. Sunt aute est duis ut nulla officia irure
-          reprehenderit laborum fugiat dolore in elit. Adipisicing do qui duis Lorem
-          est.
-        </p>
-        <p>
-          Est incididunt sint eu minim dolore mollit velit velit commodo ex nulla
-          exercitation. Veniam velit adipisicing anim excepteur nostrud magna
-          nostrud aliqua dolor. Sunt aute est duis ut nulla officia irure
-          reprehenderit laborum fugiat dolore in elit. Adipisicing do qui duis Lorem
-          est.
-        </p>
-      </TimelineItem>
-      <TimelineItem
-        key="004"
-        dateText="08/2008 – 11/2008"
-        dateInnerStyle={{ background: '#76bb7f' }}
-      >
-        <h3>Title, Company</h3>
-        <h4>Subtitle</h4>
-        <p>
-          Est incididunt sint eu minim dolore mollit velit velit commodo ex nulla
-          exercitation. Veniam velit adipisicing anim excepteur nostrud magna
-          nostrud aliqua dolor. Sunt aute est duis ut nulla officia irure
-          reprehenderit laborum fugiat dolore in elit. Adipisicing do qui duis Lorem
-          est.
-        </p>
-        <p>
-          Est incididunt sint eu minim dolore mollit velit velit commodo ex nulla
-          exercitation. Veniam velit adipisicing anim excepteur nostrud magna
-          nostrud aliqua dolor. Sunt aute est duis ut nulla officia irure
-          reprehenderit laborum fugiat dolore in elit. Adipisicing do qui duis Lorem
-          est.
-        </p>
-      </TimelineItem>
-    </Timeline>
-  )
-}
+  const [timelines, setTimelines] = useState([]);
+  const [loading, setLoading] = useState(true)
 
-export default Timelines
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/timeline')
+      .then((response) => {
+        setTimelines(response.data);
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setLoading(false)
+      });
+  }, []);
+
+  return (
+    <>
+      {loading ? ( // Display Loader component when loading is true
+        <Loader />
+      ) : (
+
+        <Timeline lineColor={'#ddd'}>
+          {timelines.map((item) => (
+            <TimelineItem
+              key={item._id}
+              dateText={item.dateText}
+              style={{ color: item.color }}
+            >
+              <h3>{item.title}</h3>
+              <h4>{item.subtitle}</h4>
+              <p>{item.paragraph}</p>
+              {item.paragraph2 && <p>{item.paragraph2}</p>}
+            </TimelineItem>
+          ))}
+        </Timeline>
+      )}
+    </>
+  );
+};
+
+export default Timelines;
