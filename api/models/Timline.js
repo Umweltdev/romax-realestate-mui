@@ -9,8 +9,11 @@ const timelineSchema = mongoose.Schema({
     type: String,
   },
   paragraph: {
-    type: Array,
+    type: String,
     required: true,
+  },
+  paragraph2: {
+    type: String,
   },
   dateText: {
     type: String,
