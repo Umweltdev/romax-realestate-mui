@@ -4,7 +4,6 @@ import {
   ListItemText,
   Stack,
   Typography,
-  ListSubheader,
 } from "@mui/material";
 const Description = () => {
   const features = [
@@ -43,7 +42,7 @@ const Description = () => {
         >
           {features.map((f, index) => (
             <ListItem key={index} disablePadding sx={{
-                paddingY: "3px"
+              paddingY: "3px"
             }}>
               <ListItemText primary={f} />
             </ListItem>

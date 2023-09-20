@@ -1,9 +1,8 @@
-import styled from "styled-components";
 import Navbar from "../../components/Navbar";
 import Announcement from "../../components/Announcement";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Loader from "../../components/Loader";
 import {
   Box,
@@ -19,63 +18,15 @@ import {
 import { features } from "../../data";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import Tab from "./Tab";
-
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-const Container = styled.div`
-  padding: 0px;
-`;
-
-const Estate = () => {
+import Carousel from "./Carousel";
+import { product } from "../user-dashboard/data";
+const Product = () => {
   // const location = useLocation();
   // const id = location.pathname.split("/")[2];
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const [product, setProduct] = useState({
-    title: "4 Bedroom Semi-Detached Duplex with B/Q",
-    desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum,sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    location: "Harris Crescent Road, by VGC estate, Lekki, Lagos.",
-    price: 7500000,
-    images: [
-      "../assests/island.jpg",
-      "../assests/bedroom.jpg",
-      "../assests/island.jpg",
-      "../assests/bedroom.jpg",
-      "../assests/island.jpg",
-      "../assests/island.jpg",
-      "../assests/bedroom.jpg",
-      "../assests/island.jpg",
-    ],
-    stock: 2,
-    category: "Island Property",
-  });
-
   const [loading, setLoading] = useState(false);
-  const [mainSliderRef, setMainSliderRef] = useState(null);
-  const [thumbnailSliderRef, setThumbnailSliderRef] = useState(null);
-
-  const settings = {
-    dots: false,
-    infinite: true,
-    arrows: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    asNavFor: thumbnailSliderRef,
-  };
-
-  const thumbnailSettings = {
-    dots: false,
-    infinite: true,
-    arrows: true,
-    speed: 500,
-    slidesToShow: product?.images.length < 4 ? product?.images.length : 4,
-    slidesToScroll: 1,
-    focusOnSelect: true,
-    asNavFor: mainSliderRef,
-  };
   // const dispatch = useDispatch();
   // const user = useSelector(state => state.user.currentUser)
 
@@ -104,7 +55,7 @@ const Estate = () => {
   //   dispatch(addProduct({ ...product, color, size }));
   // };
   return (
-    <Container>
+    <Box>
       <Announcement />
       <Navbar />
       {loading ? (
@@ -121,46 +72,7 @@ const Estate = () => {
                   gap: 1,
                 }}
               >
-                <div>
-                  <Slider {...settings} ref={slider => setMainSliderRef(slider)}>
-                    {product?.images.map((image, index) => (
-                      <div key={index}>
-                        <img
-                          src={image}
-                          alt="house"
-                          style={{
-                            width: "100%",
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </Slider>
-                  <Box
-                    mt={2}
-                    sx={{
-                      cursor: "pointer",
-                    }}
-                  >
-                    <Slider {...thumbnailSettings} ref={slider => setThumbnailSliderRef(slider)}>
-                      {product?.images.map((image, index) => (
-                        <div
-                          key={index}
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            width: "100%",
-                          }}
-                        >
-                          <img
-                            src={image}
-                            alt="house"
-                            className="desc-carousel-image"
-                          />
-                        </div>
-                      ))}
-                    </Slider>
-                  </Box>
-                </div>
+                <Carousel images={product.images} />
               </Grid>
               <Grid item xs={12} md={6}>
                 <Stack spacing={2}>
@@ -173,9 +85,7 @@ const Estate = () => {
                   <Stack direction="row" spacing={5}>
                     <Stack spacing={0.3}>
                       <Typography variant="subtitle1">Location: </Typography>
-                      <Typography variant="subtitle1">
-                        Category:{" "}
-                      </Typography>
+                      <Typography variant="subtitle1">Category: </Typography>
                       {product?.stock <= 0 ? (
                         <Typography
                           variant="subtitle2"
@@ -262,6 +172,22 @@ const Estate = () => {
                         <FavoriteBorderIcon />
                       </IconButton>
                     </Tooltip>
+                    <Tooltip title="Whatsapp">
+                      <IconButton
+                        sx={{
+                          backgroundColor: "#e9ecef",
+                          borderRadius: "16px",
+                          paddingX: "12px",
+                          color: "black",
+                          "&:hover": {
+                            backgroundColor: "teal",
+                            color: "white",
+                          },
+                        }}
+                      >
+                        < WhatsAppIcon/>
+                      </IconButton>
+                    </Tooltip>
                   </Box>
                   <Stack>
                     <Typography variant="body2" mb={1}>
@@ -300,7 +226,6 @@ const Estate = () => {
                           <Typography>3</Typography>
                         </Stack>
                       </Grid>
-
                     </Grid>
                   </Stack>
                 </Stack>
@@ -341,8 +266,8 @@ const Estate = () => {
       )}
       <Newsletter />
       <Footer />
-    </Container>
+    </Box>
   );
 };
 
-export default Estate;
+export default Product;

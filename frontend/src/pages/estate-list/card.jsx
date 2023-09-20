@@ -1,7 +1,6 @@
 import { Box, Typography, Stack, Grid, useMediaQuery } from "@mui/material";
 import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
 import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
-import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Carousel from "./Carousel";
@@ -36,17 +35,12 @@ const Card = ({ feature }) => {
         >
           <Stack
             sx={{
-              // height: "370px",
-              // overflow: "hidden",
-              // borderBottomLeftRadius: "10px",
               height: "100%",
-              // display: "none"
             }}
           >
             <Box
               sx={{
                 height: "75%",
-                // height: "250px",
               }}
             >
               <Carousel />
@@ -57,13 +51,11 @@ const Card = ({ feature }) => {
                 bgcolor="#f4f4f5"
                 p={2}
                 sx={{
-                  // minHeight: "80px",
                   height: "25%",
                   overflow: "hidden",
                   borderBottomLeftRadius: isNonMobile ? "10px" : 0,
                   display: "flex",
                   alignItems: "center"
-                  
                 }}
               >
                 <Stack spacing={0.5} justifyContent="center">

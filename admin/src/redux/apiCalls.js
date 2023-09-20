@@ -14,6 +14,7 @@ import {
   addProductStart,
   addProductSuccess,
 } from "./productRedux"
+import { addTimelineFailure, addTimelineStart, addTimelineSuccess, deleteTimelineFailure, deleteTimelineStart, deleteTimelineSuccess, getTimelineFailure, getTimelineStart, getTimelineSuccess, updateTimelineFailure, updateTimelineStart, updateTimelineSuccess } from "./timelineRedux";
 
 export const login = async (dispatch, user) => {
   dispatch(loginStart());
@@ -35,6 +36,16 @@ export const getProducts = async (dispatch) => {
   }
 };
 
+export const getTimeline = async (dispatch) => {
+  dispatch(getTimelineStart());
+  try {
+    const res = await publicRequest.get("/timeline");
+    dispatch(getTimelineSuccess(res.data));
+  } catch (err) {
+    dispatch(getTimelineFailure());
+  }
+};
+
 export const deleteProduct = async (id, dispatch) => {
   dispatch(deleteProductStart());
   try {
@@ -42,6 +53,16 @@ export const deleteProduct = async (id, dispatch) => {
     dispatch(deleteProductSuccess(res.data));
   } catch (err) {
     dispatch(deleteProductFailure());
+  }
+};
+
+export const deleteTimeline = async (id, dispatch) => {
+  dispatch(deleteTimelineStart());
+  try {
+    const res = await userRequest.delete(`/products/${id}`);
+    dispatch(deleteTimelineSuccess(res.data));
+  } catch (err) {
+    dispatch(deleteTimelineFailure());
   }
 };
 
@@ -54,6 +75,17 @@ export const updateProduct = async (id, product, dispatch) => {
     dispatch(updateProductFailure());
   }
 };
+
+export const updateTimeline = async (id, timeline, dispatch) => {
+  dispatch(updateTimelineStart());
+  try {
+    // update
+    dispatch(updateTimelineSuccess({ id, timeline }));
+  } catch (err) {
+    dispatch(updateTimelineFailure());
+  }
+};
+
 export const addProduct = async (product, dispatch) => {
   dispatch(addProductStart());
   try {
@@ -61,5 +93,15 @@ export const addProduct = async (product, dispatch) => {
     dispatch(addProductSuccess(res.data));
   } catch (err) {
     dispatch(addProductFailure());
+  }
+};
+
+export const addTimeline = async (timeline, dispatch) => {
+  dispatch(addTimelineStart());
+  try {
+    const res = await userRequest.post(`/timeline`, timeline);
+    dispatch(addTimelineSuccess(res.data));
+  } catch (err) {
+    dispatch(addTimelineFailure());
   }
 };

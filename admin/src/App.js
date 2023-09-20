@@ -10,6 +10,8 @@ import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/Login";
+import TimelineList from "./pages/timelineList/TimelineList";
+import Timeline from "./pages/timeline/Timeline"
 
 function App() {
 
@@ -39,7 +41,9 @@ function App() {
                       <Route path="/user/:userId" element={<User />} />
                       <Route path="/newUser" element={<NewUser />} />
                       <Route path="/products" element={<ProductList />} />
+                      <Route path="/timelines" element={<TimelineList />} />
                       <Route path="/product/:productId" element={<Product />} />
+                      <Route path="/timeline/:timelineId" element={<Timeline />} />
                       <Route path="/newproduct" element={<NewProduct />} />
                     </Routes>
                   </div>
