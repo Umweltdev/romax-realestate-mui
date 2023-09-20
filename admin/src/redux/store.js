@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./userRedux";
 import productRedux from "./productRedux";
+import timelineRedux from "./timelineRedux";
 import {
   persistStore,
   persistReducer,
@@ -22,6 +23,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   product: productRedux,
+  timeline: timelineRedux,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
