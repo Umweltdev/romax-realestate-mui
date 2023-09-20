@@ -3,21 +3,26 @@ import User from "../models/UserModel.js"
 import CryptoJS from "crypto-js"
 import jwt from "jsonwebtoken"
 
-const router = express.Router()
+const router = express.Router() 
 
 //REGISTER
 router.post("/register", async (req, res) => {
   const newUser = new User({
     username: req.body.username,
+    lastName: req.body.lastName,
+    firstName: req.body.firstName,
     email: req.body.email,
     password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString(),
-  });
+    
 
+  });
+   
   try {
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   }
   catch (error) {
+    console.log(error)
     res.status(500).json(error)
   }
 });

@@ -12,6 +12,7 @@ import Booking from "./Booking";
 import Addresses from "./Addresses";
 import Address from "./Address";
 import EditProfile from "./Edit-Profile";
+import SavedProperties from "./SavedProperties";
 
 
 const UserDashBoard = () => {
@@ -74,6 +75,10 @@ const UserDashBoard = () => {
                 <Route
                   path="/addresses/:id"
                   element={<Address openDrawer={openDrawer} />}
+                />
+                <Route
+                  path="/saved"
+                  element={<SavedProperties openDrawer={openDrawer} />}
                 />
               </Routes>
             </Grid>

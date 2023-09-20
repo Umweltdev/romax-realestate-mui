@@ -1,27 +1,5 @@
 import mongoose from "mongoose";
 
-const reviewSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  rating: {
-    type: Number,
-    required: true,
-  },
-  comment: {
-    type: String,
-    required: true
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User'
-  },
-}, {
-  timestamps: true
-})
-
 const productSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -36,14 +14,17 @@ const productSchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
-  categories: {
-    type: Array,
+  category: {
+    type: String,
+  },
+  propertyType: {
+    type: String, 
   },
   size: {
-    type: Array, //no of beds
+    type: String, 
   },
-  color: {
-    type: Array, //location
+  location: {
+    type: String,
   },
   parking: {
     type: Number
@@ -51,22 +32,25 @@ const productSchema = new mongoose.Schema({
   bath: {
     type: Number,
   },
+  bed: {
+    type: Number,
+  },
   features: {
     type: Array,
   },
   payment: {
-    type: Array,
+    type: String,
   },
-  reviews: [reviewSchema],
-  rating: {
+  ratings: [
+    {
+      star: Number,
+      comment: String,
+      postedby: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    }
+  ],
+  totalrating: {
     type: Number,
-    required: true,
-    default: 0
-  },
-  numReviews: {
-    type: Number,
-    required: true,
-    default: 0
+    default: 0,
   },
   price: {
     type: Number,
@@ -75,6 +59,10 @@ const productSchema = new mongoose.Schema({
   inStock: {
     type: Boolean,
     default: true,
+  },
+  isFeatured: {
+    type: Boolean,
+    default: false,
   }
 }, { timestamps: true });
 

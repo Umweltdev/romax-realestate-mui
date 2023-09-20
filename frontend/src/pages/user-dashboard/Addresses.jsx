@@ -1,20 +1,30 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Typography,
   Stack,
   Button,
   Paper,
+  Box,
   IconButton,
   useMediaQuery,
 } from "@mui/material";
 import PlaceIcon from "@mui/icons-material/Place";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
+import { userRequest } from "../../requestMethods";
 
-const Address = ({ _id, fullName, address, phone, state }) => {
+const Address = ({ _id, fullName, address, phone, state, setDeleteFlag, deleteFlag }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const handleDeleteAddress = async () => {
+    try {
+      await userRequest.delete(`/address/${_id}`);
+      setDeleteFlag(!deleteFlag)
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Paper
       elevation={0}
@@ -63,7 +73,7 @@ const Address = ({ _id, fullName, address, phone, state }) => {
           </IconButton>
         </Link>
 
-        <IconButton onClick={() => {}}>
+        <IconButton onClick={handleDeleteAddress}>
           <DeleteIcon />
         </IconButton>
       </Stack>
@@ -72,20 +82,20 @@ const Address = ({ _id, fullName, address, phone, state }) => {
 };
 
 const Addresses = ({ openDrawer }) => {
-  const addresses = [
-    {
-      fullName: "Vincent Mark",
-      phone: "090494943422",
-      address: "123 Maryland Ikeja",
-      state: "Lagos",
-    },
-    {
-      fullName: "Musa Garba",
-      phone: "090494943422",
-      address: "123 Tudun Wada",
-      state: "Oyo",
-    },
-  ];
+  const [addresses, setAddresses] = useState([]);
+  const [deleteFlag, setDeleteFlag] = useState(false)
+
+  useEffect(() => {
+    const getAddresses = async () => {
+      try {
+        const res = await userRequest.get("/address");
+        setAddresses(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAddresses();
+  }, [deleteFlag]);
   return (
     <Stack spacing={2}>
       <Header
@@ -96,11 +106,13 @@ const Addresses = ({ openDrawer }) => {
         link={`/user/addresses/new`}
       />
 
-      <Stack spacing={2}>
-        {addresses.map((address, index) => (
-          <Address {...address} key={index} />
+      { addresses.length === 0 ? <Box>
+         <Typography variant="h5" textAlign="center" mt={5}>No Address Found</Typography>
+      </Box> : <Stack spacing={2}>
+        {addresses?.map((address, index) => (
+          <Address {...address} setDeleteFlag={setDeleteFlag} deleteFlag={deleteFlag} key={index} />
         ))}
-      </Stack>
+      </Stack>}
     </Stack>
   );
 };

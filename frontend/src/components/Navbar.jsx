@@ -120,7 +120,7 @@ const Navbar = () => {
         <Center onClick={homePage}><Logo>ROMAX <BsHouseDoor /></Logo></Center>
         {user ? (
           <Right>
-            <MenuItem>{user.username}</MenuItem>
+            <MenuItem onClick={()=> navigate("/user/profile")}>{`Hi, ${user.username}`}</MenuItem>
             <MenuItem>Instant Evaluation</MenuItem>
             <MenuItem onClick={handleLogout}>LOG OUT</MenuItem>
           </Right>

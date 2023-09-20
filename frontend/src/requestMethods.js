@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://romax-real-estate.onrender.com/api/";
+const BASE_URL = "http://localhost:5000/api/";
 const TOKEN = JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.user || "{}")?.currentUser?.accessToken
 
 export const publicRequest = axios.create({
@@ -9,5 +9,5 @@ export const publicRequest = axios.create({
 
 export const userRequest = axios.create({
   baseURL: BASE_URL,
-  header: { token: `Bearer ${TOKEN}` }
+  headers: { token: `Bearer ${TOKEN}` }
 });

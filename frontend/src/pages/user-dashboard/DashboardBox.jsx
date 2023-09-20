@@ -9,8 +9,10 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { logout } from '../../redux/userRedux'
 
-const ILink = ({ text, no, Icon, url, closeDrawer }) => {
+const ILink = ({ text, Icon, url, closeDrawer }) => {
   const location = useLocation();
   const isActive =
     location.pathname === `/user/${url}` ||
@@ -40,44 +42,44 @@ const ILink = ({ text, no, Icon, url, closeDrawer }) => {
           <Typography variant="subtitle2">{text}</Typography>
         </Stack>
 
-        <Typography>{no}</Typography>
       </Stack>
     </MuiLink>
   );
 };
 
 const DashboardBox = ({ closeDrawer }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const handleLogout = () => {
+    dispatch(logout())
+    navigate("/")
+  }
   const dashboards = [
     {
       text: "Bookings",
-      no: 0,
       Icon: <BookmarkBorderIcon />,
       url: "bookings",
     },
     {
       text: "Saved",
-      no: 0,
       Icon: <FavoriteBorderIcon />,
       url: "saved",
     },
-    // { text: "Support", no: 0, Icon: <HeadsetMicIcon />, url: "support" },
+    // { text: "Suppor Icon: <HeadsetMicIcon />, url: "support" },
   ];
 
   const account = [
     {
       text: "Profile Info",
-      no: 0,
       Icon: <PersonOutlineOutlinedIcon />,
       url: "profile",
     },
     {
       text: "Addresses",
-      no: 0,
       Icon: <LocationOnIcon />,
       url: "addresses",
     },
   ];
-  const navigate = useNavigate();
   return (
     <>
       <Stack spacing={5}>
@@ -105,9 +107,7 @@ const DashboardBox = ({ closeDrawer }) => {
 
       <Button
         variant="text"
-        onClick={() => {
-          navigate("/");
-        }}
+        onClick={handleLogout}
         sx={{
           textTransform: "none",
           // bgcolor: "#FCE9EC",

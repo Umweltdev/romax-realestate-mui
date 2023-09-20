@@ -15,8 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Carousel from "./Carousel";
 import PropertyDetails from "./PropertyDetails";
 import MenuIcon from "@mui/icons-material/Menu";
-
-import { product } from "./data";
+import { userRequest } from "../../requestMethods";
 import { dateConverter } from "./utils";
 
 export const CustomDivider = styled(Divider)`
@@ -29,6 +28,20 @@ const Booking = ({ openDrawer }) => {
   const isNonMobile = useMediaQuery("(min-width:968px)");
   const navigate = useNavigate();
   const { id } = useParams();
+  const [booking, setBooking] = useState({});
+  useEffect(() => {
+    const getBooking = async () => {
+      try {
+        const res = await userRequest.get(`/booking/${id}`);
+        setBooking(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (id !== "new") {
+      getBooking();
+    }
+  }, [id]);
 
   return (
     <Box>
@@ -78,34 +91,34 @@ const Booking = ({ openDrawer }) => {
           <Stack spacing={1}>
             <Stack direction="row" spacing={1.5}>
               <Typography>BookingID: </Typography>
-              <Typography color="#7D879C">
-                31943bfd-a345-40a7-96bd-df3b1fb38d0d
-              </Typography>
+              <Typography color="#7D879C">{booking?.bookingId}</Typography>
             </Stack>
             <Stack direction="row" spacing={1.5}>
-              <Typography> Enquiry Date: </Typography>
+              <Typography> Book Date: </Typography>
               <Typography color="#7D879C">
-                {dateConverter(Date.now())}
+                {dateConverter(booking?.bookDate)}
               </Typography>
             </Stack>{" "}
             <Stack direction="row" spacing={1.5}>
-              <Typography>Inspection Date: </Typography>
+              <Typography>View Date: </Typography>
               <Typography color="#7D879C">
-                {dateConverter(Date.now())}
+                {booking?.inspectionDate
+                  ? dateConverter(booking?.viewDate)
+                  : "Pending"}
               </Typography>
             </Stack>
           </Stack>
 
-          <Typography variant="h5">{product?.title}</Typography>
+          <Typography variant="h5">{booking?.product?.title}</Typography>
 
           <Typography variant="h5" color="teal">
-            {`₦ ${product.price.toLocaleString()}`}
+            {`₦ ${booking?.product?.price.toLocaleString()}`}
           </Typography>
 
-          <Carousel images={product.images} />
+          <Carousel images={booking?.product?.img} />
         </Stack>
 
-        <PropertyDetails product={product} />
+        <PropertyDetails product={booking?.product} />
       </Stack>
     </Box>
   );

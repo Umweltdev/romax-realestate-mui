@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Typography,
   Box,
@@ -9,19 +10,12 @@ import {
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import Header from "./Header";
+import { useSelector } from "react-redux";
 
 const Profile = ({ openDrawer }) => {
   const isNonMobile = useMediaQuery("(min-width:968px)");
   const Mobile = useMediaQuery("(min-width:600px)");
-
-  const user = {
-    _id: "12345",
-    image: "",
-    fullName: "Ridwan Abdulsalam",
-    email: "ridwansalam@gmail.com",
-    dob: "23/5/23",
-    phone: "09023450099",
-  };
+  const user = useSelector((state) => state.user.currentUser);
 
   return (
     <Stack spacing={3}>
@@ -56,7 +50,7 @@ const Profile = ({ openDrawer }) => {
                 letterSpacing={4}
                 textTransform="uppercase"
               >
-                {user?.fullName}
+                {user?.username}
               </Typography>
             </Stack>
             {/* <Typography color="rgb(125, 135, 156)" letterSpacing={4}>
@@ -128,7 +122,7 @@ const Profile = ({ openDrawer }) => {
             First Name
           </small>
           <Typography variant="subtitle2" textTransform="capitalize">
-            {user?.fullName.split(" ")[0]}
+            {user?.firstName}
           </Typography>
         </Box>
         <Box
@@ -147,7 +141,7 @@ const Profile = ({ openDrawer }) => {
             Last Name
           </small>
           <Typography variant="subtitle2" textTransform="capitalize">
-            {user?.fullName.split(" ")[1]}
+            {user?.lastName}
           </Typography>
         </Box>
         <Box
@@ -167,7 +161,7 @@ const Profile = ({ openDrawer }) => {
           </small>
           <Typography variant="subtitle2">{user?.email}</Typography>
         </Box>
-        <Box
+        {/* <Box
           sx={{
             flex: "1 1 0",
             display: "flex",
@@ -183,8 +177,8 @@ const Profile = ({ openDrawer }) => {
             Phone
           </small>
           <Typography variant="subtitle2">{user?.phone}</Typography>
-        </Box>
-        <Box
+        </Box> */}
+        {/* <Box
           sx={{
             flex: "1 1 0",
             display: "flex",
@@ -208,7 +202,7 @@ const Profile = ({ openDrawer }) => {
                 year: "numeric",
               })}
           </Typography>
-        </Box>
+        </Box> */}
       </Paper>
     </Stack>
   );

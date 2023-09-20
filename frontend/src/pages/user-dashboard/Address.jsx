@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   Box,
@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
   Autocomplete,
-  useMediaQuery
+  useMediaQuery,
 } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -16,24 +16,51 @@ import { statesInNigeria } from "./data";
 import { Link, useNavigate } from "react-router-dom";
 import PlaceIcon from "@mui/icons-material/Place";
 import Header from "./Header";
+import { userRequest } from "../../requestMethods";
 
 const Address = ({ openDrawer }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [address, setAddress] = useState({});
   const isNonMobile = useMediaQuery("(min-width:968px)");
 
-  const addressData = {
-    fullName: "Vincent Mark",
-    phone: "090494943422",
-    address: "123 Maryland Ikeja",
-    state: "Lagos"
-  }
- 
-  
+  const handleNewAddress = async (data) => {
+    try {
+      const res = await userRequest.post(`/address`, data);
+      navigate("/user/addresses");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUpdateAddress = async (data) => {
+    try {
+      const res = await userRequest.put(`/address/${id}`, data);
+      navigate("/user/addresses");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    const getAddress = async () => {
+      try {
+        const res = await userRequest.get(`/address/${id}`);
+        setAddress(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (id !== "new") {
+      getAddress();
+    }
+  }, [id]);
+
   const initialValues = {
-    fullName: addressData?.fullName || "",
-    phone: addressData?.phone || "",
-    address: addressData?.address || "",
-    state: addressData?.state || "",
+    fullName: address?.fullName || "",
+    phone: address?.phone || "",
+    address: address?.address || "",
+    state: address?.state || "",
   };
   return (
     <Stack spacing={2}>
@@ -56,7 +83,11 @@ const Address = ({ openDrawer }) => {
         <Formik
           enableReinitialize={true}
           onSubmit={(values) => {
-           
+            if (id !== "new") {
+              handleUpdateAddress(values);
+            } else {
+              handleNewAddress(values);
+            }
           }}
           initialValues={initialValues}
           validationSchema={addressSchema}
@@ -192,22 +223,22 @@ const Address = ({ openDrawer }) => {
               </Box>
               <Button
                 type="submit"
-                disabled={!isValid || (!dirty && id === "new") }
+                disabled={!isValid || (!dirty && id === "new")}
                 sx={{
                   mt: 4,
                   textTransform: "none",
                   bgcolor:
-                    !isValid  || (!dirty && id === "new")
+                    !isValid || (!dirty && id === "new")
                       ? "#0000001f !important"
                       : "primary.main",
-                  color:  "white",
+                  color: "white",
                   fontSize: "14px",
                   paddingX: "20px",
                   fontWeight: 500,
                   paddingY: "8px",
                   alignSelf: "start",
                   "&:hover": {
-                    backgroundColor: "#E3364E",
+                    backgroundColor: "primary.main",
                   },
                 }}
               >

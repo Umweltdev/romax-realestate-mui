@@ -22,7 +22,7 @@ const Carousel = ({ images }) => {
     infinite: true,
     arrows: true,
     speed: 500,
-    slidesToShow: images.length < 4 ? images.length : 4,
+    slidesToShow: images?.length < 4 ? images?.length : 4,
     slidesToScroll: 1,
     focusOnSelect: true,
     asNavFor: mainSliderRef,
@@ -30,7 +30,7 @@ const Carousel = ({ images }) => {
   return (
     <div>
       <Slider {...settings} ref={(slider) => setMainSliderRef(slider)}>
-        {images.map((image, index) => (
+        {images?.map((image, index) => (
           <div key={index} className="bookingMainCauImage ">
             <img src={image} alt="house" className="descCarouselImage" />
           </div>
@@ -46,7 +46,7 @@ const Carousel = ({ images }) => {
           {...thumbnailSettings}
           ref={(slider) => setThumbnailSliderRef(slider)}
         >
-          {images.map((image, index) => (
+          {images?.map((image, index) => (
             <div key={index} className="descCarouselImageBox">
               <img src={image} alt="house" className="descCarouselImage" />
             </div>

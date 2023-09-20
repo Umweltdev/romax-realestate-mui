@@ -92,7 +92,7 @@ const Carousel = ({ images }) => {
     <Stack direction="row" spacing={1}>
       <Box width={{ xs: "100%", sm: "70%" }}>
         <Slider {...settings} ref={(slider) => setMainSliderRef(slider)}>
-          {images.map((image, index) => (
+          {images?.map((image, index) => (
             <div key={index} className="bookingMainCauImage">
               <img
                 src={image}
@@ -121,7 +121,7 @@ const Carousel = ({ images }) => {
           {...thumbnailSettings}
           ref={(slider) => setThumbnailSliderRef(slider)}
         >
-          {images.map((image, index) => (
+          {images?.map((image, index) => (
             <div
               key={index}
               style={{

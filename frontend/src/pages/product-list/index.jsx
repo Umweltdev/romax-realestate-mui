@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Box, Grid, Stack, Typography, Drawer } from "@mui/material";
 import Sort from "./sort";
 import Filter from "./filter";
@@ -7,9 +7,13 @@ import Navbar from "../../components/Navbar";
 import Announcement from "../../components/Announcement";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
+import { publicRequest } from "../../requestMethods";
+import { features } from "../../data";
 
 const ProductListing = () => {
   const [drawer, setDrawer] = useState(false);
+  const [products, setProducts] = useState([]);
+
   const openDrawer = () => {
     setDrawer(true);
   };
@@ -17,6 +21,18 @@ const ProductListing = () => {
   const closeDrawer = () => {
     setDrawer(false);
   };
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await publicRequest.get("/products");
+        setProducts(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProducts();
+  }, []);
   return (
     <>
       <Announcement />
@@ -40,9 +56,9 @@ const ProductListing = () => {
             </Grid>
             <Grid item xs={12} md={9}>
               <Stack spacing={3}>
-                <Card />
-                <Card feature />
-                <Card />
+                {products.map((prod) => (
+                  <Card {...prod} />
+                ))}
               </Stack>
             </Grid>
           </Grid>

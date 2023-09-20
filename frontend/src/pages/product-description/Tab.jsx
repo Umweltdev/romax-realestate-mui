@@ -14,7 +14,7 @@ const TabPanel = ({ children, value, index }) => (
   </div>
 );
 
-const TabComponent = () => {
+const TabComponent = ({product}) => {
   const [selectedTab, setSelectedTab] = useState(0);
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -55,7 +55,7 @@ const TabComponent = () => {
       </Box>
 
       <TabPanel value={selectedTab} index={0}>
-        <Description />
+        <Description desc={product.desc} features={product.features}/>
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
         <Stack spacing={1.5}>

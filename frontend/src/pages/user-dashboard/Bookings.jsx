@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Typography, Box, Stack, IconButton, Paper, Chip } from "@mui/material";
 import { Link } from "react-router-dom";
 import Bookmark from "@mui/icons-material/Bookmark";
 import EastIcon from "@mui/icons-material/East";
 import Header from "./Header";
+import { userRequest } from "../../requestMethods";
+import { dateConverter } from "../user-dashboard/utils";
 
-const Booking = ({ _id, bookingId, enquiryDate, inspectionDate }) => {
+const Booking = ({ _id, bookingId, bookDate, viewDate }) => {
   return (
     <Link
       to={`/user/bookings/${_id}`}
@@ -38,11 +40,7 @@ const Booking = ({ _id, bookingId, enquiryDate, inspectionDate }) => {
             margin: "6px",
           }}
         >
-          {new Date(enquiryDate).toLocaleDateString("en-US", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-          })}
+          {dateConverter(bookDate)}
         </Typography>
         <Typography
           variant="subtitle2"
@@ -50,11 +48,7 @@ const Booking = ({ _id, bookingId, enquiryDate, inspectionDate }) => {
           margin="6px"
           whiteSpace={{ xs: "pre", sm: "normal" }}
         >
-          {new Date(inspectionDate).toLocaleDateString("en-US", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-          })}
+          {viewDate ? dateConverter(viewDate) : "Pending"}
         </Typography>
 
         <Typography display={{ xs: "none", sm: "block" }}>
@@ -68,15 +62,19 @@ const Booking = ({ _id, bookingId, enquiryDate, inspectionDate }) => {
 };
 
 const Bookings = ({ openDrawer }) => {
-  const bookings = [
-    {
-      _id: "1234",
-      bookingId: "31943bfd-a345-40a7-96bd-df3b1fb38d0d",
-      enquiryDate: Date.now(),
-      inspectionDate: Date.now(),
-    },
-  ];
-
+  const [bookings, setBookings] = useState([]);
+  useEffect(() => {
+    const getBookings = async () => {
+      try {
+        const res = await userRequest.get("/booking/user-bookings");
+        setBookings(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getBookings();
+  }, []);
+  console.log(bookings);
   return (
     <Stack spacing={2}>
       <Header Icon={Bookmark} title={"My Bookings"} openDrawer={openDrawer} />
@@ -86,10 +84,10 @@ const Bookings = ({ openDrawer }) => {
           Booking#
         </Typography>
         <Typography variant="body2" flex="1 1 0">
-          Date Of Enqiury
+          Book Date
         </Typography>
         <Typography variant="body2" flex="1 1 0">
-          Date Of Inspection
+          View Date
         </Typography>
       </Box>
 

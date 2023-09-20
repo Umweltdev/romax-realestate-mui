@@ -9,7 +9,7 @@ import {
   Typography,
   Avatar,
   IconButton,
-  useMediaQuery
+  useMediaQuery,
 } from "@mui/material";
 import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -17,20 +17,40 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import PersonIcon from "@mui/icons-material/Person";
 import Header from "./Header";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { userRequest } from "../../requestMethods";
+import { useSelector, useDispatch } from "react-redux";
+import { loginSuccess } from "../../redux/userRedux";
 
 const EditProfile = ({ openDrawer }) => {
   const [profilePicture, setProfilePicture] = useState(null);
   const [profilePictureFile, setProfilePictureFile] = useState(null);
+  const { id } = useParams();
+  const dispatch = useDispatch()
+  const user = useSelector((state) => state.user.currentUser);
 
   const isNonMobile = useMediaQuery("(min-width:968px)");
   const navigate = useNavigate();
+
+  const handleEditProfile = async (data) => {
+    try {
+      const res = await userRequest.put(`/users/${id}`, data);
+      const updatedUser = {
+        ...res.data,
+        accessToken: user.accessToken,
+      };
+      dispatch(loginSuccess(updatedUser));
+      navigate("/user/profile")
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     setProfilePictureFile(file);
     if (file) {
       const reader = new FileReader();
-
       reader.onloadend = () => {
         setProfilePicture(reader.result);
       };
@@ -38,21 +58,11 @@ const EditProfile = ({ openDrawer }) => {
     }
   };
 
-  const user = {
-    _id: "12345",
-    image: "",
-    fullName: "Ridwan Abdulsalam",
-    email: "ridwansalam@gmail.com",
-    dob: "23/5/23",
-    phone: "09023450099",
-  };
-
   const initialValues = {
-    fullName: user?.fullName,
+    firstName: user?.firstName,
+    lastName: user?.lastName,
     email: user?.email,
-    phone: user?.phone,
-    dob: user?.dob,
-    image: user?.image,
+    username: user?.username,
   };
   return (
     <Stack spacing={3}>
@@ -75,6 +85,7 @@ const EditProfile = ({ openDrawer }) => {
         <Formik
           enableReinitialize={true}
           onSubmit={(values) => {
+            handleEditProfile(values)
           }}
           initialValues={initialValues}
           validationSchema={editSchema}
@@ -144,14 +155,58 @@ const EditProfile = ({ openDrawer }) => {
                   fullWidth
                   variant="outlined"
                   type="text"
-                  label="Full Name"
+                  label="Username"
                   size="small"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.fullName}
-                  name="fullName"
-                  error={!!touched.fullName && !!errors.fullName}
-                  helperText={touched.fullName && errors.fullName}
+                  value={values.username}
+                  name="username"
+                  error={!!touched.username && !!errors.username}
+                  helperText={touched.username && errors.username}
+                  sx={{
+                    gridColumn: "span 2",
+                    "& .MuiInputBase-root": {
+                      fontSize: "15px",
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "14px" },
+                  }}
+                />
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="First Name"
+                  size="small"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.firstName}
+                  name="firstName"
+                  error={!!touched.firstName && !!errors.firstName}
+                  helperText={touched.firstName && errors.firstName}
+                  sx={{
+                    gridColumn: "span 2",
+                    "& .MuiInputBase-root": {
+                      fontSize: "15px",
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "14px" },
+                  }}
+                />
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Last Name"
+                  size="small"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.lastName}
+                  name="lastName"
+                  error={!!touched.lastName && !!errors.lastName}
+                  helperText={touched.lastName && errors.lastName}
                   sx={{
                     gridColumn: "span 2",
                     "& .MuiInputBase-root": {
@@ -184,60 +239,15 @@ const EditProfile = ({ openDrawer }) => {
                     style: { fontSize: "14px" },
                   }}
                 />
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  type="text"
-                  label="Phone"
-                  size="small"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.phone}
-                  name="phone"
-                  error={!!touched.phone && !!errors.phone}
-                  helperText={touched.phone && errors.phone}
-                  sx={{
-                    gridColumn: "span 2",
-                    "& .MuiInputBase-root": {
-                      fontSize: "15px",
-                    },
-                  }}
-                  InputLabelProps={{
-                    style: { fontSize: "14px" },
-                  }}
-                />{" "}
-                <DatePicker
-                  fullWidth
-                  label="Birth Date"
-                  value={values.dob ? dayjs(values.dob) : null}
-                  onChange={(date) => {
-                    setFieldValue("dob", date.toISOString());
-                  }}
-                  slotProps={{
-                    textField: {
-                      size: "small",
-                      helperText: touched.dob && errors.dob,
-                      error: !!touched.dob && !!errors.dob,
-                      name: "dob",
-                      onBlur: handleBlur,
-                    },
-                  }}
-                  sx={{
-                    gridColumn: "span 2",
-                    "& .MuiInputBase-root": {
-                      fontSize: "15px",
-                    },
-                  }}
-                />
               </Box>
               <Button
                 type="submit"
-                disabled={!isValid || !dirty}
+                disabled={!isValid}
                 sx={{
                   mt: 4,
                   textTransform: "none",
                   bgcolor:
-                    !isValid || !dirty
+                    !isValid 
                       ? "#0000001f !important"
                       : "primary.main",
                   color: "white",
@@ -264,12 +274,9 @@ const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const editSchema = yup.object().shape({
-  fullName: yup.string().required("required"),
+  firstName: yup.string().required("required"),
+  lastName: yup.string().required("required"),
+  username: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
-  dob: yup.date().required("Birth Date is required"),
-  phone: yup
-    .string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("required"),
 });
 export default EditProfile;
