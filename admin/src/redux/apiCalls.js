@@ -59,7 +59,7 @@ export const deleteProduct = async (id, dispatch) => {
 export const deleteTimeline = async (id, dispatch) => {
   dispatch(deleteTimelineStart());
   try {
-    const res = await userRequest.delete(`/products/${id}`);
+    const res = await userRequest.delete(`/timeline/${id}`);
     dispatch(deleteTimelineSuccess(res.data));
   } catch (err) {
     dispatch(deleteTimelineFailure());
