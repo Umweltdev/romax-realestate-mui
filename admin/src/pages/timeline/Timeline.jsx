@@ -55,7 +55,7 @@ export default function Timeline() {
     <div className="product">
       <div className="productTitleContainer">
         <h1 className="productTitle">Timeline</h1>
-        <Link to="/newproduct">
+        <Link to="/newtimeline">
           <button className="productAddButton">Create</button>
         </Link>
       </div>

@@ -22,7 +22,7 @@ export default function TimelineList() {
     { field: "_id", headerName: "ID", width: 220 },
     {
       field: "timeline",
-      headerName: "Title",
+      headerName: "Timeline",
       width: 200,
       renderCell: (params) => {
         return (
