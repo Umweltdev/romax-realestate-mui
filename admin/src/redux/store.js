@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./userRedux";
 import productRedux from "./productRedux";
+import timelineRedux from "./timelineRedux";
 import {
   persistStore,
   persistReducer,
@@ -12,6 +13,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import usersRedux from "./usersRedux";
 
 const persistConfig = {
   key: "root",
@@ -21,7 +23,9 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userReducer,
+  users: usersRedux,
   product: productRedux,
+  timeline: timelineRedux,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

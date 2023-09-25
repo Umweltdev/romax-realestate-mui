@@ -1,43 +1,60 @@
-import "./productList.css";
+import "./timelinelList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getProducts } from "../../redux/apiCalls";
+import { deleteTimeline, getTimeline } from "../../redux/apiCalls";
 
-export default function ProductList() {
+export default function TimelineList() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product.products);
+  const timelines = useSelector((state) => state.timeline.timelines);
 
   useEffect(() => {
-    getProducts(dispatch);
+    getTimeline(dispatch);
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    deleteProduct(id, dispatch);
+    deleteTimeline(id, dispatch);
   };
 
   const columns = [
     { field: "_id", headerName: "ID", width: 220 },
     {
-      field: "product",
-      headerName: "Product",
+      field: "timeline",
+      headerName: "Timeline",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            <img className="productListImg" src={params.row.img} alt="" />
             {params.row.title}
           </div>
         );
       },
     },
-    { field: "inStock", headerName: "available", width: 200 },
     {
-      field: "price",
-      headerName: "Price (₦)",
-      width: 160,
+      field: "subtitle",
+      headerName: "SubTitle",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div className="productListItem">
+            {params.row.subtitle}
+          </div>
+        );
+      },
+    },
+    {
+      field: "dateText",
+      headerName: "Date",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div className="productListItem">
+            {params.row.dateText}
+          </div>
+        );
+      },
     },
     {
       field: "action",
@@ -46,7 +63,7 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/product/" + params.row._id}>
+            <Link to={"/timeline/" + params.row._id}>
               <button className="productListEdit">Edit</button>
             </Link>
             <DeleteOutline
@@ -62,7 +79,7 @@ export default function ProductList() {
   return (
     <div className="productList">
       <DataGrid
-        rows={products}
+        rows={timelines}
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row._id}

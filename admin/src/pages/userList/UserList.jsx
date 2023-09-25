@@ -2,44 +2,70 @@ import "./userList.css";
 import { useEffect, useState } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
+<<<<<<< HEAD
 import { userRows } from "../../dummyData";
+=======
+>>>>>>> 2143669d1dadb412151a58afef8f8d6d82644d80
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteUser, getUsers } from "../../redux/apiCalls";
 
 export default function UserList() {
+<<<<<<< HEAD
   const [data, setData] = useState(userRows);
   const dispatch = useDispatch();
  
+=======
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users.users);
+
+  useEffect(() => {
+    getUsers(dispatch);
+  }, [dispatch]);
+
+>>>>>>> 2143669d1dadb412151a58afef8f8d6d82644d80
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    deleteUser(id, dispatch);
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "_id", headerName: "ID", width: 220 },
     {
-      field: "user",
-      headerName: "User",
+      field: "username",
+      headerName: "Username",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="userListUser">
-            <img className="userListImg" src={params.row.avatar} alt="" />
             {params.row.username}
           </div>
         );
       },
     },
-    { field: "email", headerName: "Email", width: 200 },
     {
-      field: "status",
-      headerName: "Status",
-      width: 120,
+      field: "email",
+      headerName: "Email",
+      width: 300,
+      renderCell: (params) => {
+        return (
+          <div className="userListUser">
+            {params.row.email}
+          </div>
+        );
+      },
     },
-    {
-      field: "transaction",
-      headerName: "Transaction Volume",
-      width: 160,
-    },
+    /* {
+      field: "isAdmin",
+      headerName: "isAdmin",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div className="userListUser">
+            {params.row.isAdmin}
+          </div>
+        );
+      },
+    }, */
     {
       field: "action",
       headerName: "Action",
@@ -47,12 +73,12 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/user/" + params.row.id}>
+            <Link to={"/user/" + params.row._id}>
               <button className="userListEdit">Edit</button>
             </Link>
             <DeleteOutline
               className="userListDelete"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => handleDelete(params.row._id)}
             />
           </>
         );
@@ -63,9 +89,10 @@ export default function UserList() {
   return (
     <div className="userList">
       <DataGrid
-        rows={data}
+        rows={users}
         disableSelectionOnClick
         columns={columns}
+        getRowId={(row) => row._id}
         pageSize={8}
         checkboxSelection
       />
