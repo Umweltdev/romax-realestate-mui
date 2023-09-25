@@ -14,7 +14,34 @@ import {
   addProductStart,
   addProductSuccess,
 } from "./productRedux"
-import { addTimelineFailure, addTimelineStart, addTimelineSuccess, deleteTimelineFailure, deleteTimelineStart, deleteTimelineSuccess, getTimelineFailure, getTimelineStart, getTimelineSuccess, updateTimelineFailure, updateTimelineStart, updateTimelineSuccess } from "./timelineRedux";
+import {
+  addTimelineFailure,
+  addTimelineStart,
+  addTimelineSuccess,
+  deleteTimelineFailure,
+  deleteTimelineStart,
+  deleteTimelineSuccess,
+  getTimelineFailure,
+  getTimelineStart,
+  getTimelineSuccess,
+  updateTimelineFailure,
+  updateTimelineStart,
+  updateTimelineSuccess
+} from "./timelineRedux";
+import {
+  addUsersFailure,
+  addUsersStart,
+  addUsersSuccess,
+  deleteUsersFailure,
+  deleteUsersStart,
+  deleteUsersSuccess,
+  getUsersFailure,
+  getUsersStart,
+  getUsersSuccess,
+  updateUsersFailure,
+  updateUsersStart,
+  updateUsersSuccess
+} from "./usersRedux";
 
 export const login = async (dispatch, user) => {
   dispatch(loginStart());
@@ -46,6 +73,16 @@ export const getTimeline = async (dispatch) => {
   }
 };
 
+export const getUsers = async (dispatch) => {
+  dispatch(getUsersStart());
+  try {
+    const res = await publicRequest.get("/users");
+    dispatch(getUsersSuccess(res.data));
+  } catch (err) {
+    dispatch(getUsersFailure());
+  }
+};
+
 export const deleteProduct = async (id, dispatch) => {
   dispatch(deleteProductStart());
   try {
@@ -63,6 +100,16 @@ export const deleteTimeline = async (id, dispatch) => {
     dispatch(deleteTimelineSuccess(res.data));
   } catch (err) {
     dispatch(deleteTimelineFailure());
+  }
+};
+
+export const deleteUser = async (id, dispatch) => {
+  dispatch(deleteUsersStart());
+  try {
+    const res = await userRequest.delete(`/users/${id}`);
+    dispatch(deleteUsersSuccess(res.data));
+  } catch (err) {
+    dispatch(deleteUsersFailure());
   }
 };
 
@@ -86,6 +133,17 @@ export const updateTimeline = async (id, timeline, dispatch) => {
   }
 };
 
+export const updateUser = async (id, user, dispatch) => {
+  dispatch(updateUsersStart());
+  try {
+    // update
+    dispatch(updateUsersSuccess({ id, user }));
+  } catch (err) {
+    dispatch(updateUsersFailure());
+  }
+};
+
+
 export const addProduct = async (product, dispatch) => {
   dispatch(addProductStart());
   try {
@@ -103,5 +161,15 @@ export const addTimeline = async (timeline, dispatch) => {
     dispatch(addTimelineSuccess(res.data));
   } catch (err) {
     dispatch(addTimelineFailure());
+  }
+};
+
+export const addUser = async (user, dispatch) => {
+  dispatch(addUsersStart());
+  try {
+    const res = await userRequest.post(`/users`, user);
+    dispatch(addUsersSuccess(res.data));
+  } catch (err) {
+    dispatch(addUsersFailure());
   }
 };
