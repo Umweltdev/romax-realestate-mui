@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useNavigate } from "react-router";
-import { Button, Typography, Container, Grid, Paper, Select, MenuItem, FormControl, InputLabel } from "@material-ui/core";
+import styled from "styled-components";
+import { Container, Grid, Paper, Select, MenuItem, FormControl, InputLabel } from "@material-ui/core";
+import { mobile, mobileXR, tablet } from "../responsive";
 
 const useStyles = makeStyles((theme) => ({
   heroContainer: {
-    background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.ibb.co/CWprmfb/island-house-removebg-preview.png')`,
+    background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.ibb.co/0nQJv76/Whats-App-Image-2023-09-04-at-06-30-01.jpg')`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     color: theme.palette.common.white,
@@ -38,6 +40,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Button = styled.button`
+  padding: 10px;
+  font-size: 20px;
+  background-color: transparent;
+  cursor: pointer;
+  ${mobile({ fontSize: "6px" })};
+  ${mobileXR({ fontSize: "7px" })};
+  ${tablet({ fontSize: "8px" })};
+`
+const Title = styled.h1`
+  font-size: 55px;
+  ${mobile({ fontSize: "10px" })};
+  ${mobileXR({ fontSize: "12px" })};
+  ${tablet({ fontSize: "20px" })};
+`
+const Titled = styled.h1`
+  font-size: 30px;
+  ${mobile({ fontSize: "10px" })};
+  ${mobileXR({ fontSize: "12px" })};
+  ${tablet({ fontSize: "15px" })};
+`
+const Desc = styled.p`
+  margin: 50px 0;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  ${mobile({ display: "none" })};
+  ${mobileXR({ display: "none" })};
+  ${tablet({ fontSize: "9px" })};
+`
+
 const Hero = () => {
   const [place, setPlace] = useState("ikoyi");
   const [priceRange, setPriceRange] = useState("0");
@@ -60,12 +93,12 @@ const Hero = () => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
             <div className={classes.heroContent}>
-              <Typography variant="h2" component="h1" gutterBottom>
+              <Title>
                 Welcome to Romax Properties
-              </Typography>
-              <Typography variant="h5" paragraph>
+              </Title>
+              <Desc variant="h5" paragraph>
                 Discover your dream home with us. Browse our listings and find the perfect property for you.
-              </Typography>
+              </Desc>
               <Button variant="contained" color="primary" className={classes.ctaButton} onClick={propertiesList}>
                 Quick Search
               </Button>
@@ -73,9 +106,9 @@ const Hero = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <Paper className={classes.ctaContainer}>
-              <Typography variant="h6" gutterBottom>
+              <Titled>
                 Filter Properties
-              </Typography>
+              </Titled>
               <FormControl fullWidth variant="outlined" className={classes.ctaTextField}>
                 <InputLabel>Price Range</InputLabel>
                 <Select onChange={(e) => setPriceRange(e.target.value)}>

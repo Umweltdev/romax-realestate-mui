@@ -9,6 +9,10 @@ import orderRoute from "./routes/order.js"
 import estateRoute from "./routes/estate.js"
 import bookingRoute from "./routes/booking.js"
 import addressRoute from "./routes/address.js"
+import timelineRoute from "./routes/timeline.js"
+import FaqRoute from "./routes/FAQ.js"
+
+
 dotenv.config();
 import payRoute from "./routes/pay.js"
 
@@ -35,6 +39,8 @@ app.use("/api/orders", orderRoute);
 app.use("/api/checkout", payRoute);
 app.use("/api/booking", bookingRoute);
 app.use("/api/address", addressRoute);
+app.use("/api/timeline", timelineRoute);
+app.use("/api/faq", FaqRoute);
 
 
 

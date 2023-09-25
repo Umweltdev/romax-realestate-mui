@@ -20,6 +20,7 @@ import UserDashBoard from "./pages/user-dashboard";
 import About from "./pages/About";
 import EstateListing from "./pages/estate-list";
 import Booking from "./pages/booking";
+import FAQ from "./pages/faq";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -38,6 +39,8 @@ function App() {
           <Route path="/estate" element={<EstateListing />} />
           <Route path="/reset" element={<Reset />} />
           <Route path="/booking/:id" element={<Booking />} />
+          <Route path="/faq" element={<FAQ />} />
+
 
           <Route
             path="/signup"

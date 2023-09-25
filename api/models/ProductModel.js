@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
   location: {
     type: String,
   },
-  parking: {
+  car: {
     type: Number
   },
   bath: {

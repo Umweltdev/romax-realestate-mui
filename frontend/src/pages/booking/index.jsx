@@ -17,6 +17,8 @@ import {
 } from "@mui/material";
 import { publicRequest } from "../../requestMethods";
 import { useLocation } from "react-router";
+import { Formik } from "formik";
+import * as yup from "yup";
 
 const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
@@ -74,72 +76,117 @@ const Booking = () => {
             sx={{
               flexGrow: "1",
               maxWidth: isNonMobile ? "550px" : "100%",
-              width: isNonMobile? "auto": "100%",
+              width: isNonMobile ? "auto" : "100%",
               backgroundColor: "rgb(255, 255, 255)",
               boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
               borderColor: "rgb(113, 113, 132)",
               borderRadius: "8px",
-              paddingX: isNonMobile? 3 : 2,
+              paddingX: isNonMobile ? 3 : 2,
               paddingY: 4,
             }}
           >
             <Stack spacing={2}>
               <Typography variant="h5">Contact Romax Properties</Typography>
-              <Stack direction={{xs:"column",  sm:"row"}} spacing={{ xs:1,  sm:4}}>
-                <Typography variant={{xs:"subtitle2", sm:"body1"}}>Email about:</Typography>
-                <Typography variant={{xs:"subtitle2", sm:"body1"}}>{product?.title}</Typography>
-              </Stack>
-              <CustomTextField
-                // fullWidth
-                variant="outlined"
-                type="text"
-                label="Telephone"
-                name="telephone"
-                InputLabelProps={{
-                  style: { fontSize: "16px" },
-                }}
-              />
-              <CustomTextField
-                // fullWidth
-                variant="outlined"
-                type="email"
-                label="Email Address"
-                name="email"
-                InputLabelProps={{
-                  style: { fontSize: "16px" },
-                }}
-              />
-              <CustomTextField
-                fullWidth
-                variant="outlined"
-                type="text"
-                label="Your message"
-                multiline
-                rows={6}
-                name="message"
-                InputLabelProps={{
-                  style: { fontSize: "16px" },
-                }}
-              />
-              <Button
-                sx={{
-                  textTransform: "none",
-                  bgcolor: "teal",
-                  color: "white",
-                  fontSize: "16px",
-                  // paddingX: "15px",
-                  fontWeight: 600,
-                  paddingY: "10px",
-                  borderRadius: "8px",
-                  alignItems: "center",
-                  mt: "20px",
-                  "&:hover": {
-                    backgroundColor: "teal",
-                  },
-                }}
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                spacing={{ xs: 1, sm: 4 }}
               >
-                Send Email
-              </Button>
+                <Typography variant={{ xs: "subtitle2", sm: "body1" }}>
+                  Email about:
+                </Typography>
+                <Typography variant={{ xs: "subtitle2", sm: "body1" }}>
+                  {product?.title}
+                </Typography>
+              </Stack>
+              <Formik
+                enableReinitialize={true}
+                onSubmit={(values) => {
+                }}
+                initialValues={initialValues}
+              >
+                {({
+                  values,
+                  errors,
+                  touched,
+                  handleBlur,
+                  handleChange,
+                  handleSubmit,
+                  isValid,
+                  dirty,
+                }) => (
+                  <form onSubmit={handleSubmit}>
+                    <Stack spacing={2}> 
+                    <CustomTextField
+                     fullWidth
+                      variant="outlined"
+                      type="text"
+                      label="Telephone"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.phone}
+                      name="phone"
+                      error={!!touched.phone && !!errors.phone}
+                      helperText={touched.phone && errors.phone}
+                      InputLabelProps={{
+                        style: { fontSize: "16px" },
+                      }}
+                    />
+                    <CustomTextField
+                      fullWidth
+                      variant="outlined"
+                      type="email"
+                      label="Email Address"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.email}
+                      name="email"
+                      error={!!touched.email && !!errors.email}
+                      helperText={touched.email && errors.email}
+                      InputLabelProps={{
+                        style: { fontSize: "16px" },
+                      }}
+                    />
+                    <CustomTextField
+                      fullWidth
+                      variant="outlined"
+                      type="text"
+                      label="Your message"
+                      multiline
+                      rows={6}
+                      name="message"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.message}
+                      error={!!touched.message && !!errors.message}
+                      helperText={touched.message && errors.message}
+                      InputLabelProps={{
+                        style: { fontSize: "16px" },
+                      }}
+                    />
+                    </Stack>
+                   
+                    <Button
+                      sx={{
+                        textTransform: "none",
+                        bgcolor: "teal",
+                        color: "white",
+                        fontSize: "16px",
+                        // paddingX: "15px",
+                        fontWeight: 600,
+                        paddingY: "10px",
+                        borderRadius: "8px",
+                        alignItems: "center",
+                        mt: "20px",
+                        "&:hover": {
+                          backgroundColor: "teal",
+                        },
+                      }}
+                    >
+                      Send Email
+                    </Button>
+                  </form>
+                )}
+              </Formik>
             </Stack>
           </Box>
 
@@ -147,7 +194,7 @@ const Booking = () => {
             sx={{
               display: "flex",
               flexDirection: "column",
-              width: isNonMobile? "324px": "100%",
+              width: isNonMobile ? "324px" : "100%",
               backgroundColor: "rgb(255, 255, 255)",
               boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
               borderColor: "rgb(113, 113, 132)",
@@ -216,4 +263,21 @@ const Booking = () => {
   );
 };
 
+const phoneRegExp =
+  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
+
+const bookingSchema = yup.object().shape({
+  phone: yup
+    .string()
+    .matches(phoneRegExp, "Phone number is not valid")
+    .required("required"),
+  email: yup.string().email("invalid email").required("required"),
+  message: yup.string().required("required"),
+});
+
+const initialValues = {
+  message: "",
+  email: "",
+  phone: "",
+};
 export default Booking;
