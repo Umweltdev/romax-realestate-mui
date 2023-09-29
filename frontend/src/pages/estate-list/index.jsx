@@ -14,22 +14,19 @@ import Navbar from "../../components/Navbar";
 import Announcement from "../../components/Announcement";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
-import Range from "./range";
-import Type from "./type";
+import Loader from "../../components/Loader"
+//import Range from "./range";
+//import Type from "./type";
 import { publicRequest } from "../../requestMethods";
 
 export const CustomDivider = styled(Divider)`
-  margin: 16px 0px 24px;
-  border-width: 0px 0px thin;
-  border-style: solid;
-  border-color: rgb(243, 245, 249);
 `;
 
 const EstateListing = () => {
   const [drawer, setDrawer] = useState(false);
   const [products, setProducts] = useState([]);
   const [sort, setSort] = useState("newest");
-  const [selectedTypes, setSelectedTypes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const openDrawer = () => {
     setDrawer(true);
@@ -42,10 +39,12 @@ const EstateListing = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await publicRequest.get(`/estate`);
+        const res = await publicRequest.get("/estate");
         setProducts(res.data);
+        setLoading(false)
       } catch (error) {
         console.log(error);
+        setLoading(false)
       }
     };
     getProducts();
@@ -54,40 +53,59 @@ const EstateListing = () => {
     <>
       <Announcement />
       <Navbar />
-      <Box bgcolor="#F6F9FC" py={5}>
-        <Container maxWidth="lg">
-          <Sort openDrawer={openDrawer} sort={sort} setSort={setSort} />
-          <Grid container spacing={3} marginTop={4}>
-            <Grid item md={3} display={{ xs: "none", md: "block" }}>
-              <Box
-                bgcolor="white"
-                py={3}
-                px={2}
-                borderRadius="5px"
-                sx={{
-                  boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
-                }}
-              >
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <Box bgcolor="#F6F9FC" py={5}>
+            <Container maxWidth="lg">
+              <Sort openDrawer={openDrawer} sort={sort} setSort={setSort} />
+              <Grid container spacing={3} marginTop={4}>
+                <Grid item md={3} display={{ xs: "none", md: "block" }}>
+                  <Box
+                    bgcolor="white"
+                    py={3}
+                    px={2}
+                    borderRadius="5px"
+                    sx={{
+                      boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
+                    }}
+                  >
+                    {/* <Range
+                  minPrice={minPrice}
+                  maxPrice={maxPrice}
+                  setMinPrice={setMinPrice}
+                  setMaxPrice={setMaxPrice}
+                  minBed={minBed}
+                  maxBed={maxBed}
+                  setMinBed={setMinBed}
+                  setMaxBed={setMaxBed}
+                  minCar={minCar}
+                  maxCar={maxCar}
+                  setMinCar={setMinCar}
+                  setMaxCar={setMaxCar}
+                /> 
                 <CustomDivider />
 
-                <Type
+                  <Type
                   selectedTypes={selectedTypes}
                   setSelectedTypes={setSelectedTypes}
-                />
-                <CustomDivider />
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={9}>
-              <Stack spacing={3}>
-                {products.map((prod) => (
-                  <Card {...prod} />
-                ))}
-              </Stack>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
+                /> 
+                <CustomDivider />*/}
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <Stack spacing={3}>
+                    {products.map((prod) => (
+                      <Card {...prod} />
+                    ))}
+                  </Stack>
+                </Grid>
+              </Grid>
+            </Container>
+          </Box>
+        </>
+      )}
       <Newsletter />
 
       <Drawer
@@ -124,8 +142,14 @@ const EstateListing = () => {
             },
           }}
         >
-          <CustomDivider />
-          <Type />
+          {/* <Range
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            setMinPrice={setMinPrice}
+            setMaxPrice={setMaxPrice}
+          /> */}
+          {/* <CustomDivider />
+          <Type /> */}
         </Box>
       </Drawer>
       <Footer />

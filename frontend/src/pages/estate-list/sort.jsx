@@ -31,14 +31,14 @@ const Sort = ({ openDrawer, sort, setSort }) => {
       >
         <Typography variant="h6">
           {" "}
-          447{" "}
+          {" "}
           <span
             style={{
-              fontSize: "14px",
-              fontWeight: "400",
+              fontSize: "18px",
+              fontWeight: "500",
             }}
           >
-            results
+            Estates
           </span>{" "}
         </Typography>
 
@@ -61,10 +61,8 @@ const Sort = ({ openDrawer, sort, setSort }) => {
                   setSort(e.target.value);
                 }}
               >
-                <MenuItem value={"highest"}>Highest Price</MenuItem>
-                <MenuItem value={"lowest"}>Lowest Price</MenuItem>
-                <MenuItem value={"newest"}>Newest Price</MenuItem>
-                <MenuItem value={"oldest"}>Oldest Price</MenuItem>
+                <MenuItem value={"newest"}>Newest</MenuItem>
+                <MenuItem value={"oldest"}>Oldest</MenuItem>
               </Select>
             </FormControl>
           </Stack>

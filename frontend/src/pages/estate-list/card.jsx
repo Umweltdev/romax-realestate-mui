@@ -1,14 +1,14 @@
-import { useState } from "react";
+//import { useState } from "react";
 import {
   Box,
   Typography,
   Stack,
   Grid,
-  useMediaQuery,
+  //useMediaQuery,
   IconButton,
 } from "@mui/material";
-import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
-import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
+import HomeOutlined from "@mui/icons-material/HomeOutlined";
+//import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
 //import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 //import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -24,28 +24,25 @@ const Card = (props) => {
     _id,
     title,
     desc,
-    price,
-    bath,
-    bed,
+    location,
+    house,
     img,
-    isFeatured,
-    propertyType,
     createdAt,
   } = props;
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  //const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate()
   //const [toggle, setToggle] = useState(false);
-  /*  const handleSavedProperty = async () => {
-     try {
-       const res = await userRequest.put(`/users/save-property/${_id}`);
-       if (res.data) {
-         makeToast("success", res.data.message);
-         setToggle(!toggle);
-       }
-     } catch (error) {
-       console.log(error);
-     }
-   }; */
+  /* const handleSavedProperty = async () => {
+    try {
+      const res = await userRequest.put(`/users/save-property/${_id}`);
+      if (res.data) {
+        makeToast("success", res.data.message);
+        setToggle(!toggle);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }; */
 
   return (
     <Box
@@ -73,7 +70,7 @@ const Card = (props) => {
           }}
         >
           <Link
-            to={`/product/${_id}`}
+            to={`/estate/${_id}`}
             style={{ textDecoration: "none", color: "#2b3445" }}
           >
             <Stack
@@ -94,7 +91,7 @@ const Card = (props) => {
                 <Carousel images={img} />
               </Box>
 
-              {!isFeatured ? (
+              {/*  {!isFeatured ? (
                 <Box
                   bgcolor="#f4f4f5"
                   p={2}
@@ -164,7 +161,7 @@ const Card = (props) => {
                     </Box>
                   </Stack>
                 </Box>
-              )}
+              )} */}
             </Stack>
           </Link>
         </Grid>
@@ -179,28 +176,28 @@ const Card = (props) => {
         >
           <Stack px={2} py={2.5} height="100%">
             <Link
-              to={`/product/${_id}`}
+              to={`/estate/${_id}`}
               style={{ textDecoration: "none", color: "#2b3445" }}
             >
               <Typography variant="body2">{title}</Typography>
               <Stack direction="row" spacing={3}>
                 <Typography variant="body1">
-                  {propertyType || "Semi-Detached"}
+                  {location}
                 </Typography>
                 <Stack direction="row" spacing={1}>
-                  <HotelOutlinedIcon />
+                  <HomeOutlined />
                   <Typography variant="body1">
                     <span style={{ fontSize: "12px" }}>X</span>
-                    {bed}
+                    {house}
                   </Typography>
                 </Stack>
-                <Stack direction="row" spacing={1}>
+                {/* <Stack direction="row" spacing={1}>
                   <BathtubOutlinedIcon />
                   <Typography variant="body1">
                     <span style={{ fontSize: "12px" }}>X</span>
                     {bath}
                   </Typography>
-                </Stack>
+                </Stack> */}
               </Stack>
               <Typography variant="subtitle2" color="#7D879C" mt={1.5}>
                 {`${desc.substring(0, 200)}...`}
@@ -229,7 +226,7 @@ const Card = (props) => {
 
               {/* <Stack spacing={0.4} direction="row" alignItems="center">
                 <IconButton onClick={handleSavedProperty}>
-                  {toggle ? <FavoriteIcon sx={{color:"teal"}} /> : <FavoriteBorderOutlinedIcon />}
+                  {toggle ? <FavoriteIcon sx={{ color: "teal" }} /> : <FavoriteBorderOutlinedIcon />}
                 </IconButton>
                 <Typography variant="subtitle1">Save</Typography>
               </Stack> */}

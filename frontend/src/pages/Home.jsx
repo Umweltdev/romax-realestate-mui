@@ -8,7 +8,7 @@ import Newsletter from '../components/Newsletter'
 import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import Facilities from '../components/Facilities'
-import Estates from '../components/Estates'
+//import Estates from '../components/Estates'
 
 const Home = () => {
   return (
@@ -21,8 +21,6 @@ const Home = () => {
       <Slider />
       <br />
       <Products />
-      <br />
-      <Estates />
       <br />
       <Facilities />
       <Newsletter />

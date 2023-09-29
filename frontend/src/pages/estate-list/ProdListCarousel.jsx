@@ -5,7 +5,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-const Carousel = ({images}) => {
+const Carousel = ({ images }) => {
   function SampleNextArrow(props) {
     const { onClick } = props;
     return (
