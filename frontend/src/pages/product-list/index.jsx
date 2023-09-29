@@ -17,6 +17,7 @@ import Footer from "../../components/Footer";
 import Range from "./range";
 import Type from "./type";
 import { publicRequest } from "../../requestMethods";
+import Loader from "../../components/Loader";
 
 export const CustomDivider = styled(Divider)`
   margin: 16px 0px 24px;
@@ -36,6 +37,7 @@ const ProductListing = () => {
   const [minCar, setMinCar] = useState(0);
   const [maxCar, setMaxCar] = useState(10);
   const [selectedTypes, setSelectedTypes] = useState([]);
+  const [loading, setLoading] = useState(false)
 
   const openDrawer = () => {
     setDrawer(true);
@@ -55,8 +57,10 @@ const ProductListing = () => {
       try {
         const res = await publicRequest.get(`/products?${queryParams}`);
         setProducts(res.data);
+        setLoading(false)
       } catch (error) {
         console.log(error);
+        setLoading(false)
       }
     };
     getProducts();
@@ -65,54 +69,59 @@ const ProductListing = () => {
     <>
       <Announcement />
       <Navbar />
-      <Box bgcolor="#F6F9FC" py={5}>
-        <Container maxWidth="lg">
-          <Sort openDrawer={openDrawer} sort={sort} setSort={setSort} />
-          <Grid container spacing={3} marginTop={4}>
-            <Grid item md={3} display={{ xs: "none", md: "block" }}>
-              <Box
-                bgcolor="white"
-                py={3}
-                px={2}
-                borderRadius="5px"
-                sx={{
-                  boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
-                }}
-              >
-                <Range
-                  minPrice={minPrice}
-                  maxPrice={maxPrice}
-                  setMinPrice={setMinPrice}
-                  setMaxPrice={setMaxPrice}
-                  minBed={minBed}
-                  maxBed={maxBed}
-                  setMinBed={setMinBed}
-                  setMaxBed={setMaxBed}
-                  minCar={minCar}
-                  maxCar={maxCar}
-                  setMinCar={setMinCar}
-                  setMaxCar={setMaxCar}
-                />
-                <CustomDivider />
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <Box bgcolor="#F6F9FC" py={5}>
+            <Container maxWidth="lg">
+              <Sort openDrawer={openDrawer} sort={sort} setSort={setSort} />
+              <Grid container spacing={3} marginTop={4}>
+                <Grid item md={3} display={{ xs: "none", md: "block" }}>
+                  <Box
+                    bgcolor="white"
+                    py={3}
+                    px={2}
+                    borderRadius="5px"
+                    sx={{
+                      boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
+                    }}
+                  >
+                    <Range
+                      minPrice={minPrice}
+                      maxPrice={maxPrice}
+                      setMinPrice={setMinPrice}
+                      setMaxPrice={setMaxPrice}
+                      minBed={minBed}
+                      maxBed={maxBed}
+                      setMinBed={setMinBed}
+                      setMaxBed={setMaxBed}
+                      minCar={minCar}
+                      maxCar={maxCar}
+                      setMinCar={setMinCar}
+                      setMaxCar={setMaxCar}
+                    />
+                    <CustomDivider />
 
-                <Type
-                  selectedTypes={selectedTypes}
-                  setSelectedTypes={setSelectedTypes}
-                />
-                <CustomDivider />
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={9}>
-              <Stack spacing={3}>
-                {products.map((prod) => (
-                  <Card {...prod} />
-                ))}
-              </Stack>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
+                    <Type
+                      selectedTypes={selectedTypes}
+                      setSelectedTypes={setSelectedTypes}
+                    />
+                    <CustomDivider />
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <Stack spacing={3}>
+                    {products.map((prod) => (
+                      <Card {...prod} />
+                    ))}
+                  </Stack>
+                </Grid>
+              </Grid>
+            </Container>
+          </Box>
+        </>
+      )}
       <Newsletter />
 
       <Drawer

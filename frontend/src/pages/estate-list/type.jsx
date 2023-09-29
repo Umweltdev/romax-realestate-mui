@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 import {
   Stack,
   Typography,
   FormGroup,
   Checkbox,
   FormControlLabel,
-  Divider,
 } from "@mui/material";
-import { CustomDivider } from "./index";
+//import { CustomDivider } from "./index";
 
-const Type = ({selectedTypes, setSelectedTypes}) => {
+const Type = ({ selectedTypes, setSelectedTypes }) => {
 
   const propertyType = [
     "Detached",
@@ -41,10 +40,10 @@ const Type = ({selectedTypes, setSelectedTypes}) => {
               key={index}
               control={
                 <Checkbox
-                value={type}
-                onChange={handleRatingChange}
-                checked={selectedTypes.includes(type)}
-                sx={{ "& .MuiSvgIcon-root": { fontSize: 25 } }} />
+                  value={type}
+                  onChange={handleRatingChange}
+                  checked={selectedTypes.includes(type)}
+                  sx={{ "& .MuiSvgIcon-root": { fontSize: 25 } }} />
               }
               label={type}
             />
