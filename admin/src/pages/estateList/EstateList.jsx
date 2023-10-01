@@ -4,54 +4,67 @@ import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTimeline, getTimeline } from "../../redux/apiCalls";
+import { deleteEstate, getEstates } from "../../redux/apiCalls";
 
 export default function EstateList() {
   const dispatch = useDispatch();
-  const timelines = useSelector((state) => state.timeline.timelines);
+  const timelines = useSelector((state) => state.estate.estates);
 
   useEffect(() => {
-    getTimeline(dispatch);
+    getEstates(dispatch);
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    deleteTimeline(id, dispatch);
+    deleteEstate(id, dispatch);
   };
 
   const columns = [
-    { field: "_id", headerName: "ID", width: 220 },
+    { field: "_id", headerName: "ID", width: 200 },
     {
-      field: "timeline",
-      headerName: "Timeline",
+      field: "estate",
+      headerName: "Estate",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="productListItem">
+            <img className="productListImg" src={params.row.img} alt="" />
             {params.row.title}
           </div>
         );
       },
     },
     {
-      field: "subtitle",
-      headerName: "SubTitle",
-      width: 200,
+      field: "categories",
+      headerName: "Categories",
+      width: 170,
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            {params.row.subtitle}
+            {params.row.categories}
           </div>
         );
       },
     },
     {
-      field: "dateText",
-      headerName: "Date",
-      width: 200,
+      field: "location",
+      headerName: "Location",
+      width: 300,
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            {params.row.dateText}
+            {params.row.location}
+          </div>
+        );
+      },
+    },
+    {
+      field: "house",
+      headerName: "House",
+      width: 120,
+      renderCell: (params) => {
+        return (
+          <div className="productListItem">
+            {params.row.house}
           </div>
         );
       },
@@ -63,7 +76,7 @@ export default function EstateList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/timeline/" + params.row._id}>
+            <Link to={"/estate/" + params.row._id}>
               <button className="productListEdit">Edit</button>
             </Link>
             <DeleteOutline
