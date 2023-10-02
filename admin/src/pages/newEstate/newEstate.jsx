@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTimeline } from "../../redux/apiCalls";
+import { addEstate } from "../../redux/apiCalls";
 import "./newEstate.css";
 
 export default function NewEstate() {
@@ -8,44 +8,44 @@ export default function NewEstate() {
 
   // Create state variables to manage form input values
   const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
-  const [paragraph, setParagraph] = useState("");
-  const [paragraph2, setParagraph2] = useState("");
-  const [dateText, setDateText] = useState("");
-  const [color, setColor] = useState("#fff");
-  const [background, setBackground] = useState("#76bb7f");
+  const [desc, setDesc] = useState("");
+  const [categories, setCategories] = useState("");
+  const [location, setLocation] = useState("");
+  const [features, setFeatures] = useState("");
+  const [house, setHouse] = useState("");
+  const [img, setImg] = useState("");
 
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Create a timeline object with form values
-    const newTimeline = {
+    const newEstate = {
       title,
-      subtitle,
-      paragraph,
-      paragraph2,
-      dateText,
-      color,
-      background,
+      desc,
+      categories,
+      location,
+      features,
+      house,
+      img,
     };
 
-    // Dispatch the addTimeline action with the newTimeline data
-    addTimeline(newTimeline, dispatch);
+    // Dispatch the addEstate action with the newEstate data
+    addEstate(newEstate, dispatch);
 
     // Clear form input values
     setTitle("");
-    setSubtitle("");
-    setParagraph("");
-    setParagraph2("");
-    setDateText("");
-    setColor("#fff");
-    setBackground("#76bb7f");
+    setDesc("");
+    setCategories("");
+    setLocation("");
+    setFeatures("");
+    setHouse("");
+    setImg("");
   };
 
   return (
     <div className="newUser">
-      <h1 className="newUserTitle">New Timeline</h1>
+      <h1 className="newUserTitle">New Estate</h1>
       <form className="newUserForm" onSubmit={handleSubmit}>
         <div className="newUserItem">
           <label>Title</label>
@@ -57,57 +57,56 @@ export default function NewEstate() {
           />
         </div>
         <div className="newUserItem">
-          <label>Sub-Title</label>
+          <label>Desc</label>
           <input
             type="text"
-            placeholder="Sub-Title"
-            value={subtitle}
-            onChange={(e) => setSubtitle(e.target.value)}
+            placeholder="Desc"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
           />
         </div>
         <div className="newUserItem">
-          <label>Paragraph</label>
+          <label>categories</label>
           <input
             type="text"
-            placeholder="Paragraph"
-            value={paragraph}
-            onChange={(e) => setParagraph(e.target.value)}
+            placeholder="categories"
+            value={categories}
+            onChange={(e) => setCategories(e.target.value)}
           />
         </div>
         <div className="newUserItem">
-          <label>Paragraph 2</label>
+          <label>Location</label>
           <input
             type="text"
-            placeholder="Second Paragraph"
-            value={paragraph2}
-            onChange={(e) => setParagraph2(e.target.value)}
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
           />
         </div>
         <div className="newUserItem">
-          <label>Date Text</label>
+          <label>Features</label>
           <input
             type="text"
-            placeholder="01/2013 - 05/2017"
-            value={dateText}
-            onChange={(e) => setDateText(e.target.value)}
+            placeholder="Features"
+            value={features}
+            onChange={(e) => setFeatures(e.target.value)}
           />
         </div>
         <div className="newUserItem">
-          <label>Color</label>
+          <label>No of Houses</label>
           <input
-            type="text"
-            placeholder="#fff"
-            value={color}
-            onChange={(e) => setColor(e.target.value)}
+            type="number"
+            value={house}
+            onChange={(e) => setHouse(e.target.value)}
           />
         </div>
         <div className="newUserItem">
-          <label>Background</label>
+          <label>Img</label>
           <input
-            type="text"
-            placeholder="#76bb7f"
-            value={background}
-            onChange={(e) => setBackground(e.target.value)}
+            type="file"
+            multiple
+            value={img}
+            onChange={(e) => setImg(e.target.value)}
           />
         </div>
         <button className="newUserButton" type="submit">
