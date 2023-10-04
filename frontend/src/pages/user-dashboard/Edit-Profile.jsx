@@ -102,7 +102,7 @@ const EditProfile = ({ openDrawer }) => {
             dirty,
           }) => (
             <form onSubmit={handleSubmit}>
-              <Box
+              {/* <Box
                 display="flex"
                 alignItems={{ xs: "center", md: "flex-end" }}
                 justifyContent={{ xs: "center", md: "flex-start" }}
@@ -141,7 +141,7 @@ const EditProfile = ({ openDrawer }) => {
                     </IconButton>
                   </label>
                 </Box>
-              </Box>
+              </Box> */}
 
               <Box
                 display="grid"

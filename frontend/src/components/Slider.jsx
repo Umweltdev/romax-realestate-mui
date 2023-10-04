@@ -1,157 +1,124 @@
-import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons"
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import styled from "styled-components"
-import { sliderItems } from "../data"
-import { mobile, mobileXR, tablet, ipad } from "../responsive"
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { sliderItems } from "../data";
+import { Box, Grid, Stack, Typography, Button } from "@mui/material";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { OtherHousesOutlined } from "@mui/icons-material";
 
-const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  position: relative;
-  overflow: hidden;
-  ${mobile({ height: "180px" })};
-  ${mobileXR({ height: "225px" })};
-  ${tablet({ height: "350px" })};
-  ${ipad({ height: "400px" })};
-`
-
-const Arrow = styled.div`
-  width: 50px;
-  height: 50px;
-  background-color: #fff7f7;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: ${props => props.direction === "left" && "10px"};
-  right: ${props => props.direction === "right" && "10px"};
-  margin: auto;
-  cursor: pointer;
-  opacity: 0.4;
-  z-index: 2;
-  ${mobile({ height: "10px", width: "10px" })};
-  ${mobileXR({ height: "20px", width: "20px" })};
-  ${tablet({ height: "40px", width: "40px" })};
-`
-
-const Wrapper = styled.div`
-  height: 100%;
-  display: flex;
-  transition: all 1.5s ease;
-  transform: translateX(${props => props.slideIndex * -100}vw);
-`
-
-const Slide = styled.div`
-  width: 100vw;
-  height:  100vh;
-  display: flex;
-  align-items: center;
-  background-color: #${props => props.bg};
-  ${mobile({ height: "175px" })};
-  ${mobileXR({ height: "220px" })};
-  ${tablet({ height: "350px" })};
-  ${ipad({ height: "400px" })};
-`
-
-const ImgContainer = styled.div`
-  height: 100%;
-  flex: 1;
-`
-
-const Image = styled.img`
-  height: 80%;
-  ${mobile({ height: "150px" })};
-  ${mobileXR({ height: "180px" })};
-  ${tablet({ height: "270px" })};
-`
-
-const InfoContainer = styled.div`
-  flex: 1;
-  padding: 50px;
-`
-
-const Title = styled.h1`
-  font-size: 70px;
-  ${mobile({ fontSize: "10px" })};
-  ${mobileXR({ fontSize: "12px" })};
-  ${tablet({ fontSize: "20px" })};
-`
-const Desc = styled.p`
-  margin: 50px 0;
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 3px;
-  ${mobile({ display: "none" })};
-  ${mobileXR({ display: "none" })};
-  ${tablet({ fontSize: "9px" })};
-`
-const Button = styled.button`
-  padding: 10px;
-  font-size: 20px;
-  background-color: transparent;
-  cursor: pointer;
-  ${mobile({ fontSize: "6px" })};
-  ${mobileXR({ fontSize: "7px" })};
-  ${tablet({ fontSize: "8px" })};
-`
-
-const Slider = () => {
-  const [slideIndex, setSlideIndex] = useState(0);
+const Card = ({ title, img, desc, bg }) => {
   const navigate = useNavigate();
-
-  const estate = () => {
-    navigate("/estate")
-  }
-
-  const handleClick = (direction) => {
-    if (direction === "left") {
-      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : sliderItems.length - 1);
-    } else {
-      setSlideIndex(slideIndex < sliderItems.length - 1 ? slideIndex + 1 : 0);
-    }
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSlideIndex((prevIndex) =>
-        prevIndex < sliderItems.length - 1 ? prevIndex + 1 : 0
-      );
-    }, 8000); // 8000 milliseconds = 8 seconds
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
   return (
-    <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
-        <ArrowLeftOutlined />
-      </Arrow>
-      <Wrapper slideIndex={slideIndex}>
-        {sliderItems.map((item) => (
-          <Slide bg={item.bg} key={item
-            .id}>
-            <ImgContainer>
-              <Image src={item.img} />
-            </ImgContainer>
-            <InfoContainer>
-              <Title>{item.title}</Title>
-              <Desc>{item.desc}</Desc>
-              <Button onClick={estate}>OUR ESTATES</Button>
-            </InfoContainer>
-          </Slide>
-        ))}
-      </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick("right")}>
-        <ArrowRightOutlined />
-      </Arrow>
-    </Container>
-  )
-}
+    <Box
+      sx={{
+        cursor: "pointer",
+        borderRadius: "8px",
+      }}
+    >
+      <Grid
+        container
+        spacing={{ xs: 4, sm: 0 }}
+        sx={{
+          alignItems: "center",
+        }}
+      >
+        <Grid item xs={12} sm={6} height="500px">
+          <img
+            src={img}
+            style={{
+              height: "100%",
+              width: "100%",
+              objectFit: "cover",
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} order={{ xs: 1, sm: 0 }} alignSelf="stretch">
+          <Stack
+            spacing={2.5}
+            bgcolor={bg}
+            height="100%"
+            p={3}
+            justifyContent="center"
+          >
+            <Typography
+              variant={"h5"}
+              lineHeight="1.4"
+              fontSize={{ sm: "25px", md: "40px" }}
+              letterSpacing="3.5px"
+            >
+              {title}
+            </Typography>
+            <Typography
+              variant="h6"
+              fontWeight="500"
+              letterSpacing="1px"
+              color="#7D879C"
+            >
+              {desc}
+            </Typography>
+            <Button
+              variant="outlined"
+              onClick={() => navigate("/estate")}
+              sx={{
+                textTransform: "none",
+                // bgcolor: "teal",
+                color: "#2b3445",
+                paddingX: "30px",
+                paddingY: "15px",
+                alignSelf: "start",
+                display: "flex",
+                gap: "5px",
+                borderRadius: "10px",
+                borderColor: "#2b3445",
+                borderWidth: "2px",
+                "&:hover": {
+                  color: "#FFFFFF",
+                  bgcolor: "#2b3445",
+                },
+              }}
+            >
+              <OtherHousesOutlined />
+              <Typography variant="body2" fontSize="17px" letterSpacing="1px">
+                {" "}
+                OUR ESTATE
+              </Typography>
+            </Button>
+          </Stack>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
 
-export default Slider                                                                                                                                                                        
+const Carousel = () => {
+  const settings = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 3000,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+  };
+  const item = {
+    id: 2,
+    img: "https://i.ibb.co/0nQJv76/Whats-App-Image-2023-09-04-at-06-30-01.jpg",
+    title: "LAGOS ISLAND",
+    desc: "OWN ONE OF THE MANY PROPERTIES IN OUR IKOYI ESTATE",
+    bg: "#fcf1ed",
+  };
+  return (
+    <Box py={5}>
+      <Slider {...settings}>
+        {sliderItems.map((item) => (
+          <Card {...item} />
+        ))}
+      </Slider>
+    </Box>
+  );
+};
+
+export default Carousel;

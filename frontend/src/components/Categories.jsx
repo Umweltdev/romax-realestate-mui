@@ -1,8 +1,8 @@
-import styled from "styled-components"
-import { categories } from "../data"
-import CategoryItem from "./CategoryItem"
-import { mobile, mobileXR, tablet } from "../responsive"
-
+import styled from "styled-components";
+import { categories } from "../data";
+import CategoryItem from "./CategoryItem";
+import { mobile, mobileXR, tablet } from "../responsive";
+import { Grid, Box } from "@mui/material";
 
 const Container = styled.div`
   display: flex;
@@ -11,16 +11,20 @@ const Container = styled.div`
   ${mobile({ padding: "0px", flexDirection: "column" })};
   ${mobileXR({ padding: "0px", flexDirection: "column" })};
   ${tablet({ padding: "0px", flexDirection: "column" })};
-`
+`;
 
 const Categories = () => {
   return (
-    <Container>
-      {categories.map(item => (
-        <CategoryItem item={item} key={item.id} />
+    <Grid container spacing={3} sx={{
+      padding: 5
+    }}>
+      {categories.map((cat) => (
+        <Grid item sm={4}>
+          <CategoryItem {...cat} />
+        </Grid>
       ))}
-    </Container>
-  )
-}
+    </Grid>
+  );
+};
 
-export default Categories
+export default Categories;

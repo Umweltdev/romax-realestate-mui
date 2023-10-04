@@ -7,23 +7,23 @@ export const sliderItems = [
   {
     id: 1,
     img: "https://i.ibb.co/TYHc9dv/FLATS-3D.png",
-    title: "LEKKI",
+    title: "LEKKI PHASE1",
     desc: "OWN ONE OF THE MANY PROPERTIES IN OUR LEKKI ESTATE",
-    bg: "f5fafd",
+    bg: "#f5fafd",
   },
   {
     id: 2,
     img: "https://i.ibb.co/0nQJv76/Whats-App-Image-2023-09-04-at-06-30-01.jpg",
     title: "LAGOS ISLAND",
     desc: "OWN ONE OF THE MANY PROPERTIES IN OUR IKOYI ESTATE",
-    bg: "fcf1ed",
+    bg: "#fcf1ed",
   },
   {
     id: 3,
     img: "https://i.ibb.co/z68mXzk/Whats-App-Image-2023-09-04-at-06-30-03.jpg",
-    title: "ABUJA",
+    title: "ABUJA GWAGWALADA",
     desc: "OWN ONE OF THE MANY PROPERTIES IN OUR ABUJA ESTATE",
-    bg: "fbf0f4",
+    bg: "#fbf0f4",
   },
 ];
 

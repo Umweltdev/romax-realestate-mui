@@ -1,10 +1,10 @@
 import {
-  Box,
   Stack,
   FormControl,
   MenuItem,
   Select,
   Typography,
+  InputLabel,
 } from "@mui/material";
 import { CustomDivider } from "./index";
 
@@ -35,15 +35,15 @@ const Range = ({
               flex: 1,
             }}
           >
+            <InputLabel>Min-Price</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
+              label="Min-Price"
               id="demo-simple-select"
               value={minPrice}
               onChange={(e) => {
                 setMinPrice(e.target.value);
               }}
             >
-              <MenuItem value={10000}>Min Price</MenuItem>
               <MenuItem value={10000000}>₦10,000,000</MenuItem>
               <MenuItem value={20000000}>₦20,000,000</MenuItem>
               <MenuItem value={30000000}>₦30,000,000</MenuItem>
@@ -59,15 +59,16 @@ const Range = ({
               flex: 1,
             }}
           >
+            <InputLabel>Max-Price</InputLabel>
+
             <Select
-              labelId="demo-simple-select-label"
+              label="Max-Price"
               id="demo-simple-select"
               value={maxPrice}
               onChange={(e) => {
                 setMaxPrice(e.target.value);
               }}
             >
-              <MenuItem value={1000000000}>Max Price</MenuItem>
               <MenuItem value={10000000}>₦10,000,000</MenuItem>
               <MenuItem value={20000000}>₦20,000,000</MenuItem>
               <MenuItem value={30000000}>₦30,000,000</MenuItem>
@@ -76,6 +77,7 @@ const Range = ({
               <MenuItem value={60000000}>₦60,000,000</MenuItem>
               <MenuItem value={70000000}>₦70,000,000</MenuItem>
               <MenuItem value={80000000}>₦80,000,000</MenuItem>
+              <MenuItem value={100000000}>₦100,000,000</MenuItem>
             </Select>
           </FormControl>
         </Stack>
@@ -93,13 +95,15 @@ const Range = ({
               flex: 1,
             }}
           >
+            <InputLabel>Min-Bed</InputLabel>
+
             <Select
               value={minBed}
               onChange={(e) => {
                 setMinBed(e.target.value);
               }}
+              label="Min-Bed"
             >
-              <MenuItem value={0}>Min Beds</MenuItem>
               <MenuItem value={1}>1 Bed</MenuItem>
               <MenuItem value={2}>2 Beds</MenuItem>
               <MenuItem value={3}>3 Beds</MenuItem>
@@ -114,13 +118,15 @@ const Range = ({
               flex: 1,
             }}
           >
+            <InputLabel>Max-Bed</InputLabel>
+
             <Select
               value={maxBed}
               onChange={(e) => {
                 setMaxBed(e.target.value);
               }}
+              label="Max-Bed"
             >
-              <MenuItem value={10}>Max Beds</MenuItem>
               <MenuItem value={2}>2 Bed</MenuItem>
               <MenuItem value={3}>3 Beds</MenuItem>
               <MenuItem value={4}>4 Beds</MenuItem>
@@ -143,13 +149,15 @@ const Range = ({
               flex: 1,
             }}
           >
+            <InputLabel>Min-Car</InputLabel>
+
             <Select
               value={minCar}
               onChange={(e) => {
                 setMinCar(e.target.value);
               }}
+              label="Min-Car"
             >
-              <MenuItem value={0}>Min Cars</MenuItem>
               <MenuItem value={1}>1 Car</MenuItem>
               <MenuItem value={2}>2 Cars</MenuItem>
               <MenuItem value={3}>3 Cars</MenuItem>
@@ -162,13 +170,15 @@ const Range = ({
               flex: 1,
             }}
           >
+            <InputLabel>Max-Car</InputLabel>
+
             <Select
               value={maxCar}
               onChange={(e) => {
                 setMaxCar(e.target.value);
               }}
+              label="Max-Car"
             >
-              <MenuItem value={10}>Max Cars</MenuItem>
               <MenuItem value={2}>2 Cars</MenuItem>
               <MenuItem value={3}>3 Cars</MenuItem>
               <MenuItem value={4}>4 Cars</MenuItem>

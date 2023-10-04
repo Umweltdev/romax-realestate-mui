@@ -4,34 +4,81 @@ import {
   verifyTokenAndAdmin,
   verifyTokenAndAuthorization,
 } from "./verifyToken.js";
+import { Multer, uploadImages } from "../utils/uploadImage.js";
+import { cloudinaryDeleteImg } from "../config/cloudinary.js";
 import Product from "../models/ProductModel.js";
-
 const router = express.Router();
 
 //CREATE
-router.post("/", verifyTokenAndAdmin, async (req, res) => {
-  const newProduct = new Product(req.body);
+router.post(
+  "/",
+  verifyTokenAndAdmin,
+  Multer.array("images", 10),
+  uploadImages,
+  async (req, res) => {
+    const newProduct = new Product({ ...req.body, img: req.images });
 
-  try {
-    const savedProduct = await newProduct.save();
-    res.status(200).json(savedProduct);
-  } catch (err) {
-    res.status(500).json(err);
+    try {
+      const savedProduct = await newProduct.save();
+      res.status(200).json(savedProduct);
+    } catch (err) {
+      res.status(500).json(err);
+    }
   }
-});
+);
 
 //UPDATE
-router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
+router.put("/:id", verifyTokenAndAdmin, Multer.array("images", 10),
+uploadImages, async (req, res) => {
+  let parsedPreviousImages = []
   try {
-    const updatedProduct = await Product.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
+    if(req.body.previousImages && req.body.previousImages.length > 0) {
+      parsedPreviousImages = req.body.previousImages.map((imageString) =>
+      JSON.parse(imageString)
     );
-    res.status(200).json(updatedProduct);
+    }
+    
+    const { id } = req.params;
+
+    let updatedData = req.body; 
+    const product = await Product.findById(id);
+    const existingImages = product.img;
+    let updatedImages = [];
+
+    if (req.images && req.images.length > 0) {
+      updatedImages = req.images;
+    }
+
+    updatedData.images = [...updatedImages, ...existingImages];
+    
+    
+    const removedImages = existingImages.filter(
+      (existingImage) =>
+        !parsedPreviousImages.some(
+          (previousImage) => previousImage.split("/").pop().split(".")[0] === existingImage.split("/").pop().split(".")[0]
+        )
+    );
+
+    for (const removedImage of removedImages) {
+      const publicId = removedImage.split("/").pop().split(".")[0];
+      console.log(publicId)
+      await cloudinaryDeleteImg(publicId);
+    }
+
+    updatedData.img = updatedData.images.filter(
+      (updatedImage) =>
+        !removedImages.some(
+          (removedImage) => removedImage.split("/").pop().split(".")[0] === updatedImage.split("/").pop().split(".")[0]
+        )
+    );
+
+    delete updatedData.previousImages;
+    const updatedProduct = await Product.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+    res.json(updatedProduct);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
@@ -39,8 +86,15 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
 //DELETE
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
+    const product = await Product.findById(req.params.id);
+    // console.log(product._id)
+    const imagesToDelete = product.img;
+    for (const image of imagesToDelete) {
+      const publicId = image.split("/").pop().split(".")[0];
+      await cloudinaryDeleteImg(publicId);
+    }
     await Product.findByIdAndDelete(req.params.id);
-    res.status(200).json("Product has been deleted ....");
+    res.status(200).json({ message: "Product has been deleted ...." });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -58,7 +112,6 @@ router.get("/:id", async (req, res) => {
 
 //GET ALL PRODUCT
 router.get("/", async (req, res) => {
-  console.log(req.query);
   try {
     const queryObj = { ...req.query };
     const excludeFields = [
@@ -70,6 +123,7 @@ router.get("/", async (req, res) => {
       "minCar",
       "maxCar",
       "types",
+      "location"
     ];
     excludeFields.forEach((el) => delete queryObj[el]);
     let queryStr = JSON.stringify(queryObj);
@@ -85,34 +139,37 @@ router.get("/", async (req, res) => {
     const minCar = req.query.minCar;
     const types = req.query.types;
 
-
     if (maxCar && minCar) {
       query = query.where({ car: { $lte: maxCar, $gte: minCar } });
     } else if (maxCar) {
-      query = query.where("car").lt(maxCar);
+      query = query.where("car").lte(maxCar);
     } else if (minCar) {
-      query = query.where("car").gt(minCar);
+      query = query.where("car").gte(minCar);
     }
 
     if (maxPrice && minPrice) {
       query = query.where({ price: { $lte: maxPrice, $gte: minPrice } });
     } else if (maxPrice) {
-      query = query.where("price").lt(maxPrice);
+      query = query.where("price").lte(maxPrice);
     } else if (minPrice) {
-      query = query.where("price").gt(minPrice);
+      query = query.where("price").gte(minPrice);
     }
 
     if (maxBed && minBed) {
       query = query.where({ bed: { $lte: maxBed, $gte: minBed } });
     } else if (maxBed) {
-      query = query.where("bed").lt(maxBed);
+      query = query.where("bed").lte(maxBed);
     } else if (minBed) {
-      query = query.where("bed").gt(minBed);
+      query = query.where("bed").gte(minBed);
     }
 
     if (types) {
       const propertyTypes = types.split(",").map((type) => type.trim());
       query = query.where("propertyType").in(propertyTypes);
+    }
+    if (req.query.location) {
+      const location = req.query.location;
+      query = query.where({ location: { $regex: location, $options: "i" } });
     }
     // Filter by sort
     if (req.query.sort) {

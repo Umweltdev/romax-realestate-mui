@@ -1,82 +1,129 @@
-import React, { useState, useEffect } from 'react';
-import styled from "styled-components";
-import axios from "axios"
-import Product from "./Product";
-import Loader from './Loader';
+import React, { useState, useEffect } from "react";
+import { Box, Stack, Typography, IconButton } from "@mui/material";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { publicRequest } from "../requestMethods";
+import Card from "./Card";
+import { ArrowBack, ArrowForward } from "@material-ui/icons";
 
-const Container = styled.div`
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-`;
+function SampleNextArrow(props) {
+  const { onClick } = props;
+  return (
+    <IconButton
+      onClick={onClick}
+      sx={{
+        position: "absolute",
+        top: "50%",
+        transform: "translate(0, -50%)",
+        right: "-5px",
+        background: "teal",
+        color: "white",
+        "&:hover": {
+          background: "teal",
+        },
+      }}
+    >
+      <ArrowForward
+        sx={{
+          cursor: "pointer",
+          fontSize: "25px",
+        }}
+      />
+    </IconButton>
+  );
+}
 
-const Title = styled.h1`
-  font-size: 40px;
-  fontweight: 300;
-  text-align: center; /* Center-align the text */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const Products = ({ cat, filters, sort }) => {
+function SamplePrevArrow(props) {
+  const { onClick } = props;
+  return (
+    <IconButton
+      onClick={onClick}
+      sx={{
+        position: "absolute",
+        top: "50%",
+        transform: "translate(0, -50%)",
+        left: "-5px",
+        zIndex: 10,
+        background: "teal",
+        color: "white",
+        "&:hover": {
+          background: "teal",
+        },
+      }}
+    >
+      <ArrowBack
+        sx={{
+          cursor: "pointer",
+          fontSize: "25px",
+        }}
+      />
+    </IconButton>
+  );
+}
 
+const Products = () => {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getProducts = async () => {
+      setLoading(true);
       try {
-        const res = await axios.get(cat ? `https://romax-real-estate.onrender.com/api/products?catgory=${cat}` : "https://romax-real-estate.onrender.com/api/products")
+        const res = await publicRequest.get(`/products`);
         setProducts(res.data);
         setLoading(false);
       } catch (err) {
         setLoading(false);
       }
-    }
-    getProducts()
-  }, [cat]);
+    };
+    getProducts();
+  }, []);
 
-  useEffect(() => {
-    cat && setFilteredProducts(
-      products.filter(item => Object.entries(filters).every(([key, value]) =>
-        item[key].includes(value)
-      ))
-    )
-  }, [products, cat, filters]);
-
-  useEffect(() => {
-    if (sort === "newest") {
-      setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.createdAt - b.createdAt)
-      );
-    } else if (sort === "asc") {
-      setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.price - b.price)
-      );
-    } else {
-      setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => b.price - a.price)
-      );
-    }
-  }, [sort]);
-
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 2,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 968,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+    ],
+  };
   return (
-    <>
-      <Title>INDIVIDUAL HOUSES</Title>
-      <Container>
-        {loading ? ( // Display Loader component when loading is true
-          <Loader />
-        ) : (
-          cat
-            ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
-            : products
-              .slice(0, 8)
-              .map((item) => <Product item={item} key={item.id} />)
-        )}
-      </Container>
-    </>
+    <Box width="80%" margin="0 auto" pb={3}>
+      <Typography variant="h5" textAlign="center" fontSize="28px" mb={2}>
+        INDIVIDUAL HOUSES
+      </Typography>
+      <div>
+        <Slider {...settings}>
+          {products.map((item, index) => (
+            <div key={index} className="carousel-card">
+              <Card {...item} />
+            </div>
+          ))}
+        </Slider>
+      </div>
+    </Box>
   );
 };
 

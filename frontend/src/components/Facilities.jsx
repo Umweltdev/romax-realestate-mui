@@ -1,15 +1,12 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
-  Typography,
-  Container,
+  Box,
   Grid,
   Paper,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@material-ui/core";
+  Typography,
+  Stack,
+  useMediaQuery,
+} from "@mui/material";
 import {
   LocalParkingOutlined,
   LocalDrinkOutlined,
@@ -22,184 +19,108 @@ import {
   LocationCityOutlined,
 } from "@material-ui/icons";
 
-const useStyles = makeStyles((theme) => ({
-  facilitiesContainer: {
-    background: theme.palette.grey[200],
-    padding: theme.spacing(8, 0),
-  },
-  facilitiesTitle: {
-    marginBottom: theme.spacing(4),
-    textAlign: "center",
-  },
-  facilitiesList: {
-    maxWidth: 800,
-    margin: "0 auto",
-  },
-}));
-
 const Facilities = () => {
-  const classes = useStyles();
+  const isNonMobile = useMediaQuery("(min-width:600px)");
+
+  const data = [
+    {
+      Icon: LocalParkingOutlined,
+      title: "Ample Parking",
+      desc: "Plenty of parking space for your convenience.",
+    },
+    {
+      Icon: LocalDrinkOutlined,
+      title: "24/7 Water Supply",
+      desc: "Continuous water supply available 24/7.",
+    },
+    {
+      Icon: WbIncandescentOutlined,
+      title: "Stable Electricity",
+      desc: "Reliable and stable electricity supply.",
+    },
+    {
+      Icon: HotelOutlined,
+      title: "Short-term Lets",
+      desc: "Perfect for short-term stays and vacations.",
+    },
+    {
+      Icon: LocalFloristOutlined,
+      title: "Gardens",
+      desc: "Beautifully landscaped gardens to relax in.",
+    },
+    {
+      Icon: NatureOutlined,
+      title: "Ambiance",
+      desc: "A peaceful and pleasant atmosphere.",
+    },
+    {
+      Icon: HomeWorkOutlined,
+      title: "Smart Houses",
+      desc: "Modern homes with smart technology.",
+    },
+    {
+      Icon: WifiOutlined,
+      title: "Wi-fi",
+      desc: "High-speed Wi-Fi for your connectivity needs.",
+    },
+    {
+      Icon: LocationCityOutlined,
+      title: "Beautiful Properties",
+      desc: "Stunning properties in picturesque locations.",
+    },
+  ];
 
   return (
-    <div className={classes.facilitiesContainer}>
-      <Container>
-        <Typography variant="h4" className={classes.facilitiesTitle}>
-          OUR FACILITIES
-        </Typography>
-        <Typography variant="h5" className={classes.facilitiesTitle}>
-          WE PROVIDE FULL SERVICES EVERY STEP OF THE WAY
-        </Typography>
-        <Grid container spacing={4} className={classes.facilitiesList}>
-          <Grid item xs={12}>
-            <Grid container spacing={12}>
-              <Grid item xs={12} sm={4}>
-                <Paper elevation={3}>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <LocalParkingOutlined />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Ample Parking"
-                        secondary="Plenty of parking space for your convenience."
-                      />
-                    </ListItem>
-                  </List>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Paper elevation={3}>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <LocalDrinkOutlined />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="24/7 Water Supply"
-                        secondary="Continuous water supply available 24/7."
-                      />
-                    </ListItem>
-                  </List>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Paper elevation={3}>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <WbIncandescentOutlined />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Stable Electricity"
-                        secondary="Reliable and stable electricity supply."
-                      />
-                    </ListItem>
-                  </List>
-                </Paper>
-              </Grid>
-            </Grid>
+    <Stack width="65%" margin="0 auto" pb={6} spacing={2}>
+      <Typography variant="h5" textAlign="center" fontSize="28px">
+        OUR FACILITIES
+      </Typography>
+      <Typography variant="h6" textAlign="center" color="text.secondary">
+        WE PROVIDE FULL SERVICES EVERY STEP OF THE WAY
+      </Typography>
+      <Grid container spacing={3}>
+        {data.map(({ Icon, title, desc }) => (
+          <Grid item xs={12} sm={4}>
+            <Paper
+              elevation={3}
+              sx={{
+                display: "flex",
+                gap: "10px",
+                border: "1px solid #dee2e6",
+                borderRadius: "10px",
+                flexDirection: isNonMobile ? "row" : "column",
+                alignItems: isNonMobile ? "start" : "center",
+                paddingX: 2.5,
+                paddingY: 3.5,
+              }}
+            >
+              <Icon
+                sx={{
+                  fontSize: "2.4rem",
+                }}
+              />
+              <Stack spacing={0.5}>
+                <Typography
+                  variant="h6"
+                  fontSize={{ xs: "15px", sm: "18px" }}
+                  textAlign={{ xs: "center", sm: "left" }}
+                >
+                  {title}
+                </Typography>
+                <Typography
+                  variant="subtitle2"
+                  textAlign={{ xs: "center", sm: "left" }}
+                  fontSize={{ xs: "12px", sm: "14px" }}
+                  color="text.secondary"
+                >
+                  {desc}
+                </Typography>
+              </Stack>
+            </Paper>
           </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={12}>
-              <Grid item xs={12} sm={4}>
-                <Paper elevation={3}>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <HotelOutlined />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Short-term Lets"
-                        secondary="Perfect for short-term stays and vacations."
-                      />
-                    </ListItem>
-                  </List>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Paper elevation={3}>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <LocalFloristOutlined />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Gardens"
-                        secondary="Beautifully landscaped gardens to relax in."
-                      />
-                    </ListItem>
-                  </List>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Paper elevation={3}>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <NatureOutlined />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Ambiance"
-                        secondary="A peaceful and pleasant atmosphere."
-                      />
-                    </ListItem>
-                  </List>
-                </Paper>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={12}>
-              <Grid item xs={12} sm={4}>
-                <Paper elevation={3}>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <HomeWorkOutlined />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Smart Houses"
-                        secondary="Modern homes with smart technology."
-                      />
-                    </ListItem>
-                  </List>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Paper elevation={3}>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <WifiOutlined />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Wi-fi"
-                        secondary="High-speed Wi-Fi for your connectivity needs."
-                      />
-                    </ListItem>
-                  </List>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Paper elevation={3}>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <LocationCityOutlined />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Beautiful Properties"
-                        secondary="Stunning properties in picturesque locations."
-                      />
-                    </ListItem>
-                  </List>
-                </Paper>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Container>
-    </div>
+        ))}
+      </Grid>
+    </Stack>
   );
 };
 

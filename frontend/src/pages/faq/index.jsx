@@ -36,7 +36,12 @@ const FAQ = () => {
     <Box>
       <Announcement />
       <Navbar />
-      <Stack width="65%" margin="0 auto" spacing={4} py={8}>
+      <Stack
+        width={{ xs: "95%", sm: "80%", md: "65%" }}
+        margin="0 auto"
+        spacing={4}
+        py={8}
+      >
         <Box
           p={2}
           textAlign="center"
@@ -44,7 +49,9 @@ const FAQ = () => {
           color="white"
           borderRadius="8px"
         >
-          <Typography variant="h5">Frequently Asked Questions</Typography>
+          <Typography variant={"h5"} fontSize={{ xs: "20px", sm: "25px" }}>
+            Frequently Asked Questions
+          </Typography>
         </Box>
         <Box>
           {faqs.map((faq, index) => (

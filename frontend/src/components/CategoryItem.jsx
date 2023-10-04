@@ -1,58 +1,51 @@
-import styled from "styled-components"
-import { mobile, mobileXR, tablet } from "../responsive"
-import { Link } from "react-router-dom"
+import { Box, Stack, Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-
-
-function CategoryItem({ item }) {
+function CategoryItem({ img, title, cat }) {
+  const navigate = useNavigate()
   return (
-    <Container>
-      <Link to={`/products`}>
-        <Image src={item.img} />
-        <Info>
-          <Title>{item.title}</Title>
-          <Button>SEE NOW</Button>
-        </Info>
-      </Link>
-    </Container>
-  )
+    <Box
+      sx={{
+        backgroundImage: `url(${img})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        padding: "20px",
+        height: "300px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
+        borderRadius: "8px",
+      }}
+    >
+      <Stack spacing={1}>
+        <Typography variant="h5" color="white">
+          {title}
+        </Typography>
+        <Button
+          onClick={() => navigate("/products")}
+          sx={{
+            textTransform: "none",
+            bgcolor: "teal",
+            color: "white",
+            fontSize: "14px",
+            paddingX: "18px",
+            fontWeight: 600,
+            paddingY: "8px",
+            alignSelf: "center",
+            display: "flex",
+            gap: "10px",
+            borderRadius: "16px",
+            "&:hover": {
+              backgroundColor: "#119595",
+            },
+          }}
+        >
+          SEE NOW
+        </Button>
+      </Stack>
+    </Box>
+  );
 }
 
-const Container = styled.div`
-  flex: 1;
-  margin: 3px;
-  height: 50vh;
-  position: relative;
-`
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  ${mobile({ height: "30vh" })};
-  ${mobileXR({ height: "30vh" })};
-  ${tablet({ height: "30vh" })};
-`
-const Info = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`
-const Title = styled.h1`
-  color: white;
-  margin-bottom: 20px;
-`
-const Button = styled.button`
-  border: none;
-  padding: 10px;
-  background-color: white;
-  color: gray;
-  cursor: pointer;
-  font-weight: 600;
-`
-export default CategoryItem
+export default CategoryItem;

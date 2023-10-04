@@ -67,7 +67,7 @@ body {
 .slick-slide {
   position: relative;
 }
-.slick-slide:nth-child(even)::before {
+.sliderr .slick-slide:nth-child(even)::before {
   content: " ";
   position: absolute;
   top: 0;
@@ -101,12 +101,16 @@ body {
   top: 7px;
   left: 0;
 }
-.slick-list {
-  border-radius: 8px;
+.sliderr .slick-list {
+  border-top-left-radius: 8px;
+}
+
+.carousel-card {
+  padding: 10px;
 }
 
 @media (max-width: 968px) {
-  .slick-slide:nth-child(even)::before {
+  .sliderr .slick-slide:nth-child(even)::before {
    display: none;
   }
 }

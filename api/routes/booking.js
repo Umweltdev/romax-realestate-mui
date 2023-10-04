@@ -1,17 +1,17 @@
 import express from "express";
 import { verifyToken, verifyTokenAndAdmin } from "./verifyToken.js";
 import Booking from "../models/BookingModel.js";
+import User from "../models/UserModel.js"
 // const { v4: uuidv4 } = require("uuid");
 import { v4 as uuidv4 } from "uuid";
 
 const router = express.Router();
 
-router.post("/", verifyToken, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const newBooking = await Booking.create({
       ...req.body,
       bookingId: uuidv4(),
-      user: req.user.id,
     });
     res.status(201).json(newBooking);
   } catch (error) {
@@ -21,7 +21,9 @@ router.post("/", verifyToken, async (req, res) => {
 
 router.get("/user-bookings", verifyToken, async (req, res) => {
   try {
-    const bookings = await Booking.find({ user: req.user.id }).populate(
+    
+    const user = await User.findById(req.user.id)
+    const bookings = await Booking.find({ email: user.email }).populate(
       "product"
     );
     res.status(200).json(bookings);

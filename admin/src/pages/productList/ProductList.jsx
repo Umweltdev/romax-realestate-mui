@@ -1,74 +1,124 @@
 import "./productList.css";
+import { useState, useEffect } from "react";
+import {
+  Stack,
+  Typography,
+  IconButton,
+  Chip,
+  Switch,
+  Grid,
+  Box
+} from "@mui/material";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getProducts } from "../../redux/apiCalls";
+import {
+  getProducts,
+  resetState,
+  deleteProduct,
+} from "../../redux/productRedux";
+import Header from "../../components/Header";
+import makeToast from "../../toaster";
+import { Edit, Delete } from "@material-ui/icons";
 
 export default function ProductList() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product.products);
-
+  const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
-    getProducts(dispatch);
-  }, [dispatch]);
+    const fetchData = async () => {
+      dispatch(getProducts());
+    };
+    fetchData();
+  }, [searchQuery]);
+  const productState = useSelector((state) => state.product);
+  const { isSuccess, isError, isLoading, deletedProduct } = productState;
+  useEffect(() => {
+    if (deletedProduct) {
+      makeToast("success", "Product deleted successfully!");
+      dispatch(resetState());
+      dispatch(getProducts());
+    }
+    if (isError) {
+      makeToast("error", "Something went wrong");
+    }
+  }, [deletedProduct, isError]);
 
-  const handleDelete = (id) => {
-    deleteProduct(id, dispatch);
-  };
+  const filteredProducts = productState.products.filter((product) =>
+    product.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-  const columns = [
-    { field: "_id", headerName: "ID", width: 220 },
-    {
-      field: "product",
-      headerName: "Product",
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="productListItem">
-            <img className="productListImg" src={params.row.img} alt="" />
-            {params.row.title}
-          </div>
-        );
-      },
-    },
-    { field: "inStock", headerName: "available", width: 200 },
-    {
-      field: "price",
-      headerName: "Price (₦)",
-      width: 160,
-    },
-    {
-      field: "action",
-      headerName: "Action",
-      width: 150,
-      renderCell: (params) => {
-        return (
-          <>
-            <Link to={"/product/" + params.row._id}>
-              <button className="productListEdit">Edit</button>
-            </Link>
-            <DeleteOutline
-              className="productListDelete"
-              onClick={() => handleDelete(params.row._id)}
-            />
-          </>
-        );
-      },
-    },
-  ];
-
+  const products = filteredProducts.map((product) => ({
+    id: product._id,
+    title: product.title,
+    price: product.price,
+    inStock: product?.inStock ? "Yes" : "No",
+    action: null,
+  }));
   return (
-    <div className="productList">
+    <Box sx={{
+      flex: 4,
+      px: 2
+    }}>
+      <Header
+        title={"Property List"}
+        placeholder="Search Property..."
+        button="Add Property"
+        route="product/create"
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       <DataGrid
         rows={products}
-        disableSelectionOnClick
-        columns={columns}
-        getRowId={(row) => row._id}
-        pageSize={8}
-        checkboxSelection
+        columns={[
+          {
+            field: "title",
+            headerName: "Property Title",
+            width: 300,
+            
+          },
+          { field: "price", headerName: "Price", width: 200, headerAlign: "center",
+          align: "center", },
+
+          {
+            field: "inStock",
+            headerName: "In Stock",
+            width: 150,
+            headerAlign: "center",
+                  align: "center",
+            renderCell: ({ value }) => (
+              <Chip label={value} sx={{ height: "25px" }} />
+            ),
+          },
+
+          {
+            field: "action",
+            headerName: "Action",
+            width: 200,
+            headerAlign: "center",
+            align: "center",
+            renderCell: ({ row }) => (
+              <Stack direction="row">
+                <Link to={`/product/${row.id}`}>
+                  <IconButton aria-label="Edit">
+                    <Edit />
+                  </IconButton>
+                </Link>
+                <IconButton
+                  aria-label="Delete"
+                  disabled={isLoading}
+                  onClick={() => {
+                    dispatch(deleteProduct(row.id));
+                  }}
+                >
+                  <Delete />
+                </IconButton>
+              </Stack>
+            ),
+          },
+        ]}
       />
-    </div>
+    </Box>
   );
 }
+

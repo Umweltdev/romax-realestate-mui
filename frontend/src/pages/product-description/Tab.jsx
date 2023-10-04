@@ -44,13 +44,13 @@ const TabComponent = ({product}) => {
               fontSize: "16px",
             }}
           />
-          <Tab
+          {/* <Tab
             label="Property Reviews"
             sx={{
               textTransform: "none",
               fontSize: "16px",
             }}
-          />
+          /> */}
         </Tabs>
       </Box>
 
@@ -74,9 +74,9 @@ const TabComponent = ({product}) => {
           </Stack>
         </Stack>
       </TabPanel>
-      <TabPanel value={selectedTab} index={2}>
+      {/* <TabPanel value={selectedTab} index={2}>
         <Reviews />
-      </TabPanel>
+      </TabPanel> */}
     </Box>
   );
 };

@@ -233,7 +233,7 @@ const Product = () => {
                           <Typography variant="subtitle1" color="teal">
                             Car Parking
                           </Typography>
-                          <Typography>{product?.parking}</Typography>
+                          <Typography>{product?.car}</Typography>
                         </Stack>
                       </Grid>
                       <Grid item xs={6} sm={4}>

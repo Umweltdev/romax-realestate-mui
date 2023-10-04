@@ -2,20 +2,12 @@ import "./userList.css";
 import { useEffect, useState } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-<<<<<<< HEAD
 import { userRows } from "../../dummyData";
-=======
->>>>>>> 2143669d1dadb412151a58afef8f8d6d82644d80
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, getUsers } from "../../redux/apiCalls";
 
 export default function UserList() {
-<<<<<<< HEAD
-  const [data, setData] = useState(userRows);
-  const dispatch = useDispatch();
- 
-=======
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
 
@@ -23,7 +15,6 @@ export default function UserList() {
     getUsers(dispatch);
   }, [dispatch]);
 
->>>>>>> 2143669d1dadb412151a58afef8f8d6d82644d80
   const handleDelete = (id) => {
     deleteUser(id, dispatch);
   };

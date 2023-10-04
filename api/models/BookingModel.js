@@ -8,7 +8,10 @@ const bookingModel = new mongoose.Schema(
     product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
     bookDate: { type: Date, default: Date.now() },
     viewDate: { type: Date },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    phone: { type: String},
+    email: { type: String},
+    message: { type: String},
+
   },
   { timestamps: true }
 );

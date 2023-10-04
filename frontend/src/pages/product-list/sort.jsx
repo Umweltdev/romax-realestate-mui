@@ -11,7 +11,7 @@ import {
 import FilterListIcon from "@mui/icons-material/FilterList";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const Sort = ({ openDrawer, sort, setSort }) => {
+const Sort = ({ openDrawer, sort, setSort, products }) => {
   const isNonMobile = useMediaQuery("(min-width:968px)");
 
   return (
@@ -31,11 +31,12 @@ const Sort = ({ openDrawer, sort, setSort }) => {
       >
         <Typography variant="h6">
           {" "}
-          447{" "}
+          {products?.length}
           <span
             style={{
               fontSize: "14px",
               fontWeight: "400",
+              marginLeft: 2
             }}
           >
             results

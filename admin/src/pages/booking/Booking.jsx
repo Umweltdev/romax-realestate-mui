@@ -81,6 +81,23 @@ const Product = () => {
                 </Typography>
               </Stack>{" "}
               <Stack direction="row" spacing={1.5}>
+                <Typography> Customer Note: </Typography>
+                <Typography color="#7D879C">
+                  {booking?.message}
+                </Typography>
+              </Stack>{" "}
+              <Stack direction="row" spacing={1.5}>
+                <Typography> Customer Phone: </Typography>
+                <Typography color="#7D879C">
+                  {booking?.phone}
+                </Typography>
+              </Stack>{" "}<Stack direction="row" spacing={1.5}>
+                <Typography> Customer Email: </Typography>
+                <Typography color="#7D879C">
+                  {booking?.email}
+                </Typography>
+              </Stack>{" "}
+              <Stack direction="row" spacing={1.5}>
                 <Typography>View Date: </Typography>
                 <Typography color="#7D879C">
                   {booking?.viewDate

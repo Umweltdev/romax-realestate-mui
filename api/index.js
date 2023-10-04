@@ -20,6 +20,7 @@ import payRoute from "./routes/pay.js"
 var app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({extended: false}))
 
 import cors from "cors"
 app.use(cors())

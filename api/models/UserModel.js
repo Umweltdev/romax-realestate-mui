@@ -28,11 +28,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    img: {
-      type: String,
-    },
+    // img: {
+    //   type: String,
+    // },
     savedProperties: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
-
   },
   { timestamps: true }
 );

@@ -102,7 +102,7 @@ const Booking = ({ openDrawer }) => {
             <Stack direction="row" spacing={1.5}>
               <Typography>View Date: </Typography>
               <Typography color="#7D879C">
-                {booking?.inspectionDate
+                {booking?.viewDate
                   ? dateConverter(booking?.viewDate)
                   : "Pending"}
               </Typography>

@@ -52,10 +52,10 @@ function App() {
                       <Route path="/bookings" element={<Bookings />} />
                       <Route path="/bookings/:id" element={<Booking />} />
                       <Route path="/timelines" element={<TimelineList />} />
-                      <Route path="/product/:productId" element={<Product />} />
+                      <Route path="/product/:id" element={<NewProduct />} />
                       <Route path="/timeline/:timelineId" element={<Timeline />} />
                       <Route path="/newtimeline" element={<NewTimeline />} />
-                      <Route path="/newproduct" element={<NewProduct />} />
+                      {/* <Route path="/newproduct" element={<NewProduct />} /> */}
                       <Route path="/faq/:id" element={<AddFaq />} />
                       <Route path="/faqs" element={<Faqs />} />
 

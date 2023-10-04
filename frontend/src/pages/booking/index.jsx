@@ -16,9 +16,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { publicRequest } from "../../requestMethods";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Formik } from "formik";
 import * as yup from "yup";
+import makeToast from "../../toaster";
 
 const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
@@ -42,6 +43,7 @@ const Booking = () => {
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState({});
   const isNonMobile = useMediaQuery("(min-width:750px)");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -55,6 +57,25 @@ const Booking = () => {
     };
     getProduct();
   }, [id]);
+
+  const handleBooking = async (data) => {
+    try {
+      const res = await publicRequest.post(`/booking`, {
+        ...data,
+        product: id,
+      });
+      if (res.data) {
+        makeToast(
+          "success",
+          "Your Booking has been sucessfully sent, You will be contacted soon!"
+        );
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Box>
       <Announcement />
@@ -101,8 +122,10 @@ const Booking = () => {
               <Formik
                 enableReinitialize={true}
                 onSubmit={(values) => {
+                  handleBooking(values);
                 }}
                 initialValues={initialValues}
+                validationSchema={bookingSchema}
               >
                 {({
                   values,
@@ -115,67 +138,72 @@ const Booking = () => {
                   dirty,
                 }) => (
                   <form onSubmit={handleSubmit}>
-                    <Stack spacing={2}> 
-                    <CustomTextField
-                     fullWidth
-                      variant="outlined"
-                      type="text"
-                      label="Telephone"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.phone}
-                      name="phone"
-                      error={!!touched.phone && !!errors.phone}
-                      helperText={touched.phone && errors.phone}
-                      InputLabelProps={{
-                        style: { fontSize: "16px" },
-                      }}
-                    />
-                    <CustomTextField
-                      fullWidth
-                      variant="outlined"
-                      type="email"
-                      label="Email Address"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.email}
-                      name="email"
-                      error={!!touched.email && !!errors.email}
-                      helperText={touched.email && errors.email}
-                      InputLabelProps={{
-                        style: { fontSize: "16px" },
-                      }}
-                    />
-                    <CustomTextField
-                      fullWidth
-                      variant="outlined"
-                      type="text"
-                      label="Your message"
-                      multiline
-                      rows={6}
-                      name="message"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.message}
-                      error={!!touched.message && !!errors.message}
-                      helperText={touched.message && errors.message}
-                      InputLabelProps={{
-                        style: { fontSize: "16px" },
-                      }}
-                    />
+                    <Stack spacing={2}>
+                      <CustomTextField
+                        fullWidth
+                        variant="outlined"
+                        type="text"
+                        label="Telephone"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.phone}
+                        name="phone"
+                        error={!!touched.phone && !!errors.phone}
+                        helperText={touched.phone && errors.phone}
+                        InputLabelProps={{
+                          style: { fontSize: "16px" },
+                        }}
+                      />
+                      <CustomTextField
+                        fullWidth
+                        variant="outlined"
+                        type="email"
+                        label="Email Address"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.email}
+                        name="email"
+                        error={!!touched.email && !!errors.email}
+                        helperText={touched.email && errors.email}
+                        InputLabelProps={{
+                          style: { fontSize: "16px" },
+                        }}
+                      />
+                      <CustomTextField
+                        fullWidth
+                        variant="outlined"
+                        type="text"
+                        label="Your message"
+                        multiline
+                        rows={6}
+                        name="message"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.message}
+                        error={!!touched.message && !!errors.message}
+                        helperText={touched.message && errors.message}
+                        InputLabelProps={{
+                          style: { fontSize: "16px" },
+                        }}
+                      />
                     </Stack>
-                   
+
                     <Button
+                      disabled={!isValid || !dirty}
+                      type="submit"
                       sx={{
                         textTransform: "none",
-                        bgcolor: "teal",
+                        bgcolor:
+                          !isValid || !dirty
+                            ? "#0000001f !important"
+                            : "primary.main",
                         color: "white",
                         fontSize: "16px",
-                        // paddingX: "15px",
+                        // paddingX: "25px",
+                        width: "100%",
                         fontWeight: 600,
                         paddingY: "10px",
                         borderRadius: "8px",
-                        alignItems: "center",
                         mt: "20px",
                         "&:hover": {
                           backgroundColor: "teal",
