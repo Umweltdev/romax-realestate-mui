@@ -19,6 +19,9 @@ import Faqs from "./pages/faq/Faqs";
 import TimelineList from "./pages/timelineList/TimelineList";
 import Timeline from "./pages/timeline/Timeline"
 import NewTimeline from "./pages/newTimeline/newTimeline";
+import EstateList from "./pages/estateList/EstateList";
+import Estate from "./pages/estate/Estate";
+import NewEstate from "./pages/newEstate/newEstate";
 
 function App() {
 
@@ -44,18 +47,20 @@ function App() {
                     <Sidebar />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <Routes>
-                      <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Home />} />
                       <Route path="/users" element={<UserList />} />
                       <Route path="/user/:userId" element={<User />} />
                       <Route path="/newUser" element={<NewUser />} />
                       <Route path="/products" element={<ProductList />} />
+                      <Route path="/estates" element={<EstateList />} />
                       <Route path="/bookings" element={<Bookings />} />
                       <Route path="/bookings/:id" element={<Booking />} />
                       <Route path="/timelines" element={<TimelineList />} />
                       <Route path="/product/:id" element={<NewProduct />} />
+                      <Route path="/estate/:estateId" element={<Estate />} />
                       <Route path="/timeline/:timelineId" element={<Timeline />} />
                       <Route path="/newtimeline" element={<NewTimeline />} />
-                      {/* <Route path="/newproduct" element={<NewProduct />} /> */}
+                      <Route path="/newestate" element={<NewEstate />} />
                       <Route path="/faq/:id" element={<AddFaq />} />
                       <Route path="/faqs" element={<Faqs />} />
 

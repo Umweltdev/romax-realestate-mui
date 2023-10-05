@@ -30,6 +30,7 @@ router.post(
 //UPDATE
 router.put("/:id", verifyTokenAndAdmin, Multer.array("images", 10),
 uploadImages, async (req, res) => {
+
   let parsedPreviousImages = []
   try {
     if(req.body.previousImages && req.body.previousImages.length > 0) {

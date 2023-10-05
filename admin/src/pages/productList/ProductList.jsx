@@ -82,7 +82,7 @@ export default function ProductList() {
 
           {
             field: "inStock",
-            headerName: "In Stock",
+            headerName: "Available",
             width: 150,
             headerAlign: "center",
                   align: "center",

@@ -70,7 +70,6 @@ export default function NewProduct() {
 
     return () => {
       dispatch(resetState());
-
       setSelectedFiles([]);
     };
   }, [id]);
@@ -109,9 +108,8 @@ export default function NewProduct() {
     images: [],
     features: productData?.features || [],
     isFeatured: productData?.isFeatured || false,
-    inStock: productData?.inStock || true,
+    inStock: productData?.inStock || false,
   };
-
   useEffect(() => {
     if (productData) {
       setSelectedFiles(productData?.img);
