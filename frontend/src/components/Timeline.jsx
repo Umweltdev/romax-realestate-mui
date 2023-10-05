@@ -5,17 +5,18 @@ import Loader from './Loader';
 
 const Timelines = () => {
   const [timelines, setTimelines] = useState([]);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://romax-real-estate.onrender.com/api/timeline')
+    axios
+      .get('https://romax-real-estate.onrender.com/api/timeline')
       .then((response) => {
         setTimelines(response.data);
-        setLoading(false)
+        setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
-        setLoading(false)
+        setLoading(false);
       });
   }, []);
 
@@ -24,13 +25,15 @@ const Timelines = () => {
       {loading ? ( // Display Loader component when loading is true
         <Loader />
       ) : (
-
         <Timeline lineColor={'#ddd'}>
           {timelines.map((item) => (
             <TimelineItem
               key={item._id}
-              dateText={item.dateText}
-              style={{ color: item.color }}
+              dateText={
+                <div style={{ backgroundColor: '#008080', color: 'white' }}>
+                  {item.dateText}
+                </div>
+              }
             >
               <h3>{item.title}</h3>
               <h4>{item.subtitle}</h4>
