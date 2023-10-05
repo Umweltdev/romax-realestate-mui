@@ -31,7 +31,7 @@ const TabComponent = ({ product }) => {
           allowScrollButtonsMobile
         >
           <Tab
-            label="Property Description"
+            label="Estate Description"
             sx={{
               textTransform: "none",
               fontSize: "16px",
