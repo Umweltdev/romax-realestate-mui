@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Tabs, Tab, Box, Stack, Typography } from "@mui/material";
 import Description from "./Description";
-import Reviews from "./Reviews";
 
 const TabPanel = ({ children, value, index }) => (
   <div

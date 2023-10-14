@@ -19,7 +19,7 @@ function CategoryItem({ img, title, cat }) {
       }}
     >
       <Stack spacing={1}>
-        <Typography variant="h5" color="white">
+        <Typography variant="h5" color="white" textAlign="center">
           {title}
         </Typography>
         <Button

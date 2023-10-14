@@ -1,7 +1,8 @@
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import FenceOutlinedIcon from '@mui/icons-material/FenceOutlined';
-import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
-import WaterOutlinedIcon from '@mui/icons-material/WaterOutlined';
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import FenceOutlinedIcon from "@mui/icons-material/FenceOutlined";
+import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
+import WaterOutlinedIcon from "@mui/icons-material/WaterOutlined";
+import {publicRequest} from "./requestMethods"
 
 export const sliderItems = [
   {
@@ -32,19 +33,19 @@ export const categories = [
     id: 1,
     img: "https://img.gtsstatic.net/reno/imagereader.aspx?imageurl=https%3A%2F%2Fstatic-christiesrealestate-cms-production.gtsstatic.net%2Fresources%2Fv_4_19_0_380%2Fsiteresources%2Fmy%20folder%2Fresponsive%2Flifestyles%2Fbeach%2Fcarousel%2Fvilla%20baan%20sang.jpg&option=N&permitphotoenlargement=false&w=1200&fallbackimageurl=https%3A%2F%2Fstatic-christiesrealestate-cms-production.gtsstatic.net%2Fresources%2Fv_4_19_0_380%2Flayouts%2Fcommon%2Fimages%2Fno-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
     title: "BEACH FRONT",
-    cat: "beach"
+    cat: "beach",
   },
   {
     id: 2,
     img: "https://img.gtsstatic.net/reno/imagereader.aspx?imageurl=https%3A%2F%2Fsir.azureedge.net%2F236i215%2Fpzdcph02xhscm9ee1d9wa5e7t4i215&option=N&h=472&permitphotoenlargement=false?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
     title: "ISLAND PROPERTIES",
-    cat: "island"
+    cat: "island",
   },
   {
     id: 3,
     img: "https://dq1niho2427i9.cloudfront.net/efd9259e-53f3-4398-a671-0327d1374d03/1845203668.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     title: "VILLAGE PROPERTIES",
-    cat: "village"
+    cat: "village",
   },
 ];
 
@@ -81,23 +82,52 @@ export const popularProducts = [
     id: 8,
     img: "https://woollen-wear.in/cdn-cgi/imagedelivery/ZMUrshz-omHo_iJ4haWPew/women-jackets/below-zero-degree/em25982/em25982-black-f-220x280.JPG/public",
   },
-]
+];
 
 export const features = [
   {
     Icon: LockOutlinedIcon,
-    details: "Surveillance cameras (cctv), designated security, gated estate with admin building",
+    details:
+      "Surveillance cameras (cctv), designated security, gated estate with admin building",
   },
   {
     Icon: FenceOutlinedIcon,
-    details: "Dedicated play area and gym lekki conservation center located 15-mins drive from site",
+    details:
+      "Dedicated play area and gym lekki conservation center located 15-mins drive from site",
   },
   {
     Icon: LightbulbOutlinedIcon,
-    details: "Constant water supply 24/7 constant electricity water treatment, drainage",
+    details:
+      "Constant water supply 24/7 constant electricity water treatment, drainage",
   },
   {
     Icon: WaterOutlinedIcon,
-    details: "Property is bounded by the lagoon, buyers can primarily access the water body via boat",
+    details:
+      "Property is bounded by the lagoon, buyers can primarily access the water body via boat",
   },
 ];
+
+export const prices = [
+  10000000, 20000000, 30000000, 40000000, 50000000, 60000000, 70000000,
+];
+export const numbers = [1, 2, 3, 4, 5, 6, 7, 9, 10];
+
+
+
+export const getLocations = async () => {
+  try {
+    const res = await publicRequest.get("/products/get-locations");
+     return res.data
+  } catch (error) {
+    throw error; 
+  }
+};
+
+export const getPropertyType = async () => {
+  try {
+    const res = await publicRequest.get("/products/get-property-type");
+     return res.data
+  } catch (error) {
+    throw error; 
+  }
+};

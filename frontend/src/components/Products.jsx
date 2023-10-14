@@ -99,7 +99,7 @@ const Products = () => {
         },
       },
       {
-        breakpoint: 500,
+        breakpoint: 600,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -110,9 +110,9 @@ const Products = () => {
     ],
   };
   return (
-    <Box width="80%" margin="0 auto" pb={3}>
+    <Box width={{ xs: "97%", md:"80%" }}margin="0 auto" pb={3}>
       <Typography variant="h5" textAlign="center" fontSize="28px" mb={2}>
-        INDIVIDUAL HOUSES
+        FEATURED HOUSES
       </Typography>
       <div>
         <Slider {...settings}>

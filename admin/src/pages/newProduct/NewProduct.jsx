@@ -101,6 +101,7 @@ export default function NewProduct() {
     propertyType: productData?.propertyType || "",
     price: productData?.price || "",
     location: productData?.location || "",
+    address: productData?.address || "",
     car: productData?.car || "",
     bed: productData?.bed || "",
     bath: productData?.bath || "",
@@ -346,25 +347,44 @@ export default function NewProduct() {
                       </MenuItem>
                     ))}
                   </CustomTextField> */}
+                <CustomTextField
+                  fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Location"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.location}
+                  name="location"
+                  error={!!touched.location && !!errors.location}
+                  helperText={touched.location && errors.location}
+                  sx={{
+                    width: isNonMobile ? "250px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />
+                <CustomTextField
+                  fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Address"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.address}
+                  name="address"
+                  error={!!touched.address && !!errors.address}
+                  helperText={touched.address && errors.address}
+                  sx={{
+                    width: isNonMobile ? "520px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />{" "}
               </Box>
-              <CustomTextField
-                fullWidth
-                variant="outlined"
-                type="text"
-                label="Location"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.location}
-                name="location"
-                error={!!touched.location && !!errors.location}
-                helperText={touched.location && errors.location}
-                sx={{
-                  gridColumn: "span 4",
-                }}
-                InputLabelProps={{
-                  style: { fontSize: "15px" },
-                }}
-              />{" "}
+
               <Box
                 sx={{
                   gridColumn: "span 4",

@@ -5,13 +5,15 @@ import {
   InputAdornment,
   Button,
   Typography,
+  useMediaQuery
 } from "@mui/material";
 
 const Newsletter = () => {
+  const isNonMobile = useMediaQuery("(min-width:815px)");
   return (
     <Box
       sx={{
-        height: "50vh",
+        height: "300px",
         backgroundColor: "rgb(252, 245, 245)",
         display: "flex",
         alignItems: "center",
@@ -21,17 +23,18 @@ const Newsletter = () => {
     >
       <Typography
         variant="h5"
-        fontSize="40px"
+        fontSize={{xs: "34px", md:"40px"}}
         letterSpacing="2px"
         textTransform="uppercase"
       >
         Newsletter
       </Typography>
       <Typography
-        variant="body2"
+        variant={{xs: "subtitle1", md:"body2"}}
         color="#7d879c"
         textTransform="uppercase"
-        letterSpacing="2px"
+        textAlign="center"
+        letterSpacing="1px"
         mt={1}
         mb={3}
       >
@@ -71,7 +74,7 @@ const Newsletter = () => {
           ),
         }}
         sx={{
-          width: "60%",
+          width: isNonMobile ? "60%": "95%",
           paddingRight: 0,
           "& .MuiOutlinedInput-root": {
             borderRadius: "1200px",

@@ -23,6 +23,9 @@ const productSchema = new mongoose.Schema({
   size: {
     type: String, 
   },
+  address: {
+    type: String,
+  },
   location: {
     type: String,
   },
@@ -37,20 +40,6 @@ const productSchema = new mongoose.Schema({
   },
   features: {
     type: Array,
-  },
-  payment: {
-    type: String,
-  },
-  ratings: [
-    {
-      star: Number,
-      comment: String,
-      postedby: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    }
-  ],
-  totalrating: {
-    type: Number,
-    default: 0,
   },
   price: {
     type: Number,

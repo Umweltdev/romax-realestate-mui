@@ -28,61 +28,68 @@ router.post(
 );
 
 //UPDATE
-router.put("/:id", verifyTokenAndAdmin, Multer.array("images", 10),
-uploadImages, async (req, res) => {
+router.put(
+  "/:id",
+  verifyTokenAndAdmin,
+  Multer.array("images", 10),
+  uploadImages,
+  async (req, res) => {
+    let parsedPreviousImages = [];
+    try {
+      if (req.body.previousImages && req.body.previousImages.length > 0) {
+        parsedPreviousImages = req.body.previousImages.map((imageString) =>
+          JSON.parse(imageString)
+        );
+      }
 
-  let parsedPreviousImages = []
-  try {
-    if(req.body.previousImages && req.body.previousImages.length > 0) {
-      parsedPreviousImages = req.body.previousImages.map((imageString) =>
-      JSON.parse(imageString)
-    );
+      const { id } = req.params;
+
+      let updatedData = req.body;
+      const product = await Product.findById(id);
+      const existingImages = product.img;
+      let updatedImages = [];
+
+      if (req.images && req.images.length > 0) {
+        updatedImages = req.images;
+      }
+
+      updatedData.images = [...updatedImages, ...existingImages];
+
+      const removedImages = existingImages.filter(
+        (existingImage) =>
+          !parsedPreviousImages.some(
+            (previousImage) =>
+              previousImage.split("/").pop().split(".")[0] ===
+              existingImage.split("/").pop().split(".")[0]
+          )
+      );
+
+      for (const removedImage of removedImages) {
+        const publicId = removedImage.split("/").pop().split(".")[0];
+        console.log(publicId);
+        await cloudinaryDeleteImg(publicId);
+      }
+
+      updatedData.img = updatedData.images.filter(
+        (updatedImage) =>
+          !removedImages.some(
+            (removedImage) =>
+              removedImage.split("/").pop().split(".")[0] ===
+              updatedImage.split("/").pop().split(".")[0]
+          )
+      );
+
+      delete updatedData.previousImages;
+      const updatedProduct = await Product.findByIdAndUpdate(id, updatedData, {
+        new: true,
+      });
+      res.json(updatedProduct);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
     }
-    
-    const { id } = req.params;
-
-    let updatedData = req.body; 
-    const product = await Product.findById(id);
-    const existingImages = product.img;
-    let updatedImages = [];
-
-    if (req.images && req.images.length > 0) {
-      updatedImages = req.images;
-    }
-
-    updatedData.images = [...updatedImages, ...existingImages];
-    
-    
-    const removedImages = existingImages.filter(
-      (existingImage) =>
-        !parsedPreviousImages.some(
-          (previousImage) => previousImage.split("/").pop().split(".")[0] === existingImage.split("/").pop().split(".")[0]
-        )
-    );
-
-    for (const removedImage of removedImages) {
-      const publicId = removedImage.split("/").pop().split(".")[0];
-      console.log(publicId)
-      await cloudinaryDeleteImg(publicId);
-    }
-
-    updatedData.img = updatedData.images.filter(
-      (updatedImage) =>
-        !removedImages.some(
-          (removedImage) => removedImage.split("/").pop().split(".")[0] === updatedImage.split("/").pop().split(".")[0]
-        )
-    );
-
-    delete updatedData.previousImages;
-    const updatedProduct = await Product.findByIdAndUpdate(id, updatedData, {
-      new: true,
-    });
-    res.json(updatedProduct);
-  } catch (err) {
-    console.log(err)
-    res.status(500).json(err);
   }
-});
+);
 
 //DELETE
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
@@ -98,6 +105,26 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
     res.status(200).json({ message: "Product has been deleted ...." });
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+router.get("/get-property-type", async (req, res) => {
+  try {
+    const locations = await Product.distinct("propertyType");
+    res.json(locations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+router.get("/get-locations", async (req, res) => {
+  try {
+    const locations = await Product.distinct("location");
+    res.json(locations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -123,8 +150,8 @@ router.get("/", async (req, res) => {
       "maxBed",
       "minCar",
       "maxCar",
-      "types",
-      "location"
+      // "types",
+      "location",
     ];
     excludeFields.forEach((el) => delete queryObj[el]);
     let queryStr = JSON.stringify(queryObj);
@@ -164,10 +191,10 @@ router.get("/", async (req, res) => {
       query = query.where("bed").gte(minBed);
     }
 
-    if (types) {
-      const propertyTypes = types.split(",").map((type) => type.trim());
-      query = query.where("propertyType").in(propertyTypes);
-    }
+    // if (types) {
+    //   const propertyTypes = types.split(",").map((type) => type.trim());
+    //   query = query.where("propertyType").in(propertyTypes);
+    // }
     if (req.query.location) {
       const location = req.query.location;
       query = query.where({ location: { $regex: location, $options: "i" } });

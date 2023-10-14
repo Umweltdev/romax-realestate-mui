@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Stack,
   FormControl,
@@ -7,21 +8,37 @@ import {
   InputLabel,
 } from "@mui/material";
 import { CustomDivider } from "./index";
+import { useSelector, useDispatch } from "react-redux";
 
-const Range = ({
-  setMaxPrice,
+import {
   setMinPrice,
-  minPrice,
-  maxPrice,
-  minBed,
-  setMaxBed,
+  setMaxPrice,
   setMinBed,
-  maxBed,
-  minCar,
-  setMaxCar,
+  setMaxBed,
   setMinCar,
-  maxCar,
-}) => {
+  setMaxCar,
+  setType,
+  setLocation,
+} from "../../redux/filter";
+import { prices, numbers, getLocations, getPropertyType} from "../../data";
+
+const Range = () => {
+  const dispatch = useDispatch();
+  const { minPrice, maxPrice, minBed, maxBed, minCar, maxCar, type, location } =
+    useSelector((state) => state.filter);
+
+
+    const [locations, setLocations] = useState([]);
+  const [propertyType, setPropertyType] = useState([]);
+
+  useEffect(() => {
+    getLocations().then((data) => {
+      setLocations(data);
+    });
+    getPropertyType().then((data) => {
+      setPropertyType(data);
+    });
+  }, []);
   return (
     <>
       <Stack spacing={2}>
@@ -41,18 +58,20 @@ const Range = ({
               id="demo-simple-select"
               value={minPrice}
               onChange={(e) => {
-                setMinPrice(e.target.value);
+                dispatch(setMinPrice(e.target.value));
+              }}
+              sx={{
+                borderRadius: "10px",
               }}
             >
-              <MenuItem value={10000000}>₦10,000,000</MenuItem>
-              <MenuItem value={20000000}>₦20,000,000</MenuItem>
-              <MenuItem value={30000000}>₦30,000,000</MenuItem>
-              <MenuItem value={40000000}>₦40,000,000</MenuItem>
-              <MenuItem value={50000000}>₦50,000,000</MenuItem>
-              <MenuItem value={60000000}>₦60,000,000</MenuItem>
+              {prices.map((price) => (
+                <MenuItem
+                  value={price}
+                >{`₦${price.toLocaleString()}`}</MenuItem>
+              ))}
             </Select>
           </FormControl>
-          <Typography>to</Typography>
+          <Typography>-</Typography>
           <FormControl
             size="small"
             sx={{
@@ -66,18 +85,17 @@ const Range = ({
               id="demo-simple-select"
               value={maxPrice}
               onChange={(e) => {
-                setMaxPrice(e.target.value);
+                dispatch(setMaxPrice(e.target.value));
+              }}
+              sx={{
+                borderRadius: "10px",
               }}
             >
-              <MenuItem value={10000000}>₦10,000,000</MenuItem>
-              <MenuItem value={20000000}>₦20,000,000</MenuItem>
-              <MenuItem value={30000000}>₦30,000,000</MenuItem>
-              <MenuItem value={40000000}>₦40,000,000</MenuItem>
-              <MenuItem value={50000000}>₦50,000,000</MenuItem>
-              <MenuItem value={60000000}>₦60,000,000</MenuItem>
-              <MenuItem value={70000000}>₦70,000,000</MenuItem>
-              <MenuItem value={80000000}>₦80,000,000</MenuItem>
-              <MenuItem value={100000000}>₦100,000,000</MenuItem>
+              {prices.map((price) => (
+                <MenuItem
+                  value={price}
+                >{`₦${price.toLocaleString()}`}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Stack>
@@ -100,18 +118,21 @@ const Range = ({
             <Select
               value={minBed}
               onChange={(e) => {
-                setMinBed(e.target.value);
+                dispatch(setMinBed(e.target.value));
               }}
               label="Min-Bed"
+              sx={{
+                borderRadius: "10px",
+              }}
             >
-              <MenuItem value={1}>1 Bed</MenuItem>
-              <MenuItem value={2}>2 Beds</MenuItem>
-              <MenuItem value={3}>3 Beds</MenuItem>
-              <MenuItem value={4}>4 Beds</MenuItem>
-              <MenuItem value={5}>5 Beds</MenuItem>
+              {numbers.map((no) => (
+                <MenuItem value={no}>{`${no} ${
+                  no === 1 ? "Bed" : "Beds"
+                }`}</MenuItem>
+              ))}
             </Select>
           </FormControl>
-          <Typography>to</Typography>
+          <Typography>-</Typography>
           <FormControl
             size="small"
             sx={{
@@ -123,14 +144,18 @@ const Range = ({
             <Select
               value={maxBed}
               onChange={(e) => {
-                setMaxBed(e.target.value);
+                dispatch(setMaxBed(e.target.value));
               }}
               label="Max-Bed"
+              sx={{
+                borderRadius: "10px",
+              }}
             >
-              <MenuItem value={2}>2 Bed</MenuItem>
-              <MenuItem value={3}>3 Beds</MenuItem>
-              <MenuItem value={4}>4 Beds</MenuItem>
-              <MenuItem value={5}>5 Beds</MenuItem>
+              {numbers.map((no) => (
+                <MenuItem value={no}>{`${no} ${
+                  no === 1 ? "Bed" : "Beds"
+                }`}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Stack>
@@ -154,16 +179,21 @@ const Range = ({
             <Select
               value={minCar}
               onChange={(e) => {
-                setMinCar(e.target.value);
+                dispatch(setMinCar(e.target.value));
               }}
               label="Min-Car"
+              sx={{
+                borderRadius: "10px",
+              }}
             >
-              <MenuItem value={1}>1 Car</MenuItem>
-              <MenuItem value={2}>2 Cars</MenuItem>
-              <MenuItem value={3}>3 Cars</MenuItem>
+              {numbers.map((no) => (
+                <MenuItem value={no}>{`${no} ${
+                  no === 1 ? "Car" : "Cars"
+                }`}</MenuItem>
+              ))}
             </Select>
           </FormControl>
-          <Typography>to</Typography>
+          <Typography>-</Typography>
           <FormControl
             size="small"
             sx={{
@@ -175,13 +205,68 @@ const Range = ({
             <Select
               value={maxCar}
               onChange={(e) => {
-                setMaxCar(e.target.value);
+                dispatch(setMaxCar(e.target.value));
               }}
               label="Max-Car"
+              sx={{
+                borderRadius: "10px",
+              }}
             >
-              <MenuItem value={2}>2 Cars</MenuItem>
-              <MenuItem value={3}>3 Cars</MenuItem>
-              <MenuItem value={4}>4 Cars</MenuItem>
+              {numbers.map((no) => (
+                <MenuItem value={no}>{`${no} ${
+                  no === 1 ? "Car" : "Cars"
+                }`}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Stack>
+        <CustomDivider />
+        <Stack spacing={2}>
+          <Typography variant="subtitle1" fontSize="15px">
+            PROPERTY TYPE
+          </Typography>
+          <FormControl size="small">
+            <InputLabel>Property Type</InputLabel>
+
+            <Select
+              value={type}
+              onChange={(e) => {
+                dispatch(setType(e.target.value));
+              }}
+              label="Property Type"
+              sx={{
+                borderRadius: "10px",
+              }}
+            >
+              {propertyType.map((type) => (
+                <MenuItem value={type}>{type}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Stack>
+
+        <CustomDivider />
+
+        <Stack spacing={2}>
+          <Typography variant="subtitle1" fontSize="15px">
+            LOCATION
+          </Typography>
+          <FormControl size="small">
+            <InputLabel>Location</InputLabel>
+
+            <Select
+              value={location}
+              onChange={(e) => {
+                dispatch(setLocation(e.target.value));
+              }}
+              label="Location"
+              sx={{
+                borderRadius: "10px",
+              }}
+            >
+              {locations.map((location) => (
+                <MenuItem value={location}>{location}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Stack>

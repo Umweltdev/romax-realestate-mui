@@ -38,6 +38,7 @@ export const createProducts = createAsyncThunk(
       formData.append("desc", productData.desc);
       formData.append("price", productData.price);
       formData.append("location", productData.location);
+      formData.append("address", productData.address);
       formData.append("propertyType", productData.propertyType);
       formData.append("size", productData.size);
       formData.append("bed", productData.bed);
@@ -71,6 +72,7 @@ export const updateProduct = createAsyncThunk(
       formData.append("desc", productData.desc);
       formData.append("price", productData.price);
       formData.append("location", productData.location);
+      formData.append("address", productData.address);
       formData.append("propertyType", productData.propertyType);
       formData.append("size", productData.size);
       formData.append("bed", productData.bed);

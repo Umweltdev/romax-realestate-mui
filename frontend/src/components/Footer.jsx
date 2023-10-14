@@ -111,7 +111,7 @@ const Footer = () => {
         <ContactItem><Room style={{ marginRight: "10px" }} /> 622 Dixie Path, South Tobinchester 98336</ContactItem>
         <ContactItem><Phone style={{ marginRight: "10px" }} /> + (234) - 913 - 396 - 8613</ContactItem>
         <ContactItem><MailOutline style={{ marginRight: "10px" }} /> contact@sell.dev</ContactItem>
-        <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
+        {/* <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" /> */}
       </Right>
     </Container>
   )

@@ -6,18 +6,22 @@ import {
   Grid,
   useMediaQuery,
   IconButton,
+  Modal,
 } from "@mui/material";
 import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
 import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import { Close } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "./ProdListCarousel";
 import { dateConverter } from "../user-dashboard/utils";
 import { Link, useNavigate } from "react-router-dom";
 import { userRequest } from "../../requestMethods";
+import { useSelector } from "react-redux";
 import makeToast from "../../toaster";
+import Login from "../../pages/Login";
 
 const Card = (props) => {
   const {
@@ -33,9 +37,19 @@ const Card = (props) => {
     createdAt,
   } = props;
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user.currentUser);
   const [toggle, setToggle] = useState(false);
+  // const [showLoginModal, setShowLoginModal] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const handleSavedProperty = async () => {
+    if (!user) {
+      handleOpen();
+      return;
+    }
     try {
       const res = await userRequest.put(`/users/save-property/${_id}`);
       if (res.data) {
@@ -216,20 +230,22 @@ const Card = (props) => {
                   <Typography variant="subtitle1">0161 232 0345</Typography>
                   <Typography variant="subtitle1">Hotline</Typography>
                 </Stack>
-                 <IconButton onClick={()=> navigate(`/booking/${_id}`) }>
-                 <EmailOutlinedIcon
-                  
-                  sx={{
-                    fontSize: "25px",
-                  }}
-                />
-                 </IconButton>
-                
+                <IconButton onClick={() => navigate(`/booking/${_id}`)}>
+                  <EmailOutlinedIcon
+                    sx={{
+                      fontSize: "25px",
+                    }}
+                  />
+                </IconButton>
               </Stack>
 
               <Stack spacing={0.4} direction="row" alignItems="center">
                 <IconButton onClick={handleSavedProperty}>
-                  {toggle ? <FavoriteIcon sx={{color:"teal"}} /> : <FavoriteBorderOutlinedIcon />}
+                  {toggle ? (
+                    <FavoriteIcon sx={{ color: "teal" }} />
+                  ) : (
+                    <FavoriteBorderOutlinedIcon />
+                  )}
                 </IconButton>
                 <Typography variant="subtitle1">Save</Typography>
               </Stack>
@@ -237,6 +253,16 @@ const Card = (props) => {
           </Stack>
         </Grid>
       </Grid>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box>
+          <Login handleClose={handleClose} />
+        </Box>
+      </Modal>{" "}
     </Box>
   );
 };

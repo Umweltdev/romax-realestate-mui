@@ -43,25 +43,13 @@ const Card = ({ _id, title, location, price, img }) => {
         </Typography>
       </Box>
       <Box bgcolor="white" px={2} py={3} borderRadius="0 0 5px 5px ">
-        <Typography variant="body2">{title}</Typography>
+        <Typography variant="body2">
+          {title.length > 30 ? `${title.substring(0, 30)}...` : title}
+        </Typography>
 
         <Typography mt={1} color="#7D879C" variant="subtitle2">
-          {location}
+          {location.length > 45 ? `${location.substring(0, 45)}...` : location}
         </Typography>
-        {/* <CustomDivider />
-        <Stack>
-          <Typography
-            color="#7D879C"
-            variant="subtitle2"
-            letterSpacing={1.5}
-            fontSize="13px"
-          >
-            Property Owned by
-          </Typography>
-          <Typography variant="body2" letterSpacing={1.2}>
-            Romax Properties Limited
-          </Typography>
-        </Stack> */}
       </Box>
     </Box>
   );

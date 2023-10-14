@@ -40,7 +40,10 @@ const SavedCard = ({ title, location, price, img, bed }) => {
       </Box>
       <Box bgcolor="white" px={2} py={3} borderRadius="0 0 5px 5px ">
         <Stack direction="row" justifyContent="space-between">
-          <Typography variant="body2">{title}</Typography>
+          <Typography variant="body2">
+            {" "}
+            {title.length > 20 ? `${title.substring(0, 20)}...` : title}
+          </Typography>
           <Stack direction="row" spacing={1} alignItems="center">
             <HotelOutlinedIcon />
             <Typography>

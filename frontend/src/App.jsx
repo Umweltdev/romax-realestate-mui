@@ -48,7 +48,7 @@ function App() {
           />
           <Route
             path="/login"
-            element={user ? <Navigate to="/" /> : <Login />}
+            element={user ? <Navigate to="/" /> : <Login bgcolor="#F6F9FC"/>}
           />
           <Route path="/user/*"   element={user ? <UserDashBoard /> : <Login/>} />
 

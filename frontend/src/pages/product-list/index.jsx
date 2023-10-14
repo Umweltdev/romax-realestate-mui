@@ -18,11 +18,11 @@ import Announcement from "../../components/Announcement";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import Range from "./range";
-import Type from "./type";
 import { publicRequest } from "../../requestMethods";
 import { useLocation, useNavigate } from "react-router";
 import { SentimentVeryDissatisfied } from "@material-ui/icons";
-
+import { useSelector, useDispatch } from "react-redux";
+import { resetState } from "../../redux/filter";
 export const CustomDivider = styled(Divider)`
   margin: 16px 0px 24px;
   border-width: 0px 0px thin;
@@ -31,23 +31,23 @@ export const CustomDivider = styled(Divider)`
 `;
 
 const ProductListing = () => {
-  const location = useLocation();
+  const dispatch = useDispatch();
+  // const location = useLocation();
   const navigate = useNavigate();
+  const {
+    location,
+    minPrice,
+    maxPrice,
+    minBed,
+    maxBed,
+    minCar,
+    maxCar,
+    type,
+    sort,
+  } = useSelector((state) => state.filter);
   const [loading, setLoading] = useState(false);
-  const queryParams = new URLSearchParams(location.search);
-  const price = queryParams.get("priceRange");
-  const propertyLocation = queryParams.get("place");
-  const queryBed = queryParams.get("bed");
   const [drawer, setDrawer] = useState(false);
   const [products, setProducts] = useState([]);
-  const [sort, setSort] = useState("newest");
-  const [minPrice, setMinPrice] = useState(price ? price : "");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [minBed, setMinBed] = useState(queryBed ? queryBed : "");
-  const [maxBed, setMaxBed] = useState("");
-  const [minCar, setMinCar] = useState("");
-  const [maxCar, setMaxCar] = useState("");
-  const [selectedTypes, setSelectedTypes] = useState([]);
 
   const openDrawer = () => {
     setDrawer(true);
@@ -59,13 +59,7 @@ const ProductListing = () => {
 
   const handleRefresh = () => {
     navigate("/products");
-    setMinPrice("");
-    setMaxPrice("");
-    setMinBed("");
-    setMaxBed("");
-    setMinCar("");
-    setMaxCar("");
-    setSelectedTypes([]);
+    dispatch(resetState());
   };
   useEffect(() => {
     const getProducts = async () => {
@@ -77,9 +71,10 @@ const ProductListing = () => {
       }${maxBed ? `maxBed=${maxBed}&` : ""}${
         minCar ? `minCar=${minCar}&` : ""
       }${maxCar ? `maxCar=${maxCar}&` : ""}${
-        selectedTypes ? `types=${selectedTypes.join(",")}&` : ""
-      }${propertyLocation ? `location=${propertyLocation}&` : ""}`;
+        type ? `propertyType=${type}&` : ""
+      }${location ? `location=${location}&` : ""}`;
       try {
+        console.log(queryParams);
         const res = await publicRequest.get(`/products?${queryParams}`);
         setLoading(false);
         setProducts(res.data);
@@ -90,50 +85,41 @@ const ProductListing = () => {
       }
     };
     getProducts();
-  }, [sort, minPrice, maxPrice, minBed, maxBed, minCar, maxCar, selectedTypes]);
+  }, [
+    sort,
+    minPrice,
+    maxPrice,
+    minBed,
+    maxBed,
+    minCar,
+    maxCar,
+    type,
+    location,
+  ]);
   return (
     <>
       <Announcement />
       <Navbar />
       <Box bgcolor="#F6F9FC" py={5}>
         <Container maxWidth="lg">
-          <Sort
-            openDrawer={openDrawer}
-            sort={sort}
-            setSort={setSort}
-            products={products}
-          />
+          <Sort openDrawer={openDrawer} products={products} />
           <Grid container spacing={3} marginTop={4}>
             <Grid item md={3} display={{ xs: "none", md: "block" }}>
               <Box
                 bgcolor="white"
                 py={3}
                 px={2}
-                borderRadius="5px"
+                borderRadius="10px"
                 sx={{
                   boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
                 }}
               >
-                <Range
-                  minPrice={minPrice}
-                  maxPrice={maxPrice}
-                  setMinPrice={setMinPrice}
-                  setMaxPrice={setMaxPrice}
-                  minBed={minBed}
-                  maxBed={maxBed}
-                  setMinBed={setMinBed}
-                  setMaxBed={setMaxBed}
-                  minCar={minCar}
-                  maxCar={maxCar}
-                  setMinCar={setMinCar}
-                  setMaxCar={setMaxCar}
-                />
-                <CustomDivider />
+                <Range />
 
-                <Type
+                {/* <Type
                   selectedTypes={selectedTypes}
                   setSelectedTypes={setSelectedTypes}
-                />
+                /> */}
                 <CustomDivider />
               </Box>
             </Grid>
@@ -247,14 +233,9 @@ const ProductListing = () => {
             },
           }}
         >
-          <Range
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            setMinPrice={setMinPrice}
-            setMaxPrice={setMaxPrice}
-          />
+          <Range />
           <CustomDivider />
-          <Type />
+          {/* <Type /> */}
         </Box>
       </Drawer>
       <Footer />

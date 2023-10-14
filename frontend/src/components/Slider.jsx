@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { sliderItems } from "../data";
 import { Box, Grid, Stack, Typography, Button } from "@mui/material";
@@ -18,7 +17,6 @@ const Card = ({ title, img, desc, bg }) => {
     >
       <Grid
         container
-        spacing={{ xs: 4, sm: 0 }}
         sx={{
           alignItems: "center",
         }}
@@ -38,7 +36,7 @@ const Card = ({ title, img, desc, bg }) => {
             spacing={2.5}
             bgcolor={bg}
             height="100%"
-            p={3}
+            p={{ xs:4, sm:3}}
             justifyContent="center"
           >
             <Typography
@@ -103,13 +101,7 @@ const Carousel = () => {
     autoplaySpeed: 2000,
     cssEase: "linear",
   };
-  const item = {
-    id: 2,
-    img: "https://i.ibb.co/0nQJv76/Whats-App-Image-2023-09-04-at-06-30-01.jpg",
-    title: "LAGOS ISLAND",
-    desc: "OWN ONE OF THE MANY PROPERTIES IN OUR IKOYI ESTATE",
-    bg: "#fcf1ed",
-  };
+  
   return (
     <Box py={5}>
       <Slider {...settings}>

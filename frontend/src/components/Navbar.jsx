@@ -1,135 +1,222 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Search } from '@material-ui/icons';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { logout } from '../redux/userRedux';
-import { BsHouseDoor } from 'react-icons/bs';
-
-const Container = styled.div`
-  height: 60px;
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  justify-content: space-between;
-  padding: 0 20px;
-
-  @media (max-width: 768px) {
-    height: 50px;
-  }
-`;
-
-const Left = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Language = styled.span`
-  font-size: 14px;
-  cursor: pointer;
-  margin-right: 10px;
-  display: none;
-
-  @media (min-width: 768px) {
-    display: block;
-  }
-`;
-
-const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
-  padding: 5px;
-`;
-
-const Input = styled.input`
-  border: none;
-  width: 100%;
-  outline: none;
-  margin-left: 10px;
-`;
-
-const Center = styled.div`
-  flex: 1;
-  text-align: center;
-  cursor: pointer;
-`;
-
-const Logo = styled.h1`
-  font-weight: bold;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Right = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-`;
-
-const MenuItem = styled.div`
-  font-size: 14px;
-  cursor: pointer;
-  margin-left: 25px;
-
-  @media (max-width: 768px) {
-    font-size: 12px;
-    margin-left: 10px;
-  }
-`;
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Search } from "@material-ui/icons";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import { logout } from "../redux/userRedux";
+import { Typography, Stack, Container, Button, Drawer } from "@mui/material";
+import NavBarDrawer from "./NavBarDrawer";
+import MobileNavBar from "./MobileNavBar";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [drawer, setDrawer] = useState(false);
+
+  const openDrawer = () => {
+    setDrawer(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawer(false);
+  };
 
   const signup = () => {
-    navigate('/signup');
+    navigate("/signup");
   };
 
   const signin = () => {
-    navigate('/login');
+    navigate("/login");
   };
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate("/");
   };
 
   const homePage = () => {
-    navigate('/');
+    navigate("/");
   };
 
   return (
     <Container>
-      <Left>
-        <Language>EN</Language>
-        <SearchContainer>
-          <Search style={{ color: 'gray', fontSize: 16 }} />
-          <Input placeholder="Search" />
-        </SearchContainer>
-      </Left>
-      <Center onClick={homePage}>
-        <Logo>
-          ROMAX <BsHouseDoor />
-        </Logo>
-      </Center>
-      {user ? (
-        <Right>
-          <MenuItem onClick={() => navigate('/user/profile')}>{`Hi, ${user.username}`}</MenuItem>
-          <MenuItem>Instant Evaluation</MenuItem>
-          <MenuItem onClick={handleLogout}>LOG OUT</MenuItem>
-        </Right>
-      ) : (
-        <Right>
-          <MenuItem>Instant Evaluation</MenuItem>
-          <MenuItem onClick={signup}>REGISTER</MenuItem>
-          <MenuItem onClick={signin}>LOG IN</MenuItem>
-        </Right>
-      )}
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        py={2.5}
+      >
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+          }}
+        >
+          <Typography variant="h5" letterSpacing="2px" color="teal">
+            Romax
+          </Typography>
+        </Link>
+
+        <MobileNavBar openDrawer={openDrawer} />
+        <Stack
+          direction="row"
+          spacing={3.5}
+          display={{ xs: "none", md: "flex" }}
+        >
+          <Link
+            to="/products"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <Typography
+              color="#2b3445"
+              variant="body2"
+              sx={{
+                "&:hover": {
+                  color: "teal",
+                },
+              }}
+            >
+              House Prices
+            </Typography>
+          </Link>
+          <Link
+            to="/estate"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <Typography
+              color="#2b3445"
+              variant="body2"
+              sx={{
+                "&:hover": {
+                  color: "teal",
+                },
+              }}
+            >
+              Estate Prices
+            </Typography>
+          </Link>
+          <Link
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <Typography
+              color="#2b3445"
+              variant="body2"
+              sx={{
+                "&:hover": {
+                  color: "teal",
+                },
+              }}
+            >
+              Instant Valuation
+            </Typography>
+          </Link>
+        </Stack>
+
+        <Stack
+          direction="row"
+          spacing={3.5}
+          alignItems="center"
+          display={{ xs: "none", md: "flex" }}
+        >
+          {user && (
+            <Link
+              to="/user/profile"
+              style={{
+                textDecoration: "none",
+              }}
+            >
+              <Typography
+                color="#2b3445"
+                variant="body2"
+                sx={{
+                  "&:hover": {
+                    color: "teal",
+                  },
+                }}
+              >
+                {`Hi,${user.username}`}
+              </Typography>
+            </Link>
+          )}
+          <Link
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <Typography
+              color="#2b3445"
+              variant="body2"
+              sx={{
+                "&:hover": {
+                  color: "teal",
+                },
+              }}
+            >
+              Saved
+            </Typography>
+          </Link>
+          {user ? (
+            <Button
+              onClick={handleLogout}
+              variant="outlined"
+              sx={{
+                textTransform: "none",
+                color: "teal",
+
+                borderRadius: "8px",
+                borderColor: "teal",
+                borderWidth: "2px",
+                "&:hover": {
+                  color: "#FFFFFF",
+                  bgcolor: "teal",
+                },
+              }}
+            >
+              <Typography variant="body2"> Logout</Typography>
+            </Button>
+          ) : (
+            <Button
+              onClick={signin}
+              variant="outlined"
+              sx={{
+                textTransform: "none",
+                color: "teal",
+
+                borderRadius: "8px",
+                borderColor: "teal",
+                borderWidth: "2px",
+                "&:hover": {
+                  color: "#FFFFFF",
+                  bgcolor: "teal",
+                },
+              }}
+            >
+              <Typography variant="body2"> Sign in</Typography>
+            </Button>
+          )}
+        </Stack>
+      </Stack>
+      <Drawer
+        open={drawer}
+        onClose={closeDrawer}
+        anchor="left"
+        bgcolor="white"
+        sx={{
+          zIndex: "1200",
+          "& .MuiPaper-root": {
+            backgroundColor: "white",
+          },
+        }}
+      >
+        <NavBarDrawer />
+      </Drawer>
     </Container>
   );
 };

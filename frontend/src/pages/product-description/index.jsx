@@ -16,7 +16,8 @@ import {
   Button,
   Container as ContainerBox,
   useMediaQuery,
-  Paper
+  Paper,
+  Modal,
 } from "@mui/material";
 import { features } from "../../data";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -24,20 +25,31 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Tab from "./Tab";
 import Carousel from "./ProdDescCarousel";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { userRequest } from "../../requestMethods";
 import makeToast from "../../toaster";
+import { useSelector } from "react-redux";
+import { Close } from "@mui/icons-material";
+import Login from "../../pages/Login";
 
 const Product = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.currentUser);
   const id = location.pathname.split("/")[2];
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState({});
   const [toggle, setToggle] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleSavedProperty = async () => {
+    if (!user) {
+      handleOpen();
+      return;
+    }
     try {
       const res = await userRequest.put(`/users/save-property/${id}`);
       if (res.data) {
@@ -92,6 +104,7 @@ const Product = () => {
 
                   <Stack direction="row" spacing={5}>
                     <Stack spacing={0.3}>
+                      <Typography variant="subtitle1">Address: </Typography>
                       <Typography variant="subtitle1">Location: </Typography>
                       <Typography variant="subtitle1">Category: </Typography>
                       {product?.stock <= 0 ? (
@@ -114,7 +127,10 @@ const Product = () => {
                     </Stack>
                     <Stack spacing={0.3}>
                       <Typography variant="subtitle2">
-                        {product?.location || "No Type"}
+                        {product?.address || "Will Updated Soon"}
+                      </Typography>
+                      <Typography variant="subtitle2">
+                        {product?.location || "Will Updated Soon"}
                       </Typography>
                       <Typography variant="subtitle2" color="text.secondary">
                         {product?.category}
@@ -273,13 +289,13 @@ const Product = () => {
                       alignItems: "center",
                       textAlign: "center",
                       p: 7,
-                      gap: 1.5
+                      gap: 1.5,
                     }}
                   >
                     <Icon
                       sx={{
                         fontSize: isNonMobile ? "50px" : "2.4rem",
-                        color: "teal"
+                        color: "teal",
                       }}
                     />
                     <Typography>{details}</Typography>
@@ -293,6 +309,14 @@ const Product = () => {
       )}
       <Newsletter />
       <Footer />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Login handleClose={handleClose} />
+      </Modal>{" "}
     </Box>
   );
 };

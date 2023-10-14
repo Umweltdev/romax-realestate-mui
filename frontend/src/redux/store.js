@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import cartReducer from "./cartRedux";
 import userReducer from "./userRedux";
+import filterReducer from "./filter";
 import {
   persistStore,
   persistReducer,
@@ -17,9 +18,11 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  blacklist: ['filter']
+
 };
 
-const rootReducer = combineReducers({ user: userReducer, cart: cartReducer });
+const rootReducer = combineReducers({ user: userReducer, cart: cartReducer, filter: filterReducer, });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

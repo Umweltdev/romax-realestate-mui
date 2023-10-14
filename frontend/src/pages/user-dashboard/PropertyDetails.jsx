@@ -7,6 +7,10 @@ const PropertyDetails = ({ product }) => {
   return (
     <>
       <Stack spacing={1}>
+      <Stack direction="row" spacing={1.5}>
+          <Typography>Address: </Typography>
+          <Typography color="#7D879C">{product?.address || "Will updated Soon"}</Typography>
+        </Stack>
         <Stack direction="row" spacing={1.5}>
           <Typography>Location: </Typography>
           <Typography color="#7D879C">{product?.location}</Typography>
