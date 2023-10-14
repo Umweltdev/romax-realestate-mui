@@ -23,7 +23,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Tab from "./Tab";
 import Carousel from "./ProdDescCarousel";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 //import { userRequest } from "../../requestMethods";
 //import makeToast from "../../toaster";
 
@@ -32,10 +32,11 @@ const Estate = () => {
   //const navigate = useNavigate();
   const id = location.pathname.split("/")[2];
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState({});
   //const [toggle, setToggle] = useState(false);
-  const recipientEmail = "recipient@example.com";
+  //const recipientEmail = "recipient@example.com";
 
   useEffect(() => {
     const getEstate = async () => {
@@ -132,8 +133,7 @@ const Estate = () => {
                     <Button
                       disabled={product?.stock <= 0}
                       onClick={() => {
-                        const mailtoLink = `mailto:${recipientEmail}`;
-                        window.location.href = mailtoLink;
+                        navigate(`/booking/${product._id}`);
                       }}
                       sx={{
                         textTransform: "none",

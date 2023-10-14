@@ -114,12 +114,11 @@ export const deleteEstate = async (id, dispatch) => {
   }
 };
 
-
 export const updateTimeline = async (id, timeline, dispatch) => {
   dispatch(updateTimelineStart());
   try {
-    // update
-    dispatch(updateTimelineSuccess({ id, timeline }));
+    const res = await userRequest.put(`/timeline/${id}`, timeline);
+    dispatch(updateTimelineSuccess(res.data));
   } catch (err) {
     dispatch(updateTimelineFailure());
   }

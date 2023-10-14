@@ -13,7 +13,7 @@ const TabPanel = ({ children, value, index }) => (
   </div>
 );
 
-const TabComponent = ({product}) => {
+const TabComponent = ({ product }) => {
   const [selectedTab, setSelectedTab] = useState(0);
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -43,18 +43,11 @@ const TabComponent = ({product}) => {
               fontSize: "16px",
             }}
           />
-          {/* <Tab
-            label="Property Reviews"
-            sx={{
-              textTransform: "none",
-              fontSize: "16px",
-            }}
-          /> */}
         </Tabs>
       </Box>
 
       <TabPanel value={selectedTab} index={0}>
-        <Description desc={product.desc} features={product.features}/>
+        <Description desc={product.desc} features={product.features} />
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
         <Stack spacing={1.5}>
@@ -73,9 +66,6 @@ const TabComponent = ({product}) => {
           </Stack>
         </Stack>
       </TabPanel>
-      {/* <TabPanel value={selectedTab} index={2}>
-        <Reviews />
-      </TabPanel> */}
     </Box>
   );
 };

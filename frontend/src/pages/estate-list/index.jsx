@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Box,
@@ -14,11 +14,9 @@ import Navbar from "../../components/Navbar";
 import Announcement from "../../components/Announcement";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
-import Loader from "../../components/Loader"
-//import Range from "./range";
-//import Type from "./type";
+import Loader from "../../components/Loader";
 import { publicRequest } from "../../requestMethods";
-
+import { Link } from "react-router-dom";
 export const CustomDivider = styled(Divider)`
   margin: 16px 0px 24px;
   border-width: 0px 0px thin;
@@ -31,6 +29,7 @@ const EstateListing = () => {
   const [products, setProducts] = useState([]);
   const [sort, setSort] = useState("newest");
   const [loading, setLoading] = useState(true);
+  //const [selectedEstate, setSelectedEstate] = useState(null);
 
   const openDrawer = () => {
     setDrawer(true);
@@ -45,10 +44,10 @@ const EstateListing = () => {
       try {
         const res = await publicRequest.get("/estate");
         setProducts(res.data);
-        setLoading(false)
+        setLoading(false);
       } catch (error) {
         console.log(error);
-        setLoading(false)
+        setLoading(false);
       }
     };
     getProducts();
@@ -75,33 +74,31 @@ const EstateListing = () => {
                       boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
                     }}
                   >
-                    {/* <Range
-                  minPrice={minPrice}
-                  maxPrice={maxPrice}
-                  setMinPrice={setMinPrice}
-                  setMaxPrice={setMaxPrice}
-                  minBed={minBed}
-                  maxBed={maxBed}
-                  setMinBed={setMinBed}
-                  setMaxBed={setMaxBed}
-                  minCar={minCar}
-                  maxCar={maxCar}
-                  setMinCar={setMinCar}
-                  setMaxCar={setMaxCar}
-                /> 
-                <CustomDivider />
-
-                  <Type
-                  selectedTypes={selectedTypes}
-                  setSelectedTypes={setSelectedTypes}
-                /> 
-                <CustomDivider />*/}
+                    <Stack spacing={2}>
+                      {products.map((prod) => (
+                        <Link
+                          to={`/estate/${prod._id}`} // Use Link to navigate to individual estate page
+                          key={prod._id}
+                          style={{
+                            display: "block",
+                            padding: "8px",
+                            textDecoration: "none",
+                            color: "black",
+                            fontSize: "16px",
+                            borderBottom: "1px solid #ccc",
+                            transition: "background-color 0.3s",
+                          }}
+                        >
+                          {prod.title}
+                        </Link>
+                      ))}
+                    </Stack>
                   </Box>
                 </Grid>
                 <Grid item xs={12} md={9}>
                   <Stack spacing={3}>
                     {products.map((prod) => (
-                      <Card {...prod} />
+                      <Card key={prod.id} {...prod} />
                     ))}
                   </Stack>
                 </Grid>
@@ -132,7 +129,6 @@ const EstateListing = () => {
           sx={{
             width: "300px",
             height: "100vh",
-
             overflowY: "scroll",
             "&::-webkit-scrollbar": {
               width: "5px",
@@ -146,14 +142,7 @@ const EstateListing = () => {
             },
           }}
         >
-          {/* <Range
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            setMinPrice={setMinPrice}
-            setMaxPrice={setMaxPrice}
-          /> */}
-          {/* <CustomDivider />
-          <Type /> */}
+          {/* Sidebar Content */}
         </Box>
       </Drawer>
       <Footer />

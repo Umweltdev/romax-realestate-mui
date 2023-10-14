@@ -1,13 +1,19 @@
-//import { useState, useEffect } from "react";
-import {
-  CalendarToday,
-  //MailOutline,
-  PermIdentity,
-  //PhoneAndroid,
-} from "@material-ui/icons";
+import React from "react";
+import { Box, Paper, Stack, styled, Typography, Button, TextField } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 import "./estate.css";
+
+const CustomTextField = styled(TextField)({
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "8px",
+    "& fieldset": {},
+    "&:hover fieldset": {},
+    "&.Mui-focused fieldset": {
+      borderColor: "#4e97fd",
+    },
+  },
+});
 
 export default function Estate() {
   const location = useLocation();
@@ -18,115 +24,137 @@ export default function Estate() {
   );
 
   return (
-    <div className="user">
-      <div className="userTitleContainer">
-        <h1 className="userTitle">Edit Estate</h1>
-        <Link to="/newEstate">
-          <button className="userAddButton">Create</button>
-        </Link>
-      </div>
-      <div className="userContainer">
-        <div className="userShow">
-          <div className="userShowTop">
-            <div className="userShowTopTitle">
-              <span className="userShowUsername">ID: {estate._id}</span>
-            </div>
-          </div>
-          <div className="userShowBottom">
-            <div className="userShowInfo">
-              <PermIdentity className="userShowIcon" />
-              <span className="userShowInfoTitle">{estate.title}</span>
-            </div>
-            <div className="userShowInfo">
-              <CalendarToday className="userShowIcon" />
-              <span className="userShowInfoTitle">{estate.desc}</span>
-            </div>
-            <div className="userShowInfo">
-              <span className="userShowInfoTitle">Category: {estate.categories}</span>
-            </div>
-            <div className="userShowInfo">
-              <span className="userShowInfoTitle">Houses: {estate.house}</span>
-            </div>
-            <div className="userShowInfo">
-              <span className="userShowInfoTitle">Features: {estate.features}</span>
-            </div>
-          </div>
-        </div>
-        <div className="userUpdate">
-          <span className="userUpdateTitle">Edit</span>
-          <form className="userUpdateForm">
-            <div className="userUpdateLeft">
-              <div className="userUpdateItem">
-                <label>Title</label>
-                <input
-                  type="text"
-                  placeholder={estate.title}
-                  className="userUpdateInput"
-                />
-              </div>
-              {/* <div className="userUpdateItem">
-                <label>Full Name</label>
-                <input
-                  type="text"
-                  placeholder="Anna Becker"
-                  className="userUpdateInput"
-                />
-              </div> */}
-              <div className="userUpdateItem">
-                <label>Desc</label>
-                <input
-                  type="text"
-                  placeholder={estate.desc}
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Location</label>
-                <input
-                  type="text"
-                  placeholder={estate.location}
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>House</label>
-                <input
-                  type="text"
-                  placeholder={estate.house}
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Categories</label>
-                <input
-                  type="text"
-                  placeholder={estate.categories}
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Features</label>
-                <input
-                  type="text"
-                  placeholder={estate.features}
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>img</label>
-                <input
-                  type="file"
-                  multiple
-                  className="userUpdateInput"
-                />
-              </div>
-            </div>
-            <div className="userUpdateRight">
-              <button className="userUpdateButton">Update</button>
-            </div>
+    <Box px={{ xs: 2, md: 4 }} style={{ width: "80%", height: "100vh" }}>
+      <Stack spacing={3}>
+        <Stack
+          justifyContent="space-between"
+          direction={{ xs: "column", sm: "row" }}
+          rowGap={{ xs: 2, sm: 0 }}
+        >
+          <Typography variant="h6" fontSize={{ xs: "19px", sm: "21px" }}>
+            Estate
+          </Typography>
+          <Link to="/newEstate">
+            <Button
+              sx={{
+                textTransform: "none",
+                bgcolor: "#4e97fd",
+                color: "white",
+                fontSize: "16px",
+                paddingX: "15px",
+                fontWeight: 600,
+                paddingY: "10px",
+                alignSelf: "stretch",
+                borderRadius: "10px",
+                alignItems: "center",
+                width: "auto",
+                gap: 1,
+                "&:hover": {
+                  backgroundColor: "#2756b6",
+                },
+              }}
+            >
+              Create
+            </Button>
+          </Link>
+        </Stack>
+
+        <Paper
+          elevation={0}
+          sx={{
+            bgcolor: "white",
+            display: "flex",
+            flexDirection: "column",
+            padding: "20px",
+          }}
+        >
+          <form>
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="text"
+              label="Estate Title"
+              defaultValue={estate.title}
+            />
+            <br />
+            <br />
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="text"
+              label="Estate Description"
+              defaultValue={estate.desc}
+            />
+            <br />
+            <br />
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="text"
+              label="Location"
+              defaultValue={estate.location}
+            />
+            <br />
+            <br />
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="text"
+              label="House"
+              defaultValue={estate.house}
+            />
+            <br />
+            <br />
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="text"
+              label="Categories"
+              defaultValue={estate.categories}
+            />
+            <br />
+            <br />
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="text"
+              label="Features"
+              defaultValue={estate.features}
+            />
+            <br />
+            <br />
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="text"
+              label="Image"
+              defaultValue={estate.img}
+            />
+            <br />
+            <br />
+            <Button
+              type="submit"
+              sx={{
+                textTransform: "none",
+                bgcolor: "#4e97fd",
+                color: "white",
+                fontSize: "16px",
+                paddingX: "25px",
+                fontWeight: 600,
+                paddingY: "5px",
+                alignSelf: "start",
+                borderRadius: "8px",
+                alignItems: "center",
+                "&:hover": {
+                  backgroundColor: "#2756b6",
+                },
+              }}
+            >
+              Update
+            </Button>
           </form>
-        </div>
-      </div>
-    </div>
+        </Paper>
+      </Stack>
+    </Box>
   );
 }

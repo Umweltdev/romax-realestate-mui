@@ -1,33 +1,75 @@
 import express from "express";
 import { verifyToken, verifyTokenAndAdmin, verifyTokenAndAuthorization } from "./verifyToken.js";
 import Estate from "../models/EstateModel.js"
+import { Multer, uploadImages } from "../utils/uploadImage.js";
+import { cloudinaryDeleteImg } from "../config/cloudinary.js";
 
 const router = express.Router();
 
 //CREATE
-router.post('/', verifyTokenAndAdmin, async (req, res) => {
-  const newEstate = new Estate(req.body)
+router.post('/',
+  verifyTokenAndAdmin,
+  Multer.array("images", 10),
+  uploadImages,
+  async (req, res) => {
+    const newEstate = new Estate({ ...req.body, img: req.images })
 
-  try {
-    const savedEstate = await newEstate.save();
-    res.status(200).json(savedEstate)
-  } catch (err) {
-    res.status(500).json(err)
-  }
-})
+    try {
+      const savedEstate = await newEstate.save();
+      res.status(200).json(savedEstate)
+    } catch (err) {
+      res.status(500).json(err)
+    }
+  })
 
 //UPDATE
-router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
+router.put("/:id", verifyTokenAndAdmin, Multer.array("images", 10), uploadImages, async (req, res) => {
+  let parsedPreviousImages = []
   try {
-    const updateEstate = await Estate.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
+    if (req.body.previousImages && req.body.previousImages.length > 0) {
+      parsedPreviousImages = req.body.previousImages.map((imageString) =>
+        JSON.parse(imageString)
+      );
+    }
+    const { id } = req.params;
+
+    let updatedData = req.body;
+    const estate = await Estate.findById(id);
+    const existingImages = estate.img;
+    let updatedImages = [];
+
+    if (req.images && req.images.length > 0) {
+      updatedImages = req.images;
+    }
+    updatedData.images = [...updatedImages, ...existingImages];
+
+
+    const removedImages = existingImages.filter(
+      (existingImage) =>
+        !parsedPreviousImages.some(
+          (previousImage) => previousImage.split("/").pop().split(".")[0] === existingImage.split("/").pop().split(".")[0]
+        )
     );
-    res.status(200).json(updateEstate);
+
+    for (const removedImage of removedImages) {
+      const publicId = removedImage.split("/").pop().split(".")[0];
+      console.log(publicId)
+      await cloudinaryDeleteImg(publicId);
+    }
+    updatedData.img = updatedData.images.filter(
+      (updatedImage) =>
+        !removedImages.some(
+          (removedImage) => removedImage.split("/").pop().split(".")[0] === updatedImage.split("/").pop().split(".")[0]
+        )
+    );
+
+    delete updatedData.previousImages;
+    const updatedEstate = await Estate.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+    res.json(updatedEstate);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
@@ -35,8 +77,15 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
 //DELETE
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
-    await Estate.findByIdAndDelete(req.params.id)
-    res.status(200).json("Estate has been deleted ....")
+    const estate = await Estate.findById(req.params.id);
+    // console.log(estate._id)
+    const imagesToDelete = estate.img;
+    for (const image of imagesToDelete) {
+      const publicId = image.split("/").pop().split(".")[0];
+      await cloudinaryDeleteImg(publicId);
+    }
+    await Estate.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Estate has been deleted ...." });
   } catch (err) {
     res.status(500).json(err)
   }

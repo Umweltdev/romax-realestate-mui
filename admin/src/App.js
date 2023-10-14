@@ -46,28 +46,28 @@ function App() {
                   <div className="container">
                     <Sidebar />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <Routes>
-                    <Route path="/" element={<Home />} />
-                      <Route path="/users" element={<UserList />} />
-                      <Route path="/user/:userId" element={<User />} />
-                      <Route path="/newUser" element={<NewUser />} />
-                      <Route path="/products" element={<ProductList />} />
-                      <Route path="/estates" element={<EstateList />} />
-                      <Route path="/bookings" element={<Bookings />} />
-                      <Route path="/bookings/:id" element={<Booking />} />
-                      <Route path="/timelines" element={<TimelineList />} />
-                      <Route path="/product/:id" element={<NewProduct />} />
-                      <Route path="/estate/:estateId" element={<Estate />} />
-                      <Route path="/timeline/:timelineId" element={<Timeline />} />
-                      <Route path="/newtimeline" element={<NewTimeline />} />
-                      <Route path="/newestate" element={<NewEstate />} />
-                      <Route path="/faq/:id" element={<AddFaq />} />
-                      <Route path="/faqs" element={<Faqs />} />
+                      <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/users" element={<UserList />} />
+                        <Route path="/user/:userId" element={<User />} />
+                        <Route path="/user/newuser" element={<NewUser />} />
+                        <Route path="/products" element={<ProductList />} />
+                        <Route path="/estates" element={<EstateList />} />
+                        <Route path="/bookings" element={<Bookings />} />
+                        <Route path="/bookings/:id" element={<Booking />} />
+                        <Route path="/timelines" element={<TimelineList />} />
+                        <Route path="/product/:id" element={<NewProduct />} />
+                        <Route path="/estate/:estateId" element={<Estate />} />
+                        <Route path="/timeline/:timelineId" element={<Timeline />} />
+                        <Route path="timeline/newtimeline" element={<NewTimeline />} />
+                        <Route path="/estate/newestate" element={<NewEstate />} />
+                        <Route path="/faq/:id" element={<AddFaq />} />
+                        <Route path="/faqs" element={<Faqs />} />
 
 
-                    </Routes>
+                      </Routes>
                     </LocalizationProvider>
-                    
+
                   </div>
                 </>
               }

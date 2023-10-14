@@ -62,7 +62,7 @@ const Sort = ({ openDrawer, products }) => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={sort}
-                onChange={(e) => {
+                onChange={(e) => { 
                   dispatch(setSort(e.target.value));
                 }}
                 sx={{

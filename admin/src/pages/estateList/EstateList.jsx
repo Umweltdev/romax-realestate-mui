@@ -2,21 +2,33 @@ import "./estatelist.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Header from "../../components/Header";
+import makeToast from "../../toaster";
 import { deleteEstate, getEstates } from "../../redux/apiCalls";
 
 export default function EstateList() {
   const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState("");
+
   const timelines = useSelector((state) => state.estate.estates);
 
   useEffect(() => {
     getEstates(dispatch);
-  }, [dispatch]);
+  }, [dispatch, searchQuery]);
 
-  const handleDelete = (id) => {
-    deleteEstate(id, dispatch);
+  const handleDelete = async (id) => {
+    try {
+      await deleteEstate(id, dispatch);
+      makeToast("success", "Estate deleted successfully");
+    } catch (error) {
+      makeToast("error", "Failed to delete Estate");
+    }
   };
+
+  const filteredEstate = timelines.filter((timeline) =>
+    timeline.title.toLowerCase().includes(searchQuery.toLowerCase()))
 
   const columns = [
     { field: "_id", headerName: "ID", width: 200 },
@@ -90,15 +102,25 @@ export default function EstateList() {
   ];
 
   return (
-    <div className="productList">
-      <DataGrid
-        rows={timelines}
-        disableSelectionOnClick
-        columns={columns}
-        getRowId={(row) => row._id}
-        pageSize={8}
-        checkboxSelection
+    <div style={{ width: "80%", height: "100vh" }}>
+      <Header
+        title={"Esatate List"}
+        placeholder="Search Esatate..."
+        button="Add Esatate"
+        route="estate/newestate"
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
+      <div className="productList" style={{ height: "calc(100vh - 64px)" }}>
+        <DataGrid
+          rows={filteredEstate}
+          disableSelectionOnClick
+          columns={columns}
+          getRowId={(row) => row._id}
+          pageSize={8}
+          checkboxSelection
+        />
+      </div>
     </div>
   );
 }

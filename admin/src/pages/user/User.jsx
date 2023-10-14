@@ -1,101 +1,152 @@
-//import { useState, useEffect } from "react";
+import React from "react";
 import {
-  CalendarToday,
-  MailOutline,
-  PermIdentity,
-  //PhoneAndroid,
-} from "@material-ui/icons";
+  Box,
+  Paper,
+  Stack,
+  TextField,
+  styled,
+  Typography,
+  Button,
+} from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux"
 
-import "./user.css";
+const CustomTextField = styled(TextField)({
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "8px",
+    "& fieldset": {},
+    "&:hover fieldset": {},
+    "&.Mui-focused fieldset": {
+      borderColor: "#4e97fd",
+    },
+  },
+});
 
 export default function User() {
+  const isNonMobile = useMediaQuery("(min-width:968px)");
   const location = useLocation();
   const userId = location.pathname.split("/")[2];
 
   const user = useSelector((state) =>
     state.users.users.find((users) => users._id === userId)
   );
-  //user.isAdmin ? "true" : "false"
+
   return (
-    <div className="user">
-      <div className="userTitleContainer">
-        <h1 className="userTitle">Edit User</h1>
-        <Link to="/newUser">
-          <button className="userAddButton">Create</button>
-        </Link>
-      </div>
-      <div className="userContainer">
-        <div className="userShow">
-          <div className="userShowTop">
-            <div className="userShowTopTitle">
-              <span className="userShowUsername">ID: {user._id}</span>
-            </div>
-          </div>
-          <div className="userShowBottom">
-            <div className="userShowInfo">
-              <PermIdentity className="userShowIcon" />
-              <span className="userShowInfoTitle">{user.username}</span>
-            </div>
-            <div className="userShowInfo">
-              <CalendarToday className="userShowIcon" />
-              <span className="userShowInfoTitle">{user.createdAt}</span>
-            </div>
-            <span className="userShowTitle">Contact Details</span>
-            {/* <div className="userShowInfo">
-              <PhoneAndroid className="userShowIcon" />
-              <span className="userShowInfoTitle">+1 123 456 67</span>
-            </div> */}
-            <div className="userShowInfo">
-              <MailOutline className="userShowIcon" />
-              <span className="userShowInfoTitle">{user.email}</span>
-            </div>
-          </div>
-        </div>
-        <div className="userUpdate">
-          <span className="userUpdateTitle">Edit</span>
-          <form className="userUpdateForm">
-            <div className="userUpdateLeft">
-              <div className="userUpdateItem">
-                <label>Username</label>
-                <input
-                  type="text"
-                  placeholder={user.username}
-                  className="userUpdateInput"
-                />
-              </div>
-              {/* <div className="userUpdateItem">
-                <label>Full Name</label>
-                <input
-                  type="text"
-                  placeholder="Anna Becker"
-                  className="userUpdateInput"
-                />
-              </div> */}
-              <div className="userUpdateItem">
-                <label>Email</label>
-                <input
-                  type="text"
-                  placeholder={user.email}
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Password</label>
-                <input
-                  type="password"
-                  placeholder={user.password}
-                  className="userUpdateInput"
-                />
-              </div>
-            </div>
-            <div className="userUpdateRight">
-              <button className="userUpdateButton">Update</button>
-            </div>
+    <Box px={{ xs: 2, md: 4 }} style={{ width: "80%", height: "100vh" }}>
+      <Stack spacing={3}>
+        <Stack
+          justifyContent="space-between"
+          direction={{ xs: "column", sm: "row" }}
+          rowGap={{ xs: 2, sm: 0 }}
+        >
+          <Typography variant="h6" fontSize={{ xs: "19px", sm: "21px" }}>
+            Edit User
+          </Typography>
+          <Link to="/user/newuser">
+            <Button
+              sx={{
+                textTransform: "none",
+                bgcolor: "#4e97fd",
+                color: "white",
+                fontSize: "16px",
+                paddingX: "15px",
+                fontWeight: 600,
+                paddingY: "10px",
+                alignSelf: isNonMobile ? "start" : "stretch",
+                borderRadius: "10px",
+                alignItems: "center",
+                width: isNonMobile ? "auto" : "100%",
+                gap: 1,
+
+                "&:hover": {
+                  backgroundColor: "#2756b6",
+                },
+              }}
+            >
+              Create
+            </Button>
+          </Link>
+        </Stack>
+
+        <Paper
+          elevation={0}
+          sx={{
+            bgcolor: "white",
+            display: "flex",
+            flexDirection: "column",
+            padding: "20px",
+          }}
+        >
+          <form>
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="text"
+              label="Username"
+              defaultValue={user.username}
+            />
+            <br />
+            <br />
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="text"
+              label="First Name"
+              defaultValue={user.firstName}
+            />
+            <br />
+            <br />
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="text"
+              label="Last Name"
+              defaultValue={user.lastName}
+            />
+            <br />
+            <br />
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="text"
+              label="Email"
+              defaultValue={user.email}
+            />
+            <br />
+            <br />
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="password"
+              label="Password"
+              defaultValue={user.password}
+            />
+            <br />
+            <br />
+            <Button
+              type="submit"
+              sx={{
+                textTransform: "none",
+                bgcolor: "#4e97fd",
+                color: "white",
+                fontSize: "16px",
+                paddingX: "25px",
+                fontWeight: 600,
+                paddingY: "5px",
+                alignSelf: "start",
+                borderRadius: "8px",
+                alignItems: "center",
+                "&:hover": {
+                  backgroundColor: "#2756b6",
+                },
+              }}
+            >
+              Update
+            </Button>
           </form>
-        </div>
-      </div>
-    </div>
+        </Paper>
+      </Stack>
+    </Box>
   );
 }
