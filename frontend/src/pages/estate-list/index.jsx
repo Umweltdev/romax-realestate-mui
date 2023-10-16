@@ -1,13 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Box,
-  Grid,
-  Stack,
-  Divider,
-  styled,
-  Drawer,
-} from "@mui/material";
+import React, { useState, useEffect, useRef } from "react";
+import { Container, Box, Grid, Stack, Divider, styled, Drawer, MenuItem } from "@mui/material";
 import Sort from "./sort";
 import Card from "./card";
 import Navbar from "../../components/Navbar";
@@ -16,7 +8,8 @@ import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import Loader from "../../components/Loader";
 import { publicRequest } from "../../requestMethods";
-import { Link } from "react-router-dom";
+// import { MenuItem } from "../../components/Navbar";
+
 export const CustomDivider = styled(Divider)`
   margin: 16px 0px 24px;
   border-width: 0px 0px thin;
@@ -29,7 +22,8 @@ const EstateListing = () => {
   const [products, setProducts] = useState([]);
   const [sort, setSort] = useState("newest");
   const [loading, setLoading] = useState(true);
-  //const [selectedEstate, setSelectedEstate] = useState(null);
+  const containerRef = useRef(null);
+  const sidebarRef = useRef(null);
 
   const openDrawer = () => {
     setDrawer(true);
@@ -39,11 +33,27 @@ const EstateListing = () => {
     setDrawer(false);
   };
 
+  const scrollToCard = (cardId, event) => {
+    // Prevent the default behavior of the event
+    event.preventDefault();
+
+    const cardToScrollTo = products.find((prod) => prod._id === cardId);
+
+    if (cardToScrollTo && containerRef.current) {
+      const position = cardToScrollTo.position;
+      containerRef.current.scrollTo({ top: position, behavior: "smooth" });
+    }
+  };
   useEffect(() => {
     const getProducts = async () => {
       try {
         const res = await publicRequest.get("/estate");
-        setProducts(res.data);
+        setProducts(
+          res.data.map((product, index) => ({
+            ...product,
+            position: index * 300, // Adjust this based on your card height
+          }))
+        );
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -74,33 +84,35 @@ const EstateListing = () => {
                       boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
                     }}
                   >
-                    <Stack spacing={2}>
+                    <Stack ref={sidebarRef} spacing={2}>
                       {products.map((prod) => (
-                        <Link
-                          to={`/estate/${prod._id}`} // Use Link to navigate to individual estate page
+                        <MenuItem
                           key={prod._id}
+                          data-cardid={prod._id}
                           style={{
                             display: "block",
                             padding: "8px",
                             textDecoration: "none",
                             color: "black",
                             fontSize: "16px",
-                            borderBottom: "1px solid #ccc",
                             transition: "background-color 0.3s",
                           }}
+                          onClick={(event) => scrollToCard(prod._id, event)}
                         >
                           {prod.title}
-                        </Link>
+                        </MenuItem>
                       ))}
                     </Stack>
                   </Box>
                 </Grid>
                 <Grid item xs={12} md={9}>
-                  <Stack spacing={3}>
-                    {products.map((prod) => (
-                      <Card key={prod.id} {...prod} />
-                    ))}
-                  </Stack>
+                  <Container ref={containerRef} maxWidth="lg">
+                    <Stack spacing={3}>
+                      {products.map((prod) => (
+                        <Card key={prod._id} {...prod} />
+                      ))}
+                    </Stack>
+                  </Container>
                 </Grid>
               </Grid>
             </Container>
@@ -142,7 +154,23 @@ const EstateListing = () => {
             },
           }}
         >
-          {/* Sidebar Content */}
+          {products.map((prod) => (
+            <MenuItem
+              key={prod._id}
+              data-cardid={prod._id}
+              style={{
+                display: "block",
+                padding: "8px",
+                textDecoration: "none",
+                color: "black",
+                fontSize: "16px",
+                transition: "background-color 0.3s",
+              }}
+              onClick={() => scrollToCard(prod._id)}
+            >
+              {prod.title}
+            </MenuItem>
+          ))}
         </Box>
       </Drawer>
       <Footer />

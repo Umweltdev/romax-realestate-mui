@@ -14,6 +14,7 @@ import {
   IconButton,
   Tooltip,
   Button,
+  Paper,
   Container as ContainerBox,
   useMediaQuery,
 } from "@mui/material";
@@ -208,22 +209,30 @@ const Estate = () => {
             >
               {features.map(({ Icon, details }, index) => (
                 <Grid key={index} item sm={6}>
-                  <Stack
-                    bgcolor="teal"
-                    justifyContent="center"
-                    alignItems="center"
-                    p={7}
-                    textAlign="center"
-                    spacing={1.5}
+                  <Paper
+                    elevation={3}
+                    bgcolor="white"
                     color="#e9ecef"
+                    sx={{
+                      border: "1px solid #dee2e6",
+                      borderRadius: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      textAlign: "center",
+                      p: 7,
+                      gap: 1.5,
+                    }}
                   >
                     <Icon
                       sx={{
                         fontSize: isNonMobile ? "50px" : "2.4rem",
+                        color: "teal",
                       }}
                     />
                     <Typography>{details}</Typography>
-                  </Stack>
+                  </Paper>
                 </Grid>
               ))}
             </Grid>
