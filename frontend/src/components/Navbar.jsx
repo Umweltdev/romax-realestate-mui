@@ -22,22 +22,12 @@ const Navbar = () => {
     setDrawer(false);
   };
 
-  const signup = () => {
-    navigate("/signup");
-  };
-
-  const signin = () => {
-    navigate("/login");
-  };
-
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
   };
 
-  const homePage = () => {
-    navigate("/");
-  };
+
 
   return (
     <Container>
@@ -45,7 +35,11 @@ const Navbar = () => {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        py={2.5}
+        py={{ xs:1.8,  md:2.5}}
+        sx={{
+          // boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
+          // borderColor: "rgb(113, 113, 132)",
+        }}
       >
         <Link
           to="/"
@@ -53,8 +47,8 @@ const Navbar = () => {
             textDecoration: "none",
           }}
         >
-          <Typography variant="h5" letterSpacing="2px" color="teal">
-            Romax
+          <Typography variant="h5" letterSpacing="3px" color="teal">
+            ROMAX
           </Typography>
         </Link>
 
@@ -183,7 +177,8 @@ const Navbar = () => {
             </Button>
           ) : (
             <Button
-              onClick={signin}
+              onClick={() =>     navigate("/login")
+            }
               variant="outlined"
               sx={{
                 textTransform: "none",

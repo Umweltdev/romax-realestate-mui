@@ -128,6 +128,7 @@ const Hero = () => {
                 mb={3}
                 fontSize={{ xs: "20px", lg: "25px" }}
                 letterSpacing="1px"
+                textAlign="center"
               >
                 FILTER PROPERTIES
               </Typography>

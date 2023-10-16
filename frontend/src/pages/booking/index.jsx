@@ -82,6 +82,7 @@ const Booking = () => {
       <Navbar />
       <Container maxWidth="lg">
         <Box
+                      py= {{xs:2, md:5}}
           sx={{
             columnGap: "24px",
             rowGap: "24px",
@@ -89,7 +90,6 @@ const Booking = () => {
             display: "flex",
             // flexWrap: "wrap",
             justifyContent: "center",
-            py: 5,
             flexDirection: isNonMobile ? "row" : "column",
           }}
         >
@@ -104,6 +104,7 @@ const Booking = () => {
               borderRadius: "8px",
               paddingX: isNonMobile ? 3 : 2,
               paddingY: 4,
+              order: isNonMobile? 1 : 2
             }}
           >
             <Stack spacing={2}>
@@ -227,6 +228,8 @@ const Booking = () => {
               boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
               borderColor: "rgb(113, 113, 132)",
               borderRadius: "8px",
+              order: isNonMobile? 2 : 1
+
             }}
           >
             <Box

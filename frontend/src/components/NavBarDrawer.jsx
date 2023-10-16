@@ -1,10 +1,20 @@
 import { Box, Typography, Stack, Container, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../redux/userRedux";
+
 
 const NavBarDrawer = () => {
   const user = useSelector((state) => state.user.currentUser);
+  const navigate = useNavigate()
+   const dispatch = useDispatch()
 
+   const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+  
   return (
     <Stack
       justifyContent="space-between"
@@ -23,8 +33,8 @@ const NavBarDrawer = () => {
             textDecoration: "none",
           }}
         >
-          <Typography variant="h5" letterSpacing="2px" color="teal">
-            Romax
+          <Typography variant="h5" letterSpacing="3px" color="teal">
+            ROMAX
           </Typography>
         </Link>
 
@@ -109,7 +119,7 @@ const NavBarDrawer = () => {
       <Box>
         {user ? (
           <Button
-            // onClick={handleLogout}
+            onClick={handleLogout}
             variant="outlined"
             sx={{
               textTransform: "none",
@@ -128,7 +138,7 @@ const NavBarDrawer = () => {
           </Button>
         ) : (
           <Button
-            // onClick={signin}
+             onClick={()=> navigate("/login")}
             variant="outlined"
             sx={{
               textTransform: "none",

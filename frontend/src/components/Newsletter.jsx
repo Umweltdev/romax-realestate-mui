@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import {
   Box,
   TextField,
@@ -7,6 +6,7 @@ import {
   Typography,
   useMediaQuery
 } from "@mui/material";
+import { Send } from "@material-ui/icons";
 
 const Newsletter = () => {
   const isNonMobile = useMediaQuery("(min-width:815px)");
@@ -53,7 +53,7 @@ const Newsletter = () => {
                   textTransform: "none",
                   bgcolor: "teal",
                   color: "white",
-                  paddingX: "40px",
+                  paddingX: isNonMobile ? "40px": "20px",
                   fontSize: "16px",
                   fontWeight: "600",
                   letterSpacing: "1px",
@@ -68,7 +68,7 @@ const Newsletter = () => {
                   },
                 }}
               >
-                SEND
+                <Send/>
               </Button>
             </InputAdornment>
           ),

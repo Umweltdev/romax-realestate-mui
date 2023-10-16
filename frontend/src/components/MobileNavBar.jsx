@@ -1,13 +1,24 @@
 import { useState, useEffect } from "react";
-import { Box, Typography, Stack, Container, Button, Menu, MenuItem, IconButton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Stack,
+  Container,
+  Button,
+  Menu,
+  MenuItem,
+  IconButton,
+} from "@mui/material";
 import { Person, Menu as MenuIcon } from "@material-ui/icons";
 import { Logout, Login } from "@mui/icons-material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/userRedux";
 import { Link, useNavigate } from "react-router-dom";
 
 const MobileNavBar = ({ openDrawer }) => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -16,6 +27,10 @@ const MobileNavBar = ({ openDrawer }) => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
   return (
     <Box display={{ xs: "block", md: "none" }}>
       <Stack direction="row">
@@ -60,7 +75,7 @@ const MobileNavBar = ({ openDrawer }) => {
             </Link>
 
             {user ? (
-              <MenuItem >
+              <MenuItem onClick={handleLogout}>
                 <Stack direction="row" spacing={2} alignItems="center">
                   <Logout fontSize="small" />
                   <Typography>Logout</Typography>

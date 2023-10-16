@@ -71,16 +71,18 @@ const Facilities = () => {
   ];
 
   return (
-    <Stack width="65%" margin="0 auto" pb={6} spacing={2}>
+    <Stack width={{ xs: "95%", md:"75%",  lg:"65%"}} margin="0 auto" pb={6} spacing={2}>
       <Typography variant="h5" textAlign="center" fontSize="28px">
         OUR FACILITIES
       </Typography>
       <Typography variant="h6" textAlign="center" color="text.secondary">
         WE PROVIDE FULL SERVICES EVERY STEP OF THE WAY
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{
+        marginLeft: "-24px !important"
+      }}>
         {data.map(({ Icon, title, desc }) => (
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12}  sm={6} lg={4} >
             <Paper
               elevation={3}
               sx={{
@@ -92,6 +94,7 @@ const Facilities = () => {
                 alignItems: isNonMobile ? "start" : "center",
                 paddingX: 2.5,
                 paddingY: 3.5,
+                height: "150px"
               }}
             >
               <Icon

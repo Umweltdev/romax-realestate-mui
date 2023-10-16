@@ -81,7 +81,7 @@ const Product = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Box paddingY="40px">
+        <Box paddingY={{xs:"10px", md:"40px"}}>
           <ContainerBox maxWidth="lg">
             <Grid container spacing={3}>
               <Grid
