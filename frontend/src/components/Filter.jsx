@@ -38,6 +38,16 @@ const FilterComponent = () => {
   }, []);
 
   return (
+    <>
+    <Typography
+                variant="h5"
+                mb={3}
+                fontSize={{ xs: "20px", lg: "25px" }}
+                letterSpacing="1px"
+                textAlign="center"
+              >
+                FILTER PROPERTIES
+              </Typography>
     <Stack spacing={2.5}>
       <Stack direction="row" spacing={1} alignItems="center">
         <FormControl
@@ -243,6 +253,7 @@ const FilterComponent = () => {
         </Typography>
       </Button>
     </Stack>
+    </>
   );
 };
 

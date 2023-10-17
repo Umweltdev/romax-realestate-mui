@@ -10,6 +10,8 @@ import Hero from "../components/Hero";
 import Facilities from "../components/Facilities";
 import { resetState } from "../redux/filter";
 import { useDispatch } from "react-redux";
+import { Paper, Box } from "@mui/material";
+import FilterComponent from "../components/Filter";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -22,6 +24,24 @@ const Home = () => {
       <Announcement />
       <Navbar />
       <Hero />
+      <Box display={{ xs: "block", md: "none" }} paddingX={1}>
+        <Paper
+          elevation={3}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            paddingY: 3.5,
+            paddingX: 3,
+            borderRadius: "10px",
+            boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
+           
+            marginTop: "20px",
+          }}
+        >
+          <FilterComponent />
+        </Paper>
+      </Box>
+
       <Categories />
       <Carousel />
       <br />

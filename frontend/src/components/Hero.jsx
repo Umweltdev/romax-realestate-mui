@@ -42,7 +42,7 @@ const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <Box className={classes.heroContainer} height={{ xs: "80vh", md: "auto" }}>
+    <Box className={classes.heroContainer} height={{ xs: "85vh", md: "auto" }}>
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
@@ -89,6 +89,7 @@ const Hero = () => {
                   display: "inline-flex",
                   gap: "5px",
                   borderRadius: "30px",
+                  marginTop: '25px',
                   "&:hover": {
                     backgroundColor: "#119595",
                   },
@@ -123,15 +124,7 @@ const Hero = () => {
                 marginTop: "-40px",
               }}
             >
-              <Typography
-                variant="h5"
-                mb={3}
-                fontSize={{ xs: "20px", lg: "25px" }}
-                letterSpacing="1px"
-                textAlign="center"
-              >
-                FILTER PROPERTIES
-              </Typography>
+              
               <FilterComponent />
             </Paper>
           </Grid>

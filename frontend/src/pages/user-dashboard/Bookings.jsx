@@ -47,11 +47,12 @@ const Booking = ({ _id, bookingId, bookDate, viewDate }) => {
           flex="1 1 0"
           margin="6px"
           whiteSpace={{ xs: "pre", sm: "normal" }}
+          textAlign={{ xs: "center", sm: "left" }}
         >
           {viewDate ? dateConverter(viewDate) : "Pending"}
         </Typography>
 
-        <Typography display={{ xs: "none", sm: "block" }}>
+        <Typography>
           <IconButton>
             <EastIcon />
           </IconButton>
@@ -78,24 +79,38 @@ const Bookings = ({ openDrawer }) => {
   return (
     <Stack spacing={2}>
       <Header Icon={Bookmark} title={"My Bookings"} openDrawer={openDrawer} />
-
-      <Box display={{ xs: "none", sm: "flex" }} px={2} color="#7d879c">
-        <Typography variant="body2" flex="1 1 0">
-          Booking#
-        </Typography>
-        <Typography variant="body2" flex="1 1 0">
-          Book Date
-        </Typography>
-        <Typography variant="body2" flex="1 1 0">
-          View Date
-        </Typography>
-      </Box>
-
-      <Stack spacing={2}>
-        {bookings.map((booking, index) => (
-          <Booking {...booking} key={index} />
-        ))}
-      </Stack>
+      {bookings.length > 0 ? (
+        <>
+          {" "}
+          <Box display="flex" px={2} color="#7d879c">
+            <Typography variant="body2" flex="1 1 0">
+              Booking#
+            </Typography>
+            <Typography variant="body2" flex="1 1 0">
+              Book Date
+            </Typography>
+            <Typography variant="body2" flex="1 1 0">
+              View Date
+            </Typography>
+          </Box>
+          <Stack spacing={2}>
+            {bookings.map((booking, index) => (
+              <Booking {...booking} key={index} />
+            ))}
+          </Stack>{" "}
+        </>
+      ) : (
+        <Box
+          height="300px"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Typography variant="h5" textAlign="center" mt={4}>
+            NO BOOKING HAS BEEN MADE
+          </Typography>
+        </Box>
+      )}
     </Stack>
   );
 };
