@@ -54,7 +54,7 @@ const Product = () => {
   };
 
   return (
-    <div style={{flex:4 , padding: "0 20px"}}>
+    <div style={{ flex: 4, padding: "0 20px" }}>
       {loading ? (
         <CircularProgress />
       ) : (
@@ -82,20 +82,15 @@ const Product = () => {
               </Stack>{" "}
               <Stack direction="row" spacing={1.5}>
                 <Typography> Customer Note: </Typography>
-                <Typography color="#7D879C">
-                  {booking?.message}
-                </Typography>
+                <Typography color="#7D879C">{booking?.message}</Typography>
               </Stack>{" "}
               <Stack direction="row" spacing={1.5}>
                 <Typography> Customer Phone: </Typography>
-                <Typography color="#7D879C">
-                  {booking?.phone}
-                </Typography>
-              </Stack>{" "}<Stack direction="row" spacing={1.5}>
+                <Typography color="#7D879C">{booking?.phone}</Typography>
+              </Stack>{" "}
+              <Stack direction="row" spacing={1.5}>
                 <Typography> Customer Email: </Typography>
-                <Typography color="#7D879C">
-                  {booking?.email}
-                </Typography>
+                <Typography color="#7D879C">{booking?.email}</Typography>
               </Stack>{" "}
               <Stack direction="row" spacing={1.5}>
                 <Typography>View Date: </Typography>
@@ -163,55 +158,40 @@ const Product = () => {
                   gap: 1,
                 }}
               >
-                <Carousel images={booking?.product?.img} />
+                <Carousel images={booking?.product?.item?.img} />
               </Grid>
               <Grid item xs={12} md={6}>
                 <Stack spacing={2}>
                   <Typography variant="h5">
-                    {booking?.product?.title}
+                    {booking?.product?.item?.title}
                   </Typography>
 
                   <Typography variant="h5" color="teal">
-                    {`₦ ${booking?.product?.price?.toLocaleString()}`}
+                    {`₦ ${booking?.product?.item?.price?.toLocaleString()}`}
                   </Typography>
 
                   <Stack direction="row" spacing={5}>
                     <Stack spacing={0.3}>
                       <Typography variant="subtitle1">Location: </Typography>
                       <Typography variant="subtitle1">Category: </Typography>
-                      {booking?.stock <= 0 ? (
-                        <Typography
-                          variant="subtitle2"
-                          color="white"
-                          p={0.4}
-                          px={2}
-                          sx={{
-                            backgroundColor: "#E3364E",
-                            borderRadius: "10px",
-                            marginTop: "10px !important",
-                          }}
-                        >
-                          Out Of Stock
-                        </Typography>
-                      ) : (
-                        <Typography variant="subtitle1">Available: </Typography>
-                      )}
+
+                      <Typography variant="subtitle1">Available: </Typography>
                     </Stack>
                     <Stack spacing={0.3}>
                       <Typography variant="subtitle2">
-                        {booking?.product?.location || "No Type"}
+                        {booking?.product?.item?.location || "No Type"}
                       </Typography>
                       <Typography variant="subtitle2" color="text.secondary">
-                        {booking?.product?.category}
+                        {booking?.product?.item?.category}
                       </Typography>
 
                       <Typography variant="subtitle2" color="text.secondary">
-                        {booking?.product?.inStock ? "Yes" : "No"}
+                        {booking?.product?.item?.inStock ? "Yes" : "No"}
                       </Typography>
                     </Stack>
                   </Stack>
                   <Typography variant="subtitle2" color="text.secondary">
-                    {booking?.product?.desc}
+                    {booking?.product?.item?.desc}
                   </Typography>
 
                   <Stack>
@@ -232,7 +212,7 @@ const Product = () => {
                           <Typography variant="subtitle1" color="teal">
                             Bedrooms
                           </Typography>
-                          <Typography>{booking?.product?.bed}</Typography>
+                          <Typography>{booking?.product?.item?.bed}</Typography>
                         </Stack>
                       </Grid>
                       <Grid item xs={6} sm={4}>
@@ -240,7 +220,9 @@ const Product = () => {
                           <Typography variant="subtitle1" color="teal">
                             Bathrooms
                           </Typography>
-                          <Typography>{booking?.product?.bath}</Typography>
+                          <Typography>
+                            {booking?.product?.item?.bath}
+                          </Typography>
                         </Stack>
                       </Grid>
                       <Grid item xs={6} sm={4}>
@@ -248,7 +230,9 @@ const Product = () => {
                           <Typography variant="subtitle1" color="teal">
                             Car Parking
                           </Typography>
-                          <Typography>{booking?.product?.parking}</Typography>
+                          <Typography>
+                            {booking?.product?.item?.parking}
+                          </Typography>
                         </Stack>
                       </Grid>
                       <Grid item xs={6} sm={4}>
@@ -256,7 +240,9 @@ const Product = () => {
                           <Typography variant="subtitle1" color="teal">
                             Size
                           </Typography>
-                          <Typography>{booking?.product?.size}</Typography>
+                          <Typography>
+                            {booking?.product?.item?.size}
+                          </Typography>
                         </Stack>
                       </Grid>
                     </Grid>

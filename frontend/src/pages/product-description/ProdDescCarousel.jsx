@@ -26,6 +26,16 @@ const Carousel = ({ images }) => {
     slidesToScroll: 1,
     focusOnSelect: true,
     asNavFor: mainSliderRef,
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: images?.length < 3 ? images?.length : 3,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+    ],
   };
   return (
     <div>

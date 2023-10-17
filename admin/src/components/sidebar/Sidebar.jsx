@@ -65,7 +65,7 @@ export default function Sidebar() {
             <Link to="/bookings" className="link">
               <li className="sidebarListItem">
                 <BookmarkBorderOutlined className="sidebarIcon" />
-                Bookings
+                House Bookings
               </li>
             </Link>
             <Link to="/timelines" className="link">

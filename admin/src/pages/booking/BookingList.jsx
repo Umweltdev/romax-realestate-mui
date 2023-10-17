@@ -9,7 +9,7 @@ export default function Bookings() {
   useEffect(() => {
     const getBookings = async () => {
       try {
-        const res = await userRequest.get("/booking");
+        const res = await userRequest.get("/booking/products");
         setBookings(res.data);
       } catch (error) {
         console.log(error);
@@ -32,7 +32,7 @@ export default function Bookings() {
       month: "short",
       year: "numeric",
     }),
-    propertyTitle: booking?.product?.title,
+    propertyTitle: booking?.product?.item?.title,
   }));
 
   const columns = [

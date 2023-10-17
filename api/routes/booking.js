@@ -15,6 +15,7 @@ router.post("/", async (req, res) => {
     });
     res.status(201).json(newBooking);
   } catch (error) {
+     console.log(error)
     res.status(500).json({ message: "Something went wrong, Please try again" });
   }
 });
@@ -24,7 +25,7 @@ router.get("/user-bookings", verifyToken, async (req, res) => {
     
     const user = await User.findById(req.user.id)
     const bookings = await Booking.find({ email: user.email }).populate(
-      "product"
+      "product.item"
     );
     res.status(200).json(bookings);
   } catch (error) {
@@ -32,10 +33,21 @@ router.get("/user-bookings", verifyToken, async (req, res) => {
   }
 });
 
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
+router.get("/products", verifyTokenAndAdmin, async (req, res) => {
   try {
-    const bookings = await Booking.find().populate(
-      "product"
+    const bookings = await Booking.find({"product.type": "Product"}).populate(
+      "product.item"
+    );
+    res.status(200).json(bookings);
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong, Please try again" });
+  }
+});
+
+router.get("/estates", verifyTokenAndAdmin, async (req, res) => {
+  try {
+    const bookings = await Booking.find({"product.type": "Estate"}).populate(
+      "product.item"
     );
     res.status(200).json(bookings);
   } catch (error) {
@@ -45,7 +57,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 
 router.get("/:id", verifyToken, async (req, res) => {
   try {
-    const booking = await Booking.findById(req.params.id).populate('product');
+    const booking = await Booking.findById(req.params.id).populate('product.item');
     res.status(200).json(booking);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong, Please try again" });

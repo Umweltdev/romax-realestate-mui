@@ -38,9 +38,8 @@ const Booking = ({ openDrawer }) => {
         console.log(error);
       }
     };
-    if (id !== "new") {
-      getBooking();
-    }
+
+    getBooking();
   }, [id]);
 
   return (
@@ -87,38 +86,76 @@ const Booking = ({ openDrawer }) => {
           </IconButton>
         </Stack>
 
-        <Stack spacing={2}>
-          <Stack spacing={1}>
-            <Stack direction="row" spacing={1.5}>
-              <Typography>BookingID: </Typography>
-              <Typography color="#7D879C">{booking?.bookingId}</Typography>
-            </Stack>
-            <Stack direction="row" spacing={1.5}>
-              <Typography> Book Date: </Typography>
-              <Typography color="#7D879C">
-                {dateConverter(booking?.bookDate)}
+        {booking?.product?.type === "Product" ? (
+          <>
+            <Stack spacing={2}>
+              <Stack spacing={1}>
+                <Stack direction="row" spacing={1.5}>
+                  <Typography>BookingID: </Typography>
+                  <Typography color="#7D879C">{booking?.bookingId}</Typography>
+                </Stack>
+                <Stack direction="row" spacing={1.5}>
+                  <Typography> Book Date: </Typography>
+                  <Typography color="#7D879C">
+                    {dateConverter(booking?.bookDate)}
+                  </Typography>
+                </Stack>{" "}
+                <Stack direction="row" spacing={1.5}>
+                  <Typography>View Date: </Typography>
+                  <Typography color="#7D879C">
+                    {booking?.viewDate
+                      ? dateConverter(booking?.viewDate)
+                      : "Pending"}
+                  </Typography>
+                </Stack>
+              </Stack>
+
+              <Typography variant="h5">
+                {booking?.product?.item?.title}
               </Typography>
-            </Stack>{" "}
-            <Stack direction="row" spacing={1.5}>
-              <Typography>View Date: </Typography>
-              <Typography color="#7D879C">
-                {booking?.viewDate
-                  ? dateConverter(booking?.viewDate)
-                  : "Pending"}
+
+              <Typography variant="h5" color="teal">
+                {`₦ ${booking?.product?.item?.price.toLocaleString()}`}
               </Typography>
+
+              <Carousel images={booking?.product?.item?.img} />
             </Stack>
-          </Stack>
 
-          <Typography variant="h5">{booking?.product?.title}</Typography>
+            <PropertyDetails product={booking?.product?.item} />
+          </>
+        ) : (
+          <>
+            {" "}
+            <Stack spacing={2}>
+              <Stack spacing={1}>
+                <Stack direction="row" spacing={1.5}>
+                  <Typography>BookingID: </Typography>
+                  <Typography color="#7D879C">{booking?.bookingId}</Typography>
+                </Stack>
+                <Stack direction="row" spacing={1.5}>
+                  <Typography> Book Date: </Typography>
+                  <Typography color="#7D879C">
+                    {dateConverter(booking?.bookDate)}
+                  </Typography>
+                </Stack>{" "}
+                <Stack direction="row" spacing={1.5}>
+                  <Typography>View Date: </Typography>
+                  <Typography color="#7D879C">
+                    {booking?.viewDate
+                      ? dateConverter(booking?.viewDate)
+                      : "Pending"}
+                  </Typography>
+                </Stack>
+              </Stack>
 
-          <Typography variant="h5" color="teal">
-            {`₦ ${booking?.product?.price.toLocaleString()}`}
-          </Typography>
+              <Typography variant="h5">
+                {booking?.product?.item?.title}
+              </Typography>
 
-          <Carousel images={booking?.product?.img} />
-        </Stack>
-
-        <PropertyDetails product={booking?.product} />
+              <Carousel images={booking?.product?.item?.img} />
+            </Stack>
+          </>
+        )}
       </Stack>
     </Box>
   );

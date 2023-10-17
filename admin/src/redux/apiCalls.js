@@ -1,5 +1,5 @@
 import { loginFailure, loginStart, loginSuccess } from "./userRedux";
-import { publicRequest, userRequest } from "../requestMethods";
+import { publicRequest, userRequest, updateTokenInHeaders } from "../requestMethods";
 import {
   addTimelineFailure,
   addTimelineStart,
@@ -48,6 +48,7 @@ export const login = async (dispatch, user) => {
   try {
     const res = await publicRequest.post("/auth/login", user);
     dispatch(loginSuccess(res.data));
+    updateTokenInHeaders(res.data.accessToken)
   } catch (err) {
     dispatch(loginFailure());
   }

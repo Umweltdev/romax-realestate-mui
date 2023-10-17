@@ -62,7 +62,10 @@ const Booking = () => {
     try {
       const res = await publicRequest.post(`/booking`, {
         ...data,
-        product: id,
+        product: {
+          type: "Product",
+          item: id,
+        },
       });
       if (res.data) {
         makeToast(
