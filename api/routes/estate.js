@@ -12,15 +12,15 @@ router.post('/',
   Multer.array("images", 10),
   uploadImages,
   async (req, res) => {
-    const newEstate = new Estate({ ...req.body, img: req.images })
-
+    const newEstate = new Estate({ ...req.body, img: req.images });
     try {
       const savedEstate = await newEstate.save();
-      res.status(200).json(savedEstate)
+      res.status(200).json(savedEstate);
     } catch (err) {
-      res.status(500).json(err)
+      res.status(500).json(err);
     }
-  })
+  }
+);
 
 //UPDATE
 router.put("/:id", verifyTokenAndAdmin, Multer.array("images", 10), uploadImages, async (req, res) => {

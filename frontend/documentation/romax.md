@@ -12,13 +12,18 @@
     - `Filter.jsx/` : component to filter property on the Home Page.  
     - `Footer.jsx/` : footer component.   
     - `Hero.jsx/` :  hero section.  
-    - `Loader.jsx/` : component used for loading state .   
+    - `Loader.jsx/` : component used for loading state.   
     - `MobileNavBar.jsx/` : Mobile Navbar Component for mobile screen. 
     - `Navbar.jsx/` : main navbar Component. 
     - `Navbar.jsx/` : drawer component for mobile screen. 
     - `Products.jsx`: component to display featured property on the Home Page.
-    - `Slider.jsx/` : Caurousel component. 
+    - `Estates.jsx/` : component to display all estates.
+    - `Slider.jsx/` : Caurousel component for the Estate.
+    -`NewsLetter.jsx`: Component to get in touch with us. 
     - `Timeline.jsx/` : component to display list of timelines. 
+    - `AboutHero.jsx/` : component for the hero of the Timeline page
+    - `data.js` : Data for the Esate Carousel on the Home Page.
+    -`requestMetho.js` : axios requests from the backend 
 
    
   - **pages**: 
@@ -59,7 +64,22 @@
        - `SavedCard.jsx`: card component for listing details of a property.
        -`SavedProperties.jsx`: Page for listing property saved by a user.
          - `API Endpoints`: 
-             - `/api/users/user-saved-properties -[GET]`: Endpoint to get list of property saved by  a user.  
+             - `/api/users/user-saved-properties -[GET]`: Endpoint to get list of property saved by  a user. 
+       -`estate-description/`
+       - `index.jsx` : main file for the estate description page, Side bar with all the estate.
+          - `API Endpoints`: 
+             - `/api/estate/:id -[GET]`: Endpoint to get a  details of a estate with a specified id. 
+       - `Description.jsx`: component for displaying estate description and features.
+       - `ProdDescCarousel.jsx`: carousel component for display estate images.
+       - `Tab.jsx`: 
+    - `estate-list/`
+       - `index.jsx` : main file for the estate listing page.
+          - `API Endpoints`: 
+             - `/api/estate -[GET]`: Endpoint to get list of estate in the database, also considering query parameters if provided.
+       - `card.jsx`: card component for displaying the details of a estate .
+       - `ProdListCarousel.jsx`: carousel component for display estate images.   
+       - `estateActions.js`: actions to fetch estate data from the backend.
+       -`estateReducer.js`: reducers for the estate.           
     - `product-description/`
        - `index.jsx` : main file for the product description page.
           - `API Endpoints`: 
@@ -76,6 +96,8 @@
        - `ProdListCarousel.jsx`: carousel component for display property images.
        - `range.jsx`: component to filter properties.
        - `sort.jsx`: component to view amount of properties listed and sort properties based on citeria.
+  
+    -`About.jsx/`: Timeline Page dor all the estate date of commencement and completion.
 
 
   - **redux**: 
