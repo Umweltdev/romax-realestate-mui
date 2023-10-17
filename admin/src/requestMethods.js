@@ -1,42 +1,13 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api";
-let token = "";
-const storedToken = JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.user || "{}")?.currentUser?.accessToken
-if (storedToken) {
-  token = storedToken
-}
+const BASE_URL = "https://romax-real-estate.onrender.com/api/";
+const TOKEN = JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.user || "{}")?.currentUser?.accessToken
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL
 });
 
-
 export const userRequest = axios.create({
   baseURL: BASE_URL,
+  headers: { Authorization: `Bearer ${TOKEN}` }
 });
-
-userRequest.interceptors.request.use(
-  (config) => {
-    const storedToken = JSON.parse(
-      JSON.parse(localStorage.getItem('persist:root'))?.user || '{}'
-    )?.currentUser?.accessToken;
-
-    if (storedToken) {
-      config.headers.Authorization = `Bearer ${storedToken}`;
-    }
-
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-
-export const updateTokenInHeaders = (token) => {
-  userRequest.interceptors.request.use(config => {
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  });
-}
