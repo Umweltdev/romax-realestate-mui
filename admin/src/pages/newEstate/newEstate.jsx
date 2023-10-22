@@ -206,24 +206,6 @@ export default function NewEstate() {
                 <CustomTextField
                   // fullWidth
                   variant="outlined"
-                  type="text"
-                  label="Categories"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.categories}
-                  name="categories"
-                  error={!!touched.categories && !!errors.categories}
-                  helperText={touched.categories && errors.categories}
-                  sx={{
-                    width: isNonMobile ? "250px" : "100%",
-                  }}
-                  InputLabelProps={{
-                    style: { fontSize: "15px" },
-                  }}
-                />
-                <CustomTextField
-                  // fullWidth
-                  variant="outlined"
                   type="number"
                   label="House"
                   onBlur={handleBlur}
@@ -466,6 +448,84 @@ export default function NewEstate() {
                       onClick={() => push("")}
                     >
                       Add Feature
+                    </Button>
+                  </Box>
+                )}
+              </FieldArray>
+
+              <FieldArray name="categories">
+                {({ push, remove }) => (
+                  <Box
+                    sx={{
+                      gridColumn: "span 4",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "20px",
+                      padding: "25px 20px",
+                      borderRadius: "10px",
+                      border: "1px solid #DAE1E7",
+                    }}
+                  >
+                    <Typography variant="h5" textAlign="center">
+                      Add Categories
+                    </Typography>
+                    {values.categories.map((category, index) => (
+                      <Box
+                        key={index}
+                        sx={{
+                          position: "relative",
+                        }}
+                      >
+                        <CustomTextField
+                          fullWidth
+                          variant="outlined"
+                          type="text"
+                          label={`Category ${index + 1}`}
+                          name={`categories[${index}]`}
+                          value={category}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.categories && !!errors.categories}
+                          helperText={touched.categories && errors.categories}
+                        />
+                        <IconButton
+                          sx={{
+                            position: "absolute",
+                            right: "-11px",
+                            top: "-14px",
+                          }}
+                          onClick={() => remove(index)}
+                        >
+                          <Close
+                            style={{
+                              fontSize: "15px",
+                            }}
+                          />
+                        </IconButton>
+                      </Box>
+                    ))}
+
+                    <Button
+                      type="button"
+                      sx={{
+                        textTransform: "none",
+                        bgcolor: "#4e97fd",
+                        color: "white",
+                        fontSize: "14px",
+                        paddingX: "15px",
+                        fontWeight: 400,
+                        paddingY: "5px",
+                        alignSelf: values.categories.length > 0 ? "end" : "start",
+                        borderRadius: "8px",
+                        margin: values.categories.length > 0 ? "0 0" : "0 auto",
+
+                        "&:hover": {
+                          backgroundColor: "#2756b6",
+                        },
+                      }}
+                      onClick={() => push("")}
+                    >
+                      Add Categories
                     </Button>
                   </Box>
                 )}
