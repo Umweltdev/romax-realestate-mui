@@ -162,7 +162,7 @@ export const addTimeline = async (timeline, dispatch) => {
 export const addUser = async (user, dispatch) => {
   dispatch(addUsersStart());
   try {
-    const res = await userRequest.post(`/users`, user);
+    const res = await userRequest.post(`/auth/register`, user);
     dispatch(addUsersSuccess(res.data));
   } catch (err) {
     dispatch(addUsersFailure());
