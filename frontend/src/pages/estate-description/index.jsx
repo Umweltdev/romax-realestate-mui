@@ -134,7 +134,7 @@ const Estate = () => {
                     <Button
                       disabled={product?.stock <= 0}
                       onClick={() => {
-                        navigate(`/booking/${product._id}`);
+                        navigate(`/bookings/${product._id}`);
                       }}
                       sx={{
                         textTransform: "none",

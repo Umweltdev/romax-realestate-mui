@@ -3,8 +3,7 @@ import Navbar from "../../components/Navbar";
 import Announcement from "../../components/Announcement";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
-import Loader from "../../components/Loader";
-import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
+import HomeOutlined from "@mui/icons-material/HomeOutlined";
 import {
   Box,
   Typography,
@@ -49,7 +48,7 @@ const EstateBooking = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await publicRequest.get(`/estate/${id}`);
+        const res = await publicRequest.get(`/estate/find/${id}`);
         setProduct(res.data);
         setLoading(false);
       } catch (error) {
@@ -63,7 +62,10 @@ const EstateBooking = () => {
     try {
       const res = await publicRequest.post(`/booking`, {
         ...data,
-        product: id,
+        product: {
+          type: "Estate",
+          item: id,
+        },
       });
       if (res.data) {
         makeToast(
@@ -83,6 +85,7 @@ const EstateBooking = () => {
       <Navbar />
       <Container maxWidth="lg">
         <Box
+          py={{ xs: 2, md: 5 }}
           sx={{
             columnGap: "24px",
             rowGap: "24px",
@@ -90,7 +93,6 @@ const EstateBooking = () => {
             display: "flex",
             // flexWrap: "wrap",
             justifyContent: "center",
-            py: 5,
             flexDirection: isNonMobile ? "row" : "column",
           }}
         >
@@ -105,6 +107,7 @@ const EstateBooking = () => {
               borderRadius: "8px",
               paddingX: isNonMobile ? 3 : 2,
               paddingY: 4,
+              order: isNonMobile ? 1 : 2
             }}
           >
             <Stack spacing={2}>
@@ -228,6 +231,8 @@ const EstateBooking = () => {
               boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
               borderColor: "rgb(113, 113, 132)",
               borderRadius: "8px",
+              order: isNonMobile ? 2 : 1
+
             }}
           >
             <Box
@@ -244,24 +249,19 @@ const EstateBooking = () => {
                   objectFit: "cover",
                   borderRadius: "5px 5px 0px 0px",
                 }}
-                alt="Property"
+                alt="Esate"
                 src={product?.img ? product?.img[0] : ""}
               />
-            </Box>
-            <Box bgcolor="#f4f4f5" p={2} sx={{}}>
-              <Typography color="teal" variant="h6" fontSize="22px">
-                {`₦ ${product?.price?.toLocaleString()}`}
-              </Typography>
             </Box>
             <Box bgcolor="white" px={2} py={3} borderRadius="0 0 5px 5px ">
               <Stack direction="row" justifyContent="space-between">
                 <Typography variant="body2">{product?.title}</Typography>
                 <Stack direction="row" spacing={1} alignItems="center">
-                  <HotelOutlinedIcon />
+                  <HomeOutlined />
                   <Typography>
                     {" "}
                     <span style={{ fontSize: "12px" }}>X</span>
-                    {product?.bed}
+                    {product?.house}
                   </Typography>
                 </Stack>
               </Stack>

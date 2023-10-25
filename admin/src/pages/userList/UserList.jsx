@@ -16,6 +16,8 @@ export default function UserList() {
 
   const users = useSelector((state) => state.users.users);
 
+  const userIsMainAdmin = users.find((user) => user.MainAdmin);
+
   useEffect(() => {
     getUsers(dispatch);
   }, [dispatch, searchQuery]);
@@ -95,7 +97,7 @@ export default function UserList() {
       <Header
         title={"User List"}
         placeholder="Search User..."
-        button="Add User"
+        button={userIsMainAdmin ? "Add User" : null}
         route="user/newuser"
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
