@@ -24,7 +24,7 @@
   * `bath (number)`: Number of Bathroom
   * `price (number)` : Product Price
   * `features (array)`: Product Features
-  * `inStock (boolean)`: Availabilty of Product
+  * `inStock (number)`:  Number of available stock of the product
   * `isFeatured (boolean)`: Identify Featured Product
 
 ### Address Schema
@@ -74,27 +74,27 @@
      *  bath(number, required): Number of bathroom
       *  price(number, required): Price of the product
      *  features(array of string, required): Features of the product
-     *  inStock(boolean,reqiured): Availability of the  product.
+     *  inStock(number,reqiured): number of available stock of the product.
      *  isFeatured: Identify featured product.
 
     * Responses Body:  
   On a sucessful request, the API will return a 201  response code with a JSON object that contains the details of the new property.
 
-2. Get All Product (/api/products)
+1. Get All Product (/api/products)
    * HTTP Method: GET
    * Description: This endpoint retrieves a comprehensive list of all products stored within the database, considering query parameters if provided.
    * Access: Public
    * Responses Body:  
      The API will respond with a 200 OK status code and return a JSON array that includes all products in the database, also considering query parameters if provided.                              
 
-3. Get A Product (/api/products/:id)
+2. Get A Product (/api/products/:id)
    * HTTP Method: GET
    * Description: This endpoint returns  a product with the specified id in the database..
    * Access: Public
    * Responses Body:  
      The API will respond with a 200 OK status code and return a JSON object representing the product with the specified ID in the database.   
 
-4. Delete A Product (/api/products/:id)
+3. Delete A Product (/api/products/:id)
    * HTTP Method: DELETE
    * Description: This endpoint deletes a product with the specified id. Only users with the role of admin can access this endpoint.
    * Access: Admin
@@ -103,7 +103,7 @@
    * Responses Body:  
       If the request is successful, the API will return a 204 code with a JSON object that contains information about the product that was deleted.
 
-5. Update A Product (/api/products/:id)
+4. Update A Product (/api/products/:id)
    * HTTP Method: PUT
    * Description: This endpoint update a product with the specified id. Only users with the role of admin can access this endpoint.
    * Access: Admin
@@ -124,12 +124,25 @@
      *  bath(number, required): Number of bathroom
       *  price(number, required): Price of the product
      *  features(array of string, required): Features of the product
-     *  inStock(boolean,reqiured): Availability of the  product.
+     *  inStock(number,reqiured): number of available stock of the product.
      *  isFeatured: Identify featured product.
 
    * Responses Body:  
       If the request is successful, the API will return a 204 code with a JSON object that contains information about the product that was updated.
 
+6. Get All Product Locations (/api/products/get-locations)
+   * HTTP Method: GET
+   * Description: This endpoint returns  all product locations  in the database.
+   * Access: Public
+   * Responses Body:  
+     The API will  return array of product locations  in the database. 
+
+7. Get All Product Locations (/api/products/get-property-type)
+   * HTTP Method: GET
+   * Description: This endpoint returns  all product types  in the database.
+   * Access: Public
+   * Responses Body:  
+     The API will  return array of product types  in the database. 
 
 ### Address Route
 1. Create Address (/api/address) 

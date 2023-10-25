@@ -94,7 +94,7 @@ const Facilities = () => {
                 alignItems: isNonMobile ? "start" : "center",
                 paddingX: 2.5,
                 paddingY: 3.5,
-                height: "150px"
+                height: "140px"
               }}
             >
               <Icon

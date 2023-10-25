@@ -52,7 +52,7 @@ export default function ProductList() {
     id: product._id,
     title: product.title,
     price: product.price,
-    inStock: product?.inStock ? "Yes" : "No",
+    inStock: product?.inStock,
     action: null,
   }));
   return (
@@ -82,7 +82,7 @@ export default function ProductList() {
 
           {
             field: "inStock",
-            headerName: "Available",
+            headerName: "Stock",
             width: 150,
             headerAlign: "center",
                   align: "center",

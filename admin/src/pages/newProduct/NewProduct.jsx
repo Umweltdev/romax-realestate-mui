@@ -109,7 +109,7 @@ export default function NewProduct() {
     images: [],
     features: productData?.features || [],
     isFeatured: productData?.isFeatured || false,
-    inStock: productData?.inStock || false,
+    inStock: productData?.inStock || "",
   };
   useEffect(() => {
     if (productData) {
@@ -383,6 +383,24 @@ export default function NewProduct() {
                     style: { fontSize: "15px" },
                   }}
                 />{" "}
+                <CustomTextField
+                  fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Stock"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.inStock}
+                  name="inStock"
+                  error={!!touched.inStock && !!errors.inStock}
+                  helperText={touched.inStock && errors.inStock}
+                  sx={{
+                    width: isNonMobile ? "250px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />
               </Box>
 
               <Box
@@ -650,7 +668,7 @@ export default function NewProduct() {
                   }
                 />
 
-                <FormControlLabel
+                {/* <FormControlLabel
                   control={
                     <Switch
                       checked={values.inStock}
@@ -673,7 +691,7 @@ export default function NewProduct() {
                       Property is Available
                     </Typography>
                   }
-                />
+                /> */}
               </Box>
             </Box>
 

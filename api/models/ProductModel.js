@@ -46,8 +46,23 @@ const productSchema = new mongoose.Schema({
     required: true
   },
   inStock: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  minPer: {
+    type: Number,
+  },
+  maxPer: {
+    type: Number,
+  },
+  isFixed: {
     type: Boolean,
-    default: true,
+    default: false,
+  },
+  isBounded: {
+    type: Boolean,
+    default: false,
   },
   isFeatured: {
     type: Boolean,

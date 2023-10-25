@@ -12,28 +12,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     backgroundPosition: "center",
     color: theme.palette.common.white,
-    padding: theme.spacing(10, 0),
-  },
-  ctaContainer: {
-    background: "rgba(255, 255, 255, 0.9)", // Slightly transparent white background
-    padding: theme.spacing(8),
-    borderRadius: theme.spacing(3), // Increased border radius
-    boxShadow: "0px 5px 20px rgba(0, 0, 0, 0.3)", // More prominent shadow
-  },
-  ctaButton: {
-    marginTop: theme.spacing(3),
-    backgroundColor: "transparent", // Make the button transparent
-    color: theme.palette.primary.main,
-    border: `2px solid ${theme.palette.primary.main}`, // Add border
-    borderRadius: theme.spacing(2), // Increase border radius
-    transition: "background-color 0.3s ease, color 0.3s ease",
-    "&:hover": {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.common.white,
-    },
-  },
-  ctaTextField: {
-    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -42,7 +20,7 @@ const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <Box className={classes.heroContainer} height={{ xs: "85vh", md: "auto" }}>
+    <Box className={classes.heroContainer} padding={{xs:"100px 0", sm:"80px 0"}}>
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
@@ -62,7 +40,7 @@ const Hero = () => {
               </Stack>
               <Typography
                 variant="h5"
-                fontSize={{ xs: "45px", md: "52px" }}
+                fontSize={{ xs: "40px", md: "52px" }}
                 mb={4}
               >
                 Find Your Dream, Suitable & Comfortable Home.
@@ -71,6 +49,7 @@ const Hero = () => {
                 variant="h6"
                 letterSpacing="3px"
                 lineHeight={1.3}
+                fontSize={{ xs: "16px", sm: "20px" }}
                 mb={4}
                 color="#e3e1e1"
               >
@@ -89,7 +68,7 @@ const Hero = () => {
                   display: "inline-flex",
                   gap: "5px",
                   borderRadius: "30px",
-                  marginTop: '25px',
+                  marginTop: "25px",
                   "&:hover": {
                     backgroundColor: "#119595",
                   },
@@ -124,7 +103,6 @@ const Hero = () => {
                 marginTop: "-40px",
               }}
             >
-              
               <FilterComponent />
             </Paper>
           </Grid>

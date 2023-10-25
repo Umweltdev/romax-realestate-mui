@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Typography, Box, Stack, IconButton, Paper, Chip } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Stack,
+  IconButton,
+  Paper,
+  CircularProgress,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import Bookmark from "@mui/icons-material/Bookmark";
 import EastIcon from "@mui/icons-material/East";
@@ -64,12 +71,17 @@ const Booking = ({ _id, bookingId, bookDate, viewDate }) => {
 
 const Bookings = ({ openDrawer }) => {
   const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const getBookings = async () => {
+      setLoading(true);
       try {
         const res = await userRequest.get("/booking/user-bookings");
+        setLoading(false);
         setBookings(res.data);
       } catch (error) {
+        setLoading(false);
         console.log(error);
       }
     };
@@ -79,7 +91,19 @@ const Bookings = ({ openDrawer }) => {
   return (
     <Stack spacing={2}>
       <Header Icon={Bookmark} title={"My Bookings"} openDrawer={openDrawer} />
-      {bookings.length > 0 ? (
+
+      {loading ? (
+        <Box
+          sx={{
+            height: "200px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      ) : bookings.length > 0 ? (
         <>
           {" "}
           <Box display="flex" px={2} color="#7d879c">

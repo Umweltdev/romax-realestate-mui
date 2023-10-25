@@ -108,19 +108,25 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
+// GET ALL PRODUCT TYPES
 router.get("/get-property-type", async (req, res) => {
   try {
-    const locations = await Product.distinct("propertyType");
-    res.json(locations);
+    const propertyTypes = await Product.distinct("propertyType", {
+      location: { $exists: true } 
+    }).collation({ locale: 'en', strength: 2 });
+    res.json(propertyTypes);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });
   }
 });
 
+// GET ALL PRODUCT LOCATIONS
 router.get("/get-locations", async (req, res) => {
   try {
-    const locations = await Product.distinct("location");
+    const locations = await Product.distinct("location", {
+      location: { $exists: true } 
+    }).collation({ locale: 'en', strength: 2 });
     res.json(locations);
   } catch (error) {
     console.error(error);

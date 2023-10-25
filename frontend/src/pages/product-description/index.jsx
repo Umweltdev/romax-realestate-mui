@@ -81,7 +81,7 @@ const Product = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Box paddingY={{xs:"10px", md:"40px"}}>
+        <Box paddingY={{ xs: "10px", md: "40px" }}>
           <ContainerBox maxWidth="lg">
             <Grid container spacing={3}>
               <Grid
@@ -104,41 +104,49 @@ const Product = () => {
 
                   <Stack direction="row" spacing={5}>
                     <Stack spacing={0.3}>
-                      <Typography variant="subtitle1">Address: </Typography>
-                      <Typography variant="subtitle1">Location: </Typography>
-                      <Typography variant="subtitle1">Category: </Typography>
-                      {product?.stock <= 0 ? (
+                      <Stack spacing={2} direction="row">
+                        <Typography variant="subtitle1">Address: </Typography>
+                        <Typography variant="subtitle2">
+                          {product?.address || "Will Updated Soon"}
+                        </Typography>
+                      </Stack>
+                      <Stack spacing={2} direction="row">
+                        <Typography variant="subtitle1">Location: </Typography>
+                        <Typography variant="subtitle2">
+                          {product?.location || "Will Updated Soon"}
+                        </Typography>
+                      </Stack>
+                      <Stack spacing={2} direction="row">
+                        <Typography variant="subtitle1">Category: </Typography>
+                        <Typography variant="subtitle2">
+                          {product?.category || "Will Updated Soon"}
+                        </Typography>
+                      </Stack>
+
+                      {product?.inStock <= 0 ? (
                         <Typography
-                          variant="subtitle2"
+                          variant="subtitle1"
                           color="white"
                           p={0.4}
                           px={2}
+                          py={1}
                           sx={{
-                            backgroundColor: "#E3364E",
+                            backgroundColor: "gray",
                             borderRadius: "10px",
                             marginTop: "10px !important",
+                            alignSelf: "start"
                           }}
                         >
                           Out Of Stock
                         </Typography>
                       ) : (
-                        <Typography variant="subtitle1">Available: </Typography>
+                        <Stack spacing={2} direction="row">
+                          <Typography variant="subtitle1"> Stock: </Typography>
+                          <Typography variant="subtitle2">
+                            {`${product?.inStock} units`}
+                          </Typography>
+                        </Stack>
                       )}
-                    </Stack>
-                    <Stack spacing={0.3}>
-                      <Typography variant="subtitle2">
-                        {product?.address || "Will Updated Soon"}
-                      </Typography>
-                      <Typography variant="subtitle2">
-                        {product?.location || "Will Updated Soon"}
-                      </Typography>
-                      <Typography variant="subtitle2" color="text.secondary">
-                        {product?.category}
-                      </Typography>
-
-                      <Typography variant="subtitle2" color="text.secondary">
-                        {product?.inStock ? "Yes" : "No"}
-                      </Typography>
                     </Stack>
                   </Stack>
                   <Typography variant="subtitle2" color="text.secondary">

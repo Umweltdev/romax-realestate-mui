@@ -44,11 +44,11 @@ const Card = ({ _id, title, location, price, img }) => {
       </Box>
       <Box bgcolor="white" px={2} py={3} borderRadius="0 0 5px 5px ">
         <Typography variant="body2">
-          {title.length > 30 ? `${title.substring(0, 30)}...` : title}
+          {title?.length > 30 ? `${title.substring(0, 30)}...` : title}
         </Typography>
 
         <Typography mt={1} color="#7D879C" variant="subtitle2">
-          {location.length > 45 ? `${location.substring(0, 45)}...` : location}
+          {location?.length > 45 ? `${location.substring(0, 45)}...` : location}
         </Typography>
       </Box>
     </Box>

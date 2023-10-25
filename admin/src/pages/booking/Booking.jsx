@@ -175,7 +175,7 @@ const Product = () => {
                       <Typography variant="subtitle1">Location: </Typography>
                       <Typography variant="subtitle1">Category: </Typography>
 
-                      <Typography variant="subtitle1">Available: </Typography>
+                      <Typography variant="subtitle1">Stock: </Typography>
                     </Stack>
                     <Stack spacing={0.3}>
                       <Typography variant="subtitle2">
@@ -186,7 +186,7 @@ const Product = () => {
                       </Typography>
 
                       <Typography variant="subtitle2" color="text.secondary">
-                        {booking?.product?.item?.inStock ? "Yes" : "No"}
+                        {`${booking?.product?.item?.inStock} Units `}
                       </Typography>
                     </Stack>
                   </Stack>
