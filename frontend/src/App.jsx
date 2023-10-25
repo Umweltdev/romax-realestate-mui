@@ -21,6 +21,7 @@ import About from "./pages/About";
 import EstateListing from "./pages/estate-list";
 import Booking from "./pages/booking";
 import FAQ from "./pages/faq";
+import EstateBooking from "./pages/estate-booking";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -39,6 +40,7 @@ function App() {
           <Route path="/estate" element={<EstateListing />} />
           <Route path="/reset" element={<Reset />} />
           <Route path="/booking/:id" element={<Booking />} />
+          <Route path="/bookings/:id" element={<EstateBooking />} />
           <Route path="/faq" element={<FAQ />} />
 
 
@@ -48,9 +50,9 @@ function App() {
           />
           <Route
             path="/login"
-            element={user ? <Navigate to="/" /> : <Login bgcolor="#F6F9FC"/>}
+            element={user ? <Navigate to="/" /> : <Login bgcolor="#F6F9FC" />}
           />
-          <Route path="/user/*"   element={user ? <UserDashBoard /> : <Login/>} />
+          <Route path="/user/*" element={user ? <UserDashBoard /> : <Login />} />
 
         </Routes>
       </LocalizationProvider>
