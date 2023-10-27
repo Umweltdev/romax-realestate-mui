@@ -22,6 +22,8 @@ import NewTimeline from "./pages/newTimeline/newTimeline";
 import EstateList from "./pages/estateList/EstateList";
 import Estate from "./pages/estate/Estate";
 import NewEstate from "./pages/newEstate/newEstate";
+import EstateBookings from "./pages/bookingEstate/BookingList";
+import EstateBooking from "./pages/bookingEstate/Booking";
 
 function App() {
 
@@ -54,6 +56,8 @@ function App() {
                         <Route path="/products" element={<ProductList />} />
                         <Route path="/estates" element={<EstateList />} />
                         <Route path="/bookings" element={<Bookings />} />
+                        <Route path="/estatebookings" element={<EstateBookings />} />
+                        <Route path="/estatebookings/:id" element={<EstateBooking />} />
                         <Route path="/bookings/:id" element={<Booking />} />
                         <Route path="/timelines" element={<TimelineList />} />
                         <Route path="/product/:id" element={<NewProduct />} />
