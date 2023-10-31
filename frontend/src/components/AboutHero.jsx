@@ -25,17 +25,14 @@ const AboutHero = () => {
             paddingX: 2.5,
             paddingY: 3.5,
             width: "100%",
-            //backgroundImage: 'url("https://i.ibb.co/9Y1NYS4/NEWTERRACE.png")',
-            //backgroundColor: 'rgba(255, 255, 255, 0.6)',
             background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.ibb.co/0nQJv76/Whats-App-Image-2023-09-04-at-06-30-01.jpg')`,
             backgroundSize: 'cover',
           }}>
           <Stack spacing={0.5}>
             <Typography
               variant="h5"
-              fontSize={{ xs: "45px", md: "52px" }}
+              fontSize={{ xs: "36px", sm: "45px", md: "52px" }}
               mb={4}
-
               sx={{ textAlign: 'center', color: 'white' }}>
               ABOUT US
             </Typography>
@@ -47,7 +44,7 @@ const AboutHero = () => {
               lineHeight={1.3}
               mb={4}
               color="#e3e1e1"
-              sx={{ textAlign: 'center' }} >
+              sx={{ alignItems: 'start', padding: "35px", width: "100%" }} >
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta necessitatibus neque magni adipisci ratione sint optio in molestias amet earum perferendis non deserunt, aliquid iure, maxime iste consequatur provident facilis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ea modi, labore corporis hic natus excepturi. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure veniam cum id, libero consequatur laboriosam, mollitia ut quos aliquid quam molestiae voluptas! Voluptatem, nam? Recusandae nulla doloremque temporibus veritatis quos!
             </Typography>
             <br />

@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Stack,
@@ -14,6 +15,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const Sort = ({ openDrawer, sort, setSort }) => {
   const isNonMobile = useMediaQuery("(min-width:968px)");
 
+  const handleChangeSort = (event) => {
+    setSort(event.target.value);
+  };
+
   return (
     <Box
       bgcolor="white"
@@ -23,15 +28,12 @@ const Sort = ({ openDrawer, sort, setSort }) => {
         boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
       }}
     >
-      {" "}
       <Stack
         direction={"row"}
         justifyContent="space-between"
         alignItems="center"
       >
         <Typography variant="h6">
-          {" "}
-          {" "}
           <span
             style={{
               fontSize: "18px",
@@ -39,7 +41,7 @@ const Sort = ({ openDrawer, sort, setSort }) => {
             }}
           >
             Estates
-          </span>{" "}
+          </span>
         </Typography>
 
         <Stack direction="row" spacing={1} alignItems="center">
@@ -47,19 +49,12 @@ const Sort = ({ openDrawer, sort, setSort }) => {
             <Typography display={{ xs: "none", sm: "block" }}>
               Sort By:
             </Typography>
-            <FormControl
-              size="small"
-              sx={{
-                flex: 1,
-              }}
-            >
+            <FormControl size="small" sx={{ flex: 1 }}>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={sort}
-                onChange={(e) => {
-                  setSort(e.target.value);
-                }}
+                onChange={handleChangeSort}
               >
                 <MenuItem value={"newest"}>Newest</MenuItem>
                 <MenuItem value={"oldest"}>Oldest</MenuItem>

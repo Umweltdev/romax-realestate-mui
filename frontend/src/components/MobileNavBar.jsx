@@ -61,7 +61,7 @@ const MobileNavBar = ({ openDrawer }) => {
               to="/user/profile"
               style={{
                 textDecoration: "none",
-                color: "#2b3445",
+                color: "#eb8510",
               }}
             >
               {user && (
