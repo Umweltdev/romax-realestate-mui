@@ -6,20 +6,24 @@
   box-sizing: border-box;
   margin: 0;
 }
+
 body {
   color: #2b3445 !important;
 }
+
 .booking-carousel-image {
   height: 196px;
   width: 100%;
   border-radius: 8px;
 }
+
 .descCarouselImage {
   height: 100%;
   width: 100%;
   object-fit: cover;
   border-radius: 8px;
 }
+
 .descCarouselImageBox {
   height: 150px;
   width: 100%;
@@ -31,9 +35,11 @@ body {
   display: none !important;
   z-index: 2;
 }
+
 .slick-next {
   right: 20px !important;
 }
+
 .slick-prev {
   left: 20px !important;
 }
@@ -41,14 +47,17 @@ body {
 .sliderr {
   height: 100%;
 }
+
 .sliderr .slick-list,
 .sliderr .slick-list div {
   height: 100%;
 }
+
 .sliderr .slick-list {
   border-radius: 0;
   border-top-left-radius: 10px;
 }
+
 .sliderr:hover .slick-prev,
 .sliderr:hover .slick-next {
   display: block !important;
@@ -59,14 +68,17 @@ body {
   width: 100%;
   height: 100%;
 }
+
 .listCarouselImage {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
+
 .slick-slide {
   position: relative;
 }
+
 .sliderr .slick-slide:nth-child(even)::before {
   content: " ";
   position: absolute;
@@ -77,6 +89,7 @@ body {
   background-color: #fff;
   z-index: 3;
 }
+
 .bookingMainCauImage {
   height: 400px;
   border-radius: 8px;
@@ -90,6 +103,7 @@ body {
   padding: 0 16px;
   margin-bottom: 16px;
 }
+
 .list::before {
   background-color: #eb8510;
   border-radius: 100%;
@@ -101,6 +115,7 @@ body {
   top: 7px;
   left: 0;
 }
+
 .sliderr .slick-list {
   border-top-left-radius: 8px;
 }
@@ -111,7 +126,7 @@ body {
 
 @media (max-width: 968px) {
   .sliderr .slick-slide:nth-child(even)::before {
-   display: none;
+    display: none;
   }
 }
 
@@ -119,20 +134,25 @@ body {
   .descCarouselImageBox {
     height: 120px;
   }
+
   .MuiContainer-root {
     padding: 0 10px !important;
   }
+
   .list {
     width: 100% !important;
   }
+
   .sliderr .slick-list {
     border-top-right-radius: 10px;
   }
+
   .listCarouselImage {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
   }
 }
+
 /* content: " ";
     position: absolute;
     top: 0;
