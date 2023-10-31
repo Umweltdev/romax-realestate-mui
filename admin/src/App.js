@@ -11,7 +11,7 @@ import NewUser from "./pages/newUser/NewUser";
 import ProductList from "./pages/productList/ProductList";
 import Bookings from "./pages/booking/BookingList";
 import Booking from "./pages/booking/Booking";
-import Product from "./pages/product/Product";
+//import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/Login";
 import AddFaq from "./pages/faq/AddFaq";
@@ -20,8 +20,10 @@ import TimelineList from "./pages/timelineList/TimelineList";
 import Timeline from "./pages/timeline/Timeline"
 import NewTimeline from "./pages/newTimeline/newTimeline";
 import EstateList from "./pages/estateList/EstateList";
-import Estate from "./pages/estate/Estate";
+//import Estate from "./pages/estate/Estate";
 import NewEstate from "./pages/newEstate/newEstate";
+import EstateBookings from "./pages/bookingEstate/BookingList";
+import EstateBooking from "./pages/bookingEstate/Booking";
 
 function App() {
 
@@ -54,6 +56,8 @@ function App() {
                         <Route path="/products" element={<ProductList />} />
                         <Route path="/estates" element={<EstateList />} />
                         <Route path="/bookings" element={<Bookings />} />
+                        <Route path="/estatebookings" element={<EstateBookings />} />
+                        <Route path="/estatebookings/:id" element={<EstateBooking />} />
                         <Route path="/bookings/:id" element={<Booking />} />
                         <Route path="/timelines" element={<TimelineList />} />
                         <Route path="/product/:id" element={<NewProduct />} />

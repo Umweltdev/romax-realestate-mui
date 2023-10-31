@@ -111,6 +111,24 @@ const Navbar = () => {
             </Typography>
           </Link>
           <Link
+            to="/about"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <Typography
+              color="#2b3445"
+              variant="body2"
+              sx={{
+                "&:hover": {
+                  color: "teal",
+                },
+              }}
+            >
+              Our Timeline
+            </Typography>
+          </Link>
+          <Link
             style={{
               textDecoration: "none",
             }}

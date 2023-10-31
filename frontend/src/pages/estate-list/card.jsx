@@ -213,7 +213,7 @@ const Card = (props) => {
                   <Typography variant="subtitle1">0161 232 0345</Typography>
                   <Typography variant="subtitle1">Hotline</Typography>
                 </Stack>
-                <IconButton onClick={() => navigate(`/booking/${_id}`)}>
+                <IconButton onClick={() => navigate(`/bookings/${_id}`)}>
                   <EmailOutlinedIcon
 
                     sx={{

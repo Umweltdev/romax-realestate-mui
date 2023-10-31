@@ -56,16 +56,22 @@ export default function Sidebar() {
                 Products
               </li>
             </Link>
+            <Link to="/bookings" className="link">
+              <li className="sidebarListItem">
+                <BookmarkBorderOutlined className="sidebarIcon" />
+                House Bookings
+              </li>
+            </Link>
             <Link to="/estates" className="link">
               <li className="sidebarListItem">
                 <HouseOutlined className="sidebarIcon" />
                 Estates
               </li>
             </Link>
-            <Link to="/bookings" className="link">
+            <Link to="/estatebookings" className="link">
               <li className="sidebarListItem">
                 <BookmarkBorderOutlined className="sidebarIcon" />
-                House Bookings
+                Estate Bookings
               </li>
             </Link>
             <Link to="/timelines" className="link">
