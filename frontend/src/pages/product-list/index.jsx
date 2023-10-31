@@ -100,7 +100,7 @@ const ProductListing = () => {
     <>
       <Announcement />
       <Navbar />
-      <Box bgcolor="#F6F9FC" py={5}>
+      <Box bgcolor="#f4f4f5" py={5}>
         <Container maxWidth="lg">
           <Sort openDrawer={openDrawer} products={products} />
           <Grid container spacing={3} marginTop={4}>
@@ -162,7 +162,7 @@ const ProductListing = () => {
                     onClick={handleRefresh}
                     sx={{
                       textTransform: "none",
-                      bgcolor: "teal",
+                      bgcolor: "primary.main",
                       color: "white",
                       paddingX: "30px",
                       paddingY: "15px",

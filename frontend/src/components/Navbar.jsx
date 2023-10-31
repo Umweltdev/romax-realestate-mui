@@ -4,9 +4,17 @@ import { Search } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { logout } from "../redux/userRedux";
-import { Typography, Stack, Container, Button, Drawer } from "@mui/material";
+import {
+  Typography,
+  Stack,
+  Container,
+  Button,
+  Drawer,
+  Box,
+} from "@mui/material";
 import NavBarDrawer from "./NavBarDrawer";
 import MobileNavBar from "./MobileNavBar";
+import logo from "../assests/Logo-Transparent.png";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -27,18 +35,19 @@ const Navbar = () => {
     navigate("/");
   };
 
-
   return (
     <Container>
       <Stack
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        py={{ xs:1.8,  md:2.5}}
-        sx={{
-          // boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
-          // borderColor: "rgb(113, 113, 132)",
-        }}
+        // py={{ xs:1.8,  md:2.5}}
+        sx={
+          {
+            // boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
+            // borderColor: "rgb(113, 113, 132)",
+          }
+        }
       >
         <Link
           to="/"
@@ -46,9 +55,17 @@ const Navbar = () => {
             textDecoration: "none",
           }}
         >
-          <Typography variant="h5" letterSpacing="3px" color="teal">
-            ROMAX
-          </Typography>
+          <Box height={{ xs: "70px", sm:"100px"}} >
+            <img
+              src="https://static.wixstatic.com/media/38c36f_cf2679a5ddd4403fa15dda614149c8f9~mv2.png/v1/fill/w_187,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PHOTO-2021-09-15-13-59-41_edited.png"
+              alt="Romax Properties Ltd Logo"
+              style={{
+                height: "100%",
+                width: "100%",
+                objectFit: "cover",
+              }}
+            />
+          </Box>
         </Link>
 
         <MobileNavBar openDrawer={openDrawer} />
@@ -68,7 +85,7 @@ const Navbar = () => {
               variant="body2"
               sx={{
                 "&:hover": {
-                  color: "teal",
+                  color: "primary.main",
                 },
               }}
             >
@@ -86,7 +103,7 @@ const Navbar = () => {
               variant="body2"
               sx={{
                 "&:hover": {
-                  color: "teal",
+                  color: "primary.main",
                 },
               }}
             >
@@ -103,7 +120,7 @@ const Navbar = () => {
               variant="body2"
               sx={{
                 "&:hover": {
-                  color: "teal",
+                  color: "primary.main",
                 },
               }}
             >
@@ -130,7 +147,7 @@ const Navbar = () => {
                 variant="body2"
                 sx={{
                   "&:hover": {
-                    color: "teal",
+                    color: "primary.main",
                   },
                 }}
               >
@@ -148,7 +165,7 @@ const Navbar = () => {
               variant="body2"
               sx={{
                 "&:hover": {
-                  color: "teal",
+                  color: "primary.main",
                 },
               }}
             >
@@ -161,14 +178,14 @@ const Navbar = () => {
               variant="outlined"
               sx={{
                 textTransform: "none",
-                color: "teal",
+                color: "primary.main",
 
                 borderRadius: "8px",
-                borderColor: "teal",
+                borderColor: "primary.main",
                 borderWidth: "2px",
                 "&:hover": {
                   color: "#FFFFFF",
-                  bgcolor: "teal",
+                  bgcolor: "primary.main",
                 },
               }}
             >
@@ -176,19 +193,18 @@ const Navbar = () => {
             </Button>
           ) : (
             <Button
-              onClick={() =>     navigate("/login")
-            }
+              onClick={() => navigate("/login")}
               variant="outlined"
               sx={{
                 textTransform: "none",
-                color: "teal",
+                color: "primary.main",
 
                 borderRadius: "8px",
-                borderColor: "teal",
+                borderColor: "primary.main",
                 borderWidth: "2px",
                 "&:hover": {
                   color: "#FFFFFF",
-                  bgcolor: "teal",
+                  bgcolor: "primary.main",
                 },
               }}
             >

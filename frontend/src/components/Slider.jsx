@@ -34,9 +34,9 @@ const Card = ({ title, img, desc, bg }) => {
         <Grid item xs={12} sm={6} order={{ xs: 1, sm: 0 }} alignSelf="stretch">
           <Stack
             spacing={2.5}
-            bgcolor={bg}
+            // bgcolor={bg}
             height="100%"
-            p={{ xs:4, sm:3}}
+            p={{ xs: 4, sm: 3 }}
             justifyContent="center"
           >
             <Typography
@@ -44,6 +44,7 @@ const Card = ({ title, img, desc, bg }) => {
               lineHeight="1.4"
               fontSize={{ sm: "25px", md: "40px" }}
               letterSpacing="3.5px"
+              color="primary.main"
             >
               {title}
             </Typography>
@@ -51,9 +52,9 @@ const Card = ({ title, img, desc, bg }) => {
               variant="h6"
               fontWeight="500"
               letterSpacing="1px"
-              color="#7D879C"
+              color="primary.main"
             >
-              {desc}
+              {desc?.length > 50 ? `${desc.substring(0, 47)}...` : desc}
             </Typography>
             <Button
               variant="outlined"
@@ -61,18 +62,18 @@ const Card = ({ title, img, desc, bg }) => {
               sx={{
                 textTransform: "none",
                 // bgcolor: "teal",
-                color: "#2b3445",
+                color: "primary.main",
                 paddingX: "30px",
                 paddingY: "15px",
                 alignSelf: "start",
                 display: "flex",
                 gap: "5px",
                 borderRadius: "10px",
-                borderColor: "#2b3445",
+                borderColor: "primary.main",
                 borderWidth: "2px",
                 "&:hover": {
                   color: "#FFFFFF",
-                  bgcolor: "#2b3445",
+                  bgcolor: "primary.main",
                 },
               }}
             >
@@ -101,7 +102,7 @@ const Carousel = () => {
     autoplaySpeed: 2000,
     cssEase: "linear",
   };
-  
+
   return (
     <Box py={5}>
       <Slider {...settings}>

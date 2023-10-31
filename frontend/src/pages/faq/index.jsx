@@ -43,13 +43,20 @@ const FAQ = () => {
         py={8}
       >
         <Box
-          p={2}
+          p={3}
           textAlign="center"
-          bgcolor="teal"
-          color="white"
-          borderRadius="8px"
+          bgcolor="white"
+          borderRadius="10px"
+          sx={{
+            boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
+            borderColor: "rgb(113, 113, 132)",
+          }}
         >
-          <Typography variant={"h5"} fontSize={{ xs: "20px", sm: "25px" }}>
+          <Typography
+            variant={"h5"}
+            fontSize={{ xs: "20px", sm: "25px" }}
+            color="primary.main"
+          >
             Frequently Asked Questions
           </Typography>
         </Box>

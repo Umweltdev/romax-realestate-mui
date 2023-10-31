@@ -232,7 +232,7 @@ const FilterComponent = () => {
         onClick={() => navigate("/products")}
         sx={{
           textTransform: "none",
-          bgcolor: "teal",
+          bgcolor: "primary.main",
           color: "white",
           // fontSize: "18px",
           paddingX: "20px",
@@ -243,7 +243,7 @@ const FilterComponent = () => {
           gap: "5px",
           borderRadius: "16px",
           "&:hover": {
-            backgroundColor: "#119595",
+            backgroundColor: "#fc973f",
           },
         }}
       >

@@ -257,7 +257,7 @@ const EditProfile = ({ openDrawer }) => {
                   paddingY: "8px",
                   alignSelf: "start",
                   "&:hover": {
-                    backgroundColor: "#E3364E",
+                    backgroundColor: "#fc973f",
                   },
                 }}
               >

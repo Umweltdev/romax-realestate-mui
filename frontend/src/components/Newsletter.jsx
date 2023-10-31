@@ -14,7 +14,8 @@ const Newsletter = () => {
     <Box
       sx={{
         height: "300px",
-        backgroundColor: "rgb(252, 245, 245)",
+        backgroundColor: "#f9f9f9",
+        //  "rgb(252, 245, 245)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -51,20 +52,20 @@ const Newsletter = () => {
               <Button
                 sx={{
                   textTransform: "none",
-                  bgcolor: "teal",
+                  bgcolor: "primary.main",
                   color: "white",
                   paddingX: isNonMobile ? "40px": "20px",
                   fontSize: "16px",
                   fontWeight: "600",
                   letterSpacing: "1px",
                   paddingY: "8px",
-                  borderLeft: "1px solid #7D879C",
+                  // borderLeft: "1px solid #7D879C",
                   justifyContent: "space-between",
                   borderTopRightRadius: "1200px",
                   borderBottomRightRadius: "1200px",
                   height: "100%",
                   "&:hover": {
-                    backgroundColor: "#119595",
+                    backgroundColor: "primary.main",
                   },
                 }}
               >

@@ -26,7 +26,7 @@ function CategoryItem({ img, title, cat }) {
           onClick={() => navigate("/products")}
           sx={{
             textTransform: "none",
-            bgcolor: "teal",
+            bgcolor: "primary.main",
             color: "white",
             fontSize: "14px",
             paddingX: "18px",
@@ -37,7 +37,7 @@ function CategoryItem({ img, title, cat }) {
             gap: "10px",
             borderRadius: "16px",
             "&:hover": {
-              backgroundColor: "#119595",
+              backgroundColor: "#fc973f",
             },
           }}
         >

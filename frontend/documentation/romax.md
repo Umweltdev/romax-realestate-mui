@@ -1,7 +1,6 @@
  
 ### File Structure
 
-
 - **src**: The main source directory.
   - **assests**: Stores static assets (images, fonts, etc.).
   - **components**: 
@@ -23,9 +22,8 @@
     - `Timeline.jsx/` : component to display list of timelines. 
     - `AboutHero.jsx/` : component for the hero of the Timeline page
     - `data.js` : Data for the Esate Carousel on the Home Page.
-    -`requestMetho.js` : axios requests from the backend 
+    -`requestMethod.js` : axios requests from the backend 
 
-   
   - **pages**: 
      - `booking/`
        - `index.jsx`: Page for make a booking. 

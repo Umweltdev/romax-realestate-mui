@@ -238,7 +238,7 @@ const Address = ({ openDrawer }) => {
                   paddingY: "8px",
                   alignSelf: "start",
                   "&:hover": {
-                    backgroundColor: "primary.main",
+                    backgroundColor: "#fc973f",
                   },
                 }}
               >

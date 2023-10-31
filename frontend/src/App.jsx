@@ -14,7 +14,7 @@ import Login from "./pages/Login";
 //import Cart from "./pages/Cart";
 import Success from "./pages/Success";
 import { useSelector } from "react-redux";
-import Reset from "./pages/Reset";
+import ForgotPassword from "./pages/ForgotPassword";
 import Estate from "./pages/estate-description";
 import UserDashBoard from "./pages/user-dashboard";
 import About from "./pages/About";
@@ -22,6 +22,7 @@ import EstateListing from "./pages/estate-list";
 import Booking from "./pages/booking";
 import FAQ from "./pages/faq";
 import EstateBooking from "./pages/estate-booking";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -38,7 +39,8 @@ function App() {
           <Route path="/product/:id" element={<Product />} />
           <Route path="/estate/:id" element={<Estate />} />
           <Route path="/estate" element={<EstateListing />} />
-          <Route path="/reset" element={<Reset />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset" element={<ResetPassword />} />
           <Route path="/booking/:id" element={<Booking />} />
           <Route path="/bookings/:id" element={<EstateBooking />} />
           <Route path="/faq" element={<FAQ />} />

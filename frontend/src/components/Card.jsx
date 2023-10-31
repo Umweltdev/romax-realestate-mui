@@ -38,7 +38,7 @@ const Card = ({ _id, title, location, price, img }) => {
         />
       </Box>
       <Box bgcolor="#f4f4f5" p={2} sx={{}}>
-        <Typography color="teal" variant="h6" fontSize="22px">
+        <Typography color="primary.main" variant="h6" fontSize="22px">
           {`₦ ${price?.toLocaleString()}`}
         </Typography>
       </Box>

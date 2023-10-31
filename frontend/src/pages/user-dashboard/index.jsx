@@ -30,7 +30,7 @@ const UserDashBoard = () => {
       <Navbar />
       <Box
         sx={{
-          bgcolor: "#F6F9FC",
+          bgcolor: "#fbfbfb",
           paddingY: "40px",
         }}
       >

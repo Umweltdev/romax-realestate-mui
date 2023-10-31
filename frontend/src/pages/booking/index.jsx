@@ -25,7 +25,7 @@ const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     borderRadius: "8px",
     "&.Mui-focused fieldset": {
-      borderColor: "teal",
+      borderColor: "#eb8510",
     },
   },
 });
@@ -210,7 +210,7 @@ const Booking = () => {
                         borderRadius: "8px",
                         mt: "20px",
                         "&:hover": {
-                          backgroundColor: "teal",
+                          backgroundColor: "#fc973f",
                         },
                       }}
                     >
@@ -254,7 +254,7 @@ const Booking = () => {
               />
             </Box>
             <Box bgcolor="#f4f4f5" p={2} sx={{}}>
-              <Typography color="teal" variant="h6" fontSize="22px">
+              <Typography color="primary.main" variant="h6" fontSize="22px">
                 {`₦ ${product?.price?.toLocaleString()}`}
               </Typography>
             </Box>

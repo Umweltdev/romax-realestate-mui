@@ -166,7 +166,7 @@ const Product = () => {
                     {booking?.product?.item?.title}
                   </Typography>
 
-                  <Typography variant="h5" color="teal">
+                  <Typography variant="h5" color="primary.main">
                     {`₦ ${booking?.product?.item?.price?.toLocaleString()}`}
                   </Typography>
 
@@ -201,7 +201,7 @@ const Product = () => {
                     <Grid container spacing={2}>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="teal">
+                          <Typography variant="subtitle1" color="primary.main">
                             Property Type
                           </Typography>
                           <Typography>Semi-Detached Duplex</Typography>
@@ -209,7 +209,7 @@ const Product = () => {
                       </Grid>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="teal">
+                          <Typography variant="subtitle1" color="primary.main">
                             Bedrooms
                           </Typography>
                           <Typography>{booking?.product?.item?.bed}</Typography>
@@ -217,7 +217,7 @@ const Product = () => {
                       </Grid>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="teal">
+                          <Typography variant="subtitle1" color="primary.main">
                             Bathrooms
                           </Typography>
                           <Typography>
@@ -227,7 +227,7 @@ const Product = () => {
                       </Grid>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="teal">
+                          <Typography variant="subtitle1" color="primary.main">
                             Car Parking
                           </Typography>
                           <Typography>
@@ -237,7 +237,7 @@ const Product = () => {
                       </Grid>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="teal">
+                          <Typography variant="subtitle1" color="primary.main">
                             Size
                           </Typography>
                           <Typography>

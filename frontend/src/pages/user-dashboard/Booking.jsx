@@ -110,11 +110,11 @@ const Booking = ({ openDrawer }) => {
                 </Stack>
               </Stack>
 
-              <Typography variant="h5">
+              <Typography variant="h5" >
                 {booking?.product?.item?.title}
               </Typography>
 
-              <Typography variant="h5" color="teal">
+              <Typography variant="h5" color="primary.main">
                 {`₦ ${booking?.product?.item?.price.toLocaleString()}`}
               </Typography>
 

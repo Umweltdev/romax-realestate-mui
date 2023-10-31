@@ -17,10 +17,10 @@ function SampleNextArrow(props) {
         top: "50%",
         transform: "translate(0, -50%)",
         right: "-5px",
-        background: "teal",
+        background: "#eb8510",
         color: "white",
         "&:hover": {
-          background: "teal",
+          background: "#eb8510",
         },
       }}
     >
@@ -45,10 +45,10 @@ function SamplePrevArrow(props) {
         transform: "translate(0, -50%)",
         left: "-5px",
         zIndex: 10,
-        background: "teal",
+        background: "#eb8510",
         color: "white",
         "&:hover": {
-          background: "teal",
+          background: "#eb8510",
         },
       }}
     >

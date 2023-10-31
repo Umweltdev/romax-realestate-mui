@@ -60,7 +60,7 @@ const Hero = () => {
                 onClick={() => navigate("/products")}
                 sx={{
                   textTransform: "none",
-                  bgcolor: "teal",
+                  bgcolor: "primary.main",
                   color: "white",
                   paddingX: "30px",
                   paddingY: "15px",
@@ -70,7 +70,7 @@ const Hero = () => {
                   borderRadius: "30px",
                   marginTop: "25px",
                   "&:hover": {
-                    backgroundColor: "#119595",
+                    backgroundColor: "#fc973f",
                   },
                 }}
               >

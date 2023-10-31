@@ -34,13 +34,13 @@ const SavedCard = ({ title, location, price, img, bed }) => {
         />
       </Box>
       <Box bgcolor="#f4f4f5" p={2} sx={{}}>
-        <Typography color="teal" variant="h6" fontSize="22px">
+        <Typography color="primary.main" variant="h6" fontSize="22px">
           {`₦ ${price?.toLocaleString()}`}
         </Typography>
       </Box>
       <Box bgcolor="white" px={2} py={3} borderRadius="0 0 5px 5px ">
         <Stack direction="row" justifyContent="space-between">
-          <Typography variant="body2">
+          <Typography variant="body2" >
             {" "}
             {title.length > 20 ? `${title.substring(0, 20)}...` : title}
           </Typography>

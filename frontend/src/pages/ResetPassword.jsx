@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import {
   Typography,
   Box,
@@ -7,22 +7,21 @@ import {
   IconButton,
   Paper,
   TextField,
+  Rating,
   styled,
 } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";
-import { register } from "../redux/apiCalls";
-import { resetState } from "../redux/userRedux";
-import { useDispatch, useSelector } from "react-redux";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import { useLocation, useNavigate } from "react-router-dom";
+import { publicRequest } from "../requestMethods";
 import makeToast from "../toaster";
 
 const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     fontSize: "14px",
-    height: "45px",
     borderRadius: "10px",
     "& fieldset": {},
     "&:hover fieldset": {},
@@ -33,14 +32,15 @@ const CustomTextField = styled(TextField)({
   },
 });
 
-const Signup = () => {
-  const dispatch = useDispatch();
+const ResetPassword = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { isRegistering, error, registerFlag } = useSelector(
-    (state) => state.user
-  );
+  const [loading, setLoading] = useState(false)
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get("token");
+  const navigate = useNavigate()
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -49,24 +49,23 @@ const Signup = () => {
   const handleToggleConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
-  // const auth = useSelector((state) => state.auth);
-  // const { isSuccess, message, isError, isLoading, user, loggedFlag } = auth;
-  const navigate = useNavigate();
-  const resetFormRef = useRef();
 
-  useEffect(() => {
-    if (registerFlag) {
-      makeToast("success", "Signing up was Sucessful!");
-      dispatch(resetState());
-      resetFormRef.current();
-      navigate("/login");
+  const handleReset = async (password) => {
+    setLoading(true)
+    try {
+      await publicRequest.post(`/auth/reset-password/${token}`, { password });
+      setLoading(false)
+      makeToast(
+        "success",
+        "Password reset was sucessful"
+      );
+      navigate("/login")
+    } catch (error) {
+      setLoading(false)
+      makeToast("error", error.response.data.message);
+      console.log(error);
     }
-    if (error) {
-      makeToast("error", "Something went wrong, Please try again");
-      dispatch(resetState());
-    }
-  }, [error, registerFlag, dispatch, isRegistering]);
-
+  };
   return (
     <Box
       sx={{
@@ -74,25 +73,23 @@ const Signup = () => {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        minHeight: "100vh",
+        height: "100vh",
         bgcolor: "#F6F9FC",
-        py: 3,
       }}
     >
       <Paper
-        elevation={3}
+        elevation={0}
         sx={{
           bgcolor: "white",
           borderRadius: "10px",
           width: isNonMobile ? "500px" : "95%",
           padding: isNonMobile ? "2rem 3rem" : "2rem 2rem",
+          boxShadow: "rgba(3, 0, 71, 0.09) 0px 8px 45px",
         }}
       >
         <Formik
           onSubmit={(values, { resetForm }) => {
-            const { confirmPassword, ...updatedValues } = values;
-            register(dispatch, updatedValues);
-            resetFormRef.current = resetForm;
+              handleReset(values.password)
           }}
           initialValues={initialValues}
           validationSchema={userSchema}
@@ -104,118 +101,26 @@ const Signup = () => {
             handleBlur,
             handleChange,
             handleSubmit,
-
             isValid,
             dirty,
           }) => (
             <form onSubmit={handleSubmit}>
               <Link to={"/"} style={{ textDecoration: "none" }}>
-                <Box>
-                  <img
-                    src="https://static.wixstatic.com/media/38c36f_cf2679a5ddd4403fa15dda614149c8f9~mv2.png/v1/fill/w_187,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PHOTO-2021-09-15-13-59-41_edited.png"
-                    alt="Romax Properties Ltd Logo"
-                    style={{
-                      margin: "0 auto",
-                      display: "block",
-                    }}
-                  />
-                </Box>
+              <Box>
+              <img
+                src="https://static.wixstatic.com/media/38c36f_cf2679a5ddd4403fa15dda614149c8f9~mv2.png/v1/fill/w_187,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PHOTO-2021-09-15-13-59-41_edited.png"
+                alt="Romax Properties Ltd Logo"
+                style={{
+                  margin: "0 auto",
+                  display: "block",
+                }}
+              />
+            </Box>
               </Link>
               <Typography variant="body2" mt={1} mb={4} textAlign="center" letterSpacing="1px" fontSize="17px">
-                Create Your Account
+
+                Reset your Password
               </Typography>
-              <Box mb={2}>
-                <Typography
-                  variant="subtitle1"
-                  fontSize="12px"
-                  color="#4b566b"
-                  mb={1.5}
-                >
-                  First Name
-                </Typography>
-                <CustomTextField
-                  fullWidth
-                  variant="outlined"
-                  type="text"
-                  placeholder="Alakija Vincent"
-                  size="small"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.firstName}
-                  name="firstName"
-                  error={!!touched.firstName && !!errors.firstName}
-                  helperText={touched.firstName && errors.firstName}
-                />
-              </Box>
-              <Box mb={2}>
-                <Typography
-                  variant="subtitle1"
-                  fontSize="12px"
-                  color="#4b566b"
-                  mb={1.5}
-                >
-                  Last Name
-                </Typography>
-                <CustomTextField
-                  fullWidth
-                  variant="outlined"
-                  type="text"
-                  placeholder="Vincent"
-                  size="small"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.lastName}
-                  name="lastName"
-                  error={!!touched.lastName && !!errors.lastName}
-                  helperText={touched.lastName && errors.lastName}
-                />
-              </Box>
-              <Box mb={2}>
-                <Typography
-                  variant="subtitle1"
-                  fontSize="12px"
-                  color="#4b566b"
-                  mb={1.5}
-                >
-                  Username
-                </Typography>
-                <CustomTextField
-                  fullWidth
-                  variant="outlined"
-                  type="text"
-                  placeholder="Vincent01"
-                  size="small"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.username}
-                  name="username"
-                  error={!!touched.username && !!errors.username}
-                  helperText={touched.username && errors.username}
-                />
-              </Box>
-              <Box mb={2}>
-                <Typography
-                  variant="subtitle1"
-                  fontSize="12px"
-                  color="#4b566b"
-                  mb={1.5}
-                >
-                  Email
-                </Typography>
-                <CustomTextField
-                  fullWidth
-                  variant="outlined"
-                  type="email"
-                  placeholder="maria@romax.com"
-                  size="small"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.email}
-                  name="email"
-                  error={!!touched.email && !!errors.email}
-                  helperText={touched.email && errors.email}
-                />
-              </Box>
 
               <Box mb={2}>
                 <Typography
@@ -231,7 +136,6 @@ const Signup = () => {
                   variant="outlined"
                   type={showPassword ? "text" : "password"}
                   placeholder="*********"
-                  size="small"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.password}
@@ -278,7 +182,6 @@ const Signup = () => {
                   variant="outlined"
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="*********"
-                  size="small"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.confirmPassword}
@@ -312,60 +215,34 @@ const Signup = () => {
                 />
               </Box>
               <Button
+                disabled={!isValid || loading || !dirty}
                 type="submit"
-                disabled={!isValid || !dirty || isRegistering}
                 sx={{
                   textTransform: "none",
-                  bgcolor:
-                    !isValid || !dirty || isRegistering
-                      ? "#0000001f !important"
-                      : "primary.main",
+                  bgcolor: "primary.main",
                   color: "white",
                   fontSize: "14px",
-                  paddingY: "10px",
+                  paddingY: "13px",
                   fontWeight: 600,
                   width: "100%",
                   marginTop: "20px",
                   borderRadius: "10px",
-
                   "&:hover": {
                     backgroundColor: "#fc973f",
                   },
                 }}
               >
-                Create Account
+                Reset
               </Button>
             </form>
           )}
         </Formik>
-
-        <Stack direction="row" spacing={1} justifyContent="center" mt={2}>
-          <Typography variant="subtitle2">Already have an account?</Typography>
-          <Link to={"/login"} style={{ textDecoration: "none" }}>
-            <Typography
-              variant="subtitle1"
-              color="#2b3445"
-              sx={{
-                borderBottom: "1.5px solid #2b3445",
-              }}
-            >
-              Login
-            </Typography>
-          </Link>
-        </Stack>
       </Paper>
     </Box>
   );
 };
 
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
-
 const userSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  username: yup.string().required("required"),
   password: yup
     .string()
     .required("required")
@@ -381,12 +258,8 @@ const userSchema = yup.object().shape({
     }),
 });
 const initialValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  username: "",
   password: "",
   confirmPassword: "",
 };
 
-export default Signup;
+export default ResetPassword;

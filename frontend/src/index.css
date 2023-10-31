@@ -91,7 +91,7 @@ body {
   margin-bottom: 16px;
 }
 .list::before {
-  background-color: teal;
+  background-color: #eb8510;
   border-radius: 100%;
   content: "";
   display: inline-block;

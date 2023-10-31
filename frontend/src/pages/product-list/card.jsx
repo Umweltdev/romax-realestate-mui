@@ -132,7 +132,7 @@ const Card = (props) => {
                 </Box>
               ) : (
                 <Box
-                  bgcolor="rgb(12, 136, 82)"
+                  bgcolor="#e78f2a"
                   color="white"
                   sx={{
                     height: "25%",
@@ -162,7 +162,7 @@ const Card = (props) => {
                         flex: isNonMobile ? "0 0 30%" : "0 0 40%",
                         display: "flex",
                         justifyContent: "center",
-                        bgcolor: "rgb(11, 111, 63)",
+                        bgcolor: "primary.main",
                         alignItems: "center",
                       }}
                     >
@@ -219,7 +219,7 @@ const Card = (props) => {
               <Typography variant="subtitle2" color="#7D879C" mt={1.5}>
                 {`${desc.substring(0, 200)}...`}
               </Typography>
-              <Typography variant="subtitle1" color="teal" mt={3}>
+              <Typography variant="subtitle1" color="primary.main" mt={3}>
                 {`Added on ${dateConverter(createdAt)}`}
               </Typography>
             </Link>
@@ -242,7 +242,7 @@ const Card = (props) => {
               <Stack spacing={0.4} direction="row" alignItems="center">
                 <IconButton onClick={handleSavedProperty}>
                   {toggle ? (
-                    <FavoriteIcon sx={{ color: "teal" }} />
+                    <FavoriteIcon sx={{ color: "primary.main" }} />
                   ) : (
                     <FavoriteBorderOutlinedIcon />
                   )}
