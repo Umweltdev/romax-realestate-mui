@@ -1,5 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Box, Grid, Stack, Divider, styled, Drawer, MenuItem } from "@mui/material";
+import {
+  Container,
+  Box,
+  Grid,
+  Stack,
+  Divider,
+  styled,
+  Drawer,
+  MenuItem,
+  Link as MUILink,
+} from "@mui/material";
 import Sort from "./sort";
 import Card from "./card";
 import Navbar from "../../components/Navbar";
@@ -8,7 +18,6 @@ import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import Loader from "../../components/Loader";
 import { publicRequest } from "../../requestMethods";
-// import { MenuItem } from "../../components/Navbar";
 
 export const CustomDivider = styled(Divider)`
   margin: 16px 0px 24px;
@@ -23,7 +32,6 @@ const EstateListing = () => {
   const [sort, setSort] = useState("newest");
   const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
-  const sidebarRef = useRef(null);
 
   const openDrawer = () => {
     setDrawer(true);
@@ -33,27 +41,32 @@ const EstateListing = () => {
     setDrawer(false);
   };
 
-  const scrollToCard = (cardId, event) => {
-    // Prevent the default behavior of the event
-    event.preventDefault();
+  const scrollToCard = (cardId) => {
+    const cardElement = document.getElementById(cardId);
 
-    const cardToScrollTo = products.find((prod) => prod._id === cardId);
-
-    if (cardToScrollTo && containerRef.current) {
-      const position = cardToScrollTo.position;
-      containerRef.current.scrollTo({ top: position, behavior: "smooth" });
+    if (cardElement) {
+      const offsetTop = cardElement.offsetTop;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth",
+      });
     }
   };
+
   useEffect(() => {
     const getProducts = async () => {
       try {
         const res = await publicRequest.get("/estate");
-        setProducts(
-          res.data.map((product, index) => ({
-            ...product,
-            position: index * 300, // Adjust this based on your card height
-          }))
-        );
+        const sortedProducts = res.data.sort((a, b) => {
+          if (sort === "newest") {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          } else if (sort === "oldest") {
+            return new Date(a.createdAt) - new Date(b.createdAt);
+          }
+          return 0; // Default to no sorting
+        });
+
+        setProducts(sortedProducts);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -61,7 +74,8 @@ const EstateListing = () => {
       }
     };
     getProducts();
-  }, []);
+  }, [sort]);
+
   return (
     <>
       <Announcement />
@@ -84,23 +98,22 @@ const EstateListing = () => {
                       boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
                     }}
                   >
-                    <Stack ref={sidebarRef} spacing={2}>
+                    <Stack spacing={2}>
                       {products.map((prod) => (
-                        <MenuItem
+                        <MUILink
                           key={prod._id}
-                          data-cardid={prod._id}
+                          underline="none"
                           style={{
                             display: "block",
                             padding: "8px",
-                            textDecoration: "none",
                             color: "black",
                             fontSize: "16px",
                             transition: "background-color 0.3s",
                           }}
-                          onClick={(event) => scrollToCard(prod._id, event)}
+                          href={`#card-${prod._id}`}
                         >
                           {prod.title}
-                        </MenuItem>
+                        </MUILink>
                       ))}
                     </Stack>
                   </Box>
@@ -109,7 +122,9 @@ const EstateListing = () => {
                   <Container ref={containerRef} maxWidth="lg">
                     <Stack spacing={3}>
                       {products.map((prod) => (
-                        <Card key={prod._id} {...prod} />
+                        <Card
+                          key={prod._id} {...prod} id={`card-${prod._id}`}
+                        />
                       ))}
                     </Stack>
                   </Container>
@@ -120,7 +135,6 @@ const EstateListing = () => {
         </>
       )}
       <Newsletter />
-
       <Drawer
         open={drawer}
         onClose={closeDrawer}
@@ -166,7 +180,7 @@ const EstateListing = () => {
                 fontSize: "16px",
                 transition: "background-color 0.3s",
               }}
-              onClick={() => scrollToCard(prod._id)}
+              onClick={() => scrollToCard(`card-${prod._id}`)}
             >
               {prod.title}
             </MenuItem>

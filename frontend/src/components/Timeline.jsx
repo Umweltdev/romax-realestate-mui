@@ -30,7 +30,7 @@ const Timelines = () => {
             <TimelineItem
               key={item._id}
               dateText={
-                <div style={{ backgroundColor: '#008080', color: 'white' }}>
+                <div style={{ backgroundColor: '#eb8510', color: 'white' }}>
                   {item.dateText}
                 </div>
               }
