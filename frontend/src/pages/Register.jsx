@@ -85,7 +85,7 @@ const Signup = () => {
           bgcolor: "white",
           borderRadius: "10px",
           width: isNonMobile ? "500px" : "95%",
-          padding: isNonMobile ? "2rem 3rem" : "2rem 2rem",
+          padding: isNonMobile ? "2rem 3rem" : "2rem 1.5rem",
         }}
       >
         <Formik

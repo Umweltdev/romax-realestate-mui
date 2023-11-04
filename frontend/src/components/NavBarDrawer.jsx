@@ -33,9 +33,16 @@ const NavBarDrawer = () => {
             textDecoration: "none",
           }}
         >
-          <Typography variant="h5" letterSpacing="3px" color="teal">
-            ROMAX
-          </Typography>
+           <Box >
+            <img
+              src="https://static.wixstatic.com/media/38c36f_cf2679a5ddd4403fa15dda614149c8f9~mv2.png/v1/fill/w_187,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PHOTO-2021-09-15-13-59-41_edited.png"
+              alt="Romax Properties Ltd Logo"
+              style={{
+                 margin: "0 auto",
+                 display: "block"
+              }}
+            />
+          </Box>
         </Link>
 
         <Stack spacing={1.5}>
@@ -51,7 +58,7 @@ const NavBarDrawer = () => {
               py={1}
               sx={{
                 "&:hover": {
-                  color: "teal",
+                  color: "primary.main",
                 },
               }}
             >
@@ -70,7 +77,7 @@ const NavBarDrawer = () => {
               py={1}
               sx={{
                 "&:hover": {
-                  color: "teal",
+                  color: "primary.main",
                 },
               }}
             >
@@ -89,7 +96,7 @@ const NavBarDrawer = () => {
               py={1}
               sx={{
                 "&:hover": {
-                  color: "teal",
+                  color: "primary.main",
                 },
               }}
             >
@@ -107,7 +114,7 @@ const NavBarDrawer = () => {
               py={1}
               sx={{
                 "&:hover": {
-                  color: "teal",
+                  color: "primary.main",
                 },
               }}
             >
@@ -125,7 +132,7 @@ const NavBarDrawer = () => {
               py={1}
               sx={{
                 "&:hover": {
-                  color: "teal",
+                  color: "primary.main",
                 },
               }}
             >
@@ -142,14 +149,14 @@ const NavBarDrawer = () => {
             variant="outlined"
             sx={{
               textTransform: "none",
-              color: "teal",
+              color: "primary.main",
                width: "100%",
               borderRadius: "8px",
-              borderColor: "teal",
+              borderColor: "primary.main",
               borderWidth: "2px",
               "&:hover": {
                 color: "#FFFFFF",
-                bgcolor: "teal",
+                bgcolor: "primary.main",
               },
             }}
           >
@@ -161,14 +168,14 @@ const NavBarDrawer = () => {
             variant="outlined"
             sx={{
               textTransform: "none",
-              color: "teal",
+              color: "primary.main",
               width: "100%",
               borderRadius: "8px",
-              borderColor: "teal",
+              borderColor: "primary.main",
               borderWidth: "2px",
               "&:hover": {
                 color: "#FFFFFF",
-                bgcolor: "teal",
+                bgcolor: "primary.main",
               },
             }}
           >

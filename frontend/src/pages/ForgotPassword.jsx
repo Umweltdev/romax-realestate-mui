@@ -76,7 +76,7 @@ const ForgotPassword = () => {
           bgcolor: "white",
           borderRadius: "10px",
           width: isNonMobile ? "500px" : "95%",
-          padding: isNonMobile ? "2rem 3rem" : "2rem 2rem",
+          padding: isNonMobile ? "2rem 3rem" : "2rem 1.5rem",
           boxShadow: "rgba(3, 0, 71, 0.09) 0px 8px 45px",
         }}
       >

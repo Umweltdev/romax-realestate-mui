@@ -111,7 +111,7 @@ const Booking = () => {
             }}
           >
             <Stack spacing={2}>
-              <Typography variant="h5">Contact Romax Properties</Typography>
+              <Typography variant="h5" fontSize={{xs: "20px", sm:"25px" }}>Contact Romax Properties</Typography>
               <Stack
                 direction={{ xs: "column", sm: "row" }}
                 spacing={{ xs: 1, sm: 4 }}

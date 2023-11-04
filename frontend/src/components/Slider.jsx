@@ -1,12 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { sliderItems } from "../data";
-import { Box, Grid, Stack, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Stack,
+  Typography,
+  Button,
+  useMediaQuery,
+} from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { OtherHousesOutlined } from "@mui/icons-material";
 
 const Card = ({ title, img, desc, bg }) => {
+  const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   return (
     <Box
@@ -34,7 +42,7 @@ const Card = ({ title, img, desc, bg }) => {
         <Grid item xs={12} sm={6} order={{ xs: 1, sm: 0 }} alignSelf="stretch">
           <Stack
             spacing={2.5}
-            // bgcolor={bg}
+            bgcolor={bg}
             height="100%"
             p={{ xs: 4, sm: 3 }}
             justifyContent="center"
@@ -44,15 +52,20 @@ const Card = ({ title, img, desc, bg }) => {
               lineHeight="1.4"
               fontSize={{ sm: "25px", md: "40px" }}
               letterSpacing="3.5px"
-              color="primary.main"
             >
-              {title}
+              {isNonMobile
+                ? title?.length > 20
+                  ? `${title.substring(0, 17)}...`
+                  : title
+                : title?.length > 14
+                ? `${title.substring(0, 12)}...`
+                : title}
             </Typography>
             <Typography
               variant="h6"
               fontWeight="500"
               letterSpacing="1px"
-              color="primary.main"
+              color="#7D879C"
             >
               {desc?.length > 50 ? `${desc.substring(0, 47)}...` : desc}
             </Typography>

@@ -74,7 +74,7 @@ const Login = ({ bgcolor, handleClose }) => {
           bgcolor: "white",
           borderRadius: "10px",
           width: isNonMobile ? "500px" : "95%",
-          padding: isNonMobile ? "2rem 3rem" : "2rem 2rem",
+          padding: isNonMobile ? "2rem 3rem" : "2rem 1.5rem",
           position: "relative",
           // boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
         }}

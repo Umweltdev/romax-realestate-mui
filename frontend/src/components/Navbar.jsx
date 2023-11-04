@@ -11,12 +11,14 @@ import {
   Button,
   Drawer,
   Box,
+  useMediaQuery
 } from "@mui/material";
 import NavBarDrawer from "./NavBarDrawer";
 import MobileNavBar from "./MobileNavBar";
 import logo from "../assests/Logo-Transparent.png";
 
 const Navbar = () => {
+  const isNonMobile = useMediaQuery("(min-width:600px)");
   const user = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -55,14 +57,12 @@ const Navbar = () => {
             textDecoration: "none",
           }}
         >
-          <Box height={{ xs: "70px", sm:"100px"}} >
+          <Box >
             <img
               src="https://static.wixstatic.com/media/38c36f_cf2679a5ddd4403fa15dda614149c8f9~mv2.png/v1/fill/w_187,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PHOTO-2021-09-15-13-59-41_edited.png"
               alt="Romax Properties Ltd Logo"
               style={{
-                height: "100%",
-                width: "100%",
-                objectFit: "cover",
+                height: isNonMobile? "100px" : "70px"
               }}
             />
           </Box>

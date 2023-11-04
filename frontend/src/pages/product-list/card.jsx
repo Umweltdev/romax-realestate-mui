@@ -10,10 +10,9 @@ import {
 } from "@mui/material";
 import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
 import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
-import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { Close } from "@mui/icons-material";
+import { DirectionsCar } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "./ProdListCarousel";
 import { dateConverter } from "../user-dashboard/utils";
@@ -32,6 +31,7 @@ const Card = (props) => {
     bath,
     bed,
     img,
+    car,
     isFeatured,
     propertyType,
     createdAt,
@@ -121,9 +121,9 @@ const Card = (props) => {
                     alignItems: "center",
                   }}
                 >
-                  <Stack spacing={0.5} justifyContent="center">
+                  <Stack spacing={0.5} justifyContent="center" color="primary.main">
                     <Typography variant="h5">
-                      {price.toLocaleString()}
+                    {`₦ ${price?.toLocaleString()}`}
                     </Typography>
                     <Typography variant="subtitle2" letterSpacing={1.3}>
                       Offers Over
@@ -150,7 +150,8 @@ const Card = (props) => {
                       }}
                     >
                       <Typography variant="h5">
-                        {price.toLocaleString()}
+                      {`₦ ${price?.toLocaleString()}`}
+
                       </Typography>
                       <Typography variant="subtitle2" letterSpacing={1.3}>
                         Offers Over
@@ -213,6 +214,13 @@ const Card = (props) => {
                   <Typography variant="body1">
                     <span style={{ fontSize: "12px" }}>X</span>
                     {bath}
+                  </Typography>
+                </Stack>
+                <Stack direction="row" spacing={1}>
+                  <DirectionsCar />
+                  <Typography variant="body1">
+                    <span style={{ fontSize: "12px" }}>X</span>
+                    {car}
                   </Typography>
                 </Stack>
               </Stack>
