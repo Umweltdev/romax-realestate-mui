@@ -77,7 +77,7 @@ const Estate = () => {
                   <Typography variant="h5">{product?.title}</Typography>
                   <Typography variant="subtitle1">{product?.categories}</Typography>
 
-                  {/* <Typography variant="h5" color="teal">
+                  {/* <Typography variant="h5" color="primary.main">
                     {`₦ ${product?.price?.toLocaleString()}`}
                   </Typography> */}
 
@@ -138,7 +138,7 @@ const Estate = () => {
                       }}
                       sx={{
                         textTransform: "none",
-                        bgcolor: "teal",
+                        bgcolor: "primary.main",
                         color: "white",
                         fontSize: "14px",
                         paddingX: "25px",
@@ -164,7 +164,7 @@ const Estate = () => {
                           paddingX: "12px",
                           color: "black",
                           "&:hover": {
-                            backgroundColor: "teal",
+                            backgroundColor: "primary.main",
                             color: "white",
                           },
                         }}
@@ -180,7 +180,7 @@ const Estate = () => {
                     <Grid container spacing={2}>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="teal">
+                          <Typography variant="subtitle1" color="primary.main">
                             Estate Type
                           </Typography>
                           <Typography>{product?.categories}</Typography>
@@ -188,7 +188,7 @@ const Estate = () => {
                       </Grid>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="teal">
+                          <Typography variant="subtitle1" color="primary.main">
                             Houses
                           </Typography>
                           <Typography>{product?.house}</Typography>
@@ -228,7 +228,7 @@ const Estate = () => {
                     <Icon
                       sx={{
                         fontSize: isNonMobile ? "50px" : "2.4rem",
-                        color: "teal",
+                        color: "primary.main",
                       }}
                     />
                     <Typography>{details}</Typography>

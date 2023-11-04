@@ -31,7 +31,7 @@ const Card = ({ title, img, desc, bg }) => {
       >
         <Grid item xs={12} sm={6} height="500px">
           <img
-            src={img}
+            src={img} alt='slider'
             style={{
               height: "100%",
               width: "100%",

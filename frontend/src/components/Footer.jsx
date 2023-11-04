@@ -1,6 +1,10 @@
 import { Facebook, Instagram, MailOutline, Phone, Pinterest, Room, Twitter } from "@material-ui/icons"
 import styled from "styled-components"
 import { mobile, mobileXR, tablet } from "../responsive"
+import {
+  Box
+} from "@mui/material";
+import logo from "../assests/Logo - Orange Background.png";
 
 const Container = styled.div`
   display: flex;
@@ -13,12 +17,30 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
+
+  img {
+    max-width: auto;
+    height: auto;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 768px) {
+    img {
+      max-height: 150px;
+      max-width: 250px; 
+    }
+  }
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 `
-const Logo = styled.h1`
+/* const Logo = styled.h1`
   display: flex;
 `
 const Desc = styled.p`
-  margin: 20px 0px;
+  margin: 20px;
 `
 const SocialContainer = styled.div`
   display: flex;
@@ -33,7 +55,7 @@ const SocialIcon = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 25px;
-`
+` */
 const Center = styled.div`
   flex: 1;
   padding: 20px;
@@ -68,19 +90,29 @@ const ContactItem = styled.div`
   align-items: center;
 `
 
-const Payment = styled.img`
+/* const Payment = styled.img`
   width: 50%;
-`
+` */
 
 const Footer = () => {
   return (
     <Container>
       <Left>
-        <Logo>ROMAX PROPERTIES</Logo>
-        <Desc>
+        <Box height={{ xs: "120px", sm: "140px" }} >
+          <img
+            src={logo}
+            alt="Romax Properties Ltd Logo"
+            style={{
+              height: "190%",
+              width: "100%",
+              objectFit: "cover",
+            }}
+          />
+        </Box>
+        {/* <Desc>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum nobis architecto suscipit deserunt totam reiciendis illum dolorum numquam corporis nostrum.
-        </Desc>
-        <SocialContainer>
+        </Desc> */}
+        {/* <SocialContainer>
           <SocialIcon color="3B5999">
             <Twitter />
           </SocialIcon>
@@ -93,7 +125,7 @@ const Footer = () => {
           <SocialIcon color="E60023">
             <Pinterest />
           </SocialIcon>
-        </SocialContainer>
+        </SocialContainer> */}
       </Left>
       <Center>
         <Title>Useful Links</Title>

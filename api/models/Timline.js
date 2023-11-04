@@ -25,6 +25,9 @@ const timelineSchema = mongoose.Schema({
   },
   background: {
     type: String
+  },
+  img: {
+    type: String,
   }
 }, { timestamps: true })
 

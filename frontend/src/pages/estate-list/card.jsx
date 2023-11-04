@@ -202,7 +202,7 @@ const Card = (props) => {
               <Typography variant="subtitle2" color="#7D879C" mt={1.5}>
                 {`${desc.substring(0, 200)}...`}
               </Typography>
-              <Typography variant="subtitle1" color="teal" mt={3}>
+              <Typography variant="subtitle1" color="primary.main" mt={3}>
                 {`Added on ${dateConverter(createdAt)}`}
               </Typography>
             </Link>

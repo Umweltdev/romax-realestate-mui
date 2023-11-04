@@ -36,6 +36,7 @@ export default function NewTimeline() {
   const [dateText, setDateText] = useState("");
   const [color, setColor] = useState("#fff");
   const [background, setBackground] = useState("#76bb7f");
+  const [img, setImg] = useState(null);
   const [loading, setLoading] = useState(false);
 
   // Add validation state for each input
@@ -58,24 +59,28 @@ export default function NewTimeline() {
   // Listen for changes in input fields and validate the form
   React.useEffect(() => {
     validateForm();
-  }, [title, subtitle, paragraph, paragraph2, dateText, color, background]);
+  }, [title, subtitle, paragraph, paragraph2, dateText, color, background, img]);
+
+  const handleImageChange = (e) => {
+    setImg(e.target.files[0]);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newTimeline = {
-      title,
-      subtitle,
-      paragraph,
-      paragraph2,
-      dateText,
-      color,
-      background,
-    };
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("subtitle", subtitle);
+    formData.append("paragraph", paragraph);
+    formData.append("paragraph2", paragraph2);
+    formData.append("dateText", dateText);
+    formData.append("color", color);
+    formData.append("background", background);
+    formData.append("img", img);
 
     setLoading(true);
     try {
-      await addTimeline(newTimeline, dispatch);
+      await addTimeline(formData, dispatch);
       setLoading(false);
       navigate("/timelines");
     } catch (error) {
@@ -204,6 +209,17 @@ export default function NewTimeline() {
               label="Background"
               value={background}
               onChange={(e) => setBackground(e.target.value)}
+              required
+            />
+            <br />
+            <br />
+            <CustomTextField
+              fullWidth
+              variant="outlined"
+              type="file"
+              accept="image/*"
+              label="Image"
+              onChange={handleImageChange}
               required
             />
             <br />

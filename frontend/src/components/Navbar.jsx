@@ -121,7 +121,7 @@ const Navbar = () => {
               variant="body2"
               sx={{
                 "&:hover": {
-                  color: "teal",
+                  color: "primary.main",
                 },
               }}
             >
