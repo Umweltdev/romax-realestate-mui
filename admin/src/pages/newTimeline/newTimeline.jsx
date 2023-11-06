@@ -1,255 +1,175 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import "./newTimeline.css";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { useNavigate } from "react-router-dom"
+import app from "../../firebase";
 import { addTimeline } from "../../redux/apiCalls";
+import { useDispatch } from "react-redux";
+import makeToast from "../../toaster";
 import {
   Box,
-  Paper,
-  Stack,
-  TextField,
-  styled,
   Typography,
+  TextField,
   Button,
 } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useNavigate } from "react-router-dom";
-
-const CustomTextField = styled(TextField)({
-  "& .MuiOutlinedInput-root": {
-    borderRadius: "8px",
-    "& fieldset": {},
-    "&:hover fieldset": {},
-    "&.Mui-focused fieldset": {
-      borderColor: "#4e97fd",
-    },
-  },
-});
 
 export default function NewTimeline() {
-  const isNonMobile = useMediaQuery("(min-width:968px)");
+  const [inputs, setInputs] = useState({});
+  const [file, setFile] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
-  const [paragraph, setParagraph] = useState("");
-  const [paragraph2, setParagraph2] = useState("");
-  const [dateText, setDateText] = useState("");
-  const [color, setColor] = useState("#fff");
-  const [background, setBackground] = useState("#76bb7f");
-  const [img, setImg] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  // Add validation state for each input
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  // Function to validate the form
-  const validateForm = () => {
-    // Check if all input fields are filled
-    const isValid =
-      title.trim() !== "" &&
-      subtitle.trim() !== "" &&
-      paragraph.trim() !== "" &&
-      paragraph2.trim() !== "" &&
-      dateText.trim() !== "" &&
-      color.trim() !== "" &&
-      background.trim() !== "";
-    setIsFormValid(isValid);
+  const handleChange = (e) => {
+    setInputs((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
   };
 
-  // Listen for changes in input fields and validate the form
-  React.useEffect(() => {
-    validateForm();
-  }, [title, subtitle, paragraph, paragraph2, dateText, color, background, img]);
-
-  const handleImageChange = (e) => {
-    setImg(e.target.files[0]);
-  };
-
-  const handleSubmit = async (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
+    const fileName = new Date().getTime() + file.name;
+    const storage = getStorage(app);
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("subtitle", subtitle);
-    formData.append("paragraph", paragraph);
-    formData.append("paragraph2", paragraph2);
-    formData.append("dateText", dateText);
-    formData.append("color", color);
-    formData.append("background", background);
-    formData.append("img", img);
-
-    setLoading(true);
-    try {
-      await addTimeline(formData, dispatch);
-      setLoading(false);
-      navigate("/timelines");
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+          default:
+        }
+      },
+      (error) => {
+        console.log(error)
+        makeToast("error", "Something went wrong!");
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          const timeline = { ...inputs, img: downloadURL };
+          addTimeline(timeline, dispatch);
+          navigate("/timelines")
+          makeToast("success", "Timeline Added Sucessfully!");
+        });
+      }
+    );
   };
 
   return (
-    <Box px={{ xs: 2, md: 4 }} style={{ width: "80%", height: "100vh" }}>
-      <Stack spacing={3}>
-        <Stack
-          justifyContent="space-between"
-          direction={{ xs: "column", sm: "row" }}
-          rowGap={{ xs: 2, sm: 0 }}
-        // alignItems="center"
-        >
-          <Typography variant="h6" fontSize={{ xs: "19px", sm: "21px" }}>
-            New Timeline
-          </Typography>
+    <div className="newProduct">
+      <Box
+        sx={{
+          width: "80%",
+          margin: "0 auto",
+          paddingTop: "2rem",
+        }}
+      >
+        <Typography variant="h6" className="addProductTitle">
+          New Timeline
+        </Typography>
+        <form className="addProductForm">
+          <TextField
+            fullWidth
+            type="file"
+            label=""
+            id="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <br />
+          <br />
+          <TextField
+            fullWidth
+            type="text"
+            name="title"
+            label="Title"
+            placeholder="Romax"
+            onChange={handleChange}
+          />
+          <br />
+          <br />
+          <TextField
+            fullWidth
+            type="text"
+            name="subtitle"
+            label="Sub-Title"
+            placeholder="Sub-Title"
+            onChange={handleChange}
+          />
+          <br />
+          <br />
+          <TextField
+            fullWidth
+            type="text"
+            name="paragraph"
+            label="Paragraph"
+            placeholder="Paragraph"
+            onChange={handleChange}
+          />
+          <br />
+          <br />
+          <TextField
+            fullWidth
+            type="text"
+            name="paragraph2"
+            label="Paragraph-2"
+            placeholder="Paragraph-2"
+            onChange={handleChange}
+          />
+          <br />
+          <br />
+          <TextField
+            fullWidth
+            type="text"
+            name="dateText"
+            label="Date Text"
+            placeholder="Date Text"
+            onChange={handleChange}
+          />
+          <br />
+          <br />
+          <TextField
+            fullWidth
+            type="text"
+            name="color"
+            label="Color"
+            placeholder="#fff"
+            onChange={handleChange}
+          />
+          <br />
+          <br />
+          <TextField
+            fullWidth
+            type="text"
+            name="background"
+            label="Background"
+            placeholder="#76bb7f"
+            onChange={handleChange}
+          />
+          <br />
+          <br />
           <Button
-            onClick={() => navigate("/timelines")}
-            sx={{
-              textTransform: "none",
-              bgcolor: "#4e97fd",
-              color: "white",
-              fontSize: "16px",
-              paddingX: "15px",
-              fontWeight: 600,
-              paddingY: "10px",
-              alignSelf: isNonMobile ? "start" : "stretch",
-              borderRadius: "10px",
-              alignItems: "center",
-              width: isNonMobile ? "auto" : "100%",
-              gap: 1,
-
-              "&:hover": {
-                backgroundColor: "#2756b6",
-              },
-            }}
+            onClick={handleClick}
+            variant="contained"
+            color="primary"
+            className="addProductButton"
           >
-            Back to Timelines
+            Create
           </Button>
-        </Stack>
-
-        <Paper
-          elevation={0}
-          sx={{
-            bgcolor: "white",
-            display: "flex",
-            flexDirection: "column",
-            padding: "20px",
-          }}
-        >
-          <form onSubmit={handleSubmit}>
-            <CustomTextField
-              fullWidth
-              variant="outlined"
-              type="text"
-              label="Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-            <br />
-            <br />
-            <CustomTextField
-              fullWidth
-              variant="outlined"
-              type="text"
-              label="Sub-Title"
-              value={subtitle}
-              onChange={(e) => setSubtitle(e.target.value)}
-              required
-            />
-            <br />
-            <br />
-            <CustomTextField
-              fullWidth
-              variant="outlined"
-              type="text"
-              label="Paragraph"
-              value={paragraph}
-              onChange={(e) => setParagraph(e.target.value)}
-              required
-            />
-            <br />
-            <br />
-            <CustomTextField
-              fullWidth
-              variant="outlined"
-              type="text"
-              label="Paragraph 2"
-              value={paragraph2}
-              onChange={(e) => setParagraph2(e.target.value)}
-              required
-            />
-            <br />
-            <br />
-            <CustomTextField
-              fullWidth
-              variant="outlined"
-              type="text"
-              label="Date Text"
-              value={dateText}
-              onChange={(e) => setDateText(e.target.value)}
-              required
-            />
-            <br />
-            <br />
-            <CustomTextField
-              fullWidth
-              variant="outlined"
-              type="text"
-              label="Color"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-              required
-            />
-            <br />
-            <br />
-            <CustomTextField
-              fullWidth
-              variant="outlined"
-              type="text"
-              label="Background"
-              value={background}
-              onChange={(e) => setBackground(e.target.value)}
-              required
-            />
-            <br />
-            <br />
-            <CustomTextField
-              fullWidth
-              variant="outlined"
-              type="file"
-              accept="image/*"
-              label="Image"
-              onChange={handleImageChange}
-              required
-            />
-            <br />
-            <br />
-            <Button
-              type="submit"
-              disabled={!isFormValid || loading}
-              sx={{
-                textTransform: "none",
-                bgcolor: !isFormValid || loading ? "#0000001f" : "#4e97fd",
-                color: "white",
-                fontSize: "16px",
-                paddingX: "25px",
-                fontWeight: 600,
-                paddingY: "5px",
-                alignSelf: "start",
-                borderRadius: "8px",
-                alignItems: "center",
-                "&:hover": {
-                  backgroundColor: !isFormValid || loading
-                    ? "#0000001f"
-                    : "#2756b6",
-                },
-              }}
-            >
-              Create
-            </Button>
-          </form>
-        </Paper>
-      </Stack>
-    </Box>
+        </form>
+      </Box>
+    </div>
   );
 }

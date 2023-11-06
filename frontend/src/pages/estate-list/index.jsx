@@ -8,8 +8,8 @@ import {
   styled,
   Drawer,
   MenuItem,
-  Link as MUILink,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import Sort from "./sort";
 import Card from "./card";
 import Navbar from "../../components/Navbar";
@@ -40,19 +40,6 @@ const EstateListing = () => {
   const closeDrawer = () => {
     setDrawer(false);
   };
-
-  const scrollToCard = (cardId) => {
-    const cardElement = document.getElementById(cardId);
-
-    if (cardElement) {
-      const offsetTop = cardElement.offsetTop;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: "smooth",
-      });
-    }
-  };
-
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -100,20 +87,19 @@ const EstateListing = () => {
                   >
                     <Stack spacing={2}>
                       {products.map((prod) => (
-                        <MUILink
-                          key={prod._id}
-                          underline="none"
-                          style={{
-                            display: "block",
-                            padding: "8px",
-                            color: "black",
-                            fontSize: "16px",
-                            transition: "background-color 0.3s",
-                          }}
-                          href={`#card-${prod._id}`}
-                        >
-                          {prod.title}
-                        </MUILink>
+                        <Link to={`/estate/${prod._id}`} key={prod._id} style={{ textDecoration: "none" }}>
+                          <MenuItem
+                            style={{
+                              display: "block",
+                              padding: "8px",
+                              color: "black",
+                              fontSize: "16px",
+                              transition: "background-color 0.3s",
+                            }}
+                          >
+                            {prod.title}
+                          </MenuItem>
+                        </Link>
                       ))}
                     </Stack>
                   </Box>
@@ -123,7 +109,7 @@ const EstateListing = () => {
                     <Stack spacing={3}>
                       {products.map((prod) => (
                         <Card
-                          key={prod._id} {...prod} id={`card-${prod._id}`}
+                          key={prod._id} {...prod}
                         />
                       ))}
                     </Stack>
@@ -169,21 +155,20 @@ const EstateListing = () => {
           }}
         >
           {products.map((prod) => (
-            <MenuItem
-              key={prod._id}
-              data-cardid={prod._id}
-              style={{
-                display: "block",
-                padding: "8px",
-                textDecoration: "none",
-                color: "black",
-                fontSize: "16px",
-                transition: "background-color 0.3s",
-              }}
-              onClick={() => scrollToCard(`card-${prod._id}`)}
-            >
-              {prod.title}
-            </MenuItem>
+            <Link to={`/estate/${prod._id}`} key={prod._id}>
+              <MenuItem
+                style={{
+                  display: "block",
+                  padding: "8px",
+                  textDecoration: "none",
+                  color: "black",
+                  fontSize: "16px",
+                  transition: "background-color 0.3s",
+                }}
+              >
+                {prod.title}
+              </MenuItem>
+            </Link>
           ))}
         </Box>
       </Drawer>
