@@ -8,13 +8,13 @@ import { logout } from "../redux/userRedux";
 const NavBarDrawer = () => {
   const user = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate()
-   const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-   const handleLogout = () => {
+  const handleLogout = () => {
     dispatch(logout());
     navigate("/");
   };
-  
+
   return (
     <Stack
       justifyContent="space-between"
@@ -33,13 +33,13 @@ const NavBarDrawer = () => {
             textDecoration: "none",
           }}
         >
-           <Box >
+          <Box >
             <img
               src="https://static.wixstatic.com/media/38c36f_cf2679a5ddd4403fa15dda614149c8f9~mv2.png/v1/fill/w_187,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PHOTO-2021-09-15-13-59-41_edited.png"
               alt="Romax Properties Ltd Logo"
               style={{
-                 margin: "0 auto",
-                 display: "block"
+                margin: "0 auto",
+                display: "block"
               }}
             />
           </Box>
@@ -81,7 +81,7 @@ const NavBarDrawer = () => {
                 },
               }}
             >
-              Estate Prices
+              Our Estates
             </Typography>
           </Link>
           <Link
@@ -150,7 +150,7 @@ const NavBarDrawer = () => {
             sx={{
               textTransform: "none",
               color: "primary.main",
-               width: "100%",
+              width: "100%",
               borderRadius: "8px",
               borderColor: "primary.main",
               borderWidth: "2px",
@@ -164,7 +164,7 @@ const NavBarDrawer = () => {
           </Button>
         ) : (
           <Button
-             onClick={()=> navigate("/login")}
+            onClick={() => navigate("/login")}
             variant="outlined"
             sx={{
               textTransform: "none",
