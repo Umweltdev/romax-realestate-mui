@@ -52,7 +52,8 @@ function App() {
                 <>
                   <Topbar handleDrawerOpen = {handleDrawerOpen} />
                   <Box display={{ xs: "block", md: "flex" }} position="relative" mt={2.5} mb={3}>
-                    <Box display={{ xs: "none", md: "block" }}>
+                    <Box display={{ xs: "none", md: "block" }}       
+>
                       <Sidebar />
                     </Box>
                     <Box flex={1}>

@@ -62,7 +62,6 @@ export default function EstateList() {
 
   return (
     <Box sx={{
-      flex: 4,
       px: 2
     }}>
       <Header
@@ -73,57 +72,62 @@ export default function EstateList() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <DataGrid
-        rows={estates}
-        columns={[
-          {
-            field: "id",
-            headerName: "id",
-            width: 200,
-          },
-          {
-            field: "title",
-            headerName: "Estate Title",
-            width: 300,
-          },
-          {
-            field: "location",
-            headerName: "Estate Location",
-            width: 200,
-          },
-          {
-            field: "house",
-            headerName: "Estate Houses",
-            width: 70,
-          },
+      <Box sx={{
+        height: "80vh"
+      }}>
+        <DataGrid
+          rows={estates}
+          columns={[
+            {
+              field: "id",
+              headerName: "id",
+              width: 200,
+            },
+            {
+              field: "title",
+              headerName: "Estate Title",
+              width: 300,
+            },
+            {
+              field: "location",
+              headerName: "Estate Location",
+              width: 200,
+            },
+            {
+              field: "house",
+              headerName: "Estate Houses",
+              width: 70,
+            },
 
-          {
-            field: "action",
-            headerName: "Action",
-            width: 200,
-            headerAlign: "center",
-            align: "center",
-            renderCell: ({ row }) => (
-              <Stack direction="row">
-                <Link to={`/estate/${row.id}`}>
-                  <IconButton aria-label="Edit">
-                    <Edit />
+            {
+              field: "action",
+              headerName: "Action",
+              width: 200,
+              headerAlign: "center",
+              align: "center",
+              renderCell: ({ row }) => (
+                <Stack direction="row">
+                  <Link to={`/estate/${row.id}`}>
+                    <IconButton aria-label="Edit">
+                      <Edit />
+                    </IconButton>
+                  </Link>
+                  <IconButton
+                    aria-label="Delete"
+                    disabled={isLoading}
+                    onClick={() => {
+                      dispatch(deleteEstate(row.id));
+                    }}
+                  >
+                    <Delete />
                   </IconButton>
-                </Link>
-                <IconButton
-                  aria-label="Delete"
-                  disabled={isLoading}
-                  onClick={() => {
-                    dispatch(deleteEstate(row.id));
-                  }}
-                >
-                  <Delete />
-                </IconButton>
-              </Stack>
-            ),
-          },
-        ]}
-      />
+                </Stack>
+              ),
+            },
+          ]}
+        />
+      </Box>
+
     </Box>
   );
 }

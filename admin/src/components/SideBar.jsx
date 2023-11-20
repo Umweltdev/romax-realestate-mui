@@ -30,6 +30,7 @@ const SideBar = ({ handleDrawerClose }) => {
         position: "sticky",
         top: 0,
         height: "100vh",
+        borderRadius: "10px",
         "& .ps-sidebar-root": {
           width: "280px",
           minWidth: "280px",

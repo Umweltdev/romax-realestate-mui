@@ -75,6 +75,7 @@ import {
   Stack,
   IconButton,
   Typography,
+  Tooltip
 } from "@mui/material";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -144,7 +145,10 @@ const TopBar = ({ handleDrawerOpen }) => {
             alignItems="center"
           >
             <Typography>{user.username}</Typography>
+            <Tooltip title="Logout">
             <IconButton onClick={handleLogout}><Settings />  </IconButton>
+
+            </Tooltip>
 
           </Stack>
         }
