@@ -57,8 +57,7 @@ export default function ProductList() {
   }));
   return (
     <Box sx={{
-      flex: 4,
-      px: 2
+      px: 2,
     }}>
       <Header
         title={"Property List"}
@@ -68,56 +67,63 @@ export default function ProductList() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <DataGrid
-        rows={products}
-        columns={[
-          {
-            field: "title",
-            headerName: "Property Title",
-            width: 300,
-            
-          },
-          { field: "price", headerName: "Price", width: 200, headerAlign: "center",
-          align: "center", },
+      <Box sx={{
+        height: "80vh"
+      }}>
+        <DataGrid
+          rows={products}
+          columns={[
+            {
+              field: "title",
+              headerName: "Property Title",
+              width: 300,
 
-          {
-            field: "inStock",
-            headerName: "Stock",
-            width: 150,
-            headerAlign: "center",
-                  align: "center",
-            renderCell: ({ value }) => (
-              <Chip label={value} sx={{ height: "25px" }} />
-            ),
-          },
+            },
+            {
+              field: "price", headerName: "Price", width: 200, headerAlign: "center",
+              align: "center",
+            },
 
-          {
-            field: "action",
-            headerName: "Action",
-            width: 200,
-            headerAlign: "center",
-            align: "center",
-            renderCell: ({ row }) => (
-              <Stack direction="row">
-                <Link to={`/product/${row.id}`}>
-                  <IconButton aria-label="Edit">
-                    <Edit />
+            {
+              field: "inStock",
+              headerName: "Stock",
+              width: 150,
+              headerAlign: "center",
+              align: "center",
+              renderCell: ({ value }) => (
+                <Chip label={value} sx={{ height: "25px" }} />
+              ),
+            },
+
+            {
+              field: "action",
+              headerName: "Action",
+              width: 200,
+              headerAlign: "center",
+              align: "center",
+              renderCell: ({ row }) => (
+                <Stack direction="row">
+                  <Link to={`/product/${row.id}`}>
+                    <IconButton aria-label="Edit">
+                      <Edit />
+                    </IconButton>
+                  </Link>
+                  <IconButton
+                    aria-label="Delete"
+                    disabled={isLoading}
+                    onClick={() => {
+                      dispatch(deleteProduct(row.id));
+                    }}
+                  >
+                    <Delete />
                   </IconButton>
-                </Link>
-                <IconButton
-                  aria-label="Delete"
-                  disabled={isLoading}
-                  onClick={() => {
-                    dispatch(deleteProduct(row.id));
-                  }}
-                >
-                  <Delete />
-                </IconButton>
-              </Stack>
-            ),
-          },
-        ]}
-      />
+                </Stack>
+              ),
+            },
+          ]}
+        />
+      </Box>
+
     </Box>
   );
 }

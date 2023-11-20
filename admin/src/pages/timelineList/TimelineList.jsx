@@ -88,7 +88,7 @@ export default function TimelineList() {
   ];
 
   return (
-    <div style={{ width: "80%", height: "100vh" }}>
+    <div style={{  height: "100vh", padding:"0 20px" }}>
       <Header
         title={"Timeline List"}
         placeholder="Search Timeline..."

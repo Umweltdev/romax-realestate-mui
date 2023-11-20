@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import Sidebar from "./components/sidebar/Sidebar";
+import { Box, Drawer } from "@mui/material";
+import Sidebar from "./components/SideBar";
 import Topbar from "./components/topbar/Topbar";
 import "./App.css";
 import Home from "./pages/home/Home";
@@ -26,11 +28,15 @@ import EstateBookings from "./pages/bookingEstate/BookingList";
 import EstateBooking from "./pages/bookingEstate/Booking";
 
 function App() {
-
-  //const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser
   const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.user).currentUser?.isAdmin
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const handleDrawerOpen = () => {
+    setDrawerOpen(true);
+  };
 
-
+  const handleDrawerClose = () => {
+    setDrawerOpen(false);
+  };
   return (
     <Router>
       <Routes>
@@ -44,34 +50,51 @@ function App() {
               path="/*"
               element={
                 <>
-                  <Topbar />
-                  <div className="container">
-                    <Sidebar />
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/users" element={<UserList />} />
-                        <Route path="/user/:userId" element={<User />} />
-                        <Route path="/user/newuser" element={<NewUser />} />
-                        <Route path="/products" element={<ProductList />} />
-                        <Route path="/estates" element={<EstateList />} />
-                        <Route path="/bookings" element={<Bookings />} />
-                        <Route path="/estatebookings" element={<EstateBookings />} />
-                        <Route path="/estatebookings/:id" element={<EstateBooking />} />
-                        <Route path="/bookings/:id" element={<Booking />} />
-                        <Route path="/timelines" element={<TimelineList />} />
-                        <Route path="/product/:id" element={<NewProduct />} />
-                        <Route path="/timeline/:timelineId" element={<Timeline />} />
-                        <Route path="timeline/newtimeline" element={<NewTimeline />} />
-                        <Route path="/estate/:id" element={<NewEstate />} />
-                        <Route path="/faq/:id" element={<AddFaq />} />
-                        <Route path="/faqs" element={<Faqs />} />
+                  <Topbar handleDrawerOpen = {handleDrawerOpen} />
+                  <Box display={{ xs: "block", md: "flex" }} position="relative" mt={2.5} mb={3}>
+                    <Box display={{ xs: "none", md: "block" }}>
+                      <Sidebar />
+                    </Box>
+                    <Box flex={1}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <Routes>
+                          <Route path="/" element={<Home />} />
+                          <Route path="/users" element={<UserList />} />
+                          <Route path="/user/:userId" element={<User />} />
+                          <Route path="/user/newuser" element={<NewUser />} />
+                          <Route path="/products" element={<ProductList />} />
+                          <Route path="/estates" element={<EstateList />} />
+                          <Route path="/bookings" element={<Bookings />} />
+                          <Route path="/estatebookings" element={<EstateBookings />} />
+                          <Route path="/estatebookings/:id" element={<EstateBooking />} />
+                          <Route path="/bookings/:id" element={<Booking />} />
+                          <Route path="/timelines" element={<TimelineList />} />
+                          <Route path="/product/:id" element={<NewProduct />} />
+                          <Route path="/timeline/:timelineId" element={<Timeline />} />
+                          <Route path="timeline/newtimeline" element={<NewTimeline />} />
+                          <Route path="/estate/:id" element={<NewEstate />} />
+                          <Route path="/faq/:id" element={<AddFaq />} />
+                          <Route path="/faqs" element={<Faqs />} />
 
 
-                      </Routes>
-                    </LocalizationProvider>
+                        </Routes>
+                      </LocalizationProvider>
+                    </Box>
 
-                  </div>
+                    <Drawer
+                      open={drawerOpen}
+                      onClose={handleDrawerClose}
+                      anchor="left"
+                      sx={{
+                        zIndex: "1200",
+                        "& .MuiPaper-root": {
+                          backgroundColor: "#2B3445",
+                        },
+                      }}
+                    >
+                      <Sidebar handleDrawerClose={handleDrawerClose} />
+                    </Drawer>
+                  </Box>
                 </>
               }
             />

@@ -93,7 +93,7 @@ export default function UserList() {
   ];
 
   return (
-    <div style={{ width: "80%", height: "100vh" }}>
+    <div style={{ height: "80vh", padding: "0 20px" }}>
       <Header
         title={"User List"}
         placeholder="Search User..."
