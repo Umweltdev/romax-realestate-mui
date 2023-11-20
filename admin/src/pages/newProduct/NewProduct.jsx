@@ -335,7 +335,11 @@ export default function NewProduct() {
                     error={!!touched.brand && !!errors.brand}
                     helperText={touched.brand && errors.brand}
                     sx={{
+<<<<<<< HEAD
                       width: isNonMobile ? "230px" : "100%",
+=======
+                      width: isNonMobile ? "250px" : "100%",
+>>>>>>> 5c65ff5730875f690d0fb6bbbdf10fac35088ad3
                     }}
                     InputLabelProps={{
                       style: { fontSize: "15px" },
