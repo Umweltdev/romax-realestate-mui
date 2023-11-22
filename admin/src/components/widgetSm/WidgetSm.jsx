@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import "./widgetSm.css";
 import { Visibility } from "@material-ui/icons";
 import { userRequest } from "../../requestMethods";
+import { useNavigate } from "react-router-dom"
 
 export default function WidgetSm() {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUsers = async () => {
@@ -29,7 +31,7 @@ export default function WidgetSm() {
             <div className="widgetSmUser">
               <span className="widgetSmUsername">{user.username}</span>
             </div>
-            <button className="widgetSmButton">
+            <button className="widgetSmButton" onClick={() => navigate("/users")}>
               <Visibility className="widgetSmIcon" />
               Display
             </button>
