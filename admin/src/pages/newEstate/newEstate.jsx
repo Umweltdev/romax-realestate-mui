@@ -111,7 +111,7 @@ export default function NewEstate() {
   }, [estateData]);
 
   return (
-    <div className="newProduct">
+    <div className="newEstate">
       <Typography variant="h5" fontSize={{ xs: "19px", sm: "28px" }} mb={4}>
         {id === "create" ? "Add New Estate" : "Edit Estate"}
       </Typography>{" "}

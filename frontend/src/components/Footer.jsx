@@ -88,7 +88,11 @@ const List = styled.ul`
 const ListItem = styled.li`
   width: 50%;
   margin-bottom: 10px;
+<<<<<<< HEAD
+  background-color: #eb8510;
+=======
   background-color: #ee7e19;
+>>>>>>> 5c65ff5730875f690d0fb6bbbdf10fac35088ad3
 `
 const Right = styled.div`
   flex: 1;

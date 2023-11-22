@@ -117,7 +117,7 @@ export default function NewProduct() {
     }
   }, [productData]);
   return (
-    <div className="newProduct">
+    <div className="addProduct">
       <Typography variant="h5" fontSize={{ xs: "19px", sm: "28px" }} mb={4}>
         {id === "create" ? "Add New Product" : "Edit Product"}
       </Typography>{" "}
@@ -188,7 +188,7 @@ export default function NewProduct() {
                   error={!!touched.title && !!errors.title}
                   helperText={touched.title && errors.title}
                   sx={{
-                    width: isNonMobile ? "250px" : "100%",
+                    width: isNonMobile ? "230px" : "100%",
                   }}
                   InputLabelProps={{
                     style: { fontSize: "15px" },
@@ -206,7 +206,7 @@ export default function NewProduct() {
                   error={!!touched.propertyType && !!errors.propertyType}
                   helperText={touched.propertyType && errors.propertyType}
                   sx={{
-                    width: isNonMobile ? "250px" : "100%",
+                    width: isNonMobile ? "230px" : "100%",
                   }}
                   InputLabelProps={{
                     style: { fontSize: "15px" },
@@ -224,7 +224,7 @@ export default function NewProduct() {
                   error={!!touched.size && !!errors.size}
                   helperText={touched.size && errors.size}
                   sx={{
-                    width: isNonMobile ? "250px" : "100%",
+                    width: isNonMobile ? "230px" : "100%",
                   }}
                   InputLabelProps={{
                     style: { fontSize: "15px" },
@@ -242,7 +242,7 @@ export default function NewProduct() {
                   error={!!touched.bath && !!errors.bath}
                   helperText={touched.bath && errors.bath}
                   sx={{
-                    width: isNonMobile ? "250px" : "100%",
+                    width: isNonMobile ? "230px" : "100%",
                   }}
                   InputLabelProps={{
                     style: { fontSize: "15px" },
@@ -260,7 +260,7 @@ export default function NewProduct() {
                   error={!!touched.bed && !!errors.bed}
                   helperText={touched.bed && errors.bed}
                   sx={{
-                    width: isNonMobile ? "250px" : "100%",
+                    width: isNonMobile ? "230px" : "100%",
                   }}
                   InputLabelProps={{
                     style: { fontSize: "15px" },
@@ -278,7 +278,7 @@ export default function NewProduct() {
                   error={!!touched.car && !!errors.car}
                   helperText={touched.car && errors.car}
                   sx={{
-                    width: isNonMobile ? "250px" : "100%",
+                    width: isNonMobile ? "230px" : "100%",
                   }}
                   InputLabelProps={{
                     style: { fontSize: "15px" },
@@ -296,7 +296,7 @@ export default function NewProduct() {
                   error={!!touched.category && !!errors.category}
                   helperText={touched.category && errors.category}
                   sx={{
-                    width: isNonMobile ? "250px" : "100%",
+                    width: isNonMobile ? "230px" : "100%",
                   }}
                   InputLabelProps={{
                     style: { fontSize: "15px" },
@@ -314,7 +314,7 @@ export default function NewProduct() {
                   error={!!touched.price && !!errors.price}
                   helperText={touched.price && errors.price}
                   sx={{
-                    width: isNonMobile ? "250px" : "100%",
+                    width: isNonMobile ? "230px" : "100%",
                   }}
                   InputLabelProps={{
                     style: { fontSize: "15px" },
@@ -335,7 +335,11 @@ export default function NewProduct() {
                     error={!!touched.brand && !!errors.brand}
                     helperText={touched.brand && errors.brand}
                     sx={{
+<<<<<<< HEAD
+                      width: isNonMobile ? "230px" : "100%",
+=======
                       width: isNonMobile ? "250px" : "100%",
+>>>>>>> 5c65ff5730875f690d0fb6bbbdf10fac35088ad3
                     }}
                     InputLabelProps={{
                       style: { fontSize: "15px" },
@@ -359,7 +363,7 @@ export default function NewProduct() {
                   error={!!touched.location && !!errors.location}
                   helperText={touched.location && errors.location}
                   sx={{
-                    width: isNonMobile ? "250px" : "100%",
+                    width: isNonMobile ? "230px" : "100%",
                   }}
                   InputLabelProps={{
                     style: { fontSize: "15px" },
@@ -377,7 +381,7 @@ export default function NewProduct() {
                   error={!!touched.address && !!errors.address}
                   helperText={touched.address && errors.address}
                   sx={{
-                    width: isNonMobile ? "520px" : "100%",
+                    width: isNonMobile ? "480px" : "100%",
                   }}
                   InputLabelProps={{
                     style: { fontSize: "15px" },
@@ -395,7 +399,7 @@ export default function NewProduct() {
                   error={!!touched.inStock && !!errors.inStock}
                   helperText={touched.inStock && errors.inStock}
                   sx={{
-                    width: isNonMobile ? "250px" : "100%",
+                    width: isNonMobile ? "230px" : "100%",
                   }}
                   InputLabelProps={{
                     style: { fontSize: "15px" },

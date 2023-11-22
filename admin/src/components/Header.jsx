@@ -44,7 +44,7 @@ const Header = ({
           variant="outlined"
           size="small"
           sx={{
-            width: "350px",
+            width: isNonMobile ? "350px" : "100%",
             "& .MuiOutlinedInput-root": {
               borderRadius: "10px",
               backgroundColor: "white",

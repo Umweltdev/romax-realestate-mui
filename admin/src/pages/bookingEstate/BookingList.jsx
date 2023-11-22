@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
 import { userRequest } from "../../requestMethods";
+import { Box, Typography } from "@mui/material";
 
 export default function EstateBookings() {
   const [bookings, setBookings] = useState([]);
@@ -72,7 +73,10 @@ export default function EstateBookings() {
   ];
 
   return (
-    <div className="userList">
+    <Box padding="0 20px" height="80vh">
+       <Typography variant="h5" fontSize={{ xs: "19px", sm: "28px" }} mb={4}>
+        Estate Bookings
+      </Typography>{" "}
       <DataGrid
         rows={bookingFiltered}
         disableSelectionOnClick
@@ -80,6 +84,6 @@ export default function EstateBookings() {
         pageSize={8}
         checkboxSelection
       />
-    </div>
+    </ Box >
   );
 }
