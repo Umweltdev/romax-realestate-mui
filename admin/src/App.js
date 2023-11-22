@@ -27,8 +27,8 @@ import EstateBooking from "./pages/bookingEstate/Booking";
 
 function App() {
 
-  //const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser
-  const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.user).currentUser?.isAdmin
+  const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser
+  //const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.user).currentUser?.isAdmin
 
 
   return (
