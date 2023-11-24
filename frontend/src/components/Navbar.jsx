@@ -175,7 +175,7 @@ const Navbar = () => {
           )}
           {user && user.isAdmin && (
             <Link
-              to="https://romax-admin.netlify.app/"
+              to="https://romax-admin.netlify.app/login"
               style={{
                 textDecoration: "none",
               }}
