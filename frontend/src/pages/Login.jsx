@@ -18,7 +18,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { Close } from "@mui/icons-material";
 import { login } from "../redux/apiCalls";
 import { resetState } from "../redux/userRedux";
-import logo from "../assests/Logo-Transparent.png";
+//import logo from "../assests/Logo-Transparent.png";
 
 const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
@@ -118,7 +118,7 @@ const Login = ({ bgcolor, handleClose }) => {
                     style={{
                       margin: "0 auto",
                       display: "block",
-                      
+
                     }}
                   />
                 </Box>
