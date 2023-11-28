@@ -146,7 +146,7 @@ const TopBar = ({ handleDrawerOpen }) => {
           >
             <Typography>{user.username}</Typography>
             <Tooltip title="Logout">
-            <IconButton onClick={handleLogout}><Settings />  </IconButton>
+              <IconButton onClick={handleLogout}><Settings />  </IconButton>
 
             </Tooltip>
 
