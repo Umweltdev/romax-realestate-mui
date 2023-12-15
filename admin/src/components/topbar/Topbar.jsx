@@ -99,7 +99,7 @@ const TopBar = ({ handleDrawerOpen }) => {
   }
   return (
     <Box
-      bgcolor="white"
+      bgcolor="#FFFFFF80"
       pt={1}
       px={{ xs: 1.5, sm: 4 }}
       sx={{
