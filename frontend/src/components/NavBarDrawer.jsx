@@ -56,9 +56,11 @@ const NavBarDrawer = () => {
               color="#2b3445"
               variant="body2"
               py={1}
+              ml={20}
               sx={{
                 "&:hover": {
                   color: "primary.main",
+                  transition: "color 0.7s ease-in-out",
                 },
               }}
             >
@@ -75,9 +77,11 @@ const NavBarDrawer = () => {
               color="#2b3445"
               variant="body2"
               py={1}
+              ml={20}
               sx={{
                 "&:hover": {
                   color: "primary.main",
+                  transition: "color 0.7s ease-in-out",
                 },
               }}
             >
@@ -94,16 +98,18 @@ const NavBarDrawer = () => {
               color="#2b3445"
               variant="body2"
               py={1}
+              ml={20}
               sx={{
                 "&:hover": {
                   color: "primary.main",
+                  transition: "color 0.7s ease-in-out",
                 },
               }}
             >
               Our Timeline
             </Typography>
           </Link>
-          <Link
+          {/* <Link
             style={{
               textDecoration: "none",
             }}
@@ -120,7 +126,7 @@ const NavBarDrawer = () => {
             >
               Instant Valuation
             </Typography>
-          </Link>
+          </Link> */}
           <Link
             style={{
               textDecoration: "none",
@@ -130,9 +136,11 @@ const NavBarDrawer = () => {
               color="#2b3445"
               variant="body2"
               py={1}
+              ml={20}
               sx={{
                 "&:hover": {
                   color: "primary.main",
+                  transition: "color 0.7s ease-in-out",
                 },
               }}
             >

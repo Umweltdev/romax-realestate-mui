@@ -31,20 +31,20 @@ export const sliderItems = [
 export const categories = [
   {
     id: 1,
-    img: "https://img.gtsstatic.net/reno/imagereader.aspx?imageurl=https%3A%2F%2Fstatic-christiesrealestate-cms-production.gtsstatic.net%2Fresources%2Fv_4_19_0_380%2Fsiteresources%2Fmy%20folder%2Fresponsive%2Flifestyles%2Fbeach%2Fcarousel%2Fvilla%20baan%20sang.jpg&option=N&permitphotoenlargement=false&w=1200&fallbackimageurl=https%3A%2F%2Fstatic-christiesrealestate-cms-production.gtsstatic.net%2Fresources%2Fv_4_19_0_380%2Flayouts%2Fcommon%2Fimages%2Fno-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    title: "BEACH FRONT",
+    img: "https://res.cloudinary.com/daghax01m/image/upload/v1697580889/romax/g9etjimxcxhndobg4qsx.jpg",
+    title: "2-BEDROOM HOUSE",
     cat: "beach",
   },
   {
     id: 2,
-    img: "https://img.gtsstatic.net/reno/imagereader.aspx?imageurl=https%3A%2F%2Fsir.azureedge.net%2F236i215%2Fpzdcph02xhscm9ee1d9wa5e7t4i215&option=N&h=472&permitphotoenlargement=false?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    title: "ISLAND PROPERTIES",
+    img: "https://res.cloudinary.com/daghax01m/image/upload/v1697580882/romax/gbxdrei5uhakbjdq9rjv.jpg",
+    title: "3-BEDROOM HOUSE",
     cat: "island",
   },
   {
     id: 3,
-    img: "https://dq1niho2427i9.cloudfront.net/efd9259e-53f3-4398-a671-0327d1374d03/1845203668.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    title: "VILLAGE PROPERTIES",
+    img: "https://res.cloudinary.com/daghax01m/image/upload/v1697580891/romax/vq3rnmwzvw5vah1dlpe1.jpg",
+    title: "4-BEDROOM HOUSE",
     cat: "village",
   },
 ];

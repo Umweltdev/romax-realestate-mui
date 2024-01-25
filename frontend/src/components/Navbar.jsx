@@ -128,7 +128,7 @@ const Navbar = () => {
               Our Timeline
             </Typography>
           </Link>
-          <Link
+          {/* <Link
             style={{
               textDecoration: "none",
             }}
@@ -144,7 +144,7 @@ const Navbar = () => {
             >
               Instant Valuation
             </Typography>
-          </Link>
+          </Link> */}
         </Stack>
 
         <Stack
