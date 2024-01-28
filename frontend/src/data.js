@@ -33,19 +33,19 @@ export const categories = [
     id: 1,
     img: "https://res.cloudinary.com/daghax01m/image/upload/v1697580889/romax/g9etjimxcxhndobg4qsx.jpg",
     title: "2-BEDROOM HOUSE",
-    cat: "beach",
+    bed: 2
   },
   {
     id: 2,
     img: "https://res.cloudinary.com/daghax01m/image/upload/v1697580882/romax/gbxdrei5uhakbjdq9rjv.jpg",
     title: "3-BEDROOM HOUSE",
-    cat: "island",
+    bed: 3
   },
   {
     id: 3,
     img: "https://res.cloudinary.com/daghax01m/image/upload/v1697580891/romax/vq3rnmwzvw5vah1dlpe1.jpg",
     title: "4-BEDROOM HOUSE",
-    cat: "village",
+    bed: 4
   },
 ];
 

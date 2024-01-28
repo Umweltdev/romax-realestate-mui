@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setMaxBed, setLocation } from '../redux/filter';
 
-function CategoryItem({ img, title, cat }) {
+function CategoryItem({ img, title, cat,bed }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSeeMoreClick = (maxBed) => {
     dispatch(setMaxBed(maxBed));
-    dispatch(setLocation(title));
+    // dispatch(setLocation(title));
     navigate('/products');
   };
 
@@ -29,7 +29,7 @@ function CategoryItem({ img, title, cat }) {
         borderRadius: '8px',
         cursor: 'pointer',
       }}
-      onClick={() => handleSeeMoreClick(3)}  // Set the maxBed value as needed
+      onClick={() => handleSeeMoreClick(bed)}  // Set the maxBed value as needed
     >
       <Stack spacing={1}>
         <Typography variant="h5" color="white" textAlign="center">

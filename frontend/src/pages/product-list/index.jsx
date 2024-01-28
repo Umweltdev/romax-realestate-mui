@@ -96,6 +96,7 @@ const ProductListing = () => {
     type,
     location,
   ]);
+  console.log(maxBed)
   return (
     <>
       <Announcement />
