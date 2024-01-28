@@ -11,6 +11,7 @@ import bookingRoute from "./routes/booking.js"
 import addressRoute from "./routes/address.js"
 import timelineRoute from "./routes/timeline.js"
 import FaqRoute from "./routes/FAQ.js"
+import categoryRoute from "./routes/category.js"
 
 
 dotenv.config();
@@ -42,6 +43,7 @@ app.use("/api/booking", bookingRoute);
 app.use("/api/address", addressRoute);
 app.use("/api/timeline", timelineRoute);
 app.use("/api/faq", FaqRoute);
+app.use("/api/category", categoryRoute);
 
 
 
