@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setMaxBed, setLocation } from '../redux/filter';
 
-function CategoryItem({ img, title, cat,bed }) {
+function CategoryItem({ img, title, cat, bed }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
