@@ -14,8 +14,9 @@ const Newsletter = () => {
   return (
     <Box
       sx={{
-        height: "300px",
+        height: "auto",
         backgroundColor: "#f9f9f9",
+        py: 6,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -26,9 +27,10 @@ const Newsletter = () => {
       <Typography
         variant="h4"
         sx={{
-          fontSize: { xs: "30px", md: "40px" },
+          fontSize: { xs: "28px", md: "36px" },
           letterSpacing: "2px",
           textTransform: "uppercase",
+          fontWeight: 600,
         }}
       >
         Newsletter
@@ -41,58 +43,51 @@ const Newsletter = () => {
         textAlign="center"
         letterSpacing="1px"
         mt={1}
-        mb={3}
+        mb={4}
         sx={{ fontSize: { xs: "13px", md: "14px" }, maxWidth: "90%" }}
       >
         Get updates on our latest properties.
       </Typography>
 
-      <TextField
-        placeholder="Enter Your Email Address"
-        variant="outlined"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Button
-                sx={{
-                  textTransform: "none",
-                  bgcolor: "primary.main",
-                  color: "white",
-                  px: isNonMobile ? 4 : 2,
-                  py: "8px",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  letterSpacing: "1px",
-                  borderTopRightRadius: "1200px",
-                  borderBottomRightRadius: "1200px",
-                  height: "100%",
-                  "&:hover": {
-                    bgcolor: "primary.dark",
-                  },
-                }}
-              >
-                <Send fontSize="small" />
-              </Button>
-            </InputAdornment>
-          ),
-        }}
-        sx={{
-          width: isNonMobile ? "60%" : "95%",
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "1200px",
-            pl: 2,
-            pr: 0,
-            height: "48px",
-            "& input": {
+      <Box sx={{ width: isNonMobile ? "60%" : "95%" }}>
+        <TextField
+          fullWidth
+          placeholder="Enter your email address"
+          variant="outlined"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end" sx={{ mr: "-14px" }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    minWidth: "44px",
+                    height: "40px",
+                    borderRadius: "20px",
+                    px: 2,
+                    bgcolor: "primary.main",
+                    "&:hover": {
+                      bgcolor: "primary.dark",
+                    },
+                  }}
+                >
+                  <Send fontSize="small" sx={{ color: "#fff" }} />
+                </Button>
+              </InputAdornment>
+            ),
+          }}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "24px",
+              pr: 0,
+              height: "48px",
               fontSize: "14px",
-              padding: "10px 0",
+              "& input": {
+                padding: "10px 14px",
+              },
             },
-          },
-          "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: "primary.main",
-          },
-        }}
-      />
+          }}
+        />
+      </Box>
     </Box>
   );
 };

@@ -1,3 +1,8 @@
+# Common ignores
 node_modules/
+*.log
+*.lock
 .cache/
-/frontend/node_modules/
+dist/
+build/
+.DS_Store
