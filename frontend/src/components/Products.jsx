@@ -29,9 +29,10 @@ const Card = ({ imageUrl, title, description }) => {
         mb: 2,
       }}
     >
+      {/* Image Section */}
       <Box
         sx={{
-          height: { xs: "auto", md: "85%" }, // increased from 70%
+          height: "300px", // Increased image height
           overflow: "hidden",
           position: "relative",
           backgroundColor: "#e0e0e0",
@@ -67,28 +68,46 @@ const Card = ({ imageUrl, title, description }) => {
           onError={() => setImgLoaded(true)}
         />
       </Box>
+
+      {/* Text Section */}
       <Box
         sx={{
           p: 2,
-          flexGrow: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          borderBottomLeftRadius: 8,
-          borderBottomRightRadius: 8,
+          textAlign: "center",
           backgroundColor: "#f9f9f9",
+          height: "fit-content",
         }}
       >
-        <Typography variant="h6" noWrap>
+        <Typography
+          variant="h6"
+          sx={{
+            fontWeight: 600,
+            fontSize: { xs: "16px", sm: "18px" },
+            lineHeight: 1.3,
+            mb: 1,
+          }}
+        >
           {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary" noWrap>
-          {description}
+
+        <Typography
+          variant="body2"
+          sx={{
+            color: "text.secondary",
+            fontSize: { xs: "13px", sm: "14px" },
+            lineHeight: 1.6,
+          }}
+        >
+          {description?.length > 100
+            ? `${description.substring(0, 97)}...`
+            : description}
         </Typography>
       </Box>
     </Box>
   );
 };
+
+
 
 const Products = () => {
   const [products, setProducts] = useState([]);
