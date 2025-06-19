@@ -74,7 +74,7 @@ const Hero = () => {
           }}
         >
           Discover your dream home with us. Browse our listings and find the
-          perfect property for you — where comfort meets style.
+          perfect property for you where comfort meets style.
         </Typography>
         <Button
           onClick={() => navigate("/products")}
