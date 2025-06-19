@@ -1,27 +1,23 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router";
 import { Container, Grid, Paper, Stack } from "@mui/material";
 import { Button, Typography, Box } from "@mui/material";
-import { ChevronRight, HomeOutlined } from "@material-ui/icons";
+import { ChevronRight, HomeOutlined } from "@mui/icons-material";
 import FilterComponent from "./Filter";
 
-const useStyles = makeStyles((theme) => ({
-  heroContainer: {
-    background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.ibb.co/0nQJv76/Whats-App-Image-2023-09-04-at-06-30-01.jpg')`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    color: theme.palette.common.white,
-  },
+const HeroContainer = styled(Box)(({ theme }) => ({
+  background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.ibb.co/0nQJv76/Whats-App-Image-2023-09-04-at-06-30-01.jpg')`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  color: theme.palette.common.white,
 }));
 
 const Hero = () => {
-  const classes = useStyles();
   const navigate = useNavigate();
 
   return (
-    <Box className={classes.heroContainer} padding={{xs:"100px 0", sm:"80px 0"}}>
-      <Container maxWidth="lg">
+<HeroContainer padding={{ xs: "100px 0", sm: "80px 0" }}>      <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
             <Box
@@ -36,7 +32,6 @@ const Hero = () => {
                 <Typography variant="h6" color="primary.main">
                   Welcome To Romax
                 </Typography>
-                <HomeOutlined />
               </Stack>
               <Typography
                 variant="h5"
@@ -64,7 +59,7 @@ const Hero = () => {
                   color: "white",
                   paddingX: "30px",
                   paddingY: "15px",
-                  // alignSelf: "start",
+                  alignSelf: "start",
                   display: "inline-flex",
                   gap: "5px",
                   borderRadius: "30px",
@@ -74,7 +69,6 @@ const Hero = () => {
                   },
                 }}
               >
-                <ChevronRight />
                 <Typography variant="body2" fontSize="17px" letterSpacing="1px">
                   {" "}
                   Discover More
@@ -108,7 +102,7 @@ const Hero = () => {
           </Grid>
         </Grid>
       </Container>
-    </Box>
+    </HeroContainer>
   );
 };
 

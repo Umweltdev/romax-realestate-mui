@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { publicRequest } from "../requestMethods";
 import Card from "./Card";
-import { ArrowBack, ArrowForward } from "@material-ui/icons";
+import { ArrowBack, ArrowForward } from "@mui/icons-material";
 
 function SampleNextArrow(props) {
   const { onClick } = props;

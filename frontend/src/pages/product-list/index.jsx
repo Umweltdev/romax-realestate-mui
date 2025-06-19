@@ -20,9 +20,11 @@ import Footer from "../../components/Footer";
 import Range from "./range";
 import { publicRequest } from "../../requestMethods";
 import { useLocation, useNavigate } from "react-router";
-import { SentimentVeryDissatisfied } from "@material-ui/icons";
+import { SentimentVeryDissatisfied } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import { resetState } from "../../redux/filter";
+
+
 export const CustomDivider = styled(Divider)`
   margin: 16px 0px 24px;
   border-width: 0px 0px thin;

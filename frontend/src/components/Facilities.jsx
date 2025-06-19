@@ -17,7 +17,7 @@ import {
   HomeWorkOutlined,
   WifiOutlined,
   LocationCityOutlined,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 const Facilities = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");

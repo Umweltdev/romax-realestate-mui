@@ -6,7 +6,7 @@ import {
   Typography,
   useMediaQuery
 } from "@mui/material";
-import { Send } from "@material-ui/icons";
+import { Send } from "@mui/icons-material";
 
 const Newsletter = () => {
   const isNonMobile = useMediaQuery("(min-width:815px)");
