@@ -1,169 +1,153 @@
-import {
-  MailOutline,
-  Phone,
-  Room,
-} from "@mui/icons-material";
+import { MailOutline, Phone, Room } from "@mui/icons-material";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { mobile } from "../responsive";
 
-import styled from "styled-components"
-import { mobile, mobileXR, tablet } from "../responsive"
-import {
-  Box
-} from "@mui/material";
-import logo from "../assests/Logo - Orange Background.png";
+const logo =
+  "https://static.wixstatic.com/media/38c36f_cf2679a5ddd4403fa15dda614149c8f9~mv2.png";
 
-const Container = styled.div`
-  background-color: #ee7e19;
+const usefulLinks = [
+  { label: "Home", to: "/" },
+  { label: "My Account", to: "/user/profile" },
+  { label: "My Order", to: "/orders" },
+  { label: "My Estate", to: "/estate" },
+  { label: "Properties", to: "/products" },
+  { label: "Terms", to: "/terms" },
+];
+
+const contactDetails = [
+  {
+    icon: <Room />,
+    text: "622 Dixie Path, South Tobinchester 98336",
+    href: "https://www.google.com/maps/search/622+Dixie+Path,+South+Tobinchester+98336",
+  },
+  {
+    icon: <Phone />,
+    text: "+ (234) - 913 - 396 - 8613",
+    href: "tel:+2349133968613",
+  },
+  {
+    icon: <MailOutline />,
+    text: "contact@sell.dev",
+    href: "mailto:contact@sell.dev",
+  },
+];
+
+const FooterWrapper = styled.footer`
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  text-align: left;
+
+  ${mobile({ padding: "40px 20px", textAlign: "center" })};
+`;
+
+const Column = styled.div``;
+
+const LogoBox = styled(Link)`
   display: flex;
-  ${mobile({ flexDirection: "column" })};
-  ${mobileXR({ flexDirection: "column" })};
-  ${tablet({ flexDirection: "column" })};
-`
-const Left = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
+  justify-content: center;
 
   img {
-    max-width: auto;
-    height: auto;
-    object-fit: cover;
+    height: 80px;
+    object-fit: contain;
   }
+`;
 
-  @media screen and (max-width: 768px) {
-    img {
-      max-height: 150px;
-      max-width: 250px; 
+const SectionTitle = styled.h3`
+  color: #222;
+  font-size: 20px;
+  margin-bottom: 24px;
+`;
+
+const LinkList = styled.ul`
+  list-style: none;
+  padding: 0;
+
+  li {
+    margin-bottom: 12px;
+
+    a {
+      color: #444;
+      text-decoration: none;
+      font-size: 16px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: #ee7e19;
+        text-decoration: underline;
+      }
     }
   }
-  background-color: #ee7e19;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-`
-/* const Logo = styled.h1`
-  display: flex;
-`
-const Desc = styled.p`
-  margin: 20px;
-`
-const SocialContainer = styled.div`
-  display: flex;
-`
-const SocialIcon = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  background-color: #${props => props.color};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 25px;
-` */
-const Center = styled.div`
-  flex: 1;
-  padding: 20px;
-  background-color: #ee7e19;
-  ${mobile({ dsiplay: "none" })};
-  ${mobileXR({ dsiplay: "none" })};
-  ${tablet({ dsiplay: "none" })};
-`
-const Title = styled.h3`
-  margin-bottom: 30px;
-  background-color: #ee7e19;
-`
-const List = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  background-color: #ee7e19;
-`
-const ListItem = styled.li`
-  width: 50%;
-  margin-bottom: 10px;
-<<<<<<< HEAD
-  background-color: #eb8510;
-=======
-  background-color: #ee7e19;
->>>>>>> 5c65ff5730875f690d0fb6bbbdf10fac35088ad3
-`
-const Right = styled.div`
-  flex: 1;
-  padding: 20px;
-  background-color: #ee7e19;
-  ${mobile({ backgroundColor: "#fff8f8" })};
-  ${mobileXR({ backgroundColor: "#fff8f8", height: "100%" })};
-  ${tablet({ backgroundColor: "#fff8f8", height: "100%" })};
-`
-const ContactItem = styled.div`
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  background-color: #ee7e19;
-`
+`;
 
-/* const Payment = styled.img`
-  width: 50%;
-` */
+const ContactItem = styled.a`
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  color: #444;
+  text-decoration: none;
+  font-size: 15px;
+  transition: all 0.3s ease;
+
+  svg {
+    margin-right: 10px;
+    color: #ee7e19;
+  }
+
+  &:hover {
+    color: #ee7e19;
+  }
+`;
+
+const FooterStrip = styled.div`
+  background-color: #ee7e19;
+  height: 3px;
+  width: 100%;
+  margin-top: 40px;
+`;
 
 const Footer = () => {
   return (
-    <Container style={{ backgroundColor: "#ee7e19" }}>
-      <Left>
-        <Box height={{ xs: "120px", sm: "140px" }} >
-          <img
-            src={logo}
-            alt="Romax Properties Ltd Logo"
-            style={{
-              backgroundColor: "#ee7e19",
-              height: "200px",
-              width: "100%",
-              objectFit: "cover",
-            }}
-          />
-        </Box>
-        {/* <Desc>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum nobis architecto suscipit deserunt totam reiciendis illum dolorum numquam corporis nostrum.
-        </Desc> */}
-        {/* <SocialContainer>
-          <SocialIcon color="3B5999">
-            <Twitter />
-          </SocialIcon>
-          <SocialIcon color="E4405F">
-            <Instagram />
-          </SocialIcon>
-          <SocialIcon color="55ACEE">
-            <Facebook />
-          </SocialIcon>
-          <SocialIcon color="E60023">
-            <Pinterest />
-          </SocialIcon>
-        </SocialContainer> */}
-      </Left>
-      <Center>
-        <Title>Useful Links</Title>
-        <List>
-          <ListItem>Home</ListItem>
-          <ListItem>My Account</ListItem>
-          <ListItem>Order</ListItem>
-          <ListItem>My Estate</ListItem>
-          <ListItem>Properties</ListItem>
-          <ListItem>Terms</ListItem>
-        </List>
-      </Center>
-      <Right style={{ backgroundColor: "#ee7e19" }}>
-        <Title>Contact</Title>
-        <ContactItem><Room style={{ marginRight: "10px" }} /> 622 Dixie Path, South Tobinchester 98336</ContactItem>
-        <ContactItem><Phone style={{ marginRight: "10px" }} /> + (234) - 913 - 396 - 8613</ContactItem>
-        <ContactItem><MailOutline style={{ marginRight: "10px" }} /> contact@sell.dev</ContactItem>
-        {/* <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" /> */}
-      </Right>
-    </Container>
-  )
-}
+    <>
+      <FooterStrip />
+      <FooterWrapper>
+        <Column>
+          <LogoBox to="/">
+            <img src={logo} alt="Romax Properties Ltd Logo" />
+          </LogoBox>
+        </Column>
 
-export default Footer
+        <Column>
+          <SectionTitle>Useful Links</SectionTitle>
+          <LinkList>
+            {usefulLinks.map((link) => (
+              <li key={link.label}>
+                <Link to={link.to}>{link.label}</Link>
+              </li>
+            ))}
+          </LinkList>
+        </Column>
+
+        <Column>
+          <SectionTitle>Contact</SectionTitle>
+          {contactDetails.map((item, index) => (
+            <ContactItem
+              key={index}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {item.icon} {item.text}
+            </ContactItem>
+          ))}
+        </Column>
+      </FooterWrapper>
+    </>
+  );
+};
+
+export default Footer;

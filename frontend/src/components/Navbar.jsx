@@ -41,7 +41,6 @@ const Navbar = () => {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        // py={{ xs:1.8,  md:2.5}}
         sx={
           {
             // boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
@@ -60,7 +59,7 @@ const Navbar = () => {
               src="https://static.wixstatic.com/media/38c36f_cf2679a5ddd4403fa15dda614149c8f9~mv2.png/v1/fill/w_187,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PHOTO-2021-09-15-13-59-41_edited.png"
               alt="Romax Properties Ltd Logo"
               style={{
-                height: isNonMobile ? "100px" : "70px"
+                height: isNonMobile ? "60px" : "48px"
               }}
             />
           </Box>
