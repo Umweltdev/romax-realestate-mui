@@ -228,30 +228,29 @@ const FilterComponent = () => {
         </Select>
       </FormControl>
 
-      <Button
-        onClick={() => navigate("/products")}
-        sx={{
-          textTransform: "none",
-          bgcolor: "primary.main",
-          color: "white",
-          // fontSize: "18px",
-          paddingX: "20px",
-          // fontWeight: 600,
-          paddingY: "10px",
-          alignSelf: "start",
-          display: "flex",
-          gap: "5px",
-          borderRadius: "16px",
-          "&:hover": {
-            backgroundColor: "#fc973f",
-          },
-        }}
-      >
-        <Typography variant="subtitle1" letterSpacing="1px">
-          {" "}
-          Quick Search
-        </Typography>
-      </Button>
+<Button
+  onClick={() => navigate("/products")}
+  sx={{
+    textTransform: "none",
+    bgcolor: "primary.main",
+    color: "white",
+    paddingX: "20px",
+    paddingY: "10px",
+    display: "flex",
+    gap: "5px",
+    borderRadius: "16px",
+    alignSelf: "center",
+    width: { xs: "100%", sm: "fit-content" },
+    "&:hover": {
+      backgroundColor: "#fc973f",
+    },
+  }}
+>
+  <Typography variant="subtitle1" letterSpacing="1px">
+    Quick Search
+  </Typography>
+</Button>
+
     </Stack>
     </>
   );
