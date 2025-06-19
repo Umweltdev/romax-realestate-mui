@@ -59,7 +59,7 @@ const Card = ({ imageUrl, title, description }) => {
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "cover",
+            objectFit: "contain",
             display: imgLoaded ? "block" : "none",
             borderTopLeftRadius: 8,
             borderTopRightRadius: 8,
