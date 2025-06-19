@@ -146,7 +146,7 @@ const Products = () => {
 
   return (
     <Box
-      width="100vw"
+      width="100%"
       marginY={10}
       paddingX={0}
       padding={{ xs: 2, sm: 4 }}

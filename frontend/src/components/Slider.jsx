@@ -7,6 +7,7 @@ import {
   Typography,
   Button,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -14,91 +15,104 @@ import "slick-carousel/slick/slick-theme.css";
 import { OtherHousesOutlined } from "@mui/icons-material";
 
 const Card = ({ title, img, desc, bg }) => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box
-      sx={{
-        cursor: "pointer",
-        borderRadius: "8px",
-      }}
+      maxWidth="1440px"
+      width="100%"
+      mx="auto"
+      borderRadius={2}
+      overflow="hidden"
     >
-      <Grid
-        container
-        sx={{
-          alignItems: "center",
-        }}
+      <Box
+        display="flex"
+        flexDirection={{ xs: "column", sm: "row" }}
+        height={{ xs: "auto", sm: 500 }}
+        width="100%"
       >
-        <Grid item xs={12} sm={6} height="500px">
+        {/* Left Image */}
+        <Box
+          sx={{
+            width: { xs: "100%", sm: "50%" },
+            height: { xs: 250, sm: "100%" },
+            backgroundColor: bg,
+          }}
+        >
           <img
-            src={img} alt='slider'
+            src={img}
+            alt="slider"
             style={{
-              height: "100%",
               width: "100%",
+              height: "100%",
               objectFit: "cover",
+              display: "block",
             }}
           />
-        </Grid>
-        <Grid item xs={12} sm={6} order={{ xs: 1, sm: 0 }} alignSelf="stretch">
+        </Box>
+
+        {/* Right Text Content */}
+        <Box
+          sx={{
+            width: { xs: "100%", sm: "50%" },
+            backgroundColor: bg,
+            padding: { xs: 4, sm: 6 },
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Stack
-            spacing={2.5}
-            bgcolor={bg}
-            height="100%"
-            p={{ xs: 4, sm: 3 }}
-            justifyContent="center"
+            spacing={3}
+            alignItems={isSmDown ? "center" : "flex-start"}
+            textAlign={isSmDown ? "center" : "left"}
+            width="100%"
           >
             <Typography
-              variant={"h5"}
-              lineHeight="1.4"
-              fontSize={{ sm: "25px", md: "40px" }}
-              letterSpacing="3.5px"
-            >
-              {isNonMobile
-                ? title?.length > 20
-                  ? `${title.substring(0, 17)}...`
-                  : title
-                : title?.length > 14
-                ? `${title.substring(0, 12)}...`
-                : title}
-            </Typography>
-            <Typography
-              variant="h6"
-              fontWeight="500"
+              variant="h4"
+              fontWeight={700}
+              fontSize={{ xs: "22px", sm: "28px", md: "36px" }}
               letterSpacing="1px"
-              color="#7D879C"
+              lineHeight="1.4"
             >
-              {desc?.length > 50 ? `${desc.substring(0, 47)}...` : desc}
+              {title}
             </Typography>
+
+            <Typography
+              variant="body1"
+              fontSize={{ xs: "14px", sm: "16px" }}
+              color="text.secondary"
+            >
+              {desc?.length > 150 ? `${desc.substring(0, 147)}...` : desc}
+            </Typography>
+
             <Button
-              variant="outlined"
+              variant="contained"
               onClick={() => navigate("/estate")}
               sx={{
                 textTransform: "none",
-                // bgcolor: "teal",
-                color: "primary.main",
-                paddingX: "30px",
-                paddingY: "15px",
-                alignSelf: "start",
-                display: "flex",
-                gap: "5px",
+                bgcolor: "#EB8150",
+                color: "#fff",
+                px: 4,
+                py: 1.5,
                 borderRadius: "10px",
-                borderColor: "primary.main",
-                borderWidth: "2px",
+                fontWeight: 600,
+                gap: 1.2,
+                alignSelf: { xs: "center", sm: "flex-start" },
                 "&:hover": {
-                  color: "#FFFFFF",
-                  bgcolor: "primary.main",
+                  bgcolor: "#d56e40",
                 },
               }}
             >
-              <OtherHousesOutlined />
-              <Typography variant="body2" fontSize="17px" letterSpacing="1px">
-                {" "}
-                OUR ESTATE
+              <Typography fontSize="16px" fontWeight={500}>
+                Our Estate
               </Typography>
             </Button>
           </Stack>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   );
 };
@@ -112,15 +126,15 @@ const Carousel = () => {
     slidesToScroll: 1,
     autoplay: true,
     speed: 3000,
-    autoplaySpeed: 2000,
-    cssEase: "linear",
+    autoplaySpeed: 5000,
+    cssEase: "ease-in-out",
   };
 
   return (
-    <Box py={5}>
+    <Box py={6} width="100%" overflow="hidden">
       <Slider {...settings}>
-        {sliderItems.map((item) => (
-          <Card {...item} />
+        {sliderItems.map((item, index) => (
+          <Card key={index} {...item} />
         ))}
       </Slider>
     </Box>

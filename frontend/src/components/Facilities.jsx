@@ -42,7 +42,10 @@ const Facilities = () => {
       width="100%"
       px={{ xs: 2, sm: 4 }}
       py={12}
-      sx={{ backgroundColor: "#fff" }}
+      sx={{
+        backgroundColor: "#fff",
+        overflow: "hidden",
+       }}
     >
       <Stack spacing={4} maxWidth="1440px" mx="auto">
         <Typography
