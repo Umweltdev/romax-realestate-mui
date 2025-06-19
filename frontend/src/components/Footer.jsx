@@ -36,7 +36,7 @@ const contactDetails = [
 const FooterWrapper = styled.footer`
   background-color: #f9f9f9;
   border-top: 1px solid #ddd;
-  padding: 40px;
+  padding: 50px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 40px;
@@ -107,7 +107,6 @@ const FooterStrip = styled.div`
   background-color: #ee7e19;
   height: 3px;
   width: 100%;
-  margin-top: 40px;
 `;
 
 const Footer = () => {

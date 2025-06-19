@@ -6,6 +6,7 @@ import {
   Typography,
   Stack,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import {
   LocalParkingOutlined,
@@ -20,111 +21,96 @@ import {
 } from "@mui/icons-material";
 
 const Facilities = () => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const theme = useTheme();
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
   const data = [
-    {
-      Icon: LocalParkingOutlined,
-      title: "Ample Parking",
-      desc: "Plenty of parking space for your convenience.",
-    },
-    {
-      Icon: LocalDrinkOutlined,
-      title: "24/7 Water Supply",
-      desc: "Continuous water supply available 24/7.",
-    },
-    {
-      Icon: WbIncandescentOutlined,
-      title: "Stable Electricity",
-      desc: "Reliable and stable electricity supply.",
-    },
-    {
-      Icon: HotelOutlined,
-      title: "Short-term Lets",
-      desc: "Perfect for short-term stays and vacations.",
-    },
-    {
-      Icon: LocalFloristOutlined,
-      title: "Gardens",
-      desc: "Beautifully landscaped gardens to relax in.",
-    },
-    {
-      Icon: NatureOutlined,
-      title: "Ambiance",
-      desc: "A peaceful and pleasant atmosphere.",
-    },
-    {
-      Icon: HomeWorkOutlined,
-      title: "Smart Houses",
-      desc: "Modern homes with smart technology.",
-    },
-    {
-      Icon: WifiOutlined,
-      title: "Wi-fi",
-      desc: "High-speed Wi-Fi for your connectivity needs.",
-    },
-    {
-      Icon: LocationCityOutlined,
-      title: "Beautiful Properties",
-      desc: "Stunning properties in picturesque locations.",
-    },
+    { Icon: LocalParkingOutlined, title: "Ample Parking", desc: "Plenty of parking space for your convenience." },
+    { Icon: LocalDrinkOutlined, title: "24/7 Water Supply", desc: "Continuous water supply available 24/7." },
+    { Icon: WbIncandescentOutlined, title: "Stable Electricity", desc: "Reliable and stable electricity supply." },
+    { Icon: HotelOutlined, title: "Short-term Lets", desc: "Perfect for short-term stays and vacations." },
+    { Icon: LocalFloristOutlined, title: "Gardens", desc: "Beautifully landscaped gardens to relax in." },
+    { Icon: NatureOutlined, title: "Ambiance", desc: "A peaceful and pleasant atmosphere." },
+    { Icon: HomeWorkOutlined, title: "Smart Houses", desc: "Modern homes with smart technology." },
+    { Icon: WifiOutlined, title: "Wi-Fi", desc: "High-speed Wi-Fi for your connectivity needs." },
+    { Icon: LocationCityOutlined, title: "Beautiful Properties", desc: "Stunning properties in picturesque locations." },
   ];
 
   return (
-    <Stack width={{ xs: "95%", md:"75%",  lg:"65%"}} margin="0 auto" pb={6} spacing={2}>
-      <Typography variant="h5" textAlign="center" fontSize="28px">
-        OUR FACILITIES
-      </Typography>
-      <Typography variant="h6" textAlign="center" color="text.secondary">
-        WE PROVIDE FULL SERVICES EVERY STEP OF THE WAY
-      </Typography>
-      <Grid container spacing={3} sx={{
-        marginLeft: "-24px !important"
-      }}>
-        {data.map(({ Icon, title, desc }) => (
-          <Grid item xs={12}  sm={6} lg={4} >
+    <Box
+      width="100%"
+      px={{ xs: 2, sm: 4 }}
+      py={12}
+      sx={{ backgroundColor: "#fff" }}
+    >
+      <Stack spacing={4} maxWidth="1440px" mx="auto">
+        <Typography
+          variant="h4"
+          textAlign="center"
+          fontWeight={600}
+          fontSize={{ xs: "24px", sm: "30px", md: "34px" }}
+        >
+          OUR FACILITIES
+        </Typography>
+
+        <Typography
+          variant="subtitle1"
+          textAlign="center"
+          color="text.secondary"
+          fontSize={{ xs: "14px", sm: "16px" }}
+        >
+          WE PROVIDE FULL SERVICES EVERY STEP OF THE WAY
+        </Typography>
+
+        <Box
+          display="flex"
+          flexWrap="wrap"
+          justifyContent="center"
+          rowGap={4}
+          columnGap={4}
+        >
+          {data.map(({ Icon, title, desc }, idx) => (
             <Paper
+              key={idx}
               elevation={3}
               sx={{
-                display: "flex",
-                gap: "10px",
+                flexBasis: isDesktop ? "30%" : isTablet ? "45%" : "100%",
+                maxWidth: "100%",
+                minWidth: "260px",
+                height: 240,
+                borderRadius: 2,
                 border: "1px solid #dee2e6",
-                borderRadius: "10px",
-                flexDirection: isNonMobile ? "row" : "column",
-                alignItems: isNonMobile ? "start" : "center",
-                paddingX: 2.5,
-                paddingY: 3.5,
-                height: "140px",
-                color: "primary.main"
+                padding: 3,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                mx: "auto",
               }}
             >
-              <Icon
-                sx={{
-                  fontSize: "2.4rem",
-                }}
-              />
-              <Stack spacing={0.5}>
-                <Typography
-                  variant="h6"
-                  fontSize={{ xs: "15px", sm: "18px" }}
-                  textAlign={{ xs: "center", sm: "left" }}
-                >
-                  {title}
-                </Typography>
-                <Typography
-                  variant="subtitle2"
-                  textAlign={{ xs: "center", sm: "left" }}
-                  fontSize={{ xs: "12px", sm: "14px" }}
-                  color="text.secondary"
-                >
-                  {desc}
-                </Typography>
-              </Stack>
+              <Icon sx={{ fontSize: "2.8rem", color: "primary.main", mb: 1 }} />
+              <Typography
+                variant="h6"
+                fontWeight={600}
+                fontSize={{ xs: "16px", sm: "18px" }}
+              >
+                {title}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                fontSize={{ xs: "13px", sm: "14px" }}
+                mt={1}
+              >
+                {desc}
+              </Typography>
             </Paper>
-          </Grid>
-        ))}
-      </Grid>
-    </Stack>
+          ))}
+        </Box>
+      </Stack>
+    </Box>
   );
 };
 
