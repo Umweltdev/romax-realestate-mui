@@ -5,7 +5,6 @@ import {
   Stack,
   Paper,
   Avatar,
-  Grid,
   useMediaQuery,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
@@ -32,109 +31,82 @@ const Profile = ({ openDrawer }) => {
         sx={{
           paddingY: 2,
           paddingX: Mobile ? 3 : 1.5,
-
           display: "flex",
           bgcolor: "white",
-          flexDirection: isNonMobile ? "row" : "column",
+          flexDirection: "column",
         }}
       >
+        {/* Avatar Section */}
+        <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+          <Avatar sx={{ bgcolor: "primary.main", width: 64, height: 64 }}>
+            <PersonIcon sx={{ fontSize: 32 }} />
+          </Avatar>
+        </Box>
+
+        {/* User Info */}
         <Box
           sx={{
-            flex: "1 1 0",
             display: "flex",
-            flexDirection: "column",
-            padding: "8px",
+            flexDirection: isNonMobile ? "row" : "column",
+            flexWrap: "wrap",
           }}
         >
-          <small
-            style={{
-              color: "rgb(125, 135, 156)",
+          <Box
+            sx={{
+              flex: "1 1 0",
+              display: "flex",
+              flexDirection: "column",
+              padding: "8px",
             }}
           >
-            First Name
-          </small>
-          <Typography variant="subtitle2" textTransform="capitalize">
-            {user?.firstName}
-          </Typography>
+            <small style={{ color: "rgb(125, 135, 156)" }}>First Name</small>
+            <Typography variant="subtitle2" sx={{ fontSize: "16px" }} textTransform="capitalize">
+              {user?.firstName}
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              flex: "1 1 0",
+              display: "flex",
+              flexDirection: "column",
+              padding: "8px",
+            }}
+          >
+            <small style={{ color: "rgb(125, 135, 156)" }}>Last Name</small>
+            <Typography variant="subtitle2" sx={{ fontSize: "16px" }} textTransform="capitalize">
+              {user?.lastName}
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              flex: "1 1 0",
+              display: "flex",
+              flexDirection: "column",
+              padding: "8px",
+            }}
+          >
+            <small style={{ color: "rgb(125, 135, 156)" }}>Email</small>
+            <Typography variant="subtitle2" sx={{ fontSize: "16px" }}>
+              {user?.email}
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              flex: "1 1 0",
+              display: "flex",
+              flexDirection: "column",
+              padding: "8px",
+            }}
+          >
+            <small style={{ color: "rgb(125, 135, 156)" }}>Username</small>
+            <Typography variant="subtitle2" sx={{ fontSize: "16px" }}>
+              {user?.username}
+            </Typography>
+          </Box>
         </Box>
-        <Box
-          sx={{
-            flex: "1 1 0",
-            display: "flex",
-            flexDirection: "column",
-            padding: "8px",
-          }}
-        >
-          <small
-            style={{
-              color: "rgb(125, 135, 156)",
-            }}
-          >
-            Last Name
-          </small>
-          <Typography variant="subtitle2" textTransform="capitalize">
-            {user?.lastName}
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            flex: "1 1 0",
-            display: "flex",
-            flexDirection: "column",
-            padding: "8px",
-          }}
-        >
-          <small
-            style={{
-              color: "rgb(125, 135, 156)",
-            }}
-          >
-            Email
-          </small>
-          <Typography variant="subtitle2">{user?.email}</Typography>
-        </Box>
-        <Box
-          sx={{
-            flex: "1 1 0",
-            display: "flex",
-            flexDirection: "column",
-            padding: "8px",
-          }}
-        >
-          <small
-            style={{
-              color: "rgb(125, 135, 156)",
-            }}
-          >
-            Username
-          </small>
-          <Typography variant="subtitle2">{user?.username}</Typography>
-        </Box>
-        {/* <Box
-          sx={{
-            flex: "1 1 0",
-            display: "flex",
-            flexDirection: "column",
-            padding: "8px",
-          }}
-        >
-          <small
-            style={{
-              color: "rgb(125, 135, 156)",
-            }}
-          >
-            Birth Date
-          </small>
-          <Typography variant="subtitle2">
-            {" "}
-            {user?.dob &&
-              new Date(user.dob).toLocaleDateString("en-US", {
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-              })}
-          </Typography>
-        </Box> */}
       </Paper>
     </Stack>
   );

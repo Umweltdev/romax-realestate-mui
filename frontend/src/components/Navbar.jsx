@@ -44,7 +44,11 @@ const Navbar = () => {
         <MobileNavBar openDrawer={() => setDrawer(true)} />
 
         {/* Desktop nav links */}
-        <Stack direction="row" spacing={3.5} display={{ xs: "none", md: "flex" }}>
+        <Stack
+          direction="row"
+          spacing={3.5}
+          display={{ xs: "none", md: "flex" }}
+        >
           {[
             { label: "House Prices", to: "/products" },
             { label: "Our Estates", to: "/estate" },
@@ -63,22 +67,67 @@ const Navbar = () => {
         </Stack>
 
         {/* Desktop right-side user actions */}
-        <Stack direction="row" spacing={3.5} alignItems="center" display={{ xs: "none", md: "flex" }}>
+        <Stack
+          direction="row"
+          spacing={3.5}
+          alignItems="center"
+          display={{ xs: "none", md: "flex" }}
+        >
           {user && (
-            <Link to="/user/profile" style={{ textDecoration: "none" }}>
-              <Typography color="#2b3445" variant="body2" sx={{ "&:hover": { color: "primary.main" } }}>
-                {`Hi, ${user.username}`}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  width: 40,
+                  height: 40,
+                  bgcolor: "primary.main",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  mb: 0.5,
+                }}
+              >
+                <Typography
+                  sx={{ color: "white", fontWeight: 600, fontSize: "16px" }}
+                >
+                  {user.username?.charAt(0).toUpperCase()}
+                </Typography>
+              </Box>
+              <Typography
+                variant="body2"
+                sx={{ fontSize: "14px", color: "#2b3445" }}
+              >
+                {user.username}
               </Typography>
-            </Link>
+            </Box>
           )}
+
           {user?.isAdmin && (
-            <Link to="https://romax-admin.netlify.app/login" style={{ textDecoration: "none" }}>
-              <Typography color="#2b3445" variant="body2" sx={{ "&:hover": { color: "primary.main" } }}>
+            <Link
+              to="https://romax-admin.netlify.app/login"
+              style={{ textDecoration: "none" }}
+            >
+              <Typography
+                color="#2b3445"
+                variant="body2"
+                sx={{ "&:hover": { color: "primary.main" } }}
+              >
                 Admin
               </Typography>
             </Link>
           )}
-          <Typography color="#2b3445" variant="body2" sx={{ "&:hover": { color: "primary.main" } }}>
+          <Typography
+            color="#2b3445"
+            variant="body2"
+            sx={{ "&:hover": { color: "primary.main" } }}
+          >
             Saved
           </Typography>
           <Button
@@ -96,7 +145,9 @@ const Navbar = () => {
               },
             }}
           >
-            <Typography variant="body2">{user ? "Logout" : "Sign in"}</Typography>
+            <Typography variant="body2">
+              {user ? "Logout" : "Sign in"}
+            </Typography>
           </Button>
         </Stack>
       </Stack>
