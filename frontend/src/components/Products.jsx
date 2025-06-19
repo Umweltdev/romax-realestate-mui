@@ -32,7 +32,7 @@ const Card = ({ imageUrl, title, description }) => {
       {/* Image Section */}
       <Box
         sx={{
-          height: "300px", // Increased image height
+          height: "300px",
           overflow: "hidden",
           position: "relative",
           backgroundColor: "#e0e0e0",
@@ -166,7 +166,7 @@ const Products = () => {
   return (
     <Box
       width="100%"
-      marginY={10}
+      marginY={6}
       paddingX={0}
       padding={{ xs: 2, sm: 4 }}
       sx={{
