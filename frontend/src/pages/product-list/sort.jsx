@@ -27,14 +27,12 @@ const Sort = ({ openDrawer, products }) => {
         boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
       }}
     >
-      {" "}
       <Stack
         direction={"row"}
         justifyContent="space-between"
         alignItems="center"
       >
         <Typography variant="h6">
-          {" "}
           {products?.length}
           <span
             style={{
@@ -44,7 +42,7 @@ const Sort = ({ openDrawer, products }) => {
             }}
           >
             results
-          </span>{" "}
+          </span>
         </Typography>
 
         <Stack direction="row" spacing={1} alignItems="center">

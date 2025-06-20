@@ -14,7 +14,6 @@ const Filter = () => {
     <>
       <Range />
       <CustomDivider />
-
       <Type />
       <CustomDivider />
     </>

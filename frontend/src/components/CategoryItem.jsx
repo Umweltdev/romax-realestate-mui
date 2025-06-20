@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, Stack, Button, Typography, MenuItem, Select } from '@mui/material';
+import { Box, Stack, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setMaxBed, setLocation } from '../redux/filter';
+import { setMaxBed } from '../redux/filter';
 
 function CategoryItem({ img, title, cat, bed }) {
   const dispatch = useDispatch();
@@ -10,7 +10,6 @@ function CategoryItem({ img, title, cat, bed }) {
 
   const handleSeeMoreClick = (maxBed) => {
     dispatch(setMaxBed(maxBed));
-    // dispatch(setLocation(title));
     navigate('/products');
   };
 
@@ -29,7 +28,7 @@ function CategoryItem({ img, title, cat, bed }) {
         borderRadius: '8px',
         cursor: 'pointer',
       }}
-      onClick={() => handleSeeMoreClick(bed)}  // Set the maxBed value as needed
+      onClick={() => handleSeeMoreClick(bed)}
     >
       <Stack spacing={1}>
         <Typography variant="h5" color="white" textAlign="center">
@@ -52,7 +51,7 @@ function CategoryItem({ img, title, cat, bed }) {
               backgroundColor: '#fc973f',
             },
           }}
-          onClick={() => handleSeeMoreClick(3)}  // Set the maxBed value as needed
+          onClick={() => handleSeeMoreClick(3)}
         >
           SEE NOW
         </Button>

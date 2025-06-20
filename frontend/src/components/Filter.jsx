@@ -17,7 +17,7 @@ import {
   setMaxCar,
   setType,
 } from "../redux/filter";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { prices, numbers, getLocations, getPropertyType } from "../data";
@@ -250,7 +250,6 @@ const FilterComponent = () => {
     Quick Search
   </Typography>
 </Button>
-
     </Stack>
     </>
   );
