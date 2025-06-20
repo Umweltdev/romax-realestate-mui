@@ -10,13 +10,44 @@ import {
 
 import FilterListIcon from "@mui/icons-material/FilterList";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { setSort } from "../../redux/filter";
+import { setSort, resetState } from "../../redux/filter";
 import { useSelector, useDispatch } from "react-redux";
 
 const Sort = ({ openDrawer, products }) => {
   const dispatch = useDispatch();
-  const { sort } = useSelector((state) => state.filter);
+  const {
+    sort,
+    location,
+    minPrice,
+    maxPrice,
+    minBed,
+    maxBed,
+    minCar,
+    maxCar,
+    type,
+  } = useSelector((state) => state.filter);
   const isNonMobile = useMediaQuery("(min-width:968px)");
+
+  // Check if any filter is active
+  const isFilterActive =
+    location ||
+    minPrice ||
+    maxPrice ||
+    minBed ||
+    maxBed ||
+    minCar ||
+    maxCar ||
+    type;
+
+  const handleFilterClick = () => {
+    if (isFilterActive) {
+      // Reset the filters
+      dispatch(resetState());
+    } else {
+      // Open the drawer
+      openDrawer();
+    }
+  };
 
   return (
     <Box
@@ -27,14 +58,12 @@ const Sort = ({ openDrawer, products }) => {
         boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
       }}
     >
-      {" "}
       <Stack
         direction={"row"}
         justifyContent="space-between"
         alignItems="center"
       >
         <Typography variant="h6">
-          {" "}
           {products?.length}
           <span
             style={{
@@ -44,7 +73,7 @@ const Sort = ({ openDrawer, products }) => {
             }}
           >
             results
-          </span>{" "}
+          </span>
         </Typography>
 
         <Stack direction="row" spacing={1} alignItems="center">
@@ -59,27 +88,35 @@ const Sort = ({ openDrawer, products }) => {
               }}
             >
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
                 value={sort}
-                onChange={(e) => { 
+                onChange={(e) => {
                   dispatch(setSort(e.target.value));
                 }}
                 sx={{
                   borderRadius: "10px",
                 }}
               >
-                <MenuItem value={"highest"}>Highest </MenuItem>
-                <MenuItem value={"lowest"}>Lowest </MenuItem>
-                <MenuItem value={"newest"}>Newest </MenuItem>
-                <MenuItem value={"oldest"}>Oldest </MenuItem>
+                <MenuItem value={"highest"}>Highest</MenuItem>
+                <MenuItem value={"lowest"}>Lowest</MenuItem>
+                <MenuItem value={"newest"}>Newest</MenuItem>
+                <MenuItem value={"oldest"}>Oldest</MenuItem>
               </Select>
             </FormControl>
           </Stack>
+
+          {/* Mobile Filter Icon Button */}
           <IconButton
-            onClick={openDrawer}
+            onClick={handleFilterClick}
             sx={{
               display: isNonMobile ? "none" : "inline-flex",
+              bgcolor: isFilterActive ? "#eb8150" : "transparent",
+              color: isFilterActive ? "white" : "inherit",
+              borderRadius: "8px",
+              transition: "all 0.3s ease",
+              border: isFilterActive ? "1px solid #eb8150" : "1px solid #ddd",
+              "&:hover": {
+                backgroundColor: isFilterActive ? "#e4753f" : "#f9f9f9",
+              },
             }}
           >
             <FilterListIcon />

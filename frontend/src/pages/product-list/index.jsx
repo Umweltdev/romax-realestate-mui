@@ -19,11 +19,10 @@ import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
 import Range from "./range";
 import { publicRequest } from "../../requestMethods";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { SentimentVeryDissatisfied } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import { resetState } from "../../redux/filter";
-
 
 export const CustomDivider = styled(Divider)`
   margin: 16px 0px 24px;
@@ -34,7 +33,6 @@ export const CustomDivider = styled(Divider)`
 
 const ProductListing = () => {
   const dispatch = useDispatch();
-  // const location = useLocation();
   const navigate = useNavigate();
   const {
     location,
@@ -51,63 +49,56 @@ const ProductListing = () => {
   const [drawer, setDrawer] = useState(false);
   const [products, setProducts] = useState([]);
 
-  const openDrawer = () => {
-    setDrawer(true);
-  };
-
-  const closeDrawer = () => {
-    setDrawer(false);
-  };
+  const openDrawer = () => setDrawer(true);
+  const closeDrawer = () => setDrawer(false);
 
   const handleRefresh = () => {
     navigate("/products");
     dispatch(resetState());
   };
-  useEffect(() => {
-    const getProducts = async () => {
-      setLoading(true);
-      const queryParams = `${sort ? `sort=${sort}&` : ""}${
-        minPrice ? `minPrice=${minPrice}&` : ""
-      }${maxPrice ? `maxPrice=${maxPrice}&` : ""}${
-        minBed ? `minBed=${minBed}&` : ""
-      }${maxBed ? `maxBed=${maxBed}&` : ""}${
-        minCar ? `minCar=${minCar}&` : ""
-      }${maxCar ? `maxCar=${maxCar}&` : ""}${
-        type ? `propertyType=${type}&` : ""
-      }${location ? `location=${location}&` : ""}`;
-      try {
-        console.log(queryParams);
-        const res = await publicRequest.get(`/products?${queryParams}`);
-        setLoading(false);
-        setProducts(res.data);
-      } catch (error) {
-        setLoading(false);
 
-        console.log(error);
-      }
-    };
+  const getProducts = async () => {
+    setLoading(true);
+    const queryParams = `${sort ? `sort=${sort}&` : ""}${
+      minPrice ? `minPrice=${minPrice}&` : ""
+    }${maxPrice ? `maxPrice=${maxPrice}&` : ""}${
+      minBed ? `minBed=${minBed}&` : ""
+    }${maxBed ? `maxBed=${maxBed}&` : ""}${
+      minCar ? `minCar=${minCar}&` : ""
+    }${maxCar ? `maxCar=${maxCar}&` : ""}${
+      type ? `propertyType=${type}&` : ""
+    }${location ? `location=${location}&` : ""}`;
+
+    try {
+      const res = await publicRequest.get(`/products?${queryParams}`);
+      setProducts(res.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     getProducts();
-  }, [
-    sort,
-    minPrice,
-    maxPrice,
-    minBed,
-    maxBed,
-    minCar,
-    maxCar,
-    type,
-    location,
-  ]);
-  console.log(maxBed)
+  }, [sort, minPrice, maxPrice, minBed, maxBed, minCar, maxCar, type, location]);
+
   return (
     <>
       <Announcement />
       <Navbar />
-      <Box bgcolor="#f4f4f5" py={5}>
+      <Box bgcolor="#f4f4f5" py={5} minHeight="100vh">
         <Container maxWidth="lg">
           <Sort openDrawer={openDrawer} products={products} />
-          <Grid container spacing={3} marginTop={4}>
-            <Grid item md={3} display={{ xs: "none", md: "block" }}>
+          <Box sx={{ display: "flex", flexDirection: "row", mt: 4 }}>
+            {/* Left Filter */}
+            <Box
+              sx={{
+                width: "25%",
+                display: { xs: "none", md: "block" },
+                pr: 3,
+              }}
+            >
               <Box
                 bgcolor="white"
                 py={3}
@@ -115,18 +106,58 @@ const ProductListing = () => {
                 borderRadius="10px"
                 sx={{
                   boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
+                  position: "sticky",
+                  top: "90px",
                 }}
               >
-                <Range />
-
-                {/* <Type
-                  selectedTypes={selectedTypes}
-                  setSelectedTypes={setSelectedTypes}
-                /> */}
+                <Range textAlign="center" />
                 <CustomDivider />
+                <Stack direction="row" spacing={1}>
+                  <Button
+                    onClick={getProducts}
+                    disabled={loading}
+                    fullWidth
+                    sx={{
+                      textTransform: "none",
+                      backgroundColor: "#eb8150",
+                      color: "white",
+                      fontWeight: 600,
+                      mt: 2,
+                      borderRadius: "12px",
+                      paddingY: "12px",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                      '&:hover': {
+                        backgroundColor: "#e06c35",
+                      },
+                    }}
+                  >
+                    Search
+                  </Button>
+
+                  <Button
+                    onClick={() => dispatch(resetState())}
+                    fullWidth
+                    sx={{
+                      textTransform: "none",
+                      border: "1px solid #eb8150",
+                      color: "#eb8150",
+                      fontWeight: 600,
+                      mt: 2,
+                      borderRadius: "12px",
+                      paddingY: "12px",
+                      '&:hover': {
+                        backgroundColor: "#fff5ec",
+                      },
+                    }}
+                  >
+                    Clear
+                  </Button>
+                </Stack>
               </Box>
-            </Grid>
-            <Grid item xs={12} md={9}>
+            </Box>
+
+            {/* Right Content */}
+            <Box sx={{ width: { xs: "100%", md: "75%" } }}>
               {loading ? (
                 <Box
                   sx={{
@@ -150,16 +181,12 @@ const ProductListing = () => {
                     textAlign: "center",
                   }}
                 >
-                  <SentimentVeryDissatisfied
-                    sx={{
-                      fontSize: "40px",
-                    }}
-                  />
+                  <SentimentVeryDissatisfied sx={{ fontSize: "40px" }} />
                   <Typography variant="h6">
-                    Sorry, we couldn't find the property you are looking for.{" "}
+                    Sorry, we couldn't find the property you are looking for.
                   </Typography>
                   <Typography variant="h6">
-                    Please explore our other exciting Properties!{" "}
+                    Please explore our other exciting Properties!
                   </Typography>
                   <Button
                     onClick={handleRefresh}
@@ -173,7 +200,7 @@ const ProductListing = () => {
                       display: "flex",
                       gap: "5px",
                       borderRadius: "16px",
-                      "&:hover": {
+                      '&:hover': {
                         backgroundColor: "#119595",
                       },
                     }}
@@ -183,7 +210,6 @@ const ProductListing = () => {
                       fontSize="17px"
                       letterSpacing="1px"
                     >
-                      {" "}
                       Discover More
                     </Typography>
                   </Button>
@@ -191,12 +217,12 @@ const ProductListing = () => {
               ) : (
                 <Stack spacing={3}>
                   {products.map((prod) => (
-                    <Card {...prod} />
+                    <Card key={prod._id} {...prod} />
                   ))}
                 </Stack>
               )}
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Container>
       </Box>
 
@@ -206,9 +232,8 @@ const ProductListing = () => {
         open={drawer}
         onClose={closeDrawer}
         anchor="left"
-        bgcolor="white"
         sx={{
-          zIndex: "1200",
+          zIndex: 1200,
           "& .MuiPaper-root": {
             backgroundColor: "white",
           },
@@ -222,7 +247,6 @@ const ProductListing = () => {
           sx={{
             width: "300px",
             height: "100vh",
-
             overflowY: "scroll",
             "&::-webkit-scrollbar": {
               width: "5px",
@@ -236,9 +260,54 @@ const ProductListing = () => {
             },
           }}
         >
-          <Range />
+          <Range textAlign="center" />
           <CustomDivider />
-          {/* <Type /> */}
+          <Stack direction="row" spacing={1}>
+            <Button
+              onClick={() => {
+                closeDrawer();
+                getProducts();
+              }}
+              fullWidth
+              sx={{
+                textTransform: "none",
+                backgroundColor: "#eb8150",
+                color: "white",
+                fontWeight: 600,
+                mt: 2,
+                borderRadius: "12px",
+                paddingY: "12px",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                '&:hover': {
+                  backgroundColor: "#e06c35",
+                },
+              }}
+            >
+              Search
+            </Button>
+
+            <Button
+              onClick={() => {
+                dispatch(resetState());
+                closeDrawer();
+              }}
+              fullWidth
+              sx={{
+                textTransform: "none",
+                border: "1px solid #eb8150",
+                color: "#eb8150",
+                fontWeight: 600,
+                mt: 2,
+                borderRadius: "12px",
+                paddingY: "12px",
+                '&:hover': {
+                  backgroundColor: "#fff5ec",
+                },
+              }}
+            >
+              Clear
+            </Button>
+          </Stack>
         </Box>
       </Drawer>
       <Footer />

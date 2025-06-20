@@ -50,7 +50,7 @@ const EstateListing = () => {
           } else if (sort === "oldest") {
             return new Date(a.createdAt) - new Date(b.createdAt);
           }
-          return 0; // Default to no sorting
+          return 0;
         });
 
         setProducts(sortedProducts);
