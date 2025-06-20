@@ -112,25 +112,47 @@ const ProductListing = () => {
               >
                 <Range textAlign="center" />
                 <CustomDivider />
-                <Button
-                  onClick={getProducts}
-                  fullWidth
-                  sx={{
-                    textTransform: "none",
-                    backgroundColor: "#eb8150",
-                    color: "white",
-                    fontWeight: 600,
-                    mt: 2,
-                    borderRadius: "12px",
-                    paddingY: "12px",
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                    '&:hover': {
-                      backgroundColor: "#e06c35",
-                    },
-                  }}
-                >
-                  Search
-                </Button>
+                <Stack direction="row" spacing={1}>
+                  <Button
+                    onClick={getProducts}
+                    disabled={loading}
+                    fullWidth
+                    sx={{
+                      textTransform: "none",
+                      backgroundColor: "#eb8150",
+                      color: "white",
+                      fontWeight: 600,
+                      mt: 2,
+                      borderRadius: "12px",
+                      paddingY: "12px",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                      '&:hover': {
+                        backgroundColor: "#e06c35",
+                      },
+                    }}
+                  >
+                    Search
+                  </Button>
+
+                  <Button
+                    onClick={() => dispatch(resetState())}
+                    fullWidth
+                    sx={{
+                      textTransform: "none",
+                      border: "1px solid #eb8150",
+                      color: "#eb8150",
+                      fontWeight: 600,
+                      mt: 2,
+                      borderRadius: "12px",
+                      paddingY: "12px",
+                      '&:hover': {
+                        backgroundColor: "#fff5ec",
+                      },
+                    }}
+                  >
+                    Clear
+                  </Button>
+                </Stack>
               </Box>
             </Box>
 
@@ -240,28 +262,52 @@ const ProductListing = () => {
         >
           <Range textAlign="center" />
           <CustomDivider />
-          <Button
-            onClick={() => {
-              closeDrawer();
-              getProducts();
-            }}
-            fullWidth
-            sx={{
-              textTransform: "none",
-              backgroundColor: "#eb8150",
-              color: "white",
-              fontWeight: 600,
-              mt: 2,
-              borderRadius: "12px",
-              paddingY: "12px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-              '&:hover': {
-                backgroundColor: "#e06c35",
-              },
-            }}
-          >
-            Search
-          </Button>
+          <Stack direction="row" spacing={1}>
+            <Button
+              onClick={() => {
+                closeDrawer();
+                getProducts();
+              }}
+              fullWidth
+              sx={{
+                textTransform: "none",
+                backgroundColor: "#eb8150",
+                color: "white",
+                fontWeight: 600,
+                mt: 2,
+                borderRadius: "12px",
+                paddingY: "12px",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                '&:hover': {
+                  backgroundColor: "#e06c35",
+                },
+              }}
+            >
+              Search
+            </Button>
+
+            <Button
+              onClick={() => {
+                dispatch(resetState());
+                closeDrawer();
+              }}
+              fullWidth
+              sx={{
+                textTransform: "none",
+                border: "1px solid #eb8150",
+                color: "#eb8150",
+                fontWeight: 600,
+                mt: 2,
+                borderRadius: "12px",
+                paddingY: "12px",
+                '&:hover': {
+                  backgroundColor: "#fff5ec",
+                },
+              }}
+            >
+              Clear
+            </Button>
+          </Stack>
         </Box>
       </Drawer>
       <Footer />
