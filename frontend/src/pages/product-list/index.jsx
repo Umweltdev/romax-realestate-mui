@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import {
   Container,
   Box,
-  Grid,
   Stack,
   Typography,
   Divider,
@@ -10,6 +9,8 @@ import {
   Drawer,
   CircularProgress,
   Button,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import Sort from "./sort";
 import Card from "./card";
@@ -22,7 +23,7 @@ import { publicRequest } from "../../requestMethods";
 import { useNavigate } from "react-router";
 import { SentimentVeryDissatisfied } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
-import { resetState } from "../../redux/filter";
+import { resetState, setSort } from "../../redux/filter";
 
 export const CustomDivider = styled(Divider)`
   margin: 16px 0px 24px;
@@ -45,6 +46,7 @@ const ProductListing = () => {
     type,
     sort,
   } = useSelector((state) => state.filter);
+
   const [loading, setLoading] = useState(false);
   const [drawer, setDrawer] = useState(false);
   const [products, setProducts] = useState([]);
@@ -90,8 +92,9 @@ const ProductListing = () => {
       <Box bgcolor="#f4f4f5" py={5} minHeight="100vh">
         <Container maxWidth="lg">
           <Sort openDrawer={openDrawer} products={products} />
+
           <Box sx={{ display: "flex", flexDirection: "row", mt: 4 }}>
-            {/* Left Filter */}
+            {/* Left Filter Sidebar */}
             <Box
               sx={{
                 width: "25%",
@@ -112,6 +115,30 @@ const ProductListing = () => {
               >
                 <Range textAlign="center" />
                 <CustomDivider />
+
+                {/* Sort Dropdown */}
+                <Select
+                  value={sort}
+                  onChange={(e) => dispatch(setSort(e.target.value))}
+                  fullWidth
+                  size="small"
+                  displayEmpty
+                  sx={{
+                    borderRadius: "10px",
+                    backgroundColor: "#f9f9f9",
+                    mb: 2,
+                  }}
+                >
+                  <MenuItem disabled value="">
+                    Sort by
+                  </MenuItem>
+                  <MenuItem value="newest">Newest</MenuItem>
+                  <MenuItem value="oldest">Oldest</MenuItem>
+                  <MenuItem value="highest">Price: High to Low</MenuItem>
+                  <MenuItem value="lowest">Price: Low to High</MenuItem>
+                </Select>
+
+                {/* Action Buttons */}
                 <Stack direction="row" spacing={1}>
                   <Button
                     onClick={getProducts}
@@ -133,7 +160,6 @@ const ProductListing = () => {
                   >
                     Search
                   </Button>
-
                   <Button
                     onClick={() => dispatch(resetState())}
                     fullWidth
@@ -156,7 +182,7 @@ const ProductListing = () => {
               </Box>
             </Box>
 
-            {/* Right Content */}
+            {/* Main Content Area */}
             <Box sx={{ width: { xs: "100%", md: "75%" } }}>
               {loading ? (
                 <Box
@@ -197,19 +223,13 @@ const ProductListing = () => {
                       paddingX: "30px",
                       paddingY: "15px",
                       alignSelf: "center",
-                      display: "flex",
-                      gap: "5px",
                       borderRadius: "16px",
                       '&:hover': {
                         backgroundColor: "#119595",
                       },
                     }}
                   >
-                    <Typography
-                      variant="body2"
-                      fontSize="17px"
-                      letterSpacing="1px"
-                    >
+                    <Typography variant="body2" fontSize="17px" letterSpacing="1px">
                       Discover More
                     </Typography>
                   </Button>
@@ -228,6 +248,7 @@ const ProductListing = () => {
 
       <Newsletter />
 
+      {/* Mobile Drawer Filter */}
       <Drawer
         open={drawer}
         onClose={closeDrawer}
@@ -251,9 +272,6 @@ const ProductListing = () => {
             "&::-webkit-scrollbar": {
               width: "5px",
             },
-            "&::-webkit-scrollbar-track": {
-              background: "transparent",
-            },
             "&::-webkit-scrollbar-thumb": {
               background: "#ebeff7",
               borderRadius: "100px",
@@ -262,6 +280,29 @@ const ProductListing = () => {
         >
           <Range textAlign="center" />
           <CustomDivider />
+
+          {/* Sort Dropdown in Drawer */}
+          <Select
+            value={sort}
+            onChange={(e) => dispatch(setSort(e.target.value))}
+            fullWidth
+            size="small"
+            displayEmpty
+            sx={{
+              borderRadius: "10px",
+              backgroundColor: "#f9f9f9",
+              mb: 2,
+            }}
+          >
+            <MenuItem disabled value="">
+              Sort by
+            </MenuItem>
+            <MenuItem value="newest">Newest</MenuItem>
+            <MenuItem value="oldest">Oldest</MenuItem>
+            <MenuItem value="highest">Price: High to Low</MenuItem>
+            <MenuItem value="lowest">Price: Low to High</MenuItem>
+          </Select>
+
           <Stack direction="row" spacing={1}>
             <Button
               onClick={() => {
@@ -285,7 +326,6 @@ const ProductListing = () => {
             >
               Search
             </Button>
-
             <Button
               onClick={() => {
                 dispatch(resetState());
@@ -310,6 +350,7 @@ const ProductListing = () => {
           </Stack>
         </Box>
       </Drawer>
+
       <Footer />
     </>
   );
