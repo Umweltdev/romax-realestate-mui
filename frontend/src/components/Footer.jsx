@@ -33,6 +33,12 @@ const contactDetails = [
   },
 ];
 
+const FooterStrip = styled.div`
+  background-color: #ee7e19;
+  height: 3px;
+  width: 100%;
+`;
+
 const FooterWrapper = styled.footer`
   background-color: #f9f9f9;
   border-top: 1px solid #ddd;
@@ -42,14 +48,25 @@ const FooterWrapper = styled.footer`
   gap: 40px;
   text-align: left;
 
-  ${mobile({ padding: "40px 20px", textAlign: "center" })};
+  ${mobile({
+    padding: "40px 20px",
+    textAlign: "center",
+    justifyItems: "center",
+  })};
 `;
 
-const Column = styled.div``;
+const Column = styled.div`
+  ${mobile({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  })}
+`;
 
 const LogoBox = styled(Link)`
   display: flex;
   justify-content: center;
+  align-items: center;
 
   img {
     height: 80px;
@@ -66,6 +83,7 @@ const SectionTitle = styled.h3`
 const LinkList = styled.ul`
   list-style: none;
   padding: 0;
+  margin: 0;
 
   li {
     margin-bottom: 12px;
@@ -101,12 +119,10 @@ const ContactItem = styled.a`
   &:hover {
     color: #ee7e19;
   }
-`;
 
-const FooterStrip = styled.div`
-  background-color: #ee7e19;
-  height: 3px;
-  width: 100%;
+  ${mobile({
+    justifyContent: "center",
+  })}
 `;
 
 const Footer = () => {
@@ -140,7 +156,8 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {item.icon} {item.text}
+              {item.icon}
+              {item.text}
             </ContactItem>
           ))}
         </Column>

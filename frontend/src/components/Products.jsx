@@ -17,65 +17,65 @@ const Card = ({ imageUrl, title, description }) => {
   return (
     <Box
       sx={{
-        borderRadius: 2,
+        borderRadius: 3, // more curve
         overflow: "hidden",
         boxShadow: 3,
-        bgcolor: "#f9f9f9",
+        bgcolor: "white",
         display: "flex",
         flexDirection: "column",
         height: "100%",
         position: "relative",
         mt: 2,
-        mb: 2,
+        mb: 4,
       }}
     >
       {/* Image Section */}
       <Box
         sx={{
           height: "300px",
-          overflow: "hidden",
+          width: "100%",
           position: "relative",
           backgroundColor: "#e0e0e0",
-          borderTopLeftRadius: 8,
-          borderTopRightRadius: 8,
         }}
       >
         {!imgLoaded && (
           <Box
             sx={{
               position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: 10,
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 1,
             }}
           >
             <CircularProgress sx={{ color: "black" }} />
           </Box>
         )}
+
         <img
           src={imageUrl}
           alt={title}
+          onLoad={() => setImgLoaded(true)}
+          onError={() => setImgLoaded(true)}
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "contain",
+            objectFit: "cover",
             display: imgLoaded ? "block" : "none",
-            borderTopLeftRadius: 8,
-            borderTopRightRadius: 8,
           }}
-          onLoad={() => setImgLoaded(true)}
-          onError={() => setImgLoaded(true)}
         />
       </Box>
 
       {/* Text Section */}
       <Box
         sx={{
-          p: 2,
-          textAlign: "center",
-          backgroundColor: "#f9f9f9",
-          height: "fit-content",
+          p: 3,
+          backgroundColor: "white",
+          flex: 1, // ensure text fills the height
         }}
       >
         <Typography
@@ -106,7 +106,6 @@ const Card = ({ imageUrl, title, description }) => {
     </Box>
   );
 };
-
 
 
 const Products = () => {
@@ -170,12 +169,13 @@ const Products = () => {
       paddingX={0}
       padding={{ xs: 2, sm: 4 }}
       sx={{
-        backgroundColor: "#fff",
+        backgroundColor: "#f9f9f9",
         minHeight: containerHeight,
         overflow: "hidden",
         boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
+        marginBottom: 10,
         justifyContent: isMobile ? "flex-start" : "center",
       }}
     >
@@ -219,7 +219,7 @@ const Products = () => {
               key={index}
               px={1}
               sx={{
-                height: "calc(65vh - 120px)",
+                height: "calc(65vh - 100px)",
                 boxSizing: "border-box",
               }}
             >

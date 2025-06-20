@@ -41,9 +41,10 @@ const Facilities = () => {
     <Box
       width="100%"
       px={{ xs: 2, sm: 4 }}
-      py={12}
+      py={2}
+      mb={12}
       sx={{
-        backgroundColor: "#fff",
+        backgroundColor: "#FFF",
         overflow: "hidden",
        }}
     >
