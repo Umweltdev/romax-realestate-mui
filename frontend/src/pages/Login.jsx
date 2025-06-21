@@ -20,7 +20,6 @@ import { login } from "../redux/apiCalls";
 import { resetState } from "../redux/userRedux";
 import Swal from "sweetalert2";
 
-
 const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     fontSize: "14px",
@@ -52,49 +51,50 @@ const Login = ({ bgcolor, handleClose }) => {
 
   const formikRef = useRef(null);
 
-const hasShownAlert = useRef(false);
+  const hasShownAlert = useRef(false);
+  const prevUserRef = useRef(null);
 
-useEffect(() => {
-  if (currentUser && !hasShownAlert.current) {
-    hasShownAlert.current = true;
+  useEffect(() => {
+    const prevUser = prevUserRef.current;
+     if (!prevUser && currentUser && !hasShownAlert.current) {
+       hasShownAlert.current = true;
+       prevUserRef.current = currentUser;
 
-    Swal.fire({
-      icon: "success",
-      title: "Login Successful",
-      text: `Welcome back, ${currentUser.username || "User"}!`,
-      timer: 1500,
-      showConfirmButton: false,
-    }).then(() => {
-      if (location.pathname === "/login") {
-        navigate("/");
-      }
-      handleClose?.();
-    });
-  }
+       Swal.fire({
+         icon: "success",
+         title: "Login Successful",
+         text: `Welcome back, ${currentUser.username || "User"}!`,
+         timer: 1500,
+         showConfirmButton: false,
+       }).then(() => {
+         if (location.pathname === "/login") {
+           navigate("/");
+         }
+         handleClose?.();
+       });
+     }
 
-  if (error && !hasShownAlert.current) {
-    hasShownAlert.current = true;
+    if (error && !hasShownAlert.current) {
+      hasShownAlert.current = true;
 
-    Swal.fire({
-      icon: "error",
-      title: "Login Failed",
-      text: errorMessage || "Something went wrong. Please try again.",
-    }).then(() => {
-      dispatch(resetState());
-      hasShownAlert.current = false;
-    });
-  }
-}, [
-  currentUser,
-  error,
-  errorMessage,
-  location.pathname,
-  navigate,
-  handleClose,
-  dispatch,
-]);
-
-
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: errorMessage || "Something went wrong. Please try again.",
+      }).then(() => {
+        dispatch(resetState());
+        hasShownAlert.current = false;
+      });
+    }
+  }, [
+    currentUser,
+    error,
+    errorMessage,
+    location.pathname,
+    navigate,
+    handleClose,
+    dispatch,
+  ]);
 
   // 🔧 Detect browser autofill after component mounts
   useEffect(() => {
