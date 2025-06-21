@@ -1,17 +1,18 @@
 import {
   Box,
   TextField,
-  InputAdornment,
   Button,
   Typography,
-  useMediaQuery,
   useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { Send } from "@mui/icons-material";
+import { useState } from "react";
 
 const Newsletter = () => {
   const theme = useTheme();
   const isNonMobile = useMediaQuery(theme.breakpoints.up("md"));
+  const [hasInput, setHasInput] = useState(false);
 
   return (
     <Box
@@ -41,52 +42,67 @@ const Newsletter = () => {
         textTransform="uppercase"
         letterSpacing="1px"
         fontSize={{ xs: "13px", sm: "14px", md: "16px" }}
-        mb={3}
+        mb={4}
         maxWidth="600px"
       >
         Get updates on our latest properties.
       </Typography>
 
-      <TextField
-        placeholder="Enter your email address"
-        variant="outlined"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Button
-                sx={{
-                  textTransform: "none",
-                  bgcolor: "primary.main",
-                  color: "#fff",
-                  px: { xs: 2.5, sm: 4 },
-                  py: 1.2,
-                  fontSize: { xs: "14px", sm: "16px" },
-                  fontWeight: 600,
-                  borderTopRightRadius: "1200px",
-                  borderBottomRightRadius: "1200px",
-                  height: "100%",
-                  "&:hover": {
-                    backgroundColor: "primary.dark",
-                  },
-                }}
-              >
-                <Send />
-              </Button>
-            </InputAdornment>
-          ),
+      <Box
+        component="form"
+        onSubmit={(e) => {
+          e.preventDefault();
         }}
         sx={{
+          display: "flex",
           width: { xs: "100%", sm: "90%", md: "60%" },
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "1200px",
-            pl: 2,
-            py: 0.5,
-            "& input": {
-              fontSize: { xs: "14px", sm: "16px" },
-            },
-          },
+          borderRadius: "1200px",
+          overflow: "hidden",
+          border: "1px solid #ccc",
+          backgroundColor: !hasInput ? "#fff" : "transparent",
         }}
-      />
+      >
+        <TextField
+          fullWidth
+          placeholder="Enter your email address"
+          variant="outlined"
+          onChange={(e) => setHasInput(e.target.value.length > 0)}
+          sx={{
+            "& fieldset": { border: "none" },
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 0,
+              px: 2,
+              py: 0.5,
+              height: "100%",
+              backgroundColor: "transparent",
+              "& input": {
+                paddingY: 1.8,
+                fontSize: { xs: "14px", sm: "16px" },
+              },
+              "&.Mui-focused": {
+                backgroundColor: "transparent",
+              },
+            },
+          }}
+        />
+        <Button
+          type="submit"
+          sx={{
+            bgcolor: "primary.main",
+            color: "#fff",
+            px: { xs: 3, sm: 4 },
+            fontSize: { xs: "14px", sm: "16px" },
+            fontWeight: 600,
+            borderRadius: 0,
+            whiteSpace: "nowrap",
+            "&:hover": {
+              backgroundColor: "primary.dark",
+            },
+          }}
+        >
+          <Send sx={{ mr: 0 }} />
+        </Button>
+      </Box>
     </Box>
   );
 };
