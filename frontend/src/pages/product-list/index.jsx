@@ -11,6 +11,7 @@ import {
   Button,
   Select,
   MenuItem,
+  useMediaQuery,
 } from "@mui/material";
 import Sort from "./sort";
 import Card from "./card";
@@ -50,6 +51,7 @@ const ProductListing = () => {
   const [loading, setLoading] = useState(false);
   const [drawer, setDrawer] = useState(false);
   const [products, setProducts] = useState([]);
+  const isMobile = useMediaQuery("(max-width: 900px)");
 
   const openDrawer = () => setDrawer(true);
   const closeDrawer = () => setDrawer(false);
@@ -83,7 +85,17 @@ const ProductListing = () => {
 
   useEffect(() => {
     getProducts();
-  }, [sort, minPrice, maxPrice, minBed, maxBed, minCar, maxCar, type, location]);
+  }, [
+    sort,
+    minPrice,
+    maxPrice,
+    minBed,
+    maxBed,
+    minCar,
+    maxCar,
+    type,
+    location,
+  ]);
 
   return (
     <>
@@ -94,96 +106,100 @@ const ProductListing = () => {
           <Sort openDrawer={openDrawer} products={products} />
 
           <Box sx={{ display: "flex", flexDirection: "row", mt: 4 }}>
-            {/* Left Filter Sidebar */}
-            <Box
-              sx={{
-                width: "25%",
-                display: { xs: "none", md: "block" },
-                pr: 3,
-              }}
-            >
+            {/* Sidebar */}
+            {!isMobile && (
               <Box
-                bgcolor="white"
-                py={3}
-                px={2}
-                borderRadius="10px"
                 sx={{
-                  boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
-                  position: "sticky",
-                  top: "90px",
+                  width: { md: "18%", lg: "15%" },
+                  pr: 2,
                 }}
               >
-                <Range textAlign="center" />
-                <CustomDivider />
-
-                {/* Sort Dropdown */}
-                <Select
-                  value={sort}
-                  onChange={(e) => dispatch(setSort(e.target.value))}
-                  fullWidth
-                  size="small"
-                  displayEmpty
+                <Box
+                  bgcolor="white"
+                  py={2}
+                  px={2}
+                  borderRadius="10px"
                   sx={{
-                    borderRadius: "10px",
-                    backgroundColor: "#f9f9f9",
-                    mb: 2,
+                    boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
+                    position: "relative",
                   }}
                 >
-                  <MenuItem disabled value="">
-                    Sort by
-                  </MenuItem>
-                  <MenuItem value="newest">Newest</MenuItem>
-                  <MenuItem value="oldest">Oldest</MenuItem>
-                  <MenuItem value="highest">Price: High to Low</MenuItem>
-                  <MenuItem value="lowest">Price: Low to High</MenuItem>
-                </Select>
+                  <Box display="flex" justifyContent="center" mb={2}>
+                    <img
+                      src="/logo.png"
+                      alt="Logo"
+                      style={{
+                        width: "60px",
+                        height: "auto",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </Box>
 
-                {/* Action Buttons */}
-                <Stack direction="row" spacing={1}>
-                  <Button
-                    onClick={getProducts}
-                    disabled={loading}
+                  <Range textAlign="center" />
+                  <CustomDivider />
+
+                  <Select
+                    value={sort}
+                    onChange={(e) => dispatch(setSort(e.target.value))}
                     fullWidth
+                    size="small"
+                    displayEmpty
+                    variant="outlined"
                     sx={{
-                      textTransform: "none",
-                      backgroundColor: "#eb8150",
-                      color: "white",
-                      fontWeight: 600,
-                      mt: 2,
-                      borderRadius: "12px",
-                      paddingY: "12px",
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                      '&:hover': {
-                        backgroundColor: "#e06c35",
-                      },
+                      borderRadius: "8px",
+                      backgroundColor: "#f9f9f9",
+                      mb: 2,
                     }}
                   >
-                    Search
-                  </Button>
-                  <Button
-                    onClick={() => dispatch(resetState())}
-                    fullWidth
-                    sx={{
-                      textTransform: "none",
-                      border: "1px solid #eb8150",
-                      color: "#eb8150",
-                      fontWeight: 600,
-                      mt: 2,
-                      borderRadius: "12px",
-                      paddingY: "12px",
-                      '&:hover': {
-                        backgroundColor: "#fff5ec",
-                      },
-                    }}
-                  >
-                    Clear
-                  </Button>
-                </Stack>
+                    <MenuItem disabled value="">
+                      Sort by
+                    </MenuItem>
+                    <MenuItem value="newest">Newest</MenuItem>
+                    <MenuItem value="oldest">Oldest</MenuItem>
+                    <MenuItem value="highest">Price: High to Low</MenuItem>
+                    <MenuItem value="lowest">Price: Low to High</MenuItem>
+                  </Select>
+
+                  <Stack direction="row" spacing={1}>
+                    <Button
+                      onClick={getProducts}
+                      disabled={loading}
+                      fullWidth
+                      sx={{
+                        textTransform: "none",
+                        backgroundColor: "#eb8150",
+                        color: "white",
+                        fontWeight: 600,
+                        mt: 1,
+                        borderRadius: "10px",
+                        py: 1.2,
+                      }}
+                    >
+                      Search
+                    </Button>
+                    <Button
+                      onClick={() => dispatch(resetState())}
+                      fullWidth
+                      sx={{
+                        textTransform: "none",
+                        border: "1px solid #eb8150",
+                        color: "#eb8150",
+                        fontWeight: 600,
+                        mt: 1,
+                        borderRadius: "10px",
+                        py: 1.2,
+                      }}
+                    >
+                      Clear
+                    </Button>
+                  </Stack>
+                </Box>
               </Box>
-            </Box>
+            )}
 
-            {/* Main Content Area */}
-            <Box sx={{ width: { xs: "100%", md: "75%" } }}>
+            {/* Product Grid */}
+            <Box sx={{ width: { xs: "100%", md: "82%", lg: "85%" } }}>
               {loading ? (
                 <Box
                   sx={{
@@ -220,16 +236,13 @@ const ProductListing = () => {
                       textTransform: "none",
                       bgcolor: "primary.main",
                       color: "white",
-                      paddingX: "30px",
-                      paddingY: "15px",
-                      alignSelf: "center",
+                      px: 4,
+                      py: 1.5,
                       borderRadius: "16px",
-                      '&:hover': {
-                        backgroundColor: "#119595",
-                      },
+                      "&:hover": { backgroundColor: "#119595" },
                     }}
                   >
-                    <Typography variant="body2" fontSize="17px" letterSpacing="1px">
+                    <Typography fontSize="17px" letterSpacing="1px">
                       Discover More
                     </Typography>
                   </Button>
@@ -247,110 +260,6 @@ const ProductListing = () => {
       </Box>
 
       <Newsletter />
-
-      {/* Mobile Drawer Filter */}
-      <Drawer
-        open={drawer}
-        onClose={closeDrawer}
-        anchor="left"
-        sx={{
-          zIndex: 1200,
-          "& .MuiPaper-root": {
-            backgroundColor: "white",
-          },
-        }}
-      >
-        <Box
-          bgcolor="white"
-          py={3}
-          px={2.2}
-          borderRadius="5px"
-          sx={{
-            width: "300px",
-            height: "100vh",
-            overflowY: "scroll",
-            "&::-webkit-scrollbar": {
-              width: "5px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              background: "#ebeff7",
-              borderRadius: "100px",
-            },
-          }}
-        >
-          <Range textAlign="center" />
-          <CustomDivider />
-
-          {/* Sort Dropdown in Drawer */}
-          <Select
-            value={sort}
-            onChange={(e) => dispatch(setSort(e.target.value))}
-            fullWidth
-            size="small"
-            displayEmpty
-            sx={{
-              borderRadius: "10px",
-              backgroundColor: "#f9f9f9",
-              mb: 2,
-            }}
-          >
-            <MenuItem disabled value="">
-              Sort by
-            </MenuItem>
-            <MenuItem value="newest">Newest</MenuItem>
-            <MenuItem value="oldest">Oldest</MenuItem>
-            <MenuItem value="highest">Price: High to Low</MenuItem>
-            <MenuItem value="lowest">Price: Low to High</MenuItem>
-          </Select>
-
-          <Stack direction="row" spacing={1}>
-            <Button
-              onClick={() => {
-                closeDrawer();
-                getProducts();
-              }}
-              fullWidth
-              sx={{
-                textTransform: "none",
-                backgroundColor: "#eb8150",
-                color: "white",
-                fontWeight: 600,
-                mt: 2,
-                borderRadius: "12px",
-                paddingY: "12px",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                '&:hover': {
-                  backgroundColor: "#e06c35",
-                },
-              }}
-            >
-              Search
-            </Button>
-            <Button
-              onClick={() => {
-                dispatch(resetState());
-                closeDrawer();
-              }}
-              fullWidth
-              sx={{
-                textTransform: "none",
-                border: "1px solid #eb8150",
-                color: "#eb8150",
-                fontWeight: 600,
-                mt: 2,
-                borderRadius: "12px",
-                paddingY: "12px",
-                '&:hover': {
-                  backgroundColor: "#fff5ec",
-                },
-              }}
-            >
-              Clear
-            </Button>
-          </Stack>
-        </Box>
-      </Drawer>
-
       <Footer />
     </>
   );
