@@ -1,7 +1,7 @@
 import { MailOutline, Phone, Room } from "@mui/icons-material";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { mobile } from "../responsive";
+import { mobile, tablet } from "../responsive";
 
 const logo =
   "https://static.wixstatic.com/media/38c36f_cf2679a5ddd4403fa15dda614149c8f9~mv2.png";
@@ -42,36 +42,48 @@ const FooterStrip = styled.div`
 const FooterWrapper = styled.footer`
   background-color: #f9f9f9;
   border-top: 1px solid #ddd;
-  padding: 50px;
+  padding: 50px 80px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 40px;
   text-align: left;
 
-  ${mobile({
-    padding: "40px 20px",
-    textAlign: "center",
-    justifyItems: "center",
-  })};
+  ${tablet(`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 30px;
+    text-align: center;
+  `)}
+
+  ${mobile(`
+    padding: 40px 20px;
+  `)}
 `;
 
 const Column = styled.div`
-  ${mobile({
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  })}
+  display: flex;
+  flex-direction: column;
+
+  ${tablet(`
+    align-items: center;
+    margin-bottom: 30px;
+  `)}
 `;
 
 const LogoBox = styled(Link)`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   img {
     height: 80px;
     object-fit: contain;
   }
+
+  ${tablet(`
+    justify-content: center;
+  `)}
 `;
 
 const SectionTitle = styled.h3`
@@ -120,9 +132,9 @@ const ContactItem = styled.a`
     color: #ee7e19;
   }
 
-  ${mobile({
-    justifyContent: "center",
-  })}
+  ${tablet(`
+    justify-content: center;
+  `)}
 `;
 
 const Footer = () => {
