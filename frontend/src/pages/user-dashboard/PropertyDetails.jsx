@@ -68,7 +68,6 @@ const PropertyDetails = ({ product }) => {
             <Stack direction="row" spacing={1} alignItems="center">
               <HotelOutlinedIcon />
               <Typography>
-                {" "}
                 <span style={{ fontSize: "12px" }}>X</span>
                 {product?.bed}
               </Typography>
