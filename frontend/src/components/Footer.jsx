@@ -49,25 +49,29 @@ const FooterWrapper = styled.footer`
   text-align: left;
 
   ${tablet(`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: block;
     padding: 40px 30px;
     text-align: center;
   `)}
 
   ${mobile(`
-    padding: 40px 20px;
+    display: block;
+    padding: 30px 20px;
+    text-align: center;
   `)}
 `;
 
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 40px;
 
   ${tablet(`
     align-items: center;
-    margin-bottom: 30px;
+  `)}
+
+  ${mobile(`
+    align-items: center;
   `)}
 `;
 
@@ -83,6 +87,14 @@ const LogoBox = styled(Link)`
 
   ${tablet(`
     justify-content: center;
+  `)}
+
+  ${mobile(`
+    justify-content: center;
+
+    img {
+      height: 60px;
+    }
   `)}
 `;
 
@@ -133,6 +145,10 @@ const ContactItem = styled.a`
   }
 
   ${tablet(`
+    justify-content: center;
+  `)}
+
+  ${mobile(`
     justify-content: center;
   `)}
 `;
