@@ -15,7 +15,7 @@ import {
   Button,
   useMediaQuery,
 } from "@mui/material";
-import { publicRequest } from "../../requestMethods";
+import { userRequest } from "../../requestMethods";
 import { useLocation, useNavigate } from "react-router";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -48,7 +48,7 @@ const Booking = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await publicRequest.get(`/products/${id}`);
+        const res = await userRequest.get(`/products/${id}`);
         setProduct(res.data);
         setLoading(false);
       } catch (error) {
@@ -60,7 +60,7 @@ const Booking = () => {
 
   const handleBooking = async (data) => {
     try {
-      const res = await publicRequest.post(`/booking`, {
+      const res = await userRequest.post(`/booking`, {
         ...data,
         product: {
           type: "Product",
@@ -85,7 +85,7 @@ const Booking = () => {
       <Navbar />
       <Container maxWidth="lg">
         <Box
-                      py= {{xs:2, md:5}}
+          py= {{xs:2, md:5}}
           sx={{
             columnGap: "24px",
             rowGap: "24px",
@@ -203,7 +203,6 @@ const Booking = () => {
                             : "primary.main",
                         color: "white",
                         fontSize: "16px",
-                        // paddingX: "25px",
                         width: "100%",
                         fontWeight: 600,
                         paddingY: "10px",
@@ -264,7 +263,6 @@ const Booking = () => {
                 <Stack direction="row" spacing={1} alignItems="center">
                   <HotelOutlinedIcon />
                   <Typography>
-                    {" "}
                     <span style={{ fontSize: "12px" }}>X</span>
                     {product?.bed}
                   </Typography>

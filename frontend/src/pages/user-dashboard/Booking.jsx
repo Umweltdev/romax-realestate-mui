@@ -125,7 +125,6 @@ const Booking = ({ openDrawer }) => {
           </>
         ) : (
           <>
-            {" "}
             <Stack spacing={2}>
               <Stack spacing={1}>
                 <Stack direction="row" spacing={1.5}>
@@ -137,7 +136,7 @@ const Booking = ({ openDrawer }) => {
                   <Typography color="#7D879C">
                     {dateConverter(booking?.bookDate)}
                   </Typography>
-                </Stack>{" "}
+                </Stack>
                 <Stack direction="row" spacing={1.5}>
                   <Typography>View Date: </Typography>
                   <Typography color="#7D879C">

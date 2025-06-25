@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './app';
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store';
-import { PersistGate } from 'redux-persist/integration/react'
+import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme.js";
 import "./index.css";

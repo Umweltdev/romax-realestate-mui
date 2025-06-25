@@ -6,27 +6,35 @@ import { Link } from "react-router-dom";
 const Header = ({ Icon, title, button, openDrawer, link }) => {
   const isNonMobile = useMediaQuery("(min-width:968px)");
   const marginBottom = button ? { xs: 1.5, md: 0 } : 0;
-  const alignment =  button ? "start" : "center"
+  const alignment = button ? "start" : "center";
 
   return (
-    <Stack direction="row" justifyContent="space-between" alignItems={alignment}>
+    <Stack
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+      mb={3}
+    >
       <Stack
         direction={{ xs: "column", md: "row" }}
-        justifyContent="space-between"
-        alignItems={{ xs: "start", md: "center" }}
-        width={{ xs: "auto", md: "100%" }}
+        alignItems={{ xs: "flex-start", md: "center" }}
+        spacing={2}
+        width="100%"
       >
         <Stack
           direction="row"
-          spacing={{ xs: 1, md: 2 }}
+          spacing={1.5}
           alignItems="center"
-         mb={marginBottom}
+          mb={marginBottom}
         >
-          <Icon
-            sx={{
-              color: "primary.main",
-            }}
-          />
+          {Icon && (
+            <Icon
+              sx={{
+                color: "primary.main",
+                fontSize: "26px",
+              }}
+            />
+          )}
 
           <Typography
             variant="h5"
@@ -36,22 +44,18 @@ const Header = ({ Icon, title, button, openDrawer, link }) => {
             {title}
           </Typography>
         </Stack>
+
         {button && (
-          <Link
-            to={link}
-            style={{
-              textDecoration: "none",
-            }}
-          >
+          <Link to={link} style={{ textDecoration: "none" }}>
             <Button
               sx={{
                 textTransform: "none",
                 bgcolor: "#fdecbd",
                 color: "primary.main",
                 fontSize: "subtitle2",
-                paddingX: isNonMobile ? "40px" : "20px",
+                px: isNonMobile ? "40px" : "20px",
                 fontWeight: 600,
-                paddingY: "6px",
+                py: "6px",
                 "&:hover": {
                   backgroundColor: "rgba(210, 63, 87, 0.04)",
                 },
@@ -63,14 +67,12 @@ const Header = ({ Icon, title, button, openDrawer, link }) => {
         )}
       </Stack>
 
-      <IconButton
-        onClick={openDrawer}
-        sx={{
-          display: isNonMobile ? "none" : "inline-flex",
-        }}
-      >
-        <MenuIcon />
-      </IconButton>
+      {/* Mobile Drawer Button */}
+      {!isNonMobile && (
+        <IconButton onClick={openDrawer}>
+          <MenuIcon />
+        </IconButton>
+      )}
     </Stack>
   );
 };

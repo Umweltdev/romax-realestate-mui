@@ -14,7 +14,7 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 40px;
   fontweight: 300;
-  text-align: center; /* Center-align the text */
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,7 +66,7 @@ const Estates = ({ cat, filters, sort }) => {
     <>
       <Title>ESTATE</Title>
       <Container>
-        {loading ? ( // Display Loader component when loading is true
+        {loading ? (
           <Loader />
         ) : (
           cat

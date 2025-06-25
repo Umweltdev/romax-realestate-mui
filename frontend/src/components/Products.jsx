@@ -1,93 +1,143 @@
 import React, { useState, useEffect } from "react";
-import { Box, Stack, Typography, IconButton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  useTheme,
+  useMediaQuery,
+  CircularProgress,
+} from "@mui/material";
 import Slider from "react-slick";
+import { publicRequest } from "../requestMethods";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { publicRequest } from "../requestMethods";
-import Card from "./Card";
-import { ArrowBack, ArrowForward } from "@material-ui/icons";
 
-function SampleNextArrow(props) {
-  const { onClick } = props;
+const Card = ({ imageUrl, title, description }) => {
+  const [imgLoaded, setImgLoaded] = useState(false);
+
   return (
-    <IconButton
-      onClick={onClick}
+    <Box
       sx={{
-        position: "absolute",
-        top: "50%",
-        transform: "translate(0, -50%)",
-        right: "-5px",
-        background: "#eb8510",
-        color: "white",
-        "&:hover": {
-          background: "#eb8510",
-        },
+        borderRadius: 3, // more curve
+        overflow: "hidden",
+        boxShadow: 3,
+        bgcolor: "white",
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        position: "relative",
+        mt: 2,
+        mb: 4,
       }}
     >
-      <ArrowForward
+      {/* Image Section */}
+      <Box
         sx={{
-          cursor: "pointer",
-          fontSize: "25px",
+          height: "300px",
+          width: "100%",
+          position: "relative",
+          backgroundColor: "#e0e0e0",
         }}
-      />
-    </IconButton>
-  );
-}
+      >
+        {!imgLoaded && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 1,
+            }}
+          >
+            <CircularProgress sx={{ color: "black" }} />
+          </Box>
+        )}
 
-function SamplePrevArrow(props) {
-  const { onClick } = props;
-  return (
-    <IconButton
-      onClick={onClick}
-      sx={{
-        position: "absolute",
-        top: "50%",
-        transform: "translate(0, -50%)",
-        left: "-5px",
-        zIndex: 10,
-        background: "#eb8510",
-        color: "white",
-        "&:hover": {
-          background: "#eb8510",
-        },
-      }}
-    >
-      <ArrowBack
+        <img
+          src={imageUrl}
+          alt={title}
+          onLoad={() => setImgLoaded(true)}
+          onError={() => setImgLoaded(true)}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: imgLoaded ? "block" : "none",
+          }}
+        />
+      </Box>
+
+      {/* Text Section */}
+      <Box
         sx={{
-          cursor: "pointer",
-          fontSize: "25px",
+          p: 3,
+          backgroundColor: "white",
+          flex: 1, // ensure text fills the height
         }}
-      />
-    </IconButton>
+      >
+        <Typography
+          variant="h6"
+          sx={{
+            fontWeight: 600,
+            fontSize: { xs: "16px", sm: "18px" },
+            lineHeight: 1.3,
+            mb: 1,
+          }}
+        >
+          {title}
+        </Typography>
+
+        <Typography
+          variant="body2"
+          sx={{
+            color: "text.secondary",
+            fontSize: { xs: "13px", sm: "14px" },
+            lineHeight: 1.6,
+          }}
+        >
+          {description?.length > 100
+            ? `${description.substring(0, 97)}...`
+            : description}
+        </Typography>
+      </Box>
+    </Box>
   );
-}
+};
+
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
-    const getProducts = async () => {
+    const fetchProducts = async () => {
       setLoading(true);
       try {
         const res = await publicRequest.get(`/products`);
-        setProducts(res.data);
-        setLoading(false);
+        setProducts(res.data || []);
       } catch (err) {
+        console.error(err);
+      } finally {
         setLoading(false);
       }
     };
-    getProducts();
+    fetchProducts();
   }, []);
 
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 2,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+    slidesToShow: isMobile ? 1 : 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    rtl: true,
     responsive: [
       {
         breakpoint: 968,
@@ -103,26 +153,81 @@ const Products = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          infinite: true,
+          arrows: false,
           dots: true,
         },
       },
     ],
   };
+
+  const containerHeight = isMobile ? "auto" : "65vh";
+
   return (
-    <Box width={{ xs: "97%", md:"80%" }}margin="0 auto" pb={3}>
-      <Typography variant="h5" textAlign="center" fontSize="28px" mb={2}>
-        FEATURED HOUSES
+    <Box
+      width="100%"
+      marginY={6}
+      paddingX={0}
+      padding={{ xs: 2, sm: 4 }}
+      sx={{
+        backgroundColor: "#f9f9f9",
+        minHeight: containerHeight,
+        overflow: "hidden",
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        marginBottom: 10,
+        justifyContent: isMobile ? "flex-start" : "center",
+      }}
+    >
+      <Typography
+        variant="h4"
+        textAlign="center"
+        mb={6}
+        sx={{
+          fontWeight: 600,
+          fontSize: { xs: "24px", sm: "32px", md: "36px" },
+        }}
+      >
+        Featured Houses
       </Typography>
-      <div>
+
+      {loading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: containerHeight,
+          }}
+        >
+          <CircularProgress sx={{ color: "black" }} />
+        </Box>
+      ) : products.length === 0 ? (
+        <Typography textAlign="center" color="text.secondary">
+          No featured properties available at the moment.
+        </Typography>
+      ) : isMobile ? (
+        <Box sx={{ display: "block" }}>
+          {products.map((item, index) => (
+            <Card key={index} {...item} />
+          ))}
+        </Box>
+      ) : (
         <Slider {...settings}>
           {products.map((item, index) => (
-            <div key={index} className="carousel-card">
+            <Box
+              key={index}
+              px={1}
+              sx={{
+                height: "calc(65vh - 100px)",
+                boxSizing: "border-box",
+              }}
+            >
               <Card {...item} />
-            </div>
+            </Box>
           ))}
         </Slider>
-      </div>
+      )}
     </Box>
   );
 };
