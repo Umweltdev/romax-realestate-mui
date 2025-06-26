@@ -68,7 +68,7 @@ const AboutRomax12B = () => {
             color="primary"
             gutterBottom
           >
-            About Romax Homes 12B
+            About Romax Homes
           </Typography>
           <Typography
             variant="subtitle1"
