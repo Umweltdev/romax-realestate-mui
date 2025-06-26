@@ -105,15 +105,10 @@ const ProductListing = () => {
         <Container maxWidth="lg">
           <Sort openDrawer={openDrawer} products={products} />
 
-          <Box sx={{ display: "flex", flexDirection: "row", mt: 4 }}>
-            {/* Sidebar */}
+          <Box sx={{ display: "flex", flexDirection: "row", mt: 4, gap: 3 }}>
+            {/* Sidebar (Desktop) */}
             {!isMobile && (
-              <Box
-                sx={{
-                  width: { md: "18%", lg: "15%" },
-                  pr: 2,
-                }}
-              >
+              <Box sx={{ width: { md: "35%", lg: "32%" } }}>
                 <Box
                   bgcolor="white"
                   py={2}
@@ -121,21 +116,8 @@ const ProductListing = () => {
                   borderRadius="10px"
                   sx={{
                     boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
-                    position: "relative",
                   }}
                 >
-                  <Box display="flex" justifyContent="center" mb={2}>
-                    <img
-                      src="/logo.png"
-                      alt="Logo"
-                      style={{
-                        width: "60px",
-                        height: "auto",
-                        objectFit: "contain",
-                      }}
-                    />
-                  </Box>
-
                   <Range textAlign="center" />
                   <CustomDivider />
 
@@ -199,7 +181,7 @@ const ProductListing = () => {
             )}
 
             {/* Product Grid */}
-            <Box sx={{ width: { xs: "100%", md: "82%", lg: "85%" } }}>
+            <Box sx={{ width: { xs: "100%", md: "65%", lg: "68%" } }}>
               {loading ? (
                 <Box
                   sx={{
@@ -256,6 +238,81 @@ const ProductListing = () => {
               )}
             </Box>
           </Box>
+
+          {/* Filter Drawer for Mobile */}
+          <Drawer
+            open={drawer}
+            onClose={closeDrawer}
+            anchor="left"
+            sx={{
+              zIndex: 1200,
+              display: { xs: "block", md: "none" },
+              "& .MuiPaper-root": {
+                backgroundColor: "white",
+                width: 280,
+                padding: 2,
+              },
+            }}
+          >
+            <Range textAlign="center" />
+            <CustomDivider />
+
+            <Select
+              value={sort}
+              onChange={(e) => dispatch(setSort(e.target.value))}
+              fullWidth
+              size="small"
+              displayEmpty
+              variant="outlined"
+              sx={{
+                borderRadius: "8px",
+                backgroundColor: "#f9f9f9",
+                mb: 2,
+              }}
+            >
+              <MenuItem disabled value="">
+                Sort by
+              </MenuItem>
+              <MenuItem value="newest">Newest</MenuItem>
+              <MenuItem value="oldest">Oldest</MenuItem>
+              <MenuItem value="highest">Price: High to Low</MenuItem>
+              <MenuItem value="lowest">Price: Low to High</MenuItem>
+            </Select>
+
+            <Stack direction="row" spacing={1}>
+              <Button
+                onClick={getProducts}
+                disabled={loading}
+                fullWidth
+                sx={{
+                  textTransform: "none",
+                  backgroundColor: "#eb8150",
+                  color: "white",
+                  fontWeight: 600,
+                  mt: 1,
+                  borderRadius: "10px",
+                  py: 1.2,
+                }}
+              >
+                Search
+              </Button>
+              <Button
+                onClick={() => dispatch(resetState())}
+                fullWidth
+                sx={{
+                  textTransform: "none",
+                  border: "1px solid #eb8150",
+                  color: "#eb8150",
+                  fontWeight: 600,
+                  mt: 1,
+                  borderRadius: "10px",
+                  py: 1.2,
+                }}
+              >
+                Clear
+              </Button>
+            </Stack>
+          </Drawer>
         </Container>
       </Box>
 
