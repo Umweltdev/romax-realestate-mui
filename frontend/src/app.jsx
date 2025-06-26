@@ -22,6 +22,7 @@ import Booking from "./pages/booking";
 import FAQ from "./pages/faq";
 import EstateBooking from "./pages/estate-booking";
 import ResetPassword from "./pages/ResetPassword";
+import Blog from "./pages/Blog";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -42,6 +43,7 @@ function App() {
           <Route path="/booking/:id" element={<Booking />} />
           <Route path="/bookings/:id" element={<EstateBooking />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/blogs" element={<Blog /> } />
           <Route
             path="/signup"
             element={user ? <Navigate to="/" /> : <Register />}
