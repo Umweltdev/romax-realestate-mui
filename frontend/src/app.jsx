@@ -22,7 +22,7 @@ import Booking from "./pages/booking";
 import FAQ from "./pages/faq";
 import EstateBooking from "./pages/estate-booking";
 import ResetPassword from "./pages/ResetPassword";
-
+import AboutPage from "./pages/About-Page";
 function App() {
   const user = useSelector((state) => state.user.currentUser);
 
@@ -34,6 +34,7 @@ function App() {
           <Route path="/success" element={<Success />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/about" element={<About />} />
+          <Route path="/about-us" element={<AboutPage />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/estate/:id" element={<Estate />} />
           <Route path="/estate" element={<EstateListing />} />
@@ -50,7 +51,10 @@ function App() {
             path="/login"
             element={user ? <Navigate to="/" /> : <Login bgcolor="#F6F9FC" />}
           />
-          <Route path="/user/*" element={user ? <UserDashBoard /> : <Login />} />
+          <Route
+            path="/user/*"
+            element={user ? <UserDashBoard /> : <Login />}
+          />
         </Routes>
       </LocalizationProvider>
     </Router>
