@@ -53,6 +53,7 @@ const Navbar = () => {
             { label: "House Prices", to: "/products" },
             { label: "Our Estates", to: "/estate" },
             { label: "Our Timeline", to: "/about" },
+            { label: "Our Blogs", to: "/blogs"}
           ].map(({ label, to }) => (
             <Link key={label} to={to} style={{ textDecoration: "none" }}>
               <Typography
