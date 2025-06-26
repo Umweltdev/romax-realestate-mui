@@ -1,5 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
-import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
+import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
 
 const Card = ({ _id, title, location, price, img }) => {
