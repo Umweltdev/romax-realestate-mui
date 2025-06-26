@@ -13,11 +13,9 @@ const Hero = () => {
   const navigate = useNavigate();
   const theme = useTheme();
 
-  // Adjusted to show filter only on desktop (≥960px)
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  // Prevents hydration mismatch
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
