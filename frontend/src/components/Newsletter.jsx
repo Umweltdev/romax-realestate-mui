@@ -1,99 +1,108 @@
 import {
   Box,
   TextField,
-  InputAdornment,
   Button,
   Typography,
-  useMediaQuery
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
-import { Send } from "@material-ui/icons";
+import { Send } from "@mui/icons-material";
+import { useState } from "react";
 
 const Newsletter = () => {
-  const isNonMobile = useMediaQuery("(min-width:815px)");
+  const theme = useTheme();
+  const isNonMobile = useMediaQuery(theme.breakpoints.up("md"));
+  const [hasInput, setHasInput] = useState(false);
+
   return (
     <Box
       sx={{
-        height: "300px",
         backgroundColor: "#f9f9f9",
-        //  "rgb(252, 245, 245)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
+        py: { xs: 6, md: 10 },
+        px: { xs: 2, md: 6 },
+        textAlign: "center",
       }}
     >
       <Typography
-        variant="h5"
-        fontSize={{xs: "34px", md:"40px"}}
-        letterSpacing="2px"
+        fontWeight={700}
         textTransform="uppercase"
+        letterSpacing="2px"
+        fontSize={{ xs: "26px", sm: "30px", md: "36px" }}
+        mb={1}
       >
         Newsletter
       </Typography>
+
       <Typography
-        variant={{xs: "subtitle1", md:"body2"}}
         color="#7d879c"
         textTransform="uppercase"
-        textAlign="center"
         letterSpacing="1px"
-        mt={1}
-        mb={3}
+        fontSize={{ xs: "13px", sm: "14px", md: "16px" }}
+        mb={4}
+        maxWidth="600px"
       >
-        Get updates on our latest properties.{" "}
+        Get updates on our latest properties.
       </Typography>
 
-      <TextField
-        placeholder="Enter Your Email Address"
-        variant="outlined"
-        // fullWidth
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Button
-                sx={{
-                  textTransform: "none",
-                  bgcolor: "primary.main",
-                  color: "white",
-                  paddingX: isNonMobile ? "40px": "20px",
-                  fontSize: "16px",
-                  fontWeight: "600",
-                  letterSpacing: "1px",
-                  paddingY: "8px",
-                  // borderLeft: "1px solid #7D879C",
-                  justifyContent: "space-between",
-                  borderTopRightRadius: "1200px",
-                  borderBottomRightRadius: "1200px",
-                  height: "100%",
-                  "&:hover": {
-                    backgroundColor: "primary.main",
-                  },
-                }}
-              >
-                <Send/>
-              </Button>
-            </InputAdornment>
-          ),
+      <Box
+        component="form"
+        onSubmit={(e) => {
+          e.preventDefault();
         }}
         sx={{
-          width: isNonMobile ? "60%": "95%",
-          paddingRight: 0,
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "1200px",
-            padding: "0px 0px 0px 20px !important",
-            "& .MuiAutocomplete-input": {
-              padding: "1px !important",
-              fontSize: "14px",
-            },
-            "& .MuiInputAdornment-positionEnd": {
-              height: "100%",
-              maxHeight: "100%",
-            },
-          },
-          "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: "teal",
-          },
+          display: "flex",
+          width: { xs: "100%", sm: "90%", md: "60%" },
+          borderRadius: "1200px",
+          overflow: "hidden",
+          border: "1px solid #ccc",
+          backgroundColor: !hasInput ? "#fff" : "transparent",
         }}
-      />
+      >
+        <TextField
+          fullWidth
+          placeholder="Enter your email address"
+          variant="outlined"
+          onChange={(e) => setHasInput(e.target.value.length > 0)}
+          sx={{
+            "& fieldset": { border: "none" },
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 0,
+              px: 2,
+              py: 0.5,
+              height: "100%",
+              backgroundColor: "transparent",
+              "& input": {
+                paddingY: 1.8,
+                fontSize: { xs: "14px", sm: "16px" },
+              },
+              "&.Mui-focused": {
+                backgroundColor: "transparent",
+              },
+            },
+          }}
+        />
+        <Button
+          type="submit"
+          sx={{
+            bgcolor: "primary.main",
+            color: "#fff",
+            px: { xs: 3, sm: 4 },
+            fontSize: { xs: "14px", sm: "16px" },
+            fontWeight: 600,
+            borderRadius: 0,
+            whiteSpace: "nowrap",
+            "&:hover": {
+              backgroundColor: "primary.dark",
+            },
+          }}
+        >
+          <Send sx={{ mr: 0 }} />
+        </Button>
+      </Box>
     </Box>
   );
 };

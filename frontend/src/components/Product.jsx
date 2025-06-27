@@ -1,11 +1,13 @@
 import {
   FavoriteBorderOutlined,
+  Favorite,
   SearchOutlined,
 } from "@material-ui/icons";
-//import {ShoppingCartOutlined} from "@material-ui/icons"
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useState } from "react";
 
+// Styles
 const Info = styled.div`
   opacity: 0;
   width: 100%;
@@ -19,7 +21,6 @@ const Info = styled.div`
   align-items: center;
   justify-content: center;
   transition: all 0.5s ease;
-  cursor: pointer;
 `;
 
 const Container = styled.div`
@@ -32,7 +33,7 @@ const Container = styled.div`
   justify-content: center;
   background-color: #f5fbfd;
   position: relative;
-  &:hover ${Info}{
+  &:hover ${Info} {
     opacity: 1;
   }
 `;
@@ -60,7 +61,8 @@ const Icon = styled.div`
   align-items: center;
   justify-content: center;
   margin: 10px;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
+  cursor: pointer;
   &:hover {
     background-color: #e9f5f5;
     transform: scale(1.1);
@@ -68,21 +70,28 @@ const Icon = styled.div`
 `;
 
 const Product = ({ item }) => {
+  const [liked, setLiked] = useState(false);
+
+  const handleLikeToggle = () => {
+    setLiked((prev) => !prev);
+  };
+
   return (
     <Container>
       <Circle />
-      <Image src={item.img} />
+      <Image src={item.img} alt={item.title} />
       <Info>
-        {/* <Icon>
-          <ShoppingCartOutlined />
-        </Icon> */}
         <Icon>
           <Link to={`/product/${item._id}`}>
             <SearchOutlined />
           </Link>
         </Icon>
-        <Icon>
-          <FavoriteBorderOutlined />
+        <Icon onClick={handleLikeToggle}>
+          {liked ? (
+            <Favorite style={{ color: "red" }} />
+          ) : (
+            <FavoriteBorderOutlined />
+          )}
         </Icon>
       </Info>
     </Container>

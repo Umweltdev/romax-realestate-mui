@@ -1,113 +1,127 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { Container, Grid, Paper, Stack } from "@mui/material";
-import { Button, Typography, Box } from "@mui/material";
-import { ChevronRight, HomeOutlined } from "@material-ui/icons";
+import {
+  Box,
+  Typography,
+  Button,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import FilterComponent from "./Filter";
 
-const useStyles = makeStyles((theme) => ({
-  heroContainer: {
-    background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.ibb.co/0nQJv76/Whats-App-Image-2023-09-04-at-06-30-01.jpg')`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    color: theme.palette.common.white,
-  },
-}));
-
 const Hero = () => {
-  const classes = useStyles();
   const navigate = useNavigate();
+  const theme = useTheme();
+
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
-    <Box className={classes.heroContainer} padding={{xs:"100px 0", sm:"80px 0"}}>
-      <Container maxWidth="lg">
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={8}>
-            <Box
-              textAlign={{ xs: "center", md: "left" }}
-              display={{ xs: "flex", md: "block" }}
-              justifyContent="center"
-              flexDirection="column"
-              alignItems="center"
-            >
-              <Stack direction="row" spacing={2} alignItems="center" mb={4}>
-                <HomeOutlined />
-                <Typography variant="h6" color="primary.main">
-                  Welcome To Romax
-                </Typography>
-                <HomeOutlined />
-              </Stack>
-              <Typography
-                variant="h5"
-                fontSize={{ xs: "40px", md: "52px" }}
-                mb={4}
-              >
-                Find Your Dream, Suitable & Comfortable Home.
-              </Typography>
-              <Typography
-                variant="h6"
-                letterSpacing="3px"
-                lineHeight={1.3}
-                fontSize={{ xs: "16px", sm: "20px" }}
-                mb={4}
-                color="#e3e1e1"
-              >
-                Discover your dream home with us. Browse our listings and find
-                the perfect property for you.
-              </Typography>
-              <Button
-                onClick={() => navigate("/products")}
-                sx={{
-                  textTransform: "none",
-                  bgcolor: "primary.main",
-                  color: "white",
-                  paddingX: "30px",
-                  paddingY: "15px",
-                  // alignSelf: "start",
-                  display: "inline-flex",
-                  gap: "5px",
-                  borderRadius: "30px",
-                  marginTop: "25px",
-                  "&:hover": {
-                    backgroundColor: "#fc973f",
-                  },
-                }}
-              >
-                <ChevronRight />
-                <Typography variant="body2" fontSize="17px" letterSpacing="1px">
-                  {" "}
-                  Discover More
-                </Typography>
-              </Button>
-            </Box>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            md={4}
-            display={{ xs: "none", md: "block" }}
-            sx={{}}
-          >
-            <Paper
-              elevation={3}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                paddingY: 3.5,
-                paddingX: 3,
-                borderRadius: "10px",
-                boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
-                border: "2px solid rgb(113, 113, 132)",
-                // width: "70%",
-                marginTop: "-40px",
-              }}
-            >
-              <FilterComponent />
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
+    <Box
+      sx={{
+        background: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.ibb.co/0nQJv76/Whats-App-Image-2023-09-04-at-06-30-01.jpg')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "90vh",
+        width: "100%",
+        display: "flex",
+        flexDirection: isMobile ? "column" : "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        px: { xs: 2, sm: 6 },
+        py: { xs: 8, sm: 12 },
+        gap: 4,
+        overflow: "hidden",
+      }}
+    >
+      {/* LEFT TEXT CONTENT */}
+      <Box
+        sx={{
+          flex: "1 1 60%",
+          color: "#fff",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: isMobile ? "center" : "flex-start",
+          textAlign: isMobile ? "center" : "left",
+        }}
+      >
+        <Typography
+          variant="h6"
+          color="primary.main"
+          fontSize={{ xs: "24px", sm: "28px" }}
+          mb={2}
+        >
+          Welcome To Romax
+        </Typography>
+        <Typography
+          variant="h1"
+          fontWeight={700}
+          fontSize={{ xs: "36px", sm: "48px", md: "64px" }}
+          lineHeight={1.3}
+          mb={3}
+        >
+          Find Your Dream, Suitable And Comfortable Home.
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            color: "#e3e1e1",
+            fontSize: { xs: "16px", sm: "20px", md: "22px" },
+            lineHeight: 1.8,
+            maxWidth: "90%",
+            mb: 4,
+          }}
+        >
+          Discover your dream home with us. Browse our listings and find the
+          perfect property for you where comfort meets style.
+        </Typography>
+        <Button
+          onClick={() => navigate("/products")}
+          sx={{
+            textTransform: "none",
+            bgcolor: "primary.main",
+            color: "white",
+            px: 5,
+            py: 2,
+            fontSize: "18px",
+            fontWeight: 600,
+            borderRadius: "30px",
+            "&:hover": {
+              backgroundColor: "#fc973f",
+            },
+          }}
+        >
+          Discover More
+        </Button>
+      </Box>
+
+      {/* RIGHT FILTER: Desktop only */}
+      {isDesktop && (
+        <Box
+          sx={{
+            flex: "1 1 40%",
+            backgroundColor: "rgba(255, 255, 255, 0.92)",
+            borderRadius: 3,
+            p: 4,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+          }}
+        >
+          <Box width="100%" maxWidth="500px">
+            <FilterComponent />
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 };

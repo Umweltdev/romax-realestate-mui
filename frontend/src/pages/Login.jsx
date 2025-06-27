@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   Typography,
   Box,
@@ -9,30 +9,37 @@ import {
   styled,
   IconButton,
 } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import makeToast from "../toaster";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Close } from "@mui/icons-material";
 import { login } from "../redux/apiCalls";
 import { resetState } from "../redux/userRedux";
-//import logo from "../assests/Logo-Transparent.png";
+import Swal from "sweetalert2";
 
 const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     fontSize: "14px",
-    // height: "45px",
     borderRadius: "10px",
-    "& fieldset": {},
-    "&:hover fieldset": {},
-    "&.Mui-focused fieldset": {},
   },
   "& .MuiInputLabel-root": {
     fontSize: "14px",
   },
 });
+
+const loginSchema = yup.object().shape({
+  username: yup.string().required("required"),
+  password: yup.string().required("required"),
+});
+
+const initialValues = {
+  username: "",
+  password: "",
+};
+
 const Login = ({ bgcolor, handleClose }) => {
   const dispatch = useDispatch();
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -42,20 +49,65 @@ const Login = ({ bgcolor, handleClose }) => {
   );
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (currentUser) {
-      makeToast("success", "Login Sucessful!");
-      if (location.pathname === "/login") {
-        navigate("/");
-      }
-      handleClose();
-    }
+  const formikRef = useRef(null);
 
-    if (error) {
-      makeToast("error", errorMessage);
-      dispatch(resetState());
+  const hasShownAlert = useRef(false);
+  const prevUserRef = useRef(null);
+
+  useEffect(() => {
+    const prevUser = prevUserRef.current;
+     if (!prevUser && currentUser && !hasShownAlert.current) {
+       hasShownAlert.current = true;
+       prevUserRef.current = currentUser;
+
+       Swal.fire({
+         icon: "success",
+         title: "Login Successful",
+         text: `Welcome back, ${currentUser.username || "User"}!`,
+         timer: 1500,
+         showConfirmButton: false,
+       }).then(() => {
+         if (location.pathname === "/login") {
+           navigate("/");
+         }
+         handleClose?.();
+       });
+     }
+
+    if (error && !hasShownAlert.current) {
+      hasShownAlert.current = true;
+
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: errorMessage || "Something went wrong. Please try again.",
+      }).then(() => {
+        dispatch(resetState());
+        hasShownAlert.current = false;
+      });
     }
-  }, [isFetching, error, currentUser, handleClose]);
+  }, [
+    currentUser,
+    error,
+    errorMessage,
+    location.pathname,
+    navigate,
+    handleClose,
+    dispatch,
+  ]);
+
+  // 🔧 Detect browser autofill after component mounts
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const formik = formikRef.current;
+      if (formik) {
+        if (formik.values.username) formik.setFieldTouched("username", true);
+        if (formik.values.password) formik.setFieldTouched("password", true);
+      }
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <Box
@@ -76,28 +128,25 @@ const Login = ({ bgcolor, handleClose }) => {
           width: isNonMobile ? "500px" : "95%",
           padding: isNonMobile ? "2rem 3rem" : "2rem 1.5rem",
           position: "relative",
-          // boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
         }}
       >
         {handleClose && (
           <IconButton
             onClick={handleClose}
-            sx={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-            }}
+            sx={{ position: "absolute", top: 10, right: 10 }}
           >
             <Close />
           </IconButton>
         )}
+
         <Formik
-          onSubmit={(values, { resetForm }) => {
-            const { username, password } = values;
-            login(dispatch, { username, password });
+          innerRef={formikRef}
+          onSubmit={(values) => {
+            login(dispatch, values);
           }}
           initialValues={initialValues}
           validationSchema={loginSchema}
+          validateOnMount
         >
           {({
             values,
@@ -107,10 +156,9 @@ const Login = ({ bgcolor, handleClose }) => {
             handleChange,
             handleSubmit,
             isValid,
-            dirty,
           }) => (
             <form onSubmit={handleSubmit}>
-              <Link to={"/"} style={{ textDecoration: "none" }}>
+              <Link to="/" style={{ textDecoration: "none" }}>
                 <Box>
                   <img
                     src="https://static.wixstatic.com/media/38c36f_cf2679a5ddd4403fa15dda614149c8f9~mv2.png/v1/fill/w_187,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/PHOTO-2021-09-15-13-59-41_edited.png"
@@ -118,13 +166,19 @@ const Login = ({ bgcolor, handleClose }) => {
                     style={{
                       margin: "0 auto",
                       display: "block",
-
                     }}
                   />
                 </Box>
               </Link>
 
-              <Typography variant="body2" mt={1} mb={4} textAlign="center" letterSpacing="1px" fontSize="17px">
+              <Typography
+                variant="body2"
+                mt={1}
+                mb={4}
+                textAlign="center"
+                letterSpacing="1px"
+                fontSize="17px"
+              >
                 Welcome To Romax
               </Typography>
 
@@ -150,6 +204,7 @@ const Login = ({ bgcolor, handleClose }) => {
                   helperText={touched.username && errors.username}
                 />
               </Box>
+
               <Box mb={2}>
                 <Typography
                   variant="subtitle1"
@@ -172,14 +227,14 @@ const Login = ({ bgcolor, handleClose }) => {
                   helperText={touched.password && errors.password}
                 />
               </Box>
+
               <Button
                 type="submit"
-                disabled={!isValid || !dirty || isFetching}
+                disabled={!isValid || isFetching}
                 sx={{
                   textTransform: "none",
-
                   bgcolor:
-                    !isValid || !dirty || isFetching
+                    !isValid || isFetching
                       ? "#0000001f !important"
                       : "primary.main",
                   color: "white",
@@ -194,7 +249,16 @@ const Login = ({ bgcolor, handleClose }) => {
                   },
                 }}
               >
-                Login
+                {isFetching ? (
+                  <CircularProgress
+                    size={24}
+                    sx={{
+                      color: "white",
+                    }}
+                  />
+                ) : (
+                  "Login"
+                )}
               </Button>
             </form>
           )}
@@ -202,12 +266,16 @@ const Login = ({ bgcolor, handleClose }) => {
 
         <Stack direction="row" spacing={1} justifyContent="center" mt={3}>
           <Typography variant="subtitle2">Don't have account?</Typography>
-          <Link to={"/signup"} style={{ textDecoration: "none" }}>
+          <Link to="/signup" style={{ textDecoration: "none" }}>
             <Typography
               variant="subtitle1"
               color="#2b3445"
               sx={{
-                borderBottom: "1.5px solid #2b3445",
+                fontWeight: 500,
+                transition: "color 0.3s",
+                "&:hover": {
+                  color: "#eb8150",
+                },
               }}
             >
               Sign Up
@@ -227,12 +295,16 @@ const Login = ({ bgcolor, handleClose }) => {
           }}
         >
           <Typography variant="subtitle2">Forgot your password?</Typography>
-          <Link to={"/forgot-password"} style={{ textDecoration: "none" }}>
+          <Link to="/forgot-password" style={{ textDecoration: "none" }}>
             <Typography
               variant="subtitle1"
               color="#2b3445"
               sx={{
-                borderBottom: "1.5px solid #2b3445",
+                fontWeight: 500,
+                transition: "color 0.3s",
+                "&:hover": {
+                  color: "#eb8150",
+                },
               }}
             >
               Reset It
@@ -244,12 +316,4 @@ const Login = ({ bgcolor, handleClose }) => {
   );
 };
 
-const loginSchema = yup.object().shape({
-  username: yup.string().required("required"),
-  password: yup.string().required("required"),
-});
-const initialValues = {
-  username: "",
-  password: "",
-};
 export default Login;

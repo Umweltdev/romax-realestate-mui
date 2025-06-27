@@ -9,8 +9,7 @@ import {
   MenuItem,
   IconButton,
 } from "@mui/material";
-import { Person, Menu as MenuIcon } from "@material-ui/icons";
-import { Logout, Login } from "@mui/icons-material";
+import { Person, Menu as MenuIcon, Logout, Login } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/userRedux";
 import { Link, useNavigate } from "react-router-dom";

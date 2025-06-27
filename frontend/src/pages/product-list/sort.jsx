@@ -1,22 +1,32 @@
+import React from "react";
 import {
-  Box,
   Stack,
-  IconButton,
-  FormControl,
-  MenuItem,
-  Select,
   Typography,
+  Button,
+  useMediaQuery,
+  Box,
 } from "@mui/material";
-
 import FilterListIcon from "@mui/icons-material/FilterList";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { setSort } from "../../redux/filter";
 import { useSelector, useDispatch } from "react-redux";
+import { resetState } from "../../redux/filter";
 
 const Sort = ({ openDrawer, products }) => {
+  const isMobile = useMediaQuery("(max-width:967px)");
   const dispatch = useDispatch();
-  const { sort } = useSelector((state) => state.filter);
-  const isNonMobile = useMediaQuery("(min-width:968px)");
+
+  const {
+    location,
+    minPrice,
+    maxPrice,
+    minBed,
+    maxBed,
+    minCar,
+    maxCar,
+    type,
+  } = useSelector((state) => state.filter);
+
+  const isFilterActive =
+    location || minPrice || maxPrice || minBed || maxBed || minCar || maxCar || type;
 
   return (
     <Box
@@ -25,66 +35,54 @@ const Sort = ({ openDrawer, products }) => {
       borderRadius="10px"
       sx={{
         boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
+        mt: { xs: 1, md: 0 },
       }}
     >
-      {" "}
       <Stack
-        direction={"row"}
+        direction="row"
         justifyContent="space-between"
         alignItems="center"
+        spacing={2}
       >
         <Typography variant="h6">
-          {" "}
           {products?.length}
           <span
             style={{
               fontSize: "14px",
-              fontWeight: "400",
-              marginLeft: 2,
+              fontWeight: 400,
+              marginLeft: 6,
             }}
           >
             results
-          </span>{" "}
+          </span>
         </Typography>
 
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Typography display={{ xs: "none", sm: "block" }}>
-              Sort By:
-            </Typography>
-            <FormControl
-              size="small"
-              sx={{
-                flex: 1,
-              }}
-            >
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={sort}
-                onChange={(e) => { 
-                  dispatch(setSort(e.target.value));
-                }}
-                sx={{
-                  borderRadius: "10px",
-                }}
-              >
-                <MenuItem value={"highest"}>Highest </MenuItem>
-                <MenuItem value={"lowest"}>Lowest </MenuItem>
-                <MenuItem value={"newest"}>Newest </MenuItem>
-                <MenuItem value={"oldest"}>Oldest </MenuItem>
-              </Select>
-            </FormControl>
-          </Stack>
-          <IconButton
-            onClick={openDrawer}
+        {/* Show only on mobile */}
+        {isMobile && (
+          <Button
+            onClick={() => {
+              if (isFilterActive) {
+                dispatch(resetState());
+              } else {
+                openDrawer();
+              }
+            }}
+            startIcon={<FilterListIcon />}
             sx={{
-              display: isNonMobile ? "none" : "inline-flex",
+              bgcolor: isFilterActive ? "#eb8150" : "transparent",
+              color: isFilterActive ? "white" : "inherit",
+              borderRadius: "8px",
+              border: isFilterActive ? "1px solid #eb8150" : "1px solid #ddd",
+              textTransform: "none",
+              px: 2,
+              "&:hover": {
+                backgroundColor: isFilterActive ? "#e4753f" : "#f9f9f9",
+              },
             }}
           >
-            <FilterListIcon />
-          </IconButton>
-        </Stack>
+            {isFilterActive ? "Clear Filters" : "Filter"}
+          </Button>
+        )}
       </Stack>
     </Box>
   );

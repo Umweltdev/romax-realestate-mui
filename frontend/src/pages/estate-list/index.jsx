@@ -33,30 +33,22 @@ const EstateListing = () => {
   const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
 
-  const openDrawer = () => {
-    setDrawer(true);
-  };
+  const openDrawer = () => setDrawer(true);
+  const closeDrawer = () => setDrawer(false);
 
-  const closeDrawer = () => {
-    setDrawer(false);
-  };
   useEffect(() => {
     const getProducts = async () => {
       try {
         const res = await publicRequest.get("/estate");
         const sortedProducts = res.data.sort((a, b) => {
-          if (sort === "newest") {
-            return new Date(b.createdAt) - new Date(a.createdAt);
-          } else if (sort === "oldest") {
-            return new Date(a.createdAt) - new Date(b.createdAt);
-          }
-          return 0; // Default to no sorting
+          if (sort === "newest") return new Date(b.createdAt) - new Date(a.createdAt);
+          if (sort === "oldest") return new Date(a.createdAt) - new Date(b.createdAt);
+          return 0;
         });
-
         setProducts(sortedProducts);
-        setLoading(false);
       } catch (error) {
         console.log(error);
+      } finally {
         setLoading(false);
       }
     };
@@ -70,64 +62,65 @@ const EstateListing = () => {
       {loading ? (
         <Loader />
       ) : (
-        <>
-          <Box bgcolor="#F6F9FC" py={5}>
-            <Container maxWidth="lg">
-              <Sort openDrawer={openDrawer} sort={sort} setSort={setSort} />
-              <Grid container spacing={3} marginTop={4}>
-                <Grid item md={3} display={{ xs: "none", md: "block" }}>
-                  <Box
-                    bgcolor="white"
-                    py={3}
-                    px={2}
-                    borderRadius="5px"
-                    sx={{
-                      boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
-                    }}
-                  >
-                    <Stack spacing={2}>
-                      {products.map((prod) => (
-                        <Link to={`/estate/${prod._id}`} key={prod._id} style={{ textDecoration: "none" }}>
-                          <MenuItem
-                            style={{
-                              display: "block",
-                              padding: "8px",
-                              color: "black",
-                              fontSize: "16px",
-                              transition: "background-color 0.3s",
-                            }}
-                          >
-                            {prod.title}
-                          </MenuItem>
-                        </Link>
-                      ))}
-                    </Stack>
-                  </Box>
-                </Grid>
-                <Grid item xs={12} md={9}>
-                  <Container ref={containerRef} maxWidth="lg">
-                    <Stack spacing={3}>
-                      {products.map((prod) => (
-                        <Card
-                          key={prod._id} {...prod}
-                        />
-                      ))}
-                    </Stack>
-                  </Container>
-                </Grid>
+        <Box bgcolor="#F6F9FC" py={5}>
+          <Container maxWidth="lg">
+            <Sort openDrawer={openDrawer} sort={sort} setSort={setSort} />
+            <Grid container spacing={3} mt={4}>
+              {/* Sidebar - Filter */}
+              <Grid
+                item
+                xs={0}
+                md={4}
+                lg={3.5}
+                display={{ xs: "none", md: "block" }}
+              >
+                <Box
+                  bgcolor="white"
+                  p={2}
+                  borderRadius="5px"
+                  sx={{
+                    boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
+                  }}
+                >
+                  <Stack spacing={2}>
+                    {products.map((prod) => (
+                      <Link to={`/estate/${prod._id}`} key={prod._id} style={{ textDecoration: "none" }}>
+                        <MenuItem
+                          sx={{
+                            display: "block",
+                            padding: "8px",
+                            color: "black",
+                            fontSize: "16px",
+                            transition: "background-color 0.3s",
+                          }}
+                        >
+                          {prod.title}
+                        </MenuItem>
+                      </Link>
+                    ))}
+                  </Stack>
+                </Box>
               </Grid>
-            </Container>
-          </Box>
-        </>
+
+              {/* Card Grid */}
+              <Grid item xs={12} md={8} lg={8.5}>
+                <Stack spacing={3} ref={containerRef}>
+                  {products.map((prod) => (
+                    <Card key={prod._id} {...prod} />
+                  ))}
+                </Stack>
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
       )}
-      <Newsletter />
+
       <Drawer
         open={drawer}
         onClose={closeDrawer}
         anchor="left"
-        bgcolor="white"
         sx={{
-          zIndex: "1200",
+          zIndex: 1200,
           "& .MuiPaper-root": {
             backgroundColor: "white",
           },
@@ -139,14 +132,11 @@ const EstateListing = () => {
           px={2.2}
           borderRadius="5px"
           sx={{
-            width: "300px",
+            width: 300,
             height: "100vh",
             overflowY: "scroll",
             "&::-webkit-scrollbar": {
               width: "5px",
-            },
-            "&::-webkit-scrollbar-track": {
-              background: "transparent",
             },
             "&::-webkit-scrollbar-thumb": {
               background: "#ebeff7",
@@ -157,7 +147,7 @@ const EstateListing = () => {
           {products.map((prod) => (
             <Link to={`/estate/${prod._id}`} key={prod._id}>
               <MenuItem
-                style={{
+                sx={{
                   display: "block",
                   padding: "8px",
                   textDecoration: "none",
@@ -172,6 +162,8 @@ const EstateListing = () => {
           ))}
         </Box>
       </Drawer>
+
+      <Newsletter />
       <Footer />
     </>
   );
