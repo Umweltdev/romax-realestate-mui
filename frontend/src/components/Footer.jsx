@@ -12,6 +12,7 @@ const usefulLinks = [
   { label: "My Order", to: "/orders" },
   { label: "My Estate", to: "/estate" },
   { label: "Properties", to: "/products" },
+  { label: "About Us", to: "/about-page" },
   { label: "Terms", to: "/terms" },
 ];
 
