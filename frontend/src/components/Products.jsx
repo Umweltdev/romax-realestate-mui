@@ -8,16 +8,22 @@ import {
 } from "@mui/material";
 import Slider from "react-slick";
 import { publicRequest } from "../requestMethods";
+import estate1 from "../assests/estate1.jpg";
+import estate2 from "../assests/estate2.jpg";
+import estate3 from "../assests/estate3.jpg";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+const fallbackImage = "/fallback.jpg";
+
 const Card = ({ imageUrl, title, description }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   return (
     <Box
       sx={{
-        borderRadius: 3, // more curve
+        borderRadius: 3,
         overflow: "hidden",
         boxShadow: 3,
         bgcolor: "white",
@@ -32,7 +38,7 @@ const Card = ({ imageUrl, title, description }) => {
       {/* Image Section */}
       <Box
         sx={{
-          height: "300px",
+          height: 300,
           width: "100%",
           position: "relative",
           backgroundColor: "#e0e0e0",
@@ -57,10 +63,13 @@ const Card = ({ imageUrl, title, description }) => {
         )}
 
         <img
-          src={imageUrl}
+          src={imgError ? fallbackImage : imageUrl}
           alt={title}
           onLoad={() => setImgLoaded(true)}
-          onError={() => setImgLoaded(true)}
+          onError={() => {
+            setImgError(true);
+            setImgLoaded(true);
+          }}
           style={{
             width: "100%",
             height: "100%",
@@ -75,7 +84,10 @@ const Card = ({ imageUrl, title, description }) => {
         sx={{
           p: 3,
           backgroundColor: "white",
-          flex: 1, // ensure text fills the height
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
         }}
       >
         <Typography
@@ -96,6 +108,7 @@ const Card = ({ imageUrl, title, description }) => {
             color: "text.secondary",
             fontSize: { xs: "13px", sm: "14px" },
             lineHeight: 1.6,
+            mt: "auto",
           }}
         >
           {description?.length > 100
@@ -107,27 +120,29 @@ const Card = ({ imageUrl, title, description }) => {
   );
 };
 
-
 const Products = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([
+    {
+      imageUrl: estate2,
+      title: "Modern Duplex",
+      description:
+        "A beautifully designed 4-bedroom duplex in a serene estate.",
+    },
+    {
+      imageUrl: estate1,
+      title: "Luxury Terrace",
+      description:
+        "Spacious and luxurious terrace apartment with a great view.",
+    },
+    {
+      imageUrl: estate3,
+      title: "Urban Apartment",
+      description: "Perfect for city dwellers looking for modern living for beautiful family.",
+    },
+  ]);
   const [loading, setLoading] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      try {
-        const res = await publicRequest.get(`/products`);
-        setProducts(res.data || []);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProducts();
-  }, []);
 
   const settings = {
     dots: true,
@@ -160,8 +175,6 @@ const Products = () => {
     ],
   };
 
-  const containerHeight = isMobile ? "auto" : "65vh";
-
   return (
     <Box
       width="100%"
@@ -170,8 +183,6 @@ const Products = () => {
       padding={{ xs: 2, sm: 4 }}
       sx={{
         backgroundColor: "#f9f9f9",
-        minHeight: containerHeight,
-        overflow: "hidden",
         boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
@@ -197,15 +208,11 @@ const Products = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: containerHeight,
+            minHeight: 450,
           }}
         >
           <CircularProgress sx={{ color: "black" }} />
         </Box>
-      ) : products.length === 0 ? (
-        <Typography textAlign="center" color="text.secondary">
-          No featured properties available at the moment.
-        </Typography>
       ) : isMobile ? (
         <Box sx={{ display: "block" }}>
           {products.map((item, index) => (
@@ -217,9 +224,9 @@ const Products = () => {
           {products.map((item, index) => (
             <Box
               key={index}
-              px={1}
+              px={2}
               sx={{
-                height: "calc(65vh - 100px)",
+                // height: "100%",
                 boxSizing: "border-box",
               }}
             >
