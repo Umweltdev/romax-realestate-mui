@@ -66,16 +66,16 @@ const PropertySectionFlipping = ({ title, price, description, features, image })
                 p: 2,
               }}
             >
-              <Typography
+              <Typography variant="body2" color="text.secondary" textAlign="left">
+                {description}
+              </Typography>
+               <Typography
                 variant="subtitle1"
                 fontWeight="bold"
                 color="primary"
                 gutterBottom
               >
                 {title} — {price}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" textAlign="left">
-                {description}
               </Typography>
             </Box>
           </Box>
