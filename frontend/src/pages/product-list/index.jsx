@@ -103,10 +103,9 @@ const ProductListing = () => {
       <Navbar />
       <Box bgcolor="#f4f4f5" py={5} minHeight="100vh">
         <Container maxWidth="lg">
-          <Sort openDrawer={openDrawer} products={products} />
+          {isMobile && <Sort openDrawer={openDrawer} products={products} />}
 
           <Box sx={{ display: "flex", flexDirection: "row", mt: 4, gap: 3 }}>
-            {/* Sidebar (Desktop) */}
             {!isMobile && (
               <Box sx={{ width: { md: "35%", lg: "32%" } }}>
                 <Box
@@ -114,10 +113,20 @@ const ProductListing = () => {
                   py={2}
                   px={2}
                   borderRadius="10px"
-                  sx={{
-                    boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
-                  }}
+                  sx={{ boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)" }}
                 >
+                  {/* Desktop result count */}
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      textAlign: "center",
+                      fontWeight: 600,
+                      mb: 2,
+                    }}
+                  >
+                    {products.length} result{products.length !== 1 && "s"} found
+                  </Typography>
+
                   <Range textAlign="center" />
                   <CustomDivider />
 
@@ -161,7 +170,10 @@ const ProductListing = () => {
                       Search
                     </Button>
                     <Button
-                      onClick={() => dispatch(resetState())}
+                      onClick={() => {
+                        dispatch(resetState());
+                        getProducts();
+                      }}
                       fullWidth
                       sx={{
                         textTransform: "none",
@@ -180,7 +192,6 @@ const ProductListing = () => {
               </Box>
             )}
 
-            {/* Product Grid */}
             <Box sx={{ width: { xs: "100%", md: "65%", lg: "68%" } }}>
               {loading ? (
                 <Box
@@ -239,7 +250,6 @@ const ProductListing = () => {
             </Box>
           </Box>
 
-          {/* Filter Drawer for Mobile */}
           <Drawer
             open={drawer}
             onClose={closeDrawer}
@@ -297,7 +307,10 @@ const ProductListing = () => {
                 Search
               </Button>
               <Button
-                onClick={() => dispatch(resetState())}
+                onClick={() => {
+                  dispatch(resetState());
+                  getProducts();
+                }}
                 fullWidth
                 sx={{
                   textTransform: "none",
