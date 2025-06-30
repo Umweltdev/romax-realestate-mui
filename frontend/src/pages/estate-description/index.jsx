@@ -61,7 +61,7 @@ const Estate = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Box py={{ xs: 5, md: 6 }}>
+        <Box py={{ xs: 5, md: 6 }} px={4}>
           <ContainerBox maxWidth="lg">
             <Grid container spacing={4}>
               {/* Left - Image Carousel */}

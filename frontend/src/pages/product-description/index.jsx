@@ -86,7 +86,7 @@ const Product = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Box py={{ xs: 5, md: 6 }}>
+        <Box py={{ xs: 5, md: 6 }} px={4}>
           <ContainerBox maxWidth="lg">
             <Grid container spacing={4}>
               <Grid item xs={12} md={6}>

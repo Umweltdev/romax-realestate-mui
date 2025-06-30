@@ -5,7 +5,7 @@ import Timelines from '../components/Timeline'
 import Announcement from '../components/Announcement'
 import Newsletter from '../components/Newsletter'
 
-const About = () => {
+const TimelinePage = () => {
   return (
     <>
       <Announcement />
@@ -17,4 +17,4 @@ const About = () => {
   )
 }
 
-export default About
+export default TimelinePage

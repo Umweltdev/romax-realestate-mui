@@ -1,8 +1,23 @@
-import { List, ListItem, ListItemText, Stack, Typography } from "@mui/material";
+import { useState } from "react";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Stack,
+  Typography,
+  Link as MuiLink,
+} from "@mui/material";
 
 const Description = ({ desc, features }) => {
+  const [showFullDesc, setShowFullDesc] = useState(false);
+  const isLong = desc?.length > 200;
+
+  const displayedDesc =
+    showFullDesc || !isLong ? desc : `${desc.slice(0, 200)}...`;
+
   return (
     <Stack spacing={4} mt={4}>
+      {/* Description */}
       <Stack spacing={1}>
         <Typography variant="h5" fontWeight={600} gutterBottom>
           Description
@@ -12,10 +27,20 @@ const Description = ({ desc, features }) => {
           color="text.secondary"
           sx={{ lineHeight: 1.7 }}
         >
-          {desc}
+          {displayedDesc}
         </Typography>
+        {isLong && (
+          <MuiLink
+            component="button"
+            onClick={() => setShowFullDesc(!showFullDesc)}
+            sx={{ fontWeight: 600 }}
+          >
+            {showFullDesc ? "Show Less" : "Read More"}
+          </MuiLink>
+        )}
       </Stack>
 
+      {/* Listing Features */}
       <Stack spacing={1}>
         <Typography variant="h5" fontWeight={600} gutterBottom>
           Listing

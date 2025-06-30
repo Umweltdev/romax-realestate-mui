@@ -11,6 +11,7 @@ const usefulLinks = [
   { label: "My Account", to: "/user/profile" },
   { label: "My Order", to: "/orders" },
   { label: "My Estate", to: "/estate" },
+  { label : "TimeLine", to: "/timeline"},
   { label: "Properties", to: "/products" },
   { label: "About Us", to: "/about-page" },
   { label: "Terms", to: "/terms" },
