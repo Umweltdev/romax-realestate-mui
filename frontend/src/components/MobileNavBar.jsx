@@ -85,7 +85,7 @@ const MobileNavBar = ({ openDrawer }) => {
                 <Stack direction="row" spacing={2} alignItems="center">
                   <Login fontSize="small" />
                   <Typography>Login</Typography>
-                </Stack>{" "}
+                </Stack>
               </MenuItem>
             )}
           </Menu>
