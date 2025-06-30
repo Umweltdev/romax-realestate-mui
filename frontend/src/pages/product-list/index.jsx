@@ -113,7 +113,9 @@ const ProductListing = () => {
                   py={2}
                   px={2}
                   borderRadius="10px"
-                  sx={{ boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)" }}
+                  sx={{ boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
+                    
+                   }}
                 >
                   {/* Desktop result count */}
                   <Typography

@@ -18,6 +18,8 @@ import {
   useMediaQuery,
   Paper,
   Modal,
+  Collapse,
+  Link as MuiLink,
 } from "@mui/material";
 import { features } from "../../data";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -42,6 +44,7 @@ const Product = () => {
   const [product, setProduct] = useState({});
   const [toggle, setToggle] = useState(false);
   const [open, setOpen] = useState(false);
+  const [showFullDesc, setShowFullDesc] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -74,6 +77,8 @@ const Product = () => {
     getProduct();
   }, [id]);
 
+  const shortDesc = product?.desc?.slice(0, 150) || "";
+
   return (
     <Box>
       <Announcement />
@@ -81,113 +86,122 @@ const Product = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Box paddingY={{ xs: "10px", md: "40px" }}>
+        <Box py={{ xs: 5, md: 6 }}>
           <ContainerBox maxWidth="lg">
-            <Grid container spacing={3}>
-              <Grid
-                item
-                xs={12}
-                md={6}
-                sx={{
-                  gap: 1,
-                }}
-              >
+            <Grid container spacing={4}>
+              <Grid item xs={12} md={6}>
                 <Carousel images={product?.img} />
               </Grid>
               <Grid item xs={12} md={6}>
-                <Stack spacing={2}>
-                  <Typography variant="h5">{product?.title}</Typography>
-
-                  <Typography variant="h5" color="primary.main">
-                    {`₦ ${product?.price?.toLocaleString()}`}
+                <Stack spacing={4}>
+                  <Typography variant="h4" fontWeight={700} gutterBottom>
+                    {product?.title}
                   </Typography>
 
-                  <Stack direction="row" spacing={5}>
-                    <Stack spacing={0.3}>
-                      <Stack spacing={2} direction="row">
-                        <Typography variant="subtitle1">Address: </Typography>
-                        <Typography variant="subtitle2">
-                          {product?.address || "Will Updated Soon"}
-                        </Typography>
-                      </Stack>
-                      <Stack spacing={2} direction="row">
-                        <Typography variant="subtitle1">Location: </Typography>
-                        <Typography variant="subtitle2">
-                          {product?.location || "Will Updated Soon"}
-                        </Typography>
-                      </Stack>
-                      <Stack spacing={2} direction="row">
-                        <Typography variant="subtitle1">Category: </Typography>
-                        <Typography variant="subtitle2">
-                          {product?.category || "Will Updated Soon"}
-                        </Typography>
-                      </Stack>
+                  <Typography
+                    variant="h5"
+                    color="primary.main"
+                    fontWeight={600}
+                  >
+                    ₦ {product?.price?.toLocaleString()}
+                  </Typography>
 
-                      {product?.inStock <= 0 ? (
+                  <Stack spacing={2}>
+                    {["address", "location", "category"].map((label) => (
+                      <Stack
+                        direction="row"
+                        alignItems="center"
+                        spacing={1}
+                        key={label}
+                      >
                         <Typography
                           variant="subtitle1"
-                          color="white"
-                          p={0.4}
-                          px={2}
-                          py={1}
-                          sx={{
-                            backgroundColor: "gray",
-                            borderRadius: "10px",
-                            marginTop: "10px !important",
-                            alignSelf: "start"
-                          }}
+                          fontWeight={600}
+                          minWidth={90}
                         >
-                          Out Of Stock
+                          {label.charAt(0).toUpperCase() + label.slice(1)}:
                         </Typography>
-                      ) : (
-                        <Stack spacing={2} direction="row">
-                          <Typography variant="subtitle1"> Stock: </Typography>
-                          <Typography variant="subtitle2">
-                            {`${product?.inStock} units`}
-                          </Typography>
-                        </Stack>
-                      )}
-                    </Stack>
+                        <Typography variant="body1" color="text.secondary">
+                          {product?.[label] || "Will be updated soon"}
+                        </Typography>
+                      </Stack>
+                    ))}
+                    {product?.inStock <= 0 ? (
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          backgroundColor: "gray",
+                          color: "white",
+                          borderRadius: "8px",
+                          padding: "8px 16px",
+                          width: "fit-content",
+                        }}
+                      >
+                        Out Of Stock
+                      </Typography>
+                    ) : (
+                      <Stack direction="row" spacing={1}>
+                        <Typography variant="subtitle1" fontWeight={600}>
+                          Stock:
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                          {`${product?.inStock} units`}
+                        </Typography>
+                      </Stack>
+                    )}
                   </Stack>
-                  <Typography variant="subtitle2" color="text.secondary">
-                    {product?.desc}
-                  </Typography>
+
+                  <Box>
+                    <Collapse in={showFullDesc} collapsedSize={80}>
+                      <Typography
+                        variant="body1"
+                        color="text.secondary"
+                        sx={{ lineHeight: 1.8 }}
+                      >
+                        {product?.desc}
+                      </Typography>
+                    </Collapse>
+                    {product?.desc?.length > 150 && (
+                      <MuiLink
+                        component="button"
+                        onClick={() => setShowFullDesc(!showFullDesc)}
+                        sx={{ mt: 1, fontWeight: 600 }}
+                      >
+                        {showFullDesc ? "Show Less" : "Show More"}
+                      </MuiLink>
+                    )}
+                  </Box>
 
                   <Box
-                    justifyContent={{ xs: "center", sm: "left" }}
+                    display="flex"
+                    gap={2}
+                    py={2.5}
                     sx={{
-                      padding: "13px 0",
-                      borderWidth: "1px 0",
-                      borderStyle: "dashed",
-                      borderColor: "#ddd",
-                      display: "flex",
-                      gap: "15px",
+                      borderTop: "1px dashed #ccc",
+                      borderBottom: "1px dashed #ccc",
+                      flexWrap: "wrap",
                     }}
                   >
                     <Button
                       disabled={product?.stock <= 0}
-                      onClick={() => {
-                        navigate(`/booking/${product._id}`);
-                      }}
+                      onClick={() => navigate(`/booking/${product._id}`)}
                       sx={{
                         textTransform: "none",
                         bgcolor: "primary.main",
                         color: "white",
-                        fontSize: "14px",
-                        paddingX: "25px",
                         fontWeight: 600,
-                        paddingY: "12px",
-                        alignSelf: "start",
-                        display: "flex",
-                        gap: "10px",
+                        px: 3,
+                        py: 1.5,
                         borderRadius: "16px",
+                        display: "flex",
+                        gap: 1,
                         "&:hover": {
                           backgroundColor: "#fc973f",
                         },
                       }}
                     >
                       <MailOutlineIcon />
-                      <Typography variant="subtitle1"> Send Email</Typography>
+                      Send Email
                     </Button>
 
                     <Tooltip title="Save Property">
@@ -196,7 +210,6 @@ const Product = () => {
                         sx={{
                           backgroundColor: toggle ? "primary.main" : "#e9ecef",
                           borderRadius: "16px",
-                          paddingX: "12px",
                           color: toggle ? "white" : "black",
                           "&:hover": {
                             backgroundColor: "primary.main",
@@ -207,12 +220,11 @@ const Product = () => {
                         <FavoriteBorderIcon />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Whatsapp">
+                    <Tooltip title="WhatsApp">
                       <IconButton
                         sx={{
                           backgroundColor: "#e9ecef",
                           borderRadius: "16px",
-                          paddingX: "12px",
                           color: "black",
                           "&:hover": {
                             backgroundColor: "primary.main",
@@ -224,107 +236,128 @@ const Product = () => {
                       </IconButton>
                     </Tooltip>
                   </Box>
-                  <Stack>
-                    <Typography variant="body2" mb={1}>
+
+                  <Box>
+                    <Typography variant="h5" fontWeight={600} gutterBottom>
                       Property Details
                     </Typography>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={3}>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="primary.main">
+                          <Typography
+                            variant="subtitle2"
+                            color="primary.main"
+                            fontWeight={700}
+                          >
                             Property Type
                           </Typography>
-                          <Typography>Semi-Detached Duplex</Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            Semi-Detached Duplex
+                          </Typography>
                         </Stack>
                       </Grid>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="primary.main">
+                          <Typography
+                            variant="subtitle2"
+                            color="primary.main"
+                            fontWeight={700}
+                          >
                             Bedrooms
                           </Typography>
-                          <Typography>{product?.bed}</Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {product?.bed}
+                          </Typography>
                         </Stack>
                       </Grid>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="primary.main">
+                          <Typography
+                            variant="subtitle2"
+                            color="primary.main"
+                            fontWeight={700}
+                          >
                             Bathrooms
                           </Typography>
-                          <Typography>{product?.bath}</Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {product?.bath}
+                          </Typography>
                         </Stack>
                       </Grid>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="primary.main">
+                          <Typography
+                            variant="subtitle2"
+                            color="primary.main"
+                            fontWeight={700}
+                          >
                             Car Parking
                           </Typography>
-                          <Typography>{product?.car}</Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {product?.car}
+                          </Typography>
                         </Stack>
                       </Grid>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="primary.main">
+                          <Typography
+                            variant="subtitle2"
+                            color="primary.main"
+                            fontWeight={700}
+                          >
                             Size
                           </Typography>
-                          <Typography>{product?.size}</Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {product?.size}
+                          </Typography>
                         </Stack>
                       </Grid>
                     </Grid>
-                  </Stack>
+                  </Box>
                 </Stack>
               </Grid>
             </Grid>
 
-            <Grid
-              container
-              spacing={3}
-              sx={{
-                my: 5,
-              }}
-            >
+            <Grid container spacing={4} my={6}>
               {features.map(({ Icon, details }, index) => (
-                <Grid key={index} item sm={6}>
+                <Grid key={index} item sm={6} md={4}>
                   <Paper
-                    elevation={3}
-                    bgcolor="white"
-                    color="#e9ecef"
+                    elevation={2}
                     sx={{
                       border: "1px solid #dee2e6",
                       borderRadius: "10px",
+                      p: 4,
+                      textAlign: "center",
                       display: "flex",
                       flexDirection: "column",
-                      justifyContent: "center",
                       alignItems: "center",
-                      textAlign: "center",
-                      p: 7,
                       gap: 1.5,
+                      height: "100%",
                     }}
                   >
                     <Icon
                       sx={{
-                        fontSize: isNonMobile ? "50px" : "2.4rem",
+                        fontSize: isNonMobile ? "48px" : "2.4rem",
                         color: "primary.main",
                       }}
                     />
-                    <Typography>{details}</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {details}
+                    </Typography>
                   </Paper>
                 </Grid>
               ))}
             </Grid>
+
             <Tab product={product} />
           </ContainerBox>
         </Box>
       )}
       <Newsletter />
       <Footer />
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={open} onClose={handleClose}>
         <Login handleClose={handleClose} />
-      </Modal>{" "}
+      </Modal>
     </Box>
   );
 };

@@ -1,36 +1,40 @@
-import {
-  List,
-  ListItem,
-  ListItemText,
-  Stack,
-  Typography,
-  ListSubheader,
-} from "@mui/material";
+import { List, ListItem, ListItemText, Stack, Typography } from "@mui/material";
+
 const Description = ({ desc, features }) => {
   return (
-    <Stack spacing={2}>
-      <Stack>
-        <Typography variant="body2"> Description</Typography>
-        <Typography>{desc}</Typography>
+    <Stack spacing={4}>
+      {/* Description Section */}
+      <Stack spacing={1.2}>
+        <Typography variant="h6" fontWeight={700}>
+          Description
+        </Typography>
+        <Typography variant="body2" color="text.secondary" lineHeight={1.8}>
+          {desc}
+        </Typography>
       </Stack>
 
-      <Stack>
-        <Typography variant="body2"> Features:</Typography>
+      {/* Features Section */}
+      <Stack spacing={1.2}>
+        <Typography variant="h6" fontWeight={700}>
+          Features
+        </Typography>
         <List
+          dense
           sx={{
-            "&.MuiList-root": {
-              paddingY: "5px",
+            listStyleType: "disc",
+            pl: 2,
+            "& .MuiListItem-root": {
+              display: "list-item",
+              paddingLeft: 0,
+            },
+            "& .MuiListItemText-root .MuiTypography-root": {
+              fontSize: "0.9rem",
+              color: "text.secondary",
             },
           }}
         >
           {features?.map((f, index) => (
-            <ListItem
-              key={index}
-              disablePadding
-              sx={{
-                paddingY: "3px",
-              }}
-            >
+            <ListItem key={index} disableGutters disablePadding>
               <ListItemText primary={f} />
             </ListItem>
           ))}
