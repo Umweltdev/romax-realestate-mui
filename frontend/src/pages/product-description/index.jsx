@@ -107,19 +107,19 @@ const Product = () => {
                       <Stack spacing={2} direction="row">
                         <Typography variant="subtitle1">Address: </Typography>
                         <Typography variant="subtitle2">
-                          {product?.address || "Will Updated Soon"}
+                          {product?.address || "Will be updated soon"}
                         </Typography>
                       </Stack>
                       <Stack spacing={2} direction="row">
                         <Typography variant="subtitle1">Location: </Typography>
                         <Typography variant="subtitle2">
-                          {product?.location || "Will Updated Soon"}
+                          {product?.location || "Will be updated soon"}
                         </Typography>
                       </Stack>
                       <Stack spacing={2} direction="row">
                         <Typography variant="subtitle1">Category: </Typography>
                         <Typography variant="subtitle2">
-                          {product?.category || "Will Updated Soon"}
+                          {product?.category || "Will be updated soon"}
                         </Typography>
                       </Stack>
 

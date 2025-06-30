@@ -33,14 +33,14 @@ const contactDetails = [
   },
 ];
 
-const FooterStrip = styled.div`
-  background-color: #ee7e19;
-  height: 3px;
-  width: 100%;
-`;
+// const FooterStrip = styled.div`
+//   background-color: #ee7e19;
+//   height: 3px;
+//   width: 100%;
+// `;
 
 const FooterWrapper = styled.footer`
-  background-color: #f9f9f9;
+  background-color: #ee7e19;
   border-top: 1px solid #ddd;
   padding: 50px 80px;
   display: grid;
@@ -119,7 +119,7 @@ const LinkList = styled.ul`
       transition: all 0.3s ease;
 
       &:hover {
-        color: #ee7e19;
+        color: #ffffff;
         text-decoration: underline;
       }
     }
@@ -137,11 +137,10 @@ const ContactItem = styled.a`
 
   svg {
     margin-right: 10px;
-    color: #ee7e19;
   }
 
   &:hover {
-    color: #ee7e19;
+    color: #ffffff;
   }
 
   ${tablet(`
@@ -156,7 +155,6 @@ const ContactItem = styled.a`
 const Footer = () => {
   return (
     <>
-      <FooterStrip />
       <FooterWrapper>
         <Column>
           <LogoBox to="/">
