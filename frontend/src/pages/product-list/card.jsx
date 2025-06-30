@@ -12,7 +12,7 @@ import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
 import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { DirectionsCar } from "@mui/icons-material";
+import { DirectionsCar, PhoneEnabled } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "./ProdListCarousel";
 import { dateConverter } from "../user-dashboard/utils";
@@ -40,7 +40,6 @@ const Card = (props) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.currentUser);
   const [toggle, setToggle] = useState(false);
-  // const [showLoginModal, setShowLoginModal] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -78,33 +77,13 @@ const Card = (props) => {
           marginTop: "0 !important",
         }}
       >
-        <Grid
-          item
-          xs={12}
-          sm={6.5}
-          sx={{
-            padding: "0 !important",
-          }}
-        >
+        <Grid item xs={12} sm={6.5} sx={{ padding: "0 !important" }}>
           <Link
             to={`/product/${_id}`}
             style={{ textDecoration: "none", color: "#2b3445" }}
           >
-            <Stack
-              sx={{
-                // height: "370px",
-                // overflow: "hidden",
-                // borderBottomLeftRadius: "10px",
-                height: "100%",
-                // display: "none"
-              }}
-            >
-              <Box
-                sx={{
-                  height: "75%",
-                  // height: "250px",
-                }}
-              >
+            <Stack sx={{ height: "100%" }}>
+              <Box sx={{ height: "75%" }}>
                 <Carousel images={img} />
               </Box>
 
@@ -113,7 +92,6 @@ const Card = (props) => {
                   bgcolor="#f4f4f5"
                   p={2}
                   sx={{
-                    // minHeight: "80px",
                     height: "25%",
                     overflow: "hidden",
                     borderBottomLeftRadius: isNonMobile ? "10px" : 0,
@@ -121,9 +99,13 @@ const Card = (props) => {
                     alignItems: "center",
                   }}
                 >
-                  <Stack spacing={0.5} justifyContent="center" color="primary.main">
+                  <Stack
+                    spacing={0.5}
+                    justifyContent="center"
+                    color="primary.main"
+                  >
                     <Typography variant="h5">
-                    {`₦ ${price?.toLocaleString()}`}
+                      {`₦ ${price?.toLocaleString()}`}
                     </Typography>
                     <Typography variant="subtitle2" letterSpacing={1.3}>
                       Offers Over
@@ -145,13 +127,10 @@ const Card = (props) => {
                       p={2}
                       spacing={0.5}
                       justifyContent="center"
-                      sx={{
-                        flex: isNonMobile ? "0 0 70%" : "0 0 60%",
-                      }}
+                      sx={{ flex: isNonMobile ? "0 0 70%" : "0 0 60%" }}
                     >
                       <Typography variant="h5">
-                      {`₦ ${price?.toLocaleString()}`}
-
+                        {`₦ ${price?.toLocaleString()}`}
                       </Typography>
                       <Typography variant="subtitle2" letterSpacing={1.3}>
                         Offers Over
@@ -170,9 +149,7 @@ const Card = (props) => {
                       <Typography
                         variant="body2"
                         textAlign="center"
-                        sx={{
-                          lineHeight: 1.3,
-                        }}
+                        sx={{ lineHeight: 1.3 }}
                       >
                         PREMIUM LISTING
                       </Typography>
@@ -184,14 +161,7 @@ const Card = (props) => {
           </Link>
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-          sm={5.5}
-          sx={{
-            padding: "0 !important",
-          }}
-        >
+        <Grid item xs={12} sm={5.5} sx={{ padding: "0 !important" }}>
           <Stack px={2} py={2.5} height="100%">
             <Link
               to={`/product/${_id}`}
@@ -232,30 +202,27 @@ const Card = (props) => {
               </Typography>
             </Link>
 
-            <Stack direction="row" justifyContent="space-between" mt={3}>
-              <Stack spacing={2} direction="row" alignItems="center">
-                <Stack color="#7D879C">
-                  <Typography variant="subtitle1">0161 232 0345</Typography>
-                  <Typography variant="subtitle1">Hotline</Typography>
+            <Stack spacing={1.5} mt={3}>
+              <Stack direction="row" spacing={2} justifyContent="space-between">
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <IconButton onClick={() => navigate(`/booking/${_id}`)}>
+                    <EmailOutlinedIcon sx={{ fontSize: "25px" }} />
+                  </IconButton>
+                  <IconButton onClick={handleSavedProperty}>
+                    {toggle ? (
+                      <FavoriteIcon sx={{ color: "primary.main" }} />
+                    ) : (
+                      <FavoriteBorderOutlinedIcon />
+                    )}
+                  </IconButton>
                 </Stack>
-                <IconButton onClick={() => navigate(`/booking/${_id}`)}>
-                  <EmailOutlinedIcon
-                    sx={{
-                      fontSize: "25px",
-                    }}
-                  />
-                </IconButton>
-              </Stack>
 
-              <Stack spacing={0.4} direction="row" alignItems="center">
-                <IconButton onClick={handleSavedProperty}>
-                  {toggle ? (
-                    <FavoriteIcon sx={{ color: "primary.main" }} />
-                  ) : (
-                    <FavoriteBorderOutlinedIcon />
-                  )}
-                </IconButton>
-                <Typography variant="subtitle1">Save</Typography>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <PhoneEnabled sx={{ fontSize: "24px", color: "#7D879C" }} />
+                  <Typography variant="subtitle2" color="#7D879C">
+                    0161 232 0345
+                  </Typography>
+                </Stack>
               </Stack>
             </Stack>
           </Stack>
@@ -270,7 +237,7 @@ const Card = (props) => {
         <Box>
           <Login handleClose={handleClose} />
         </Box>
-      </Modal>{" "}
+      </Modal>
     </Box>
   );
 };
