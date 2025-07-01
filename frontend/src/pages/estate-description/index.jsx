@@ -94,11 +94,11 @@ const Estate = () => {
                       color="text.secondary"
                       sx={{ lineHeight: 1.8 }}
                     >
-                      {showFullDesc || product?.desc?.length <= 150
+                      {showFullDesc || product?.desc?.length <= 300
                         ? product?.desc
-                        : `${product?.desc?.slice(0, 150)}`}
+                        : `${product?.desc?.slice(0, 300)}...`}
                     </Typography>
-                    {product?.desc?.length > 150 && (
+                    {product?.desc?.length > 300 && (
                       <MuiLink
                         component="button"
                         onClick={() => setShowFullDesc(!showFullDesc)}

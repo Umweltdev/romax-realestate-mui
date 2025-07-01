@@ -13,7 +13,7 @@ const Description = ({ desc, features }) => {
   const isLong = desc?.length > 200;
 
   const displayedDesc =
-    showFullDesc || !isLong ? desc : `${desc.slice(0, 200)}...`;
+    showFullDesc || !isLong ? desc : `${desc.slice(0, 300)}...`;
 
   return (
     <Stack spacing={4} mt={4}>
@@ -33,7 +33,11 @@ const Description = ({ desc, features }) => {
           <MuiLink
             component="button"
             onClick={() => setShowFullDesc(!showFullDesc)}
-            sx={{ fontWeight: 600 }}
+            sx={{
+              fontWeight: 600,
+              alignSelf: "flex-start",
+              mt: 0.5,
+            }}
           >
             {showFullDesc ? "Show Less" : "Read More"}
           </MuiLink>
@@ -42,21 +46,30 @@ const Description = ({ desc, features }) => {
 
       {/* Listing Features */}
       <Stack spacing={1}>
-        <Typography variant="h5" fontWeight={600} gutterBottom>
+        <Typography variant="h5" fontWeight={700} gutterBottom>
           Listing
         </Typography>
-        <Stack spacing={1.5} pl={1}>
+        <List
+          dense
+          sx={{
+            listStyleType: "disc",
+            pl: 2,
+            "& .MuiListItem-root": {
+              display: "list-item",
+              paddingLeft: 0,
+            },
+            "& .MuiListItemText-root .MuiTypography-root": {
+              fontSize: "0.9rem",
+              color: "text.secondary",
+            },
+          }}
+        >
           {features?.map((f, index) => (
-            <Typography
-              key={index}
-              variant="body2"
-              color="text.secondary"
-              sx={{ display: "block" }}
-            >
-              • {f}
-            </Typography>
+            <ListItem key={index} disableGutters disablePadding>
+              <ListItemText primary={f} />
+            </ListItem>
           ))}
-        </Stack>
+        </List>
       </Stack>
     </Stack>
   );

@@ -77,7 +77,7 @@ const Product = () => {
     getProduct();
   }, [id]);
 
-  const shortDesc = product?.desc?.slice(0, 150) || "";
+  // const shortDesc = product?.desc?.slice(0, 300) || "";
 
   return (
     <Box>
@@ -158,16 +158,22 @@ const Product = () => {
                         color="text.secondary"
                         sx={{ lineHeight: 1.8 }}
                       >
-                        {product?.desc}
+                        {showFullDesc || product?.desc?.length <= 300
+                          ? product?.desc
+                          : `${product?.desc?.slice(0, 300)}...`}
                       </Typography>
                     </Collapse>
-                    {product?.desc?.length > 150 && (
+                    {product?.desc?.length > 300 && (
                       <MuiLink
                         component="button"
                         onClick={() => setShowFullDesc(!showFullDesc)}
-                        sx={{ mt: 1, fontWeight: 600 }}
+                        sx={{
+                          mt: 1,
+                          fontWeight: 600,
+                          display: "inline-block",
+                        }}
                       >
-                        {showFullDesc ? "Show Less" : "Show More"}
+                        {showFullDesc ? "Read Less" : "Read More"}
                       </MuiLink>
                     )}
                   </Box>

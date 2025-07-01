@@ -12,7 +12,7 @@ const Description = ({ desc, features }) => {
   const [showFullDesc, setShowFullDesc] = useState(false);
   const isLong = desc?.length > 200;
   const displayedDesc =
-    showFullDesc || !isLong ? desc : `${desc.slice(0, 200)}...`;
+    showFullDesc || !isLong ? desc : `${desc.slice(0, 300)}...`;
 
   return (
     <Stack spacing={4}>
@@ -28,7 +28,11 @@ const Description = ({ desc, features }) => {
           <MuiLink
             component="button"
             onClick={() => setShowFullDesc(!showFullDesc)}
-            sx={{ fontWeight: 600 }}
+            sx={{
+              fontWeight: 600,
+              alignSelf: "flex-start",
+              mt: 0.5,
+            }}
           >
             {showFullDesc ? "Show Less" : "Read More"}
           </MuiLink>

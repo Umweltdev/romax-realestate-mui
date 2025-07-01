@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Tabs, Tab, Box, Stack, Typography, IconButton } from "@mui/material";
+import { Tabs, Tab, Box, Stack, Typography, IconButton, Button } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
 import Description from "./Description";
 
@@ -16,9 +16,12 @@ const TabPanel = ({ children, value, index }) => (
 
 const TabComponent = ({ product }) => {
   const [selectedTab, setSelectedTab] = useState(0);
-
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
+  };
+
+  const handleCallNow = () => {
+    window.location.href = "tel:09019876493";
   };
 
   return (
@@ -84,6 +87,22 @@ const TabComponent = ({ product }) => {
               </Typography>
             </Box>
           </Stack>
+          <Box pt={2}>
+            <Button
+              variant="contained"
+              startIcon={<PhoneIcon />}
+              onClick={handleCallNow}
+              sx={{
+                textTransform: "none",
+                borderRadius: "16px",
+                fontWeight: 600,
+                px: 3,
+                py: 1.2,
+              }}
+            >
+              Call Now
+            </Button>
+          </Box>
         </Stack>
       </TabPanel>
     </Box>
