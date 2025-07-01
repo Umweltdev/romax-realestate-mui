@@ -12,7 +12,6 @@ const usefulLinks = [
   { label: "My Order", to: "/orders" },
   { label: "My Estate", to: "/estate" },
   { label: "Properties", to: "/products" },
-  { label: "About Us", to: "/about-page" },
   { label: "Terms", to: "/terms" },
 ];
 
@@ -34,14 +33,14 @@ const contactDetails = [
   },
 ];
 
-// const FooterStrip = styled.div`
-//   background-color: #ee7e19;
-//   height: 3px;
-//   width: 100%;
-// `;
+const FooterStrip = styled.div`
+  background-color: #ee7e19;
+  height: 3px;
+  width: 100%;
+`;
 
 const FooterWrapper = styled.footer`
-  background-color: #ee7e19;
+  background-color: #f9f9f9;
   border-top: 1px solid #ddd;
   padding: 50px 80px;
   display: grid;
@@ -120,7 +119,7 @@ const LinkList = styled.ul`
       transition: all 0.3s ease;
 
       &:hover {
-        color: #ffffff;
+        color: #ee7e19;
         text-decoration: underline;
       }
     }
@@ -138,10 +137,11 @@ const ContactItem = styled.a`
 
   svg {
     margin-right: 10px;
+    color: #ee7e19;
   }
 
   &:hover {
-    color: #ffffff;
+    color: #ee7e19;
   }
 
   ${tablet(`
@@ -156,6 +156,7 @@ const ContactItem = styled.a`
 const Footer = () => {
   return (
     <>
+      <FooterStrip />
       <FooterWrapper>
         <Column>
           <LogoBox to="/">
