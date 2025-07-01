@@ -91,7 +91,6 @@ const EstateBooking = () => {
             rowGap: "24px",
             alignItems: "flex-start",
             display: "flex",
-            // flexWrap: "wrap",
             justifyContent: "center",
             flexDirection: isNonMobile ? "row" : "column",
           }}
@@ -203,7 +202,6 @@ const EstateBooking = () => {
                             : "primary.main",
                         color: "white",
                         fontSize: "16px",
-                        // paddingX: "25px",
                         width: "100%",
                         fontWeight: 600,
                         paddingY: "10px",

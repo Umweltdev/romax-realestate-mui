@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   Container,
   Box,
-  Grid,
   Stack,
+  Typography,
   Divider,
   styled,
   Drawer,
   MenuItem,
+  useMediaQuery,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import Sort from "./sort";
@@ -32,26 +33,31 @@ const EstateListing = () => {
   const [sort, setSort] = useState("newest");
   const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
+  const isMobile = useMediaQuery("(max-width:900px)");
 
   const openDrawer = () => setDrawer(true);
   const closeDrawer = () => setDrawer(false);
 
+  const getProducts = async () => {
+    try {
+      setLoading(true);
+      const res = await publicRequest.get("/estate");
+      const sortedProducts = res.data.sort((a, b) => {
+        if (sort === "newest")
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        if (sort === "oldest")
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        return 0;
+      });
+      setProducts(sortedProducts);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const res = await publicRequest.get("/estate");
-        const sortedProducts = res.data.sort((a, b) => {
-          if (sort === "newest") return new Date(b.createdAt) - new Date(a.createdAt);
-          if (sort === "oldest") return new Date(a.createdAt) - new Date(b.createdAt);
-          return 0;
-        });
-        setProducts(sortedProducts);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
     getProducts();
   }, [sort]);
 
@@ -59,32 +65,41 @@ const EstateListing = () => {
     <>
       <Announcement />
       <Navbar />
-      {loading ? (
-        <Loader />
-      ) : (
-        <Box bgcolor="#F6F9FC" py={5}>
-          <Container maxWidth="lg">
+      <Box bgcolor="#f4f4f5" py={5} minHeight="100vh">
+        <Container maxWidth="lg">
+          {isMobile && (
             <Sort openDrawer={openDrawer} sort={sort} setSort={setSort} />
-            <Grid container spacing={3} mt={4}>
-              {/* Sidebar - Filter */}
-              <Grid
-                item
-                xs={0}
-                md={4}
-                lg={3.5}
-                display={{ xs: "none", md: "block" }}
-              >
+          )}
+
+          <Box sx={{ display: "flex", flexDirection: "row", mt: 4, gap: 3 }}>
+            {!isMobile && (
+              <Box sx={{ width: { md: "35%", lg: "32%" } }}>
                 <Box
                   bgcolor="white"
-                  p={2}
-                  borderRadius="5px"
+                  py={2}
+                  px={2}
+                  borderRadius="10px"
                   sx={{
                     boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
+                    height: "100%",
                   }}
                 >
+                  <Typography
+                    variant="h6"
+                    sx={{ textAlign: "center", fontWeight: 600, mb: 2 }}
+                  >
+                    {products.length} result{products.length !== 1 && "s"} found
+                  </Typography>
+
+                  <CustomDivider />
+
                   <Stack spacing={2}>
                     {products.map((prod) => (
-                      <Link to={`/estate/${prod._id}`} key={prod._id} style={{ textDecoration: "none" }}>
+                      <Link
+                        to={`/estate/${prod._id}`}
+                        key={prod._id}
+                        style={{ textDecoration: "none" }}
+                      >
                         <MenuItem
                           sx={{
                             display: "block",
@@ -92,6 +107,11 @@ const EstateListing = () => {
                             color: "black",
                             fontSize: "16px",
                             transition: "background-color 0.3s",
+                            borderRadius: "6px",
+                            "&:hover": {
+                              backgroundColor: "#eb8510",
+                              color: "white",
+                            },
                           }}
                         >
                           {prod.title}
@@ -100,69 +120,69 @@ const EstateListing = () => {
                     ))}
                   </Stack>
                 </Box>
-              </Grid>
+              </Box>
+            )}
 
-              {/* Card Grid */}
-              <Grid item xs={12} md={8} lg={8.5}>
+            <Box sx={{ width: { xs: "100%", md: "65%", lg: "68%" } }}>
+              {loading ? (
+                <Loader />
+              ) : (
                 <Stack spacing={3} ref={containerRef}>
                   {products.map((prod) => (
                     <Card key={prod._id} {...prod} />
                   ))}
                 </Stack>
-              </Grid>
-            </Grid>
-          </Container>
-        </Box>
-      )}
+              )}
+            </Box>
+          </Box>
+          {/* Drawer filter (Mobile only) */}
+          <Drawer
+            open={drawer}
+            onClose={closeDrawer}
+            anchor="left"
+            sx={{
+              zIndex: 1200,
+              display: { xs: "block", md: "none" },
+              "& .MuiPaper-root": {
+                backgroundColor: "white",
+                width: 280,
+                padding: 2,
+              },
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{ textAlign: "center", fontWeight: 600, mb: 2 }}
+            >
+              {products.length} result{products.length !== 1 && "s"} found
+            </Typography>
 
-      <Drawer
-        open={drawer}
-        onClose={closeDrawer}
-        anchor="left"
-        sx={{
-          zIndex: 1200,
-          "& .MuiPaper-root": {
-            backgroundColor: "white",
-          },
-        }}
-      >
-        <Box
-          bgcolor="white"
-          py={3}
-          px={2.2}
-          borderRadius="5px"
-          sx={{
-            width: 300,
-            height: "100vh",
-            overflowY: "scroll",
-            "&::-webkit-scrollbar": {
-              width: "5px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              background: "#ebeff7",
-              borderRadius: "100px",
-            },
-          }}
-        >
-          {products.map((prod) => (
-            <Link to={`/estate/${prod._id}`} key={prod._id}>
-              <MenuItem
-                sx={{
-                  display: "block",
-                  padding: "8px",
-                  textDecoration: "none",
-                  color: "black",
-                  fontSize: "16px",
-                  transition: "background-color 0.3s",
-                }}
-              >
-                {prod.title}
-              </MenuItem>
-            </Link>
-          ))}
-        </Box>
-      </Drawer>
+            <CustomDivider />
 
+            <Stack spacing={2}>
+              {products.map((prod) => (
+                <Link
+                  to={`/estate/${prod._id}`}
+                  key={prod._id}
+                  style={{ textDecoration: "none" }}
+                >
+                  <MenuItem
+                    sx={{
+                      display: "block",
+                      padding: "8px",
+                      color: "black",
+                      fontSize: "16px",
+                      transition: "background-color 0.3s",
+                    }}
+                  >
+                    {prod.title}
+                  </MenuItem>
+                </Link>
+              ))}
+            </Stack>
+          </Drawer>
+        </Container>
+      </Box>
       <Newsletter />
       <Footer />
     </>

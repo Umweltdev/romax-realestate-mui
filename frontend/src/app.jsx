@@ -16,7 +16,6 @@ import { useSelector } from "react-redux";
 import ForgotPassword from "./pages/ForgotPassword";
 import Estate from "./pages/estate-description";
 import UserDashBoard from "./pages/user-dashboard";
-import About from "./pages/About";
 import EstateListing from "./pages/estate-list";
 import Booking from "./pages/booking";
 import FAQ from "./pages/faq";
@@ -24,6 +23,7 @@ import EstateBooking from "./pages/estate-booking";
 import ResetPassword from "./pages/ResetPassword";
 import Blog from "./pages/Blog";
 
+import TimelinePage from "./pages/TimelinePage";
 import AboutPage from "./pages/About-Page";
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -35,7 +35,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/success" element={<Success />} />
           <Route path="/products" element={<ProductList />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/timeline" element={<TimelinePage />} />
           <Route path="/about-us" element={<AboutPage />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/estate/:id" element={<Estate />} />

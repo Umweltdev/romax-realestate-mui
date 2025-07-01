@@ -8,11 +8,12 @@ import {
   IconButton,
   Modal,
 } from "@mui/material";
-import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
+import BedOutlinedIcon from "@mui/icons-material/BedOutlined";
 import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
+import DriveEtaIcon from "@mui/icons-material/DriveEta";
+import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { DirectionsCar } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "./ProdListCarousel";
 import { dateConverter } from "../user-dashboard/utils";
@@ -40,7 +41,6 @@ const Card = (props) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.currentUser);
   const [toggle, setToggle] = useState(false);
-  // const [showLoginModal, setShowLoginModal] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -64,47 +64,20 @@ const Card = (props) => {
   return (
     <Box
       bgcolor="white"
-      borderRadius="10px"
-      sx={{
-        boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
-      }}
+      borderRadius={3}
+      boxShadow="0px 3px 10px rgba(0, 0, 0, 0.1)"
+      overflow="hidden"
+      sx={{ width: "100%" }}
     >
-      <Grid
-        container
-        spacing={2}
-        width="100%"
-        sx={{
-          marginLeft: "0 !important",
-          marginTop: "0 !important",
-        }}
-      >
-        <Grid
-          item
-          xs={12}
-          sm={6.5}
-          sx={{
-            padding: "0 !important",
-          }}
-        >
+      <Grid container>
+        {/* Left: Image + Price */}
+        <Grid item xs={12} sm={6.5} sx={{ p: 0 }}>
           <Link
             to={`/product/${_id}`}
-            style={{ textDecoration: "none", color: "#2b3445" }}
+            style={{ textDecoration: "none", color: "inherit" }}
           >
-            <Stack
-              sx={{
-                // height: "370px",
-                // overflow: "hidden",
-                // borderBottomLeftRadius: "10px",
-                height: "100%",
-                // display: "none"
-              }}
-            >
-              <Box
-                sx={{
-                  height: "75%",
-                  // height: "250px",
-                }}
-              >
+            <Stack sx={{ height: "100%" }}>
+              <Box sx={{ height: "75%" }}>
                 <Carousel images={img} />
               </Box>
 
@@ -113,19 +86,30 @@ const Card = (props) => {
                   bgcolor="#f4f4f5"
                   p={2}
                   sx={{
-                    // minHeight: "80px",
                     height: "25%",
                     overflow: "hidden",
-                    borderBottomLeftRadius: isNonMobile ? "10px" : 0,
+                    borderBottomLeftRadius: isNonMobile ? 12 : 0,
                     display: "flex",
                     alignItems: "center",
                   }}
                 >
-                  <Stack spacing={0.5} justifyContent="center" color="primary.main">
-                    <Typography variant="h5">
-                    {`₦ ${price?.toLocaleString()}`}
+                  <Stack
+                    spacing={0.5}
+                    justifyContent="center"
+                    color="primary.main"
+                  >
+                    <Typography
+                      variant="h5"
+                      fontWeight={700}
+                      letterSpacing={0.5}
+                    >
+                      ₦ {price?.toLocaleString()}
                     </Typography>
-                    <Typography variant="subtitle2" letterSpacing={1.3}>
+                    <Typography
+                      variant="subtitle2"
+                      letterSpacing={1.3}
+                      fontWeight={600}
+                    >
                       Offers Over
                     </Typography>
                   </Stack>
@@ -137,7 +121,7 @@ const Card = (props) => {
                   sx={{
                     height: "25%",
                     overflow: "hidden",
-                    borderBottomLeftRadius: isNonMobile ? "10px" : 0,
+                    borderBottomLeftRadius: isNonMobile ? 12 : 0,
                   }}
                 >
                   <Stack direction="row" height="100%">
@@ -145,15 +129,20 @@ const Card = (props) => {
                       p={2}
                       spacing={0.5}
                       justifyContent="center"
-                      sx={{
-                        flex: isNonMobile ? "0 0 70%" : "0 0 60%",
-                      }}
+                      sx={{ flex: isNonMobile ? "0 0 70%" : "0 0 60%" }}
                     >
-                      <Typography variant="h5">
-                      {`₦ ${price?.toLocaleString()}`}
-
+                      <Typography
+                        variant="h5"
+                        fontWeight={700}
+                        letterSpacing={0.5}
+                      >
+                        ₦ {price?.toLocaleString()}
                       </Typography>
-                      <Typography variant="subtitle2" letterSpacing={1.3}>
+                      <Typography
+                        variant="subtitle2"
+                        letterSpacing={1.3}
+                        fontWeight={600}
+                      >
                         Offers Over
                       </Typography>
                     </Stack>
@@ -172,6 +161,8 @@ const Card = (props) => {
                         textAlign="center"
                         sx={{
                           lineHeight: 1.3,
+                          fontWeight: 600,
+                          letterSpacing: 0.8,
                         }}
                       >
                         PREMIUM LISTING
@@ -184,83 +175,152 @@ const Card = (props) => {
           </Link>
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-          sm={5.5}
-          sx={{
-            padding: "0 !important",
-          }}
-        >
-          <Stack px={2} py={2.5} height="100%">
+        {/* Right: Content */}
+        <Grid item xs={12} sm={5.5} sx={{ p: 0 }}>
+          <Stack
+            px={3}
+            py={3}
+            height="100%"
+            justifyContent="space-between"
+            spacing={3}
+          >
             <Link
               to={`/product/${_id}`}
               style={{ textDecoration: "none", color: "#2b3445" }}
             >
-              <Typography variant="body2">{title}</Typography>
-              <Stack direction="row" spacing={3}>
-                <Typography variant="body1">
+              <Typography
+                variant="h6"
+                component="h3"
+                fontWeight={700}
+                gutterBottom
+                sx={{ mb: 1 }}
+              >
+                {title}
+              </Typography>
+
+              <Stack
+                direction="row"
+                spacing={3}
+                alignItems="center"
+                sx={{ mb: 2 }}
+              >
+                <Typography
+                  variant="subtitle1"
+                  color="text.secondary"
+                  fontWeight={600}
+                >
                   {propertyType || "Semi-Detached"}
                 </Typography>
-                <Stack direction="row" spacing={1}>
-                  <HotelOutlinedIcon />
-                  <Typography variant="body1">
-                    <span style={{ fontSize: "12px" }}>X</span>
-                    {bed}
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <BedOutlinedIcon
+                    sx={{ fontSize: 20, color: "text.secondary" }}
+                  />
+                  <Typography
+                    variant="subtitle2"
+                    color="text.secondary"
+                    fontWeight={500}
+                  >
+                    <span style={{ fontSize: "12px" }}>X</span> {bed}
                   </Typography>
                 </Stack>
-                <Stack direction="row" spacing={1}>
-                  <BathtubOutlinedIcon />
-                  <Typography variant="body1">
-                    <span style={{ fontSize: "12px" }}>X</span>
-                    {bath}
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <BathtubOutlinedIcon
+                    sx={{ fontSize: 20, color: "text.secondary" }}
+                  />
+                  <Typography
+                    variant="subtitle2"
+                    color="text.secondary"
+                    fontWeight={500}
+                  >
+                    <span style={{ fontSize: "12px" }}>X</span> {bath}
                   </Typography>
                 </Stack>
-                <Stack direction="row" spacing={1}>
-                  <DirectionsCar />
-                  <Typography variant="body1">
-                    <span style={{ fontSize: "12px" }}>X</span>
-                    {car}
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <DriveEtaIcon
+                    sx={{ fontSize: 20, color: "text.secondary" }}
+                  />
+                  <Typography
+                    variant="subtitle2"
+                    color="text.secondary"
+                    fontWeight={500}
+                  >
+                    <span style={{ fontSize: "12px" }}>X</span> {car}
                   </Typography>
                 </Stack>
               </Stack>
-              <Typography variant="subtitle2" color="#7D879C" mt={1.5}>
-                {`${desc.substring(0, 200)}...`}
+
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ lineHeight: 1.6, mb: 3 }}
+              >
+                {desc.substring(0, 200)}...
               </Typography>
-              <Typography variant="subtitle1" color="primary.main" mt={3}>
-                {`Added on ${dateConverter(createdAt)}`}
+
+              <Typography
+                variant="caption"
+                color="primary.main"
+                fontWeight={600}
+                sx={{ letterSpacing: 0.5 }}
+              >
+                Added on {dateConverter(createdAt)}
               </Typography>
             </Link>
 
-            <Stack direction="row" justifyContent="space-between" mt={3}>
-              <Stack spacing={2} direction="row" alignItems="center">
-                <Stack color="#7D879C">
-                  <Typography variant="subtitle1">0161 232 0345</Typography>
-                  <Typography variant="subtitle1">Hotline</Typography>
+            <Stack spacing={1}>
+              <Stack
+                direction="row"
+                spacing={2}
+                justifyContent="space-between"
+                borderTop="1px solid #eb8510"
+                pt={2}
+                alignItems="center"
+              >
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <IconButton
+                    onClick={() => navigate(`/booking/${_id}`)}
+                    size="medium"
+                    sx={{ color: "text.secondary" }}
+                  >
+                    <EmailOutlinedIcon sx={{ fontSize: 25 }} />
+                  </IconButton>
+                  <IconButton
+                    onClick={handleSavedProperty}
+                    size="medium"
+                    sx={{ color: toggle ? "primary.main" : "text.secondary" }}
+                  >
+                    {toggle ? <FavoriteIcon /> : <FavoriteBorderOutlinedIcon />}
+                  </IconButton>
                 </Stack>
-                <IconButton onClick={() => navigate(`/booking/${_id}`)}>
-                  <EmailOutlinedIcon
-                    sx={{
-                      fontSize: "25px",
-                    }}
-                  />
-                </IconButton>
-              </Stack>
 
-              <Stack spacing={0.4} direction="row" alignItems="center">
-                <IconButton onClick={handleSavedProperty}>
-                  {toggle ? (
-                    <FavoriteIcon sx={{ color: "primary.main" }} />
-                  ) : (
-                    <FavoriteBorderOutlinedIcon />
-                  )}
-                </IconButton>
-                <Typography variant="subtitle1">Save</Typography>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <a
+                    href="tel:01612320345"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      textDecoration: "none",
+                      color: "#7D879C",
+                      cursor: "pointer",
+                    }}
+                    aria-label="Call phone number 0161 232 0345"
+                  >
+                    <LocalPhoneOutlinedIcon sx={{ fontSize: 24, mr: 0.5 }} />
+                    <Typography
+                      variant="subtitle2"
+                      color="#7D879C"
+                      fontWeight={600}
+                    >
+                      0161 232 0345
+                    </Typography>
+                  </a>
+                </Stack>
               </Stack>
             </Stack>
           </Stack>
         </Grid>
       </Grid>
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -270,7 +330,7 @@ const Card = (props) => {
         <Box>
           <Login handleClose={handleClose} />
         </Box>
-      </Modal>{" "}
+      </Modal>
     </Box>
   );
 };

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Tabs, Tab, Box, Stack, Typography } from "@mui/material";
+import { Tabs, Tab, Box, Stack, Typography, Button } from "@mui/material";
+import PhoneIcon from "@mui/icons-material/Phone";
 import Description from "./Description";
-//import Reviews from "./Reviews";
 
 const TabPanel = ({ children, value, index }) => (
   <div
@@ -18,6 +18,10 @@ const TabComponent = ({ product }) => {
   const [selectedTab, setSelectedTab] = useState(0);
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
+  };
+
+  const handleCallNow = () => {
+    window.location.href = "tel:09019876493";
   };
 
   return (
@@ -44,39 +48,55 @@ const TabComponent = ({ product }) => {
               fontSize: "16px",
             }}
           />
-          {/* <Tab
-            label="Property Reviews"
-            sx={{
-              textTransform: "none",
-              fontSize: "16px",
-            }}
-          /> */}
         </Tabs>
       </Box>
 
       <TabPanel value={selectedTab} index={0}>
         <Description desc={product.desc} features={product.features} />
       </TabPanel>
+
       <TabPanel value={selectedTab} index={1}>
-        <Stack spacing={1.5}>
-          <Typography variant="body2">
-            Contact to make enquiries about the estate
+        <Stack spacing={3} mt={2}>
+          <Typography variant="body1" color="text.secondary">
+            Reach out to us for more information or to book a visit.
           </Typography>
 
-          <Stack>
-            <Typography variant="subtitle1">Contact Number</Typography>
-            <Typography>09019876493</Typography>
+          <Stack spacing={1}>
+            <Typography variant="h6" fontWeight={600}>
+              Contact Number
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              09019876493
+            </Typography>
           </Stack>
 
-          <Stack>
-            <Typography variant="subtitle1">Tollfree Hotline</Typography>
-            <Typography>0700080003</Typography>
+          <Stack spacing={1}>
+            <Typography variant="h6" fontWeight={600}>
+              Toll-Free Hotline
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              0700080003
+            </Typography>
           </Stack>
+
+          <Box pt={2}>
+            <Button
+              variant="contained"
+              startIcon={<PhoneIcon />}
+              onClick={handleCallNow}
+              sx={{
+                textTransform: "none",
+                borderRadius: "16px",
+                fontWeight: 600,
+                px: 3,
+                py: 1.2,
+              }}
+            >
+              Call Now
+            </Button>
+          </Box>
         </Stack>
       </TabPanel>
-      {/* <TabPanel value={selectedTab} index={2}>
-        <Reviews />
-      </TabPanel> */}
     </Box>
   );
 };
