@@ -41,7 +41,6 @@ const Home = () => {
           <FilterComponent />
         </Paper>
       </Box>
-      <Categories />
       <Carousel />
       <Products />
       <Facilities />

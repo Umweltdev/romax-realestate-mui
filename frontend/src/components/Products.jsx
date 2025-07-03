@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Typography,
   useTheme,
   useMediaQuery,
   CircularProgress,
+  Divider,
 } from "@mui/material";
 import Slider from "react-slick";
-import { publicRequest } from "../requestMethods";
 import estate1 from "../assests/estate1.jpg";
 import estate2 from "../assests/estate2.jpg";
 import estate3 from "../assests/estate3.jpg";
@@ -35,7 +35,6 @@ const Card = ({ imageUrl, title, description }) => {
         mb: 4,
       }}
     >
-      {/* Image Section */}
       <Box
         sx={{
           height: 300,
@@ -61,7 +60,6 @@ const Card = ({ imageUrl, title, description }) => {
             <CircularProgress sx={{ color: "black" }} />
           </Box>
         )}
-
         <img
           src={imgError ? fallbackImage : imageUrl}
           alt={title}
@@ -79,7 +77,6 @@ const Card = ({ imageUrl, title, description }) => {
         />
       </Box>
 
-      {/* Text Section */}
       <Box
         sx={{
           p: 3,
@@ -91,9 +88,10 @@ const Card = ({ imageUrl, title, description }) => {
         }}
       >
         <Typography
-          variant="h6"
+          variant="h4"
           sx={{
             fontWeight: 600,
+            color: "#eb8510",
             fontSize: { xs: "16px", sm: "18px" },
             lineHeight: 1.3,
             mb: 1,
@@ -101,6 +99,7 @@ const Card = ({ imageUrl, title, description }) => {
         >
           {title}
         </Typography>
+        <Divider sx={{ my: 1, borderColor: "#eb8510", borderWidth: "1px" }} />
 
         <Typography
           variant="body2"
@@ -121,7 +120,7 @@ const Card = ({ imageUrl, title, description }) => {
 };
 
 const Products = () => {
-  const [products, setProducts] = useState([
+  const [products] = useState([
     {
       imageUrl: estate2,
       title: "Modern Duplex",
@@ -137,10 +136,11 @@ const Products = () => {
     {
       imageUrl: estate3,
       title: "Urban Apartment",
-      description: "Perfect for city dwellers looking for modern living for beautiful family.",
+      description:
+        "Perfect for city dwellers looking for modern living for beautiful family.",
     },
   ]);
-  const [loading, setLoading] = useState(false);
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -152,24 +152,21 @@ const Products = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    rtl: true,
+    rtl: false,
+    cssEase: "linear",
+    arrows: true,
     responsive: [
       {
         breakpoint: 968,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
         },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1,
           arrows: false,
-          dots: true,
         },
       },
     ],
@@ -179,15 +176,13 @@ const Products = () => {
     <Box
       width="100%"
       marginY={6}
-      paddingX={0}
       padding={{ xs: 2, sm: 4 }}
       sx={{
         backgroundColor: "#f9f9f9",
-        boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
+        justifyContent: "center",
         marginBottom: 10,
-        justifyContent: isMobile ? "flex-start" : "center",
       }}
     >
       <Typography
@@ -202,34 +197,16 @@ const Products = () => {
         Featured Houses
       </Typography>
 
-      {loading ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: 450,
-          }}
-        >
-          <CircularProgress sx={{ color: "black" }} />
-        </Box>
-      ) : isMobile ? (
-        <Box sx={{ display: "block" }}>
+      {isMobile ? (
+        <Box>
           {products.map((item, index) => (
             <Card key={index} {...item} />
           ))}
         </Box>
       ) : (
         <Slider {...settings}>
-          {products.map((item, index) => (
-            <Box
-              key={index}
-              px={2}
-              sx={{
-                // height: "100%",
-                boxSizing: "border-box",
-              }}
-            >
+          {[...products].reverse().map((item, index) => (
+            <Box key={index} px={2}>
               <Card {...item} />
             </Box>
           ))}
