@@ -36,7 +36,7 @@ function App() {
           <Route path="/success" element={<Success />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/timeline" element={<TimelinePage />} />
-          <Route path="/about-us" element={<AboutPage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/estate/:id" element={<Estate />} />
           <Route path="/estate" element={<EstateListing />} />

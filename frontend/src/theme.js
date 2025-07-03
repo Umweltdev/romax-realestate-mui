@@ -52,6 +52,12 @@ export const theme = createTheme({
       fontSize: "13px",
       lineHeight: 1.5,
     },
+      li: {
+      fontFamily: "Inter, sans-serif",
+      fontWeight: 400,
+      fontSize: "13px",
+      lineHeight: 1.5,
+    },
   },
   breakpoints: {
     values: {

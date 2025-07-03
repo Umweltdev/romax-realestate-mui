@@ -44,7 +44,8 @@ const NavBarDrawer = () => {
             { label: "House Prices", to: "/products" },
             { label: "Our Estates", to: "/estate" },
             { label: "Our Timeline", to: "/timeline" },
-            { label: "About Us", to: "/about-us" },
+            { label: "Our Blogs", to: "/blogs"},
+            { label: "About Us", to: "/about" },
             { label: "Saved", to: "#" }, // update route if needed
           ].map((item) => (
             <Link

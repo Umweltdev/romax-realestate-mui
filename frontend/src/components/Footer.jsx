@@ -118,7 +118,7 @@ const LinkList = styled.ul`
       text-decoration: none;
       font-size: 15px;
       font-weight: 200;
-      font-family: inherit;
+      font-family: 'Inter', sans-serif;
       transition: all 0.3s ease;
 
       &:hover {
@@ -137,6 +137,7 @@ const ContactItem = styled.a`
   color: #000000;
   text-decoration: none;
   font-size: 15px;
+  font-family: "Inter", sans-serif;
   transition: all 0.3s ease;
 
   svg {
