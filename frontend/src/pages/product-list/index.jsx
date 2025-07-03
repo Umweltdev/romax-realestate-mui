@@ -113,9 +113,7 @@ const ProductListing = () => {
                   py={2}
                   px={2}
                   borderRadius="10px"
-                  sx={{ boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
-                    
-                   }}
+                  sx={{ boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)" }}
                 >
                   {/* Desktop result count */}
                   <Typography
@@ -296,17 +294,38 @@ const ProductListing = () => {
                 onClick={getProducts}
                 disabled={loading}
                 fullWidth
+                variant="contained"
                 sx={{
                   textTransform: "none",
-                  backgroundColor: "#eb8150",
+                  backgroundColor: "#eb8510", // Your brand color
                   color: "white",
                   fontWeight: 600,
                   mt: 1,
                   borderRadius: "10px",
                   py: 1.2,
+                  transition: "all 0.2s ease",
+                  boxShadow: "0 2px 4px rgba(235, 133, 16, 0.3)",
+                  "&:hover": {
+                    backgroundColor: "#c4690e", // Noticeably darker
+                    boxShadow: "0 4px 8px rgba(235, 133, 16, 0.4)",
+                    transform: "translateY(-1px)",
+                  },
+                  "&:active": {
+                    transform: "translateY(0)",
+                    boxShadow: "0 2px 4px rgba(235, 133, 16, 0.3)",
+                  },
+                  "&:disabled": {
+                    backgroundColor: "#e0e0e0",
+                    color: "#a8a8a8",
+                    boxShadow: "none",
+                  },
                 }}
               >
-                Search
+                {loading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  "Search"
+                )}
               </Button>
               <Button
                 onClick={() => {
@@ -314,14 +333,22 @@ const ProductListing = () => {
                   getProducts();
                 }}
                 fullWidth
+                variant="outlined"
                 sx={{
                   textTransform: "none",
-                  border: "1px solid #eb8150",
-                  color: "#eb8150",
+                  borderColor: "#eb8510",
+                  color: "#eb8510",
                   fontWeight: 600,
                   mt: 1,
                   borderRadius: "10px",
                   py: 1.2,
+                  transition: "all 0.2s ease",
+                  "&:hover": {
+                    backgroundColor: "rgba(235, 133, 16, 0.1)",
+                    borderColor: "#c4690e",
+                    color: "#c4690e",
+                    boxShadow: "0 2px 4px rgba(235, 133, 16, 0.2)",
+                  },
                 }}
               >
                 Clear

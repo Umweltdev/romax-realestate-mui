@@ -83,32 +83,15 @@ const DashboardBox = ({ closeDrawer }) => {
   ];
 
   return (
-    <Box>
+    <Box sx={{ textAlign: "left" }}>
       <Stack spacing={4}>
-        {/* Dashboard Section */}
         <Box>
           <Typography
             pl={3.5}
             variant="subtitle2"
             color="text.secondary"
             mb={1}
-          >
-            DASHBOARD
-          </Typography>
-          <Stack spacing={1}>
-            {dashboards.map((item, index) => (
-              <ILink key={index} {...item} closeDrawer={closeDrawer} />
-            ))}
-          </Stack>
-        </Box>
-
-        {/* Account Settings */}
-        <Box>
-          <Typography
-            pl={3.5}
-            variant="subtitle2"
-            color="text.secondary"
-            mb={1}
+            textAlign="left"
           >
             ACCOUNT SETTINGS
           </Typography>
@@ -118,26 +101,45 @@ const DashboardBox = ({ closeDrawer }) => {
             ))}
           </Stack>
         </Box>
-
-        {/* Logout Button */}
+        <Box>
+          <Typography
+            pl={3.5}
+            variant="subtitle2"
+            color="text.secondary"
+            mb={1}
+            textAlign="left"
+          >
+            DASHBOARD
+          </Typography>
+          <Stack spacing={1}>
+            {dashboards.map((item, index) => (
+              <ILink key={index} {...item} closeDrawer={closeDrawer} />
+            ))}
+          </Stack>
+        </Box>
         <Box px={3.5} mt={2}>
           <Button
-            variant="text"
+            variant="outlined"
             onClick={handleLogout}
             fullWidth
             sx={{
-              justifyContent: "flex-start",
               textTransform: "none",
-              color: "primary.main",
               fontWeight: 600,
-              gap: 1.2,
+              py: 1.2,
+              borderRadius: 1,
+              color: "#fff",
+              backgroundColor: "#eb8510",
+              justifyContent: "center",
+              pl: 3.5,
               "&:hover": {
-                backgroundColor: "rgba(210, 63, 87, 0.04)",
+                backgroundColor: "#d9770a",
+                borderColor: "divider",
               },
             }}
           >
-            <LogoutIcon fontSize="small" />
-            <Typography variant="subtitle2">Logout</Typography>
+            <Typography variant="subtitle2" component="span">
+              Logout
+            </Typography>
           </Button>
         </Box>
       </Stack>

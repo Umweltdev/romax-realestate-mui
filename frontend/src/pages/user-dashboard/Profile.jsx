@@ -13,7 +13,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Profile = ({ openDrawer }) => {
-  const isNonMobile = useMediaQuery("(min-width:968px)");
   const Mobile = useMediaQuery("(min-width:600px)");
   const user = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
@@ -29,17 +28,21 @@ const Profile = ({ openDrawer }) => {
       <Header
         title={
           <Box>
-            <Typography textTransform="capitalize" sx={{ lineHeight: 1.67 }}>
-              {username}
-            </Typography>
             <Typography
-              variant="caption"
+              variant="h1"
               color="text.secondary"
               fontWeight={600}
-              sx={{ fontSize: "15px" }}
+              sx={{ fontSize: "20px" }}
             >
-              Profile
+              My Profile
             </Typography>
+            {/* <Typography
+              variant="body1"
+              textTransform="capitalize"
+              sx={{ lineHeight: 1.67, fontSize: "12px" }}
+            >
+              {username}
+            </Typography> */}
           </Box>
         }
         openDrawer={openDrawer}

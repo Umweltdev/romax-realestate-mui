@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Tabs, Tab, Box, Stack, Typography, IconButton, Button } from "@mui/material";
+import { Tabs, Tab, Box, Stack, Typography, Button } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
 import Description from "./Description";
 

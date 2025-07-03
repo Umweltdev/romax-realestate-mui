@@ -8,8 +8,6 @@ import {
   Divider,
   useMediaQuery,
   useTheme,
-  Card,
-  Fade,
 } from "@mui/material";
 import estate1 from "../assests/estate1.jpg";
 import estate2 from "../assests/estate2.jpg";
@@ -26,26 +24,11 @@ const AboutRomax12B = () => {
   return (
     <Box sx={{ bgcolor: "#f5f5f5", py: { xs: 6, md: 10 } }}>
       <Container maxWidth="lg">
-        {/* Hero */}
-        <Fade in timeout={600}>
-          <Box textAlign="center" sx={{ mb: 4 }}>
-            <Typography
-              variant="h2"
-              fontWeight="bold"
-              color="primary"
-              gutterBottom
-            >
-              About
-            </Typography>
-          </Box>
-        </Fade>
-        {/* Overview */}
         <Grid container spacing={6} alignItems="center" sx={{ mb: 10 }}>
           <Grid item xs={12}>
             <Typography
               variant="h5"
-              mt={2}
-              mb={2}
+              mb={4}
               fontWeight={700}
               color="#1c1c1c"
               gutterBottom
@@ -82,6 +65,7 @@ const AboutRomax12B = () => {
             fontWeight="bold"
             gutterBottom
             textAlign="center"
+            mb={4}
           >
             Property Options
           </Typography>
