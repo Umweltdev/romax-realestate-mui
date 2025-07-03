@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
 import Carousel from "../components/Slider";
+import Categories from "../components/Categories";
 import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
@@ -40,6 +41,7 @@ const Home = () => {
           <FilterComponent />
         </Paper>
       </Box>
+      <Categories />
       <Carousel />
       <Products />
       <Facilities />

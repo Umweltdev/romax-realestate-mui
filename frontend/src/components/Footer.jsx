@@ -13,7 +13,6 @@ const usefulLinks = [
   { label: "My Estate", to: "/estate" },
   { label : "TimeLine", to: "/timeline"},
   { label: "Properties", to: "/products" },
-  { label: "About Us", to: "/about-page" },
   { label: "Terms", to: "/terms" },
 ];
 
