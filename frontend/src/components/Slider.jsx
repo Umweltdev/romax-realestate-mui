@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { sliderItems } from "../data";
 import {
   Box,
-  Grid,
   Stack,
   Typography,
   Button,
@@ -12,7 +11,6 @@ import {
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { OtherHousesOutlined } from "@mui/icons-material";
 
 const Card = ({ title, img, desc, bg }) => {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Container,
   Box,
@@ -61,30 +61,29 @@ const ProductListing = () => {
     dispatch(resetState());
   };
 
-  const getProducts = async () => {
+  const getProducts = useCallback(async () => {
     setLoading(true);
-    const queryParams = `${sort ? `sort=${sort}&` : ""}${
-      minPrice ? `minPrice=${minPrice}&` : ""
-    }${maxPrice ? `maxPrice=${maxPrice}&` : ""}${
-      minBed ? `minBed=${minBed}&` : ""
-    }${maxBed ? `maxBed=${maxBed}&` : ""}${
-      minCar ? `minCar=${minCar}&` : ""
-    }${maxCar ? `maxCar=${maxCar}&` : ""}${
-      type ? `propertyType=${type}&` : ""
-    }${location ? `location=${location}&` : ""}`;
+
+    const params = new URLSearchParams();
+
+    if (sort) params.append("sort", sort);
+    if (minPrice) params.append("minPrice", minPrice);
+    if (maxPrice) params.append("maxPrice", maxPrice);
+    if (minBed) params.append("minBed", minBed);
+    if (maxBed) params.append("maxBed", maxBed);
+    if (minCar) params.append("minCar", minCar);
+    if (maxCar) params.append("maxCar", maxCar);
+    if (type) params.append("propertyType", type);
+    if (location) params.append("location", location);
 
     try {
-      const res = await publicRequest.get(`/products?${queryParams}`);
+      const res = await publicRequest.get(`/products?${params.toString()}`);
       setProducts(res.data);
     } catch (error) {
-      console.error(error);
+      console.error("Failed to fetch products:", error);
     } finally {
       setLoading(false);
     }
-  };
-
-  useEffect(() => {
-    getProducts();
   }, [
     sort,
     minPrice,
@@ -96,6 +95,10 @@ const ProductListing = () => {
     type,
     location,
   ]);
+
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
 
   return (
     <>
