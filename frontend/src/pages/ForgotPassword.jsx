@@ -4,10 +4,8 @@ import {
   Box,
   Stack,
   Button,
-  IconButton,
   Paper,
   TextField,
-  Rating,
   styled,
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";

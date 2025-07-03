@@ -79,7 +79,6 @@ const Card = ({ imageUrl, title, description }) => {
 
       <Box
         sx={{
-          p: 3,
           backgroundColor: "white",
           flex: 1,
           display: "flex",
@@ -90,24 +89,28 @@ const Card = ({ imageUrl, title, description }) => {
         <Typography
           variant="h4"
           sx={{
+            px: 3,
+            py: 1.5,
             fontWeight: 600,
             color: "#eb8510",
             fontSize: { xs: "16px", sm: "18px" },
             lineHeight: 1.3,
-            mb: 1,
           }}
         >
           {title}
         </Typography>
-        <Divider sx={{ my: 1, borderColor: "#eb8510", borderWidth: "1px" }} />
+        <Divider sx={{ borderColor: "#eb8510", borderWidth: "1px" }} />
 
         <Typography
           variant="body2"
           sx={{
+            px: 3,
+            py: 1.5,
             color: "text.secondary",
             fontSize: { xs: "13px", sm: "14px" },
             lineHeight: 1.6,
             mt: "auto",
+            mb: "10px"
           }}
         >
           {description?.length > 100

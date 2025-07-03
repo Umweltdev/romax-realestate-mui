@@ -129,7 +129,6 @@ const LinkList = styled.ul`
   }
 `;
 
-
 const ContactItem = styled.a`
   display: flex;
   align-items: center;
