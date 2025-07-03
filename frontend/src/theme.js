@@ -1,4 +1,4 @@
- import { createTheme } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
   palette: {
@@ -8,36 +8,48 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Open Sans", "sans-serif"].join(","),
+    fontFamily: ["Inter", "sans-serif"].join(","),
     fontSize: 14,
-    h5: {
+    h1: {
+      fontFamily: "Poppins, sans-serif",
       fontWeight: 700,
+      fontSize: "64px",
+      lineHeight: 1.2,
+    },
+    h5: {
+      fontFamily: "Poppins, sans-serif",
+      fontWeight: 600,
       fontSize: "25px",
-      lineHeight: 1,
+      lineHeight: 1.3,
     },
     h6: {
+      fontFamily: "Poppins, sans-serif",
       fontWeight: 600,
       fontSize: "20px",
-      lineHeight: 1,
-    },
-    body2: {
-      fontWeight: 600,
-      fontSize: "16px",
-      lineHeight: 1.5,
+      lineHeight: 1.3,
     },
     body1: {
+      fontFamily: "Inter, sans-serif",
       fontWeight: 400,
       fontSize: "16px",
-      lineHeight: 1.5,
+      lineHeight: 1.7,
+    },
+    body2: {
+      fontFamily: "Inter, sans-serif",
+      fontWeight: 500,
+      fontSize: "15px",
+      lineHeight: 1.6,
     },
     subtitle1: {
+      fontFamily: "Inter, sans-serif",
       fontWeight: 600,
       fontSize: "14px",
       lineHeight: 1.5,
     },
     subtitle2: {
+      fontFamily: "Inter, sans-serif",
       fontWeight: 400,
-      fontSize: "14px",
+      fontSize: "13px",
       lineHeight: 1.5,
     },
   },

@@ -22,9 +22,9 @@ import FAQ from "./pages/faq";
 import EstateBooking from "./pages/estate-booking";
 import ResetPassword from "./pages/ResetPassword";
 import Blog from "./pages/Blog";
-
 import TimelinePage from "./pages/TimelinePage";
 import AboutPage from "./pages/About-Page";
+
 function App() {
   const user = useSelector((state) => state.user.currentUser);
 

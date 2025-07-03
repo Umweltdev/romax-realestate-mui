@@ -125,7 +125,7 @@ const Products = () => {
       imageUrl: estate2,
       title: "Modern Duplex",
       description:
-        "A beautifully designed 4-bedroom duplex in a serene estate.",
+        "A beautifully designed serene 4-bedroom duplex.",
     },
     {
       imageUrl: estate1,
@@ -136,8 +136,7 @@ const Products = () => {
     {
       imageUrl: estate3,
       title: "Urban Apartment",
-      description:
-        "Perfect for city dwellers looking for modern living for beautiful family.",
+      description: "Perfect for city dwellers looking for modern living.",
     },
   ]);
 

@@ -101,7 +101,7 @@ const LogoBox = styled(Link)`
 
 const SectionTitle = styled.h3`
   color: #222;
-  font-size: 20px;
+  font-size: 22px;
   margin-bottom: 24px;
 `;
 
@@ -114,24 +114,27 @@ const LinkList = styled.ul`
     margin-bottom: 12px;
 
     a {
-      color: #444;
+      color: #000000;
       text-decoration: none;
-      font-size: 16px;
+      font-size: 15px;
+      font-weight: 200;
+      font-family: inherit;
       transition: all 0.3s ease;
 
       &:hover {
         color: #ee7e19;
-        text-decoration: underline;
+        text-decoration: none;
       }
     }
   }
 `;
 
+
 const ContactItem = styled.a`
   display: flex;
   align-items: center;
   margin-bottom: 16px;
-  color: #444;
+  color: #000000;
   text-decoration: none;
   font-size: 15px;
   transition: all 0.3s ease;
@@ -143,16 +146,13 @@ const ContactItem = styled.a`
 
   &:hover {
     color: #ee7e19;
+    text-decoration: none;
   }
 
-  ${tablet(`
-    justify-content: center;
-  `)}
-
-  ${mobile(`
-    justify-content: center;
-  `)}
+  ${tablet(`justify-content: center;`)}
+  ${mobile(`justify-content: center;`)}
 `;
+
 
 const Footer = () => {
   return (
