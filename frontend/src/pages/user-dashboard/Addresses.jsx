@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import {
   Typography,
   Stack,
-  Button,
   Paper,
   Box,
   IconButton,
@@ -11,7 +10,7 @@ import {
 import PlaceIcon from "@mui/icons-material/Place";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "./Header";
 import { userRequest } from "../../requestMethods";
 
@@ -40,7 +39,6 @@ const Address = ({ _id, fullName, address, phone, state, setDeleteFlag, deleteFl
         flexWrap: "wrap",
         flexDirection: isNonMobile ? "row" : "column",
         columnGap: 1.5,
-        // justifyContent: "space-between"
       }}
     >
       <Typography variant="subtitle2" flex={"1 1 0"} whiteSpace="pre">
@@ -58,9 +56,6 @@ const Address = ({ _id, fullName, address, phone, state, setDeleteFlag, deleteFl
       >
         {` ${address} ${state} State`}
       </Typography>
-      {/* <Typography variant="subtitle2" flex="1 1 0">
-        { ` ${state} State`}
-      </Typography> */}
       <Stack direction="row" justifyContent="end">
         <Link
           to={`/user/addresses/${_id}`}

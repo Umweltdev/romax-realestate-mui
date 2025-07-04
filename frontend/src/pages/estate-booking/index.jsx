@@ -40,6 +40,7 @@ export const CustomDivider = styled(Divider)`
 const EstateBooking = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
+  // eslint-disable-next-line no-unused-vars
   const [isLoading, setLoading] = useState(true);
   const [product, setProduct] = useState({});
   const isNonMobile = useMediaQuery("(min-width:750px)");

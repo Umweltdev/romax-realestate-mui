@@ -1,12 +1,13 @@
 import "../userList/userList.css";
 import { useEffect, useState } from "react";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { userRequest } from "../../requestMethods";
-import { Box,Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export default function Bookings() {
   const [bookings, setBookings] = useState([]);
+  
   useEffect(() => {
     const getBookings = async () => {
       try {
@@ -18,6 +19,7 @@ export default function Bookings() {
     };
     getBookings();
   }, []);
+
   const bookingFiltered = bookings.map((booking) => ({
     id: booking?._id,
     bookingId: booking?.bookingId.substring(0, 8),
@@ -37,52 +39,41 @@ export default function Bookings() {
   }));
 
   const columns = [
-    { field: "bookingId", headerName: "BookingId", width: 150 },
-
-    {
-      field: "bookDate",
-      headerName: "Book Date",
-      width: 150,
-    },
-    {
-      field: "viewDate",
-      headerName: "View Date",
-      width: 150,
-    },
-    {
-      field: "propertyTitle",
-      headerName: "Property Name",
-      width: 260,
-    },
+    { field: "bookingId", headerName: "Booking ID", width: 150 },
+    { field: "bookDate", headerName: "Book Date", width: 150 },
+    { field: "viewDate", headerName: "View Date", width: 150 },
+    { field: "propertyTitle", headerName: "Property Name", width: 260 },
     {
       field: "action",
       headerName: "Action",
       width: 150,
-      headerAlign: "center",
-      align: "center",
-      renderCell: (params) => {
-        return (
-          <>
-            <Link to={"/bookings/" + params.row.id}>
-              <button className="userListEdit">Update</button>
-            </Link>
-          </>
-        );
-      },
+      renderCell: (params) => (
+        <Link to={"/bookings/" + params.row.id}>
+          <button className="userListEdit">Update</button>
+        </Link>
+      ),
     },
   ];
 
   return (
     <Box padding="0 20px" height="80vh">
-       <Typography variant="h5" fontSize={{ xs: "19px", sm: "28px" }} mb={4}>
+      <Typography variant="h5" fontSize={{ xs: "19px", sm: "28px" }} mb={4}>
         House Bookings
-      </Typography>{" "}
+      </Typography>
       <DataGrid
         rows={bookingFiltered}
-        disableSelectionOnClick
         columns={columns}
         pageSize={8}
         checkboxSelection
+        disableSelectionOnClick
+        sx={{
+          '& .MuiDataGrid-cell': {
+            padding: '8px 16px',
+          },
+          '& .MuiDataGrid-columnHeaders': {
+            backgroundColor: '#f5f5f5',
+          },
+        }}
       />
     </Box>
   );

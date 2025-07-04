@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 const Header = ({ Icon, title, button, openDrawer, link }) => {
   const isNonMobile = useMediaQuery("(min-width:968px)");
   const marginBottom = button ? { xs: 1.5, md: 0 } : 0;
-  const alignment = button ? "start" : "center";
 
   return (
     <Stack

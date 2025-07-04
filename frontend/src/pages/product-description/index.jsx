@@ -27,11 +27,10 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Tab from "./Tab";
 import Carousel from "./ProdDescCarousel";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { userRequest } from "../../requestMethods";
 import makeToast from "../../toaster";
 import { useSelector } from "react-redux";
-import { Close } from "@mui/icons-material";
 import Login from "../../pages/Login";
 
 const Product = () => {

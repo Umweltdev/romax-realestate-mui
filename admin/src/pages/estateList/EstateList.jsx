@@ -1,5 +1,5 @@
 import "./estatelist.css";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import {
   Stack,
   Typography,
@@ -9,19 +9,17 @@ import {
   Grid,
   Box
 } from "@mui/material";
-import { DeleteOutline } from "@material-ui/icons";
+import { DeleteOutline, Edit, Delete } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header";
-import { Edit, Delete } from "@material-ui/icons";
 import {
   getEstates,
   resetState,
   deleteEstate,
 } from "../../redux/estateRedux";
 import makeToast from "../../toaster";
-
 
 export default function EstateList() {
   const dispatch = useDispatch();
@@ -61,9 +59,7 @@ export default function EstateList() {
   }));
 
   return (
-    <Box sx={{
-      px: 2
-    }}>
+    <Box sx={{ px: 2 }}>
       <Header
         title={"Estate List"}
         placeholder="Search Estate..."
@@ -72,15 +68,13 @@ export default function EstateList() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <Box sx={{
-        height: "80vh"
-      }}>
+      <Box sx={{ height: "80vh" }}>
         <DataGrid
           rows={estates}
           columns={[
             {
               field: "id",
-              headerName: "id",
+              headerName: "ID",
               width: 200,
             },
             {
@@ -98,7 +92,6 @@ export default function EstateList() {
               headerName: "Estate Houses",
               width: 70,
             },
-
             {
               field: "action",
               headerName: "Action",
@@ -125,9 +118,19 @@ export default function EstateList() {
               ),
             },
           ]}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+          disableSelectionOnClick
+          sx={{
+            '& .MuiDataGrid-cell': {
+              padding: '8px 16px',
+            },
+            '& .MuiDataGrid-columnHeaders': {
+              backgroundColor: '#f5f5f5',
+            },
+          }}
         />
       </Box>
-
     </Box>
   );
 }

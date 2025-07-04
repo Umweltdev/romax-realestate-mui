@@ -1,17 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   Typography,
   Box,
   Stack,
-  Button,
   IconButton,
   Divider,
   styled,
-  Grid,
   useMediaQuery,
 } from "@mui/material";
 import Bookmark from "@mui/icons-material/Bookmark";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Carousel from "./Carousel";
 import PropertyDetails from "./PropertyDetails";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -26,7 +24,6 @@ export const CustomDivider = styled(Divider)`
 `;
 const Booking = ({ openDrawer }) => {
   const isNonMobile = useMediaQuery("(min-width:968px)");
-  const navigate = useNavigate();
   const { id } = useParams();
   const [booking, setBooking] = useState({});
   useEffect(() => {

@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Typography,
   Box,
-  Stack,
   Button,
   IconButton,
   Paper,
   TextField,
-  Rating,
   styled,
 } from "@mui/material";
 import { Link } from "react-router-dom";

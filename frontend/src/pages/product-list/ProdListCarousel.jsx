@@ -75,7 +75,7 @@ const Carousel = ({images}) => {
     <Slider className="sliderr" {...settings}>
       {images.map((item, index) => (
         <div key={index} className="image-box">
-          <img className="listCarouselImage" src={item} />
+          <img className="listCarouselImage" alt="listCarousel" src={item} />
         </div>
       ))}
     </Slider>

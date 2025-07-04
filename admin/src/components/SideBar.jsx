@@ -18,7 +18,7 @@ import {
   WorkOutline,
   Report,
   BookmarkBorderOutlined,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 
 const SideBar = ({ handleDrawerClose }) => {

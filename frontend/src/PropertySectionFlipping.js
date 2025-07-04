@@ -5,13 +5,11 @@ import {
   Card,
   Stack,
   useTheme,
-  useMediaQuery,
 } from "@mui/material";
 
 const PropertySectionFlipping = ({ title, price, description, features, image }) => {
   const [flipped, setFlipped] = useState(false);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Box

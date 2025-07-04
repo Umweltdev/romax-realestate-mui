@@ -3,15 +3,11 @@ import {
   TextField,
   Button,
   Typography,
-  useTheme,
-  useMediaQuery,
 } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { useState } from "react";
 
 const Newsletter = () => {
-  const theme = useTheme();
-  const isNonMobile = useMediaQuery(theme.breakpoints.up("md"));
   const [hasInput, setHasInput] = useState(false);
 
   return (

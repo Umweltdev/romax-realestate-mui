@@ -4,11 +4,10 @@ import {
   Button,
   TextField,
   InputAdornment,
-  styled,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Add, Search } from "@material-ui/icons";
+import { Add, Search } from "@mui/icons-material";
 
 const Header = ({
   title,
@@ -19,7 +18,7 @@ const Header = ({
   setSearchQuery,
 }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
- 
+
   return (
     <Stack spacing={3} mb={3}>
       <Typography variant="h6" fontSize={{ xs: "19px", sm: "21px" }}>
@@ -68,7 +67,6 @@ const Header = ({
                 alignItems: "center",
                 width: isNonMobile ? "auto" : "100%",
                 gap: 1,
-
                 "&:hover": {
                   backgroundColor: "#2756b6",
                 },

@@ -4,15 +4,11 @@ import {
   Box,
   Typography,
   Button,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 
 const Hero = () => {
   const navigate = useNavigate();
-  const theme = useTheme();
 
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
