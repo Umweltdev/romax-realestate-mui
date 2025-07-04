@@ -5,27 +5,54 @@ import {
   registerFailure,
   registerStart,
   registerSuccess,
-  resetState
+  resetState,
 } from "./userRedux";
+
 import { publicRequest, updateTokenInHeaders } from "../requestMethods";
 
-export const login = async (dispatch, user) => {
+// LOGIN
+export const login = async (dispatch, user, onSuccess, onError) => {
+  dispatch(resetState());
   dispatch(loginStart());
+
   try {
     const res = await publicRequest.post("/auth/login", user);
-    dispatch(loginSuccess(res.data));
-    updateTokenInHeaders(res.data.accessToken)
+    const data = res.data;
+
+    dispatch(loginSuccess(data));
+    updateTokenInHeaders(data.accessToken);
+
+    if (onSuccess) onSuccess(data);
   } catch (err) {
-    dispatch(loginFailure(err.response.data));
+    const errorMessage =
+      err?.response?.data?.message || "Something went wrong during login";
+    dispatch(loginFailure(errorMessage));
+    if (onError) onError(errorMessage);
   }
 };
 
-export const register = async (dispatch, user) => {
+// REGISTER
+export const register = async (dispatch, user, onSuccess, onError) => {
+  dispatch(resetState());
   dispatch(registerStart());
+
   try {
     const res = await publicRequest.post("/auth/register", user);
-    dispatch(registerSuccess(res.data));
+    const data = res.data;
+
+    dispatch(registerSuccess(data));
+
+    // log the user in immediately if your backend returns accessToken
+    if (data?.accessToken) {
+      updateTokenInHeaders(data.accessToken);
+      dispatch(loginSuccess(data));
+    }
+
+    if (onSuccess) onSuccess(data);
   } catch (err) {
-    dispatch(registerFailure());
+    const errorMessage =
+      err?.response?.data?.message || "Something went wrong during registration";
+    dispatch(registerFailure(errorMessage));
+    if (onError) onError(errorMessage);
   }
 };
